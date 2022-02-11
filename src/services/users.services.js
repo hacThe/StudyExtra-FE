@@ -16,7 +16,7 @@ function login(email, password) {
 }
 
 function logout() {
-  cookiesUtil.remove('_tk_transport_');
+  cookiesUtil.remove('THIS IS USER IDENTIFY KEY');
   return true;
 }
 

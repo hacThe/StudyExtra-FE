@@ -6,7 +6,6 @@ export const cookiesUtil = {
     getCurrentUser,
     setAccessToken,
     getAccessToken,
-    logout
 
 
 };
@@ -39,14 +38,10 @@ function remove(key) {
 }
 
 function setAccessToken(value) {
-    cookies.set("ACC_TOKEN_COOKIE_KEY", value);
+    cookies.set("THIS IS USER IDENTIFY KEY", value);
 }
 
 function getAccessToken() {
-    return cookies.get("ACC_TOKEN_COOKIE_KEY");
-}
-function logout() {
-    cookies.remove("ACC_TOKEN_COOKIE_KEY")
-    window.location.reload();
+    return cookies.get("THIS IS USER IDENTIFY KEY");
 }
 

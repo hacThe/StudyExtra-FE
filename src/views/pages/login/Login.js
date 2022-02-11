@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Navigate } from 'react-router-dom';
 import { userActions } from '../../../actions/user.actions';
+import {cookiesUtil} from '../../../utilities'
 const Login = () => {
 
   const dispatch = useDispatch();
@@ -9,6 +10,7 @@ const Login = () => {
 
   function HandleSignInButtonOnClick()
   {
+    cookiesUtil.set('THIS IS USER IDENTIFY KEY', "haizz")
     dispatch(userActions.login())
     console.log(authentication)
   }
