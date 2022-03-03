@@ -17,7 +17,7 @@ const TheContent = React.lazy(() => import('../views/layout-components/TheConten
 const Login = React.lazy(() => import('../views/pages/login/Login'));
 const SignUp = React.lazy(() => import('../views/pages/sign-up/SignUp'));
 const Page404 = React.lazy(() => import('../views/pages/page404/Page404'));
-
+const Courses = React.lazy(() => import('../views/pages/courses/Courses'));
 
 
 const Routers = () => {
@@ -29,8 +29,9 @@ const Routers = () => {
         <Route path="/login" name="Đăng nhập" element={<Login />} />
         <Route path="/register" name="Đăng ký" element={<SignUp />} />
         <Route path="/404" name="Page 404" element={<Page404 />} />
+        <Route path="/courses" name="Khóa học" element={<Courses></Courses>}></Route>
         <Route path="/" name="Trang chủ" element={<TheContent />}>
-          <Route index name="Trang chủ" element={<Navigate to='trang-chu'/>}/>
+          <Route index name="Trang chủ" element={<Navigate to='trang-chu' />} />
 
           {!authentication.isLoggedIn && (
             routes.publicRoute.map((route, idx) => {
@@ -56,9 +57,10 @@ const Routers = () => {
             })
           )}
         </Route>
+          
 
-          <Route path="*" element={<Navigate to={authentication.isLoggedIn ? "/trang-chu" : "/login"} />}/>
-          {/* <Route path="*" element={<Navigate to="404" />}/> */}
+        <Route path="*" element={<Navigate to={authentication.isLoggedIn ? "/trang-chu" : "/login"} />} />
+        {/* <Route path="*" element={<Navigate to="404" />}/> */}
 
         {/* <AuthGuard path="/" name="Trang chủ">
          <TheLayout></TheLayout>
