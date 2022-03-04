@@ -41,7 +41,6 @@
         }
         .page-button:hover{
             background-color: #ededed;
-            color: #000;
             cursor: pointer;
         }
         
@@ -62,9 +61,6 @@
     }
     .next-button:hover{
         background-color: #ededed;
-        cursor: pointer;
-    }
-    &:hover{
         cursor: pointer;
     }
 }

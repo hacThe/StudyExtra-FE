@@ -4,6 +4,7 @@ import React from 'react';
 const Homepage = React.lazy(() => import('./views/pages/home/Home'));
 const Products = React.lazy(()=> import('./views/pages/products/Products'))
 const Ranking = React.lazy(() => import('./views/pages/ranking/Ranking'))
+const Document = React.lazy(() => import('./views/pages/document/Document'))
 const publicRoute = [
 
   // {path: '/trang-chu', name: 'Trang chủ', element: <Homepage/>},
@@ -21,7 +22,8 @@ const commonRoute = [
 const protectedRoute = [
   {path: '/trang-chu', name: 'Trang chủ', element: <Homepage/>},
   {path: '/ahihi', name: 'Sản phẩm', element: <Products/>},
-  {path: '/xep-hang', name: 'Xếp hạng', element: <Ranking/>}
+  {path: '/xep-hang', name: 'Xếp hạng', element: <Ranking/>},
+  {path: '/tai-lieu', name: 'Tài liệu', element: <Document/>},
 ]
 
 const routes = {
