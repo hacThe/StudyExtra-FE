@@ -1,7 +1,14 @@
-
+.footer-container{
+    @media (min-width: 992px) {
+        padding: 20px 88px;
+    }
+    @media (max-width: 992px) {
+        padding: 20px 20px;
+    }
+}
 .footer{
     height: 305px;
-    padding: 22px 0px;
+    padding: 20px 0px;
     .address{
         h1{
             font-family: Montserrat;
@@ -55,6 +62,7 @@
                 height: 47px;
                 background-color: #353535;
                 border-radius: 15px;
+                margin-bottom: 20px;
             }
             
         }

@@ -1,0 +1,15 @@
+.box-container{
+    @media (min-width: 992px) {
+        padding: 66px 88px 40px 88px;
+    }
+    @media (max-width: 992px) {
+        padding: 66px 20px 40px 20px;
+    }
+    .profile{
+        height: 700px;
+        padding: 20px;
+    }
+}
+
+
+

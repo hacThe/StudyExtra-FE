@@ -60,18 +60,18 @@ function TheHeader() {
       onClose={handleMenuClose}
       className='profile-menu'
     >
-      <MenuItem onClick={handleMenuClose} className='profile_group'>
+      <MenuItem className='profile_group'>
         <Grid item xs={4}>
-          <Link to='/trang-chu'>
-            <Avatar className='avatar' alt="Remy Sharp" src="https://vieclamthemonline.com/wp-content/uploads/2021/10/anh-blackpink-rose.jpg" />
-          </Link>
+          <Avatar className='avatar' alt="Remy Sharp" src="https://vieclamthemonline.com/wp-content/uploads/2021/10/anh-blackpink-rose.jpg" />
         </Grid>
         <Grid item xs={8}>
           <h6>Username</h6>
           <p>500 GEM</p>
         </Grid>
       </MenuItem>
-      <MenuItem onClick={handleMenuClose}>Thông tin tài khoản</MenuItem>
+      <Link to='/profile'>
+        <MenuItem onClick={handleMenuClose}>Thông tin tài khoản</MenuItem>
+      </Link>
       <MenuItem onClick={handleMenuClose}>Đổi mật khẩu</MenuItem>
       <MenuItem onClick={handleMenuClose}>Đăng xuất</MenuItem>
     </Menu>
@@ -176,7 +176,7 @@ function TheHeader() {
       onKeyDown={toggleDrawer(anchor, false)}
       className='mobile-navbar'
     >
-      <Link to={'/404'}>
+      <Link to={'/profile'}>
         <MenuItem>
           <Grid item xs={4}>
             <Avatar className='avatar' alt="Remy Sharp" src="https://vieclamthemonline.com/wp-content/uploads/2021/10/anh-blackpink-rose.jpg" />
@@ -246,10 +246,12 @@ function TheHeader() {
               </Box>
             </Grid>
             <Grid item md={4} className="logo_group">
-              <Avatar sx={{ bgcolor: "green[500]" }} variant="rounded"
-                src="https://fullstack.edu.vn/assets/icon/f8_icon.png"
-                sx={{ width: 36, height: 36 }}>
-              </Avatar>
+              <Link to='/trang-chu'>
+                <Avatar sx={{ bgcolor: "green[500]", width: 36, height: 36 }} 
+                  variant="rounded"
+                  src="https://fullstack.edu.vn/assets/icon/f8_icon.png">
+                </Avatar>
+              </Link>
               <Typography
                 variant="h6"
                 noWrap

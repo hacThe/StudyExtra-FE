@@ -7,9 +7,7 @@ import { Box } from '@mui/system';
 
 const TheFooter = () => {
   return (
-    <div style={{
-      padding: "0px 88px"
-    }}>
+    <div className='footer-container'>
       <Container>
         <Grid container spacing={2} className='footer'>
           <Grid item xs={12} md={6} className='address'>

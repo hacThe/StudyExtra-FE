@@ -17,6 +17,7 @@ const TheContent = React.lazy(() => import('../views/layout-components/TheConten
 const Login = React.lazy(() => import('../views/pages/login/Login'));
 const SignUp = React.lazy(() => import('../views/pages/sign-up/SignUp'));
 const Page404 = React.lazy(() => import('../views/pages/page404/Page404'));
+const Profile = React.lazy(() => import('../views/pages/profile/Profile'));
 
 
 
@@ -29,6 +30,9 @@ const Routers = () => {
         <Route path="/login" name="Đăng nhập" element={<Login />} />
         <Route path="/register" name="Đăng ký" element={<SignUp />} />
         <Route path="/404" name="Page 404" element={<Page404 />} />
+        <Route path="/profile" name="Trang cá nhân" element={<TheContent />} >
+          <Route index name="Trang cá nhân" element={<Profile/>}/>
+        </Route>
         <Route path="/" name="Trang chủ" element={<TheContent />}>
           <Route index name="Trang chủ" element={<Navigate to='trang-chu'/>}/>
 

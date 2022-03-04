@@ -119,10 +119,12 @@
         color: #575757;
         padding: 8px 16px;
     }
-
     li:hover{
         background-color: #ebebeb;
         color: #000000;
+    }
+    a{
+        text-decoration: none;
     }
     .profile_group{
         .avatar{
