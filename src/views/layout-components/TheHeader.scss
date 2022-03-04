@@ -1,0 +1,261 @@
+
+.the-header{
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    height: 66px;
+    position: fixed !important;
+    box-shadow: 1px 1px 2px #cccccc !important;
+    .toolbar{
+        height: 100%;
+    }
+    .mobile-menu-btn{
+        @media (min-width: 992px) {
+            display: none;
+        }
+        @media (max-width: 992px) {
+            display: flex;
+            align-items: center;
+        }
+    }
+    .logo_group{
+        @media (max-width: 992px) {
+            display: none;
+        }
+        @media (min-width: 992px) {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+        }
+        .logo_group-name{
+            font-family: Montserrat;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 20px;
+            letter-spacing: 0;
+            padding: 0px 8px;
+        }
+    }
+    .search-box{
+        :focus-within{
+            border: none;
+        }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        .search-group{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #e8e8e8;
+            border-radius: 25px;
+            width: 420px !important;
+            height: 100%;
+            .search-icon{
+                height: 23px;
+                width: 40px;
+                padding: 0px 5px;
+                color: #4E4E4E;
+            }
+            .search-inp{
+                width: 100%;
+                margin-right: 10px;
+                font-family: Montserrat;
+                font-size: 14px;
+                line-height: 17px;
+                color: #4E4E4E;
+            }
+        }
+        .search-group:focus-within{
+            border: 2px solid #444;
+        }
+           
+    }
+
+
+    .avatar-notification_group{
+        display: flex;
+        justify-content: end;
+        .avatar-notification_box{
+            .notification_group{
+                padding: 8px 12px;
+                svg{
+                    height: 21px;
+                    width: 21px;
+                    color: #939393;
+                }
+                span{
+                    font-size: 10px;
+                }
+            }
+            .avatar_group{
+                @media (max-width: 992px) {
+                    display: none;
+                }
+                .avatar{
+                    height: 36px;
+                    width: 36px;
+                    padding: 0px;
+                }
+                padding: 0px;
+                margin: 0px 0px 0px 12px;
+            }
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 36px;
+        }
+    }
+    
+}
+.profile-menu{
+    ul{
+        padding: 8px;
+    }
+    li{
+        font-family: Montserrat;
+        font-size: 14px;
+        line-height: 17px;
+        color: #575757;
+        padding: 8px 16px;
+    }
+
+    li:hover{
+        background-color: #ebebeb;
+        color: #000000;
+    }
+    .profile_group{
+        .avatar{
+            height: 36px;
+            width: 36px;
+            padding: 0px;
+        }
+        h6{
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 20px;
+            color: #000000;
+        }
+        p{
+            font-size: 10px;
+            line-height: 12px;
+        }
+        
+    }
+    
+}
+.notification-menu{
+    ul{
+        width: 280px;
+        .notification_group{
+            padding: 8px 10px;
+            .avatar{
+                height: 36px;
+                width: 36px;
+            }
+            .notification-content{
+                font-family: Montserrat;
+                font-weight: 400;
+                font-size: 13px;
+                line-height: 16px;
+                color: #292929;
+                margin: 0px 14px;
+                width: 204px;
+               
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
+                -webkit-line-clamp: 2;
+            }
+        }
+    }
+}
+
+.mobile-navbar{
+    a{
+        text-decoration: none;
+        color: #575757;
+        span{
+            font-family: Montserrat;
+        }
+    }
+    .active{
+        color: #000000;
+        svg{
+            color: #000000;
+        }
+    }
+
+    h6{
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        color: #000000;
+        margin-bottom: 3px;
+
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        -webkit-line-clamp: 1;
+    }
+    p{
+        font-size: 12px;
+        line-height: 12px;
+    }
+}
+
+.navbar{
+    @media (max-width: 992px) {
+        display: none;
+    }
+    position: fixed !important;
+    width: 88px;
+    margin-top: 66px !important;
+    padding: 29px 5px 5px 5px !important;
+    background-color: #FFFFFF;
+    border-right: solid 1px rgb(226, 226, 226);
+    .active{
+        :first-child{
+            background-color: #e6e6e6;
+        }
+    }
+    a{
+        color: #2D2D2D;
+        text-decoration: none;
+        .navbar-item{
+            display: flex;
+            flex-wrap: wrap;
+            padding: 11px 8px;
+            margin: 5px 0px;
+            border-radius: 10px;
+
+            .navbar-icon{
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                svg{
+                    color: #2D2D2D;
+                    height: 21px;
+                    width: 25px;
+                }
+            }
+            span{
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 11px;
+                line-height: 13px;
+                text-align: center;
+            }
+            
+        }
+        .navbar-item:hover{
+            background-color: #e6e6e6;
+        }
+    }
+   
+}
