@@ -4,6 +4,7 @@ import { cookiesUtil } from '../utilities';
 let user = cookiesUtil.getCurrentUser();
 const initialState = user ? { waiting: false, isLoggedIn: true ,user } : {waiting: false, isLoggedIn: false };
 
+console.log({initialState})
 export function authentication(state = initialState, action) {
   console.log('dispatch from authentication.reducer');
   switch (action.type) {

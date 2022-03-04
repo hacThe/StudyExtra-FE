@@ -1,0 +1,242 @@
+.course-detail-wrapper {
+  position: relative;
+  height: 100vh;
+  background-color: var(--background-color);
+  color: var(--foreground-color);
+  padding: 48px;
+  padding-bottom: 80px;
+
+  .left-side-wrapper {
+    max-height: 100vh;
+
+    .course-name {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 28px;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-top: 36px;
+      margin-bottom: 18px;
+    }
+
+    .course-description-section {
+      .course-description {
+        font-size: 1.4rem;
+      }
+    }
+
+    .check-list-tile {
+      display: flex;
+      font-size: 1.4rem;
+      align-items: flex-start;
+      line-height: 1.7;
+
+      .check-list-icon {
+        height: 18px;
+        width: 18px;
+        position: relative;
+        margin-right: 12px;
+
+        svg {
+          position: absolute;
+          top: 2px;
+        }
+      }
+    }
+
+    .course-lesson-section {
+      .course-volume-description {
+        font-size: 1.4rem;
+        color: var(--fade-text-color);
+        margin-bottom: 21px;
+        margin-top: -6px;
+      }
+
+      .chapter-wrapper {
+        .chapter-toogle {
+          padding: 12px;
+          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+          margin-bottom: 12px;
+          border-radius: 5px;
+          padding-left: 36px;
+          position: relative;
+          background-color: #f4f4f4;
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          &::before {
+            content: attr(dataBefore);
+            position: absolute;
+            left: 18px;
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--primary-color);
+          }
+        }
+
+        span {
+          font-size: 1.4rem;
+        }
+
+        .chapter-name {
+          font-weight: 600;
+        }
+
+        .course-lesson-tile {
+          margin-left: 86px;
+          padding: 12px;
+          box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+          border-radius: 5px;
+          margin-bottom: 12px;
+
+          &:hover {
+            cursor: pointer;
+            transform: translateY(-5px);
+          }
+
+          .lesson-name {
+            margin-left: 12px;
+            font-size: 1.4rem;
+          }
+        }
+      }
+    }
+  }
+
+  .right-side-wrapper {
+    padding: 48px;
+
+    .course-intro-video {
+    
+      width: 100%;
+      height: calc(100% / 16 * 9);
+      position: relative;
+
+      &:hover{
+          cursor: pointer;
+      }
+
+      img {
+        width: 100%;
+        border-radius: 10px;
+        filter: brightness(0.5);
+      }
+
+      .play-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 6.5rem;
+      }
+    }
+
+    .course-price {
+      .price {
+        font-weight: bold;
+        font-size: 3.2rem;
+        color: #4e4e4e;
+        margin: 12px 0;
+        margin-bottom: 18px;
+        margin-right: 12px;
+      }
+
+      .coin {
+        font-size: 3.5rem;
+        color: var(--primary-color);
+      }
+    }
+
+    .se-btn {
+      font-size: 2rem;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+
+    .se-slogan {
+      font-size: 1.4rem;
+      text-align: center;
+    }
+  }
+
+  .video-intro-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 800px;
+      background-color: white;
+      border-radius: 10px;
+      padding: 24px;
+
+      .close-btn{
+          position: absolute;
+          right: 24px;
+          top: 24px;
+          font-size: 2.4rem;
+
+          &:hover{
+              cursor: pointer;
+              font-size: 2.9rem;
+          }
+      }
+
+
+
+    }
+
+    .modal-name {
+      font-weight: bold;
+      font-size: 1.6rem;
+      color: #565656;
+      margin-bottom: 12px;
+    }
+
+    .course-name {
+      font-weight: bold;
+      font-size: 2.4rem;
+      margin-bottom: 24px;
+    }
+
+    .aspect-ratio {
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.25%; /* The height of the item will now be 56.25% of the width. */
+    }
+
+    /* Adjust the iframe so it's rendered in the outer-width and outer-height of it's parent */
+    .aspect-ratio iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+    }
+  }
+}
