@@ -22,17 +22,17 @@ function TheNavigation() {
     {
       name: "Hỏi đáp",
       icon: <FaHeadphones />,
-      link: "/404",
+      link: "/hoi-dap",
     },
     {
       name: "Tài liệu",
       icon: <IoIosDocument />,
-      link: "/404",
+      link: "/tai-lieu",
     },
     {
       name: "Xếp hạng",
       icon: <BsBarChartFill />,
-      link: "/404",
+      link: "/xep-hang",
     },
     {
       name: "Luyện đề",
@@ -43,7 +43,7 @@ function TheNavigation() {
   return (
     <>
       <div className="nav-bar-wrapper">
-          <div className="mystery-box"></div>
+        <div className="mystery-box"></div>
         <List className="navbar">
           {menuList.map((item, index) => (
             <NavLink to={item.link} key={index}>
