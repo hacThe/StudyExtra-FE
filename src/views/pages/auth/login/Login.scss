@@ -1,0 +1,97 @@
+.login-page-wrapper {
+  background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/0c2b4cc2-d07d-4fbd-b02e-2080981b29a1/dcemvtw-195960e2-b9e6-409a-add3-e3dace4f7f94.jpg/v1/fill/w_1280,h_720,q_75,strp/race_by_t1na_dcemvtw-fullview.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9NzIwIiwicGF0aCI6IlwvZlwvMGMyYjRjYzItZDA3ZC00ZmJkLWIwMmUtMjA4MDk4MWIyOWExXC9kY2VtdnR3LTE5NTk2MGUyLWI5ZTYtNDA5YS1hZGQzLWUzZGFjZTRmN2Y5NC5qcGciLCJ3aWR0aCI6Ijw9MTI4MCJ9XV0sImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl19.UY7KFLsDEe4bQvJkLMra4mpeJAQcJELcxk7Mk32FhoU");
+  background-position: center;
+  background-size: cover;
+
+  .login-with-username-and-password-modal,
+  .list-of-login-method-modal {
+    padding-left: 40px;
+    padding-right: 40px;
+    width: 94%;
+    max-width: 700px;
+
+    .se-btn {
+      width: 100%;
+    }
+    .outline-btn {
+      background: #ffffff;
+      border: 1px solid #989898;
+      box-sizing: border-box;
+      color: #000;
+    }
+
+    .google-login {
+      background-color: #e24747;
+    }
+
+    .facebook-login {
+      background-color: #566eef;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .login-with-username-and-password-modal {
+
+    position: relative;
+
+    .back-btn{
+        position: absolute;
+        top: 12px;
+        left: 58px;
+        font-size: 2rem;
+        color: #999;
+
+        &:hover{
+            cursor: pointer;
+            opacity: 0.6;
+        }
+    }
+
+    input {
+      border-radius: 20px;
+      font-family: "Montserrat", sans-serif !important;
+    }
+
+    .se-btn {
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 16px;
+      height: 56px;
+    }
+  }
+
+  .app-logo {
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+  }
+
+  .modal-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    margin-top: 36px;
+    margin-bottom: 31px;
+  }
+}
+
+
+section {
+  position: relative;
+}
+
+section::after {
+  border-width: 20px 40px;
+  border-color: red transparent transparent red;
+  content: "";
+  width: 0;
+  height: 0;
+  left: 0;
+  top: 0;
+  position: absolute;
+}

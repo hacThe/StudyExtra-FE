@@ -4,6 +4,7 @@ import { cookiesUtil } from '../utilities';
 let user = cookiesUtil.getCurrentUser();
 const initialState = user ? { waiting: false, isLoggedIn: true ,user } : {waiting: false, isLoggedIn: false };
 
+console.log({initialState})
 export function authentication(state = initialState, action) {
   console.log('dispatch from authentication.reducer');
   switch (action.type) {
@@ -14,10 +15,12 @@ export function authentication(state = initialState, action) {
         error: false
       };
     case userConstants.LOGIN_SUCCESS:
+        user: cookiesUtil.getCurrentUser()
       return {
         waiting: false,
         isLoggedIn: true,
-        error: false
+        error: false,
+        user      
       };
     case userConstants.LOGOUT:
       window.location.reload(true);
