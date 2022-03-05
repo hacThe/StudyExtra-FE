@@ -13,6 +13,7 @@ const Login = () => {
   const authentication = useSelector((state) => state.authentication);
 
   function HandleSignInButtonOnClick() {
+    
     cookiesUtil.set("THIS IS USER IDENTIFY KEY", "haizz");
     dispatch(userActions.login());
     console.log(authentication);

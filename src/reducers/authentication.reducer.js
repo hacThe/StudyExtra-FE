@@ -15,10 +15,12 @@ export function authentication(state = initialState, action) {
         error: false
       };
     case userConstants.LOGIN_SUCCESS:
+        user: cookiesUtil.getCurrentUser()
       return {
         waiting: false,
         isLoggedIn: true,
-        error: false
+        error: false,
+        user      
       };
     case userConstants.LOGOUT:
       window.location.reload(true);
