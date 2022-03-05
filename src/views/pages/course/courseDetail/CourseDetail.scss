@@ -1,13 +1,11 @@
 .course-detail-wrapper {
   position: relative;
-  height: 100vh;
   background-color: var(--background-color);
   color: var(--foreground-color);
   padding: 48px;
   padding-bottom: 80px;
 
   .left-side-wrapper {
-    max-height: 100vh;
 
     .course-name {
       font-style: normal;

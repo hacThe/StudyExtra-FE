@@ -1,6 +1,16 @@
+.nav-bar-wrapper{
+    position: relative;
+
+    .mystery-box{
+        width: 88px;
+        
+    }
+}
+
 .navbar{
     position: fixed !important;
     width: 88px;
+    height: 100vh;
     margin-top: 66px !important;
     padding: 29px 5px 5px 5px !important;
     background-color: #FFFFFF;

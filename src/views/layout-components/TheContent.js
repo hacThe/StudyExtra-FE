@@ -1,14 +1,11 @@
-import React from 'react'
-import {
-  Outlet,
-} from 'react-router-dom'
+import React from "react";
+import { Outlet } from "react-router-dom";
 
-
-import TheHeader from './TheHeader'
-import TheFooter from './TheFooter'
-import TheNavigation from './TheNavigation'
-import './TheContent.scss'
-import { Box } from '@mui/material';
+import TheHeader from "./TheHeader";
+import TheFooter from "./TheFooter";
+import TheNavigation from "./TheNavigation";
+import "./TheContent.scss";
+import { Box } from "@mui/material";
 
 // routes config
 
@@ -17,7 +14,7 @@ import { Box } from '@mui/material';
 //     <p>Loading...</p>
 //   </div>
 // )
-const TheBody = ()=>{
+const TheBody = () => {
   return (
     <>
       <div className='app-body'>
@@ -27,20 +24,27 @@ const TheBody = ()=>{
         <div className='app-content'>
           <Outlet></Outlet>
         </div>
-      </div>
+      </div> 
+
+      {/* <div className="app-body display-flex">
+        <TheNavigation />
+
+        <div className="app-content">
+          <Outlet />
+        </div>
+      </div> */}
     </>
-  )
-}
+  );
+};
 
 const TheContent = () => {
-
   return (
     <>
       <TheHeader></TheHeader>
       <TheBody></TheBody>
       <TheFooter></TheFooter>
     </>
-  )
-}
+  );
+};
 
-export default React.memo(TheContent)
+export default React.memo(TheContent);
