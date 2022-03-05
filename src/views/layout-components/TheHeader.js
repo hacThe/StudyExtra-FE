@@ -202,22 +202,6 @@ function TheHeader() {
       </List>
     </Box>
   );
-  //-----------------------------------------------------NAV-BAR----------------------------------------------------------//
-
-  const navbar = (
-    <List className='navbar'>
-      {menuList.map((item, index) => (
-        <NavLink to={item.link} key={index}>
-          <ListItem className='navbar-item'>
-            <ListItemIcon className='navbar-icon'>
-              {item.icon}
-            </ListItemIcon>
-            <ListItemText primary={item.name} />
-          </ListItem>
-        </NavLink>
-      ))}
-    </List>
-  )
 
   //---------------------------------------------------------------------------------------------------------------------//
   return (
@@ -225,7 +209,7 @@ function TheHeader() {
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" className="the-header">
           <Toolbar className='toolbar'>
-            <Grid item xs={3} md={4} className='mobile-menu-btn'>
+            <Grid item sx={{ display: { xs: 'flex', md: 'none' }}} xs={3} className='mobile-menu-btn'>
               <Box>
                 <IconButton
                   size="large"
@@ -245,7 +229,7 @@ function TheHeader() {
                 </Drawer>
               </Box>
             </Grid>
-            <Grid item md={4} className="logo_group">
+            <Grid item sx={{ display: { xs: 'none', md: 'flex' }}} md={4} className="logo_group" >
               <Link to='/trang-chu'>
                 <Avatar sx={{ bgcolor: "green[500]", width: 36, height: 36 }} 
                   variant="rounded"
@@ -296,6 +280,7 @@ function TheHeader() {
                   onClick={handleProfileMenuOpen}
                   color="inherit"
                   className='avatar_group'
+                  sx={{ display: { xs: 'none', md: 'flex' }}}
                 >
                   <Avatar className='avatar' alt="Remy Sharp" src="https://vieclamthemonline.com/wp-content/uploads/2021/10/anh-blackpink-rose.jpg" />
                 </IconButton>
@@ -305,7 +290,6 @@ function TheHeader() {
         </AppBar>
         {renderMenu}
         {renderNotificationMenu}
-        {navbar}
       </Box>
     </>
   );

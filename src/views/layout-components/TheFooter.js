@@ -3,14 +3,14 @@ import { Grid, Button, Container } from '@mui/material';
 import { AiFillFacebook, AiOutlineInstagram } from "react-icons/ai";
 import './TheFooter.scss';
 import { Link } from 'react-router-dom';
-import { Box } from '@mui/system';
+import { Box, padding } from '@mui/system';
 
 const TheFooter = () => {
   return (
-    <div className='footer-container'>
+    <Box className='footer-container' sx={{ padding: { xs: '20px', md: '20px 88px' }}}>
       <Container>
         <Grid container spacing={2} className='footer'>
-          <Grid item xs={12} md={6} className='address'>
+          <Grid item xs={12} md={12} lg={6} className='address'>
             <>
               <h1>Extra Study</h1>
               <p style={
@@ -23,7 +23,7 @@ const TheFooter = () => {
             </>
           </Grid>
 
-          <Grid item xs={12} md={3} className='support'>
+          <Grid item xs={12} md={6} lg={3} className='support'>
             <>
               <p style={
                 {
@@ -42,7 +42,7 @@ const TheFooter = () => {
           </Grid>
 
 
-          <Grid xs={12} md={3} className='contact'>
+          <Grid xs={12} md={6} lg={3} className='contact'>
             <>
               <h5>Hotline: 0334.696.473</h5>
               <p style={
@@ -59,7 +59,7 @@ const TheFooter = () => {
                 </a>
               </p>
               <p>Nhập email để đăng ký nhận những thông tin khuyến mãi đến từ Extra Study</p>
-              <Grid container className='input-group'>
+              <Grid container className='input-group'  sx={{ width: { xs: '100%', sm: '70%', md: '100%' }}}>
                 <Grid item xs={9}>
                   <input className='input-text'></input>
                 </Grid>
@@ -71,7 +71,7 @@ const TheFooter = () => {
           </Grid>
         </Grid>
       </Container>
-    </div>
+    </Box>
 
 
   )
