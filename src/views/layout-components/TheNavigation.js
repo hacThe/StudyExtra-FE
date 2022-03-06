@@ -17,7 +17,7 @@ function TheNavigation() {
     {
       name: "Học",
       icon: <FaLightbulb />,
-      link: "/404",
+      link: "/khoa-hoc",
     },
     {
       name: "Hỏi đáp",
