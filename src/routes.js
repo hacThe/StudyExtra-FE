@@ -3,6 +3,8 @@ import React from 'react';
 
 const Homepage = React.lazy(() => import('./views/pages/home/Home'));
 const Products = React.lazy(()=> import('./views/pages/products/Products'))
+const Courses = React.lazy(() => import('./views/pages/coursesList/Courses'));
+
 
 const publicRoute = [
 
@@ -14,6 +16,7 @@ const publicRoute = [
 
 
 const commonRoute = [
+  {path: '/khoa-hoc', name: 'Trang chủ', element: <Courses/>},
   
 ]
 

@@ -17,7 +17,7 @@ const TheContent = React.lazy(() => import('../views/layout-components/TheConten
 const Login = React.lazy(() => import('../views/pages/login/Login'));
 const SignUp = React.lazy(() => import('../views/pages/sign-up/SignUp'));
 const Page404 = React.lazy(() => import('../views/pages/page404/Page404'));
-const Courses = React.lazy(() => import('../views/pages/courses/Courses'));
+const Courses = React.lazy(() => import('../views/pages/coursesList/Courses'));
 
 
 const Routers = () => {
