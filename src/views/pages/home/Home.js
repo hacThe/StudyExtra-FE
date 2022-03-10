@@ -7,7 +7,7 @@ import Notification from "./Component/Notification";
 import YourCourses from "./Component/YourCourses";
 import FeaturedCourse from "./Component/FeaturedCourse";
 import QAndA from "./Component/QAndA";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
   
 const Login = () => {
 
@@ -22,14 +22,14 @@ const Login = () => {
 
   return (
     <>
-      <div style={{marginLeft: '88px'}} className="home">
+      <div className="home-wrapper">
         <Slider></Slider>
         <Notification></Notification>
         <YourCourses></YourCourses>
         <FeaturedCourse></FeaturedCourse>
         <QAndA></QAndA>
       </div>
-      <button onClick={() => { HandleLogOutOnClick() }}>Đăng xuất</button>
+     
     </>
   );
 };

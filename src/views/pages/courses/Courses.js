@@ -6,7 +6,7 @@ import ButtonGroupCustom from './component/ButtonGroupCustom';
 
 function Courses(props) {
     return (
-        <div style={{ marginLeft: '88px' }} className="courses">
+        <div  className="courses">
             <h1 style={{padding:'40px 20px'}}>Khóa học của bạn</h1>
             <YourCourse></YourCourse>
             <PaginationOutlined></PaginationOutlined>
