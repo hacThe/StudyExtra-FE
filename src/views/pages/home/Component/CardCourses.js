@@ -33,27 +33,24 @@ export default function CardCourses() {
                     alt="green iguana"
                 />
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography style={{fontSize:'18px', fontWeight: '700'}} gutterBottom variant="h5" component="div">
                         This is courses name
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        Mô tả
                     </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <div style={{display:'flex', justifyContent: 'space-around', width: '100%', color:'#6F6F6F'}}>
-                    <div>
+                <div style={{display:'flex', justifyContent: 'space-around', width: '100%', color:'#6F6F6F', fontSize: '14px'}}>
+                    <div style={{display:'flex', justifyContent: 'center'}}>
                         <FaUserGraduate style={{paddingRight: '5px', transform: 'translateY(-8%)',fontSize:'18px'}}></FaUserGraduate>
-                        999
+                        <div>999</div>
                     </div>
-                    <div>
-                        <MdOutlineAccessTimeFilled style={{paddingRight: '5px', transform: 'translateY(-8%)', fontSize:'22px'}}></MdOutlineAccessTimeFilled>
-                        999
+                    <div style={{display:'flex', justifyContent: 'center'}}>
+                        <MdOutlineAccessTimeFilled style={{paddingRight: '5px', transform: 'translateY(-15%)', fontSize:'22px'}}></MdOutlineAccessTimeFilled>
+                        <div>999</div>
                     </div>
-                    <div>
-                        <AiFillDollarCircle style={{paddingRight: '5px', transform: 'translateY(-8%)' ,fontSize:'22px'}}></AiFillDollarCircle>
-                        999
+                    <div style={{display:'flex', justifyContent: 'center'}}>
+                        <AiFillDollarCircle style={{paddingRight: '5px', transform: 'translateY(-15%)' ,fontSize:'22px'}}></AiFillDollarCircle>
+                        <div>999</div>
                     </div>
                 </div>
             </CardActions>

@@ -5,7 +5,7 @@ import CardCourses from './CardCourses';
 function WholeCourses(props) {
     return (
         <div style={{marginTop: '25px'}}>
-            <Container container spacing={2}>
+            <Container maxWidth={false} container spacing={2}>
                 <Grid container spacing={2}>
                     <Grid md={3} sm={3}>
                         <CardCourses></CardCourses>

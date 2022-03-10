@@ -5,8 +5,8 @@ import '../Home.scss'
 
 function Slider(props) {
     return (
-        <div style={{padding: '10px 22px'}}>
-            <Carousel  showThumbs='false' style={{borderRadius: '20px'}} axis='horizontal'>
+        <div >
+            <Carousel showThumbs={false} style={{borderRadius: '20px'}} axis='horizontal'>
                 <div style={{height: '270px'}}>
                     <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" />
                     <p className="legend">Legend 1</p>
