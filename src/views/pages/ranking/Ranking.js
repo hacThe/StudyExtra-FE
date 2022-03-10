@@ -11,9 +11,8 @@ import { GiLaurelCrown } from "react-icons/gi";
 const Ranking = () => {
   return (
     <div className="ranking-page-container">
-        <Grid container spacing={2} className="ranking-container">
-            <Grid md={2} style={{height: '100%'}}></Grid>
-            <Grid item md={8} className="ranking-body">
+        <div className="ranking-container">
+            <div className="ranking-body">
                 <div className="ranking-header">
                     <GiLaurelCrown className="crown-icon"></GiLaurelCrown>
                     <p className="ranking-heading">
@@ -48,8 +47,8 @@ const Ranking = () => {
                 <div className='ranking-footer'>
                     <Pagination page={3} />
                 </div>
-            </Grid>
-        </Grid>
+            </div>
+        </div>
     </div>
   )
 }
