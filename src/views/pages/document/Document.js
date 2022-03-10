@@ -7,9 +7,8 @@ import DocumentCard from './components/DocumentCard';
 const Document = () => {
   return (
     <div className="document-page-container">
-        <Grid container spacing={2} className="document-container">
-            <Grid md={2} style={{height: '100%'}}></Grid>
-            <Grid item md={8} className="document-body">
+        <div className="document-container">
+            <div className="document-body">
                 <div className='document-option-container'>
                     <Button className='button-option' style={{textTransform: 'none'}}>Tất cả</Button>
                     <Button className='button-option active' style={{textTransform: 'none'}}>Lớp 11</Button>
@@ -47,8 +46,8 @@ const Document = () => {
                 <div className='ranking-footer'>
                     <Pagination page={3} />
                 </div>
-            </Grid>
-        </Grid>
+            </div>
+        </div>
     </div>
   )
 }

@@ -1,13 +1,15 @@
 .card-body{
     display: flex;
     flex-direction: row;
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0.2rem 0.2rem 0.4rem rgba(0,0,0,0.2);
     margin: 1rem;
     margin-right: 2rem;
+    margin-left: 2.4rem;
     position: relative;
     border-radius: 1rem;
     .card-number{
         font-family: 'Montserrat';
+        font-size: 1.4rem;
         line-height: 6rem;
         font-weight: 700;
         margin-left: 1.6rem;
@@ -36,6 +38,7 @@
         margin-right: 4rem;
         position: absolute;
         right: 0;
+        font-size: 1.4rem;
     }
     &:hover{
         background-color: #f1f1f1!important;
