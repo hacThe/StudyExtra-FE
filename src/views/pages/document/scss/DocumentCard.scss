@@ -17,7 +17,12 @@
     .document-title{
         line-height: 6.0rem;
         font-size: 1.6rem;
+        width: 65%; 
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
+    
     .view-container{
         display: flex;
         position: absolute;
