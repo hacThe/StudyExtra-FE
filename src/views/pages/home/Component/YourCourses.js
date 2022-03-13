@@ -12,7 +12,7 @@ function YourCourses(props) {
                 </Grid>
             </Container>
             <div style={{ position: 'absolute', width: '90%', top:'10%' }}>
-                <SliderCourses></SliderCourses>
+                <SliderCourses isPayment={true} courses={props.courses}></SliderCourses>
             </div>
         </div>
     );

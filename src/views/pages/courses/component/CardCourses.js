@@ -42,7 +42,7 @@ export default function CardCourses(props) {
                 <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%', color: '#6F6F6F', fontSize: '14px' }}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <FaUserGraduate style={{ paddingRight: '5px', transform: 'translateY(-8%)', fontSize: '18px' }}></FaUserGraduate>
-                        <div>999</div>
+                        <div>{props.course.studentId.length}</div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <MdOutlineAccessTimeFilled style={{ paddingRight: '5px', transform: 'translateY(-15%)', fontSize: '22px' }}></MdOutlineAccessTimeFilled>
@@ -52,7 +52,7 @@ export default function CardCourses(props) {
                         !props.isPayment && (
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
                                 <AiFillDollarCircle style={{ paddingRight: '5px', transform: 'translateY(-15%)', fontSize: '22px' }}></AiFillDollarCircle>
-                                <div>999</div>
+                                <div>{props.course.price}</div>
                             </div>
                         )
                     }

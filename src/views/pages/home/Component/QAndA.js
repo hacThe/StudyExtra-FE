@@ -19,18 +19,11 @@ function QAndA(props) {
                             <FiChevronsRight style={{ paddingLeft: '5px', fontSize: '20px', transform: 'translateY(-10%)' }}></FiChevronsRight>
                         </a>
                     </Grid>
-                    <Grid md={6} sm={6}>
-                        <QuestionComponent></QuestionComponent>
-                    </Grid>
-                    <Grid md={6} sm={6}>
-                        <QuestionComponent></QuestionComponent>
-                    </Grid>
-                    <Grid md={6} sm={6}>
-                        <QuestionComponent></QuestionComponent>
-                    </Grid>
-                    <Grid md={6} sm={6}>
-                        <QuestionComponent></QuestionComponent>
-                    </Grid>
+                    {props.posts.map(post => (
+                        <Grid md={6} sm={6}>
+                            <QuestionComponent post={post}></QuestionComponent>
+                        </Grid>
+                    ))}
                 </Grid>
             </Container>
         </div>
