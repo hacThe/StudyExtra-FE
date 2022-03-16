@@ -12,22 +12,21 @@ const Login = () => {
   const [currentPage, setPage] = useState(0);
   const dispatch = useDispatch();
   const authentication = useSelector((state) => state.authentication);
+  let username = "";
+  let password = "";
 
-
-  function GoToLoginWithUsernameAndPasswordScreen(){
+  function GoToLoginWithUsernameAndPasswordScreen() {
     setPage(1);
   }
 
-  function BackToChooseLoginMethodScreen(){
+  function BackToChooseLoginMethodScreen() {
     setPage(0);
   }
 
-
-
   function HandleSignInButtonOnClick() {
-    cookiesUtil.set("THIS IS USER IDENTIFY KEY", "haizz");
-    dispatch(userActions.login());
-    console.log(authentication);
+    // cookiesUtil.set("THIS IS USER IDENTIFY KEY", "haizz");
+    // dispatch(userActions.login());
+    dispatch(userActions.login(username, password));
   }
 
   if (authentication.isLoggedIn) return <Navigate to="/trang-chu" />;
@@ -58,7 +57,10 @@ const Login = () => {
             direction="column"
             margin="24px"
           >
-            <div onClick={GoToLoginWithUsernameAndPasswordScreen} className="se-btn outline-btn">
+            <div
+              onClick={GoToLoginWithUsernameAndPasswordScreen}
+              className="se-btn outline-btn"
+            >
               Đăng nhập với username/ password
             </div>
 
@@ -114,11 +116,17 @@ const Login = () => {
             margin="24px"
           >
             <TextField
-              id="outlined-basic"
+              onChange={(e) => {
+                username = e.target.value;
+              }}
               label="Tài khoản"
               variant="outlined"
               InputProps={{
-                style: { borderRadius: "30px", paddingLeft: "12px", fontSize: "1.4rem" },
+                style: {
+                  borderRadius: "30px",
+                  paddingLeft: "12px",
+                  fontSize: "1.4rem",
+                },
               }}
               InputLabelProps={{
                 style: {
@@ -128,18 +136,23 @@ const Login = () => {
               }}
             />
             <TextField
-              id="outlined-basic"
+              onChange={(e) => {
+                password = e.target.value
+              }}
               label="Mật khẩu"
               variant="outlined"
               type="password"
               InputProps={{
-                style: { borderRadius: "30px", paddingLeft: "18px" , fontSize: "1.4rem" },
+                style: {
+                  borderRadius: "30px",
+                  paddingLeft: "18px",
+                  fontSize: "1.4rem",
+                },
               }}
               InputLabelProps={{
                 style: {
                   fontFamily: "'Montserrat', san-serif",
                   fontSize: "1.4rem",
-                  
                 },
               }}
             />
@@ -157,7 +170,7 @@ const Login = () => {
               <strong>Quên mật khẩu</strong>
             </Link>
           </p>
-          <p style={{marginTop: "18px"}}>
+          <p style={{ marginTop: "18px" }}>
             Chưa có tài khoản?{" "}
             <Link to="/dang-ky">
               <strong>Đăng ký</strong>

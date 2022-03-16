@@ -9,14 +9,15 @@ export const usersServices = {
   getAll
 };
 
-function login(email, password) {
+function login(username, password) {
   return handleResponse(
-    ajaxHelper.get(config.URL_LOGIN, { userID: email, password }, options())
+    ajaxHelper.post(config.URL_LOGIN, { username, password }, options())
   );
 }
 
 function logout() {
-  cookiesUtil.remove('THIS IS USER IDENTIFY KEY');
+  cookiesUtil.remove('_jwt');
+  cookiesUtil.remove('_user');
   return true;
 }
 

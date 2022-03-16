@@ -1,50 +1,39 @@
-import { userConstants } from '../constaint';
-import { usersServices } from '../services';
-
+import { userConstants } from "../constaint";
+import { usersServices } from "../services";
+import { cookiesUtil } from "../utilities";
 
 export const userActions = {
   login,
   logout,
   register,
   getAll,
-  delete: _delete
+  delete: _delete,
 };
 
 /// này là hàm login
 function login(username, password) {
-  return dispatch => { // dispatch này lấy đâu ra mà gọi được?
-   
-    dispatch(request()); 
-    dispatch(success());
+  return (dispatch) => {
 
+    dispatch(request());
+    // dispatch(success());
 
-    // usersServices.login(username, password).then(
-    //   user => {
-    //     if (user && !user['error']) {
-    //       cookiesUtil.set('_tk_transport_', user['data']['system_token'])
-    //       dispatch(success());
-    //     }
-    //   },
-    //   error => {
-    //     console.log('the function is error');
-    //     fetch('http://localhost:3006/mockup-data/user.json')
-    //     .then(res => res.json())
-    //     .then((users) => {
-    //       // lọc user from array 
-    //         const crrUser = users.filter(user => (user.username === username && user.password === password));
-    //         if (crrUser.length > 0) {
-    //           cookiesUtil.set('_tk_transport_', "demo")
-    //           dispatch(success());
-    //         }
-    //         else dispatch(failure(failure('Unrecognize username or password')));
-            
-    //       }).catch(err => console.error(err));
+    usersServices.login(username, password).then(
+      (user) => {
         
+        alert("login successfully", user)
+        cookiesUtil.setAccessToken(user.token)
+        cookiesUtil.setCurrentUserInfo(user.user)
+        dispatch(success());
+      },
+      (error) => {
         
-    //     // dispatch(failure(error.toString()));
-    //     // dispatch(alertActions.error(error.toString()));
-    //   }
-    // );
+        alert(error);
+        dispatch(failure(error.toString()))
+
+        // dispatch(failure(error.toString()));
+        // dispatch(alertActions.error(error.toString()));
+      }
+    );
   };
 
   function request() {
@@ -59,7 +48,7 @@ function login(username, password) {
 }
 
 function logout() {
-  return dispatch => {
+  return (dispatch) => {
     usersServices.logout();
     dispatch(success());
   };
@@ -69,7 +58,7 @@ function logout() {
 }
 
 function register(user) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(request(user));
 
     usersServices.register(user).then(
@@ -78,7 +67,7 @@ function register(user) {
         // history.push('/login');
         // dispatch(alertActions.success('Registration successful'));
       },
-      error => {
+      (error) => {
         dispatch(failure(error.toString()));
         // dispatch(alertActions.error(error.toString()));
       }
@@ -97,14 +86,13 @@ function register(user) {
 }
 
 function getAll() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(request());
 
-    usersServices.getAll()
-      .then(
-        users => dispatch(success(users['data'])),
-        error => dispatch(failure(error.toString()))
-      );
+    usersServices.getAll().then(
+      (users) => dispatch(success(users["data"])),
+      (error) => dispatch(failure(error.toString()))
+    );
   };
 
   function request() {
@@ -120,16 +108,14 @@ function getAll() {
 
 // prefixed function name with underscore because delete is a reserved word in javascript
 function _delete(id) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(request(id));
 
-    usersServices.delete(id)
-      .then(
-        () => dispatch(success(id)),
-        error => dispatch(failure(id, error.toString()))
-      );
+    usersServices.delete(id).then(
+      () => dispatch(success(id)),
+      (error) => dispatch(failure(id, error.toString()))
+    );
   };
-
 
   function request(id) {
     return { type: userConstants.DELETE_REQUEST, id };

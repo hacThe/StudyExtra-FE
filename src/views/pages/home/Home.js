@@ -7,7 +7,7 @@ import Notification from "./Component/Notification";
 import YourCourses from "./Component/YourCourses";
 import FeaturedCourse from "./Component/FeaturedCourse";
 import QAndA from "./Component/QAndA";
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
   
 const Login = () => {
 
