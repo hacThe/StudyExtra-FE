@@ -3,14 +3,14 @@ import '../scss/DocumentCard.scss'
 
 import { GrDocumentPdf, GrView } from "react-icons/gr";
 
-const DocumentCard = () => {
+const DocumentCard = ({name,views}) => {
   return (
     <div className="card-body">
         <GrDocumentPdf className="document-type"></GrDocumentPdf>
-        <span className="document-title">5 ĐỀ THI THỬ MỚI NHẤT CỦA THẦY VŨ NGỌC ANH</span>
+        <span className="document-title">{name}</span>
         <div className="view-container">
             <GrView size={20} className="view-icon"></GrView>
-            <div className="view-number">165</div>
+            <div className="view-number">{views}</div>
         </div>
     </div>
   )
