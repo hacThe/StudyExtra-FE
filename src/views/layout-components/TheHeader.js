@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { Link, NavLink } from "react-router-dom";
 import {
   AppBar,
@@ -59,6 +60,21 @@ function TheHeader() {
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
+
+  const [notifications, setNotification] = useState([]);
+  useEffect(async () => {
+      async function fetchData() {
+        const data = { userID: "62304b37bf2a740b60142dc5"};
+        axios.post('http://localhost:5000/api/notification/getYourNotification', data)
+              .then(res => {
+                setNotification(res.data.data)
+              })
+              .catch(err => {
+                console.log(err)
+              })
+      }
+      fetchData();
+    }, []) 
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
   const profileMenuId = "primary-search-account-menu";
   const renderMenu = (
@@ -100,22 +116,22 @@ function TheHeader() {
   );
   //--------------------------------------------------------------NOTIFICATION-MENU-------------------------------------------------------//
   const notificationMenuId = "primary-search-notification-menu";
-  const notificationContent1 = "đã bình luận bài viết của bạn";
+/*   const notificationContent1 = "đã bình luận bài viết của bạn";
   const notificationContent2 =
     "Chào mừng bạn đã gia nhập F8. Hãy luôn đam mê, kiên trì và theo đuổi mục tiêu tới cùng bạn nhé ❤️";
-  const typeNotification = ["comment", "system"]; //
-  const tagName = "Hiển Thế";
+  const typeNotification = ["comment", "system"]; // */
+ // const tagName = "Hiển Thế";
   const NotificationContent = (props) => {
     const comment = (
       <p className="notification-content">
-        <span style={{ fontWeight: "bold" }}>{tagName}</span>{" "}
-        {notificationContent1}
+        <span style={{ fontWeight: "bold" }}>{props.notification.creator}</span>{" "}
+        {props.notification.content}
       </p>
     );
     const systemNotification = (
-      <p className="notification-content">{notificationContent2}</p>
+      <p className="notification-content">{props.notification.content}</p>
     );
-    return props.type === "comment" ? comment : systemNotification;
+    return props.notification.type === "system" ?systemNotification : comment;
   };
 
   const renderNotificationMenu = (
@@ -135,29 +151,22 @@ function TheHeader() {
       onClose={handleNotificationMenuClose}
       className="notification-menu"
     >
-      <MenuItem
-        onClick={handleNotificationMenuClose}
-        className="notification_group"
-      >
-        <Avatar
-          className="avatar"
-          alt="Remy Sharp"
-          src="https://vieclamthemonline.com/wp-content/uploads/2021/10/anh-blackpink-rose.jpg"
-        />
-        <NotificationContent type={typeNotification[0]} />
-      </MenuItem>
+      
 
-      <MenuItem
-        onClick={handleNotificationMenuClose}
-        className="notification_group"
-      >
-        <Avatar
-          className="avatar"
-          alt="Remy Sharp"
-          src="https://vieclamthemonline.com/wp-content/uploads/2021/10/anh-blackpink-rose.jpg"
-        />
-        <NotificationContent type={typeNotification[1]} />
-      </MenuItem>
+      {notifications.map((item, index) => (
+          <MenuItem
+          key={index}
+          onClick={handleNotificationMenuClose}
+          className="notification_group"
+        >
+          <Avatar
+            className="avatar"
+            alt="Remy Sharp"
+            src="https://vieclamthemonline.com/wp-content/uploads/2021/10/anh-blackpink-rose.jpg"
+          />
+          <NotificationContent notification={item} />
+        </MenuItem>
+      ))}
     </Menu>
   );
   //------------------------------------------MOBILE MENU---------------------------------------------//
