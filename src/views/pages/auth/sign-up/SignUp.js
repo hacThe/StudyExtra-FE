@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { userActions } from "../../../../actions/user.actions";
 import { cookiesUtil } from "../../../../utilities";
 import { TextField, Box, Grid, Stack, Button } from "@mui/material";
@@ -9,14 +9,26 @@ import "./SignUp.scss";
 import { maxWidth } from "@mui/system";
 // import Container from '@mui/material/Container';
 const SignUp = () => {
+
+  const navigate = useNavigate()
+
+  function goBackBtnOnClick(){
+    navigate(-1)
+  }
+
+
+  function SignUpOnClick(){
+    // execute sign up.
+    navigate('/dang-nhap')
+  }
  
  
   function SingUpModal() {
     return (
       <div className="sign-up-form-modal">
-        <div className="back-btn">
+        {/* <div onClick={goBackBtnOnClick} className="back-btn">
           <BsFillReplyFill/>
-        </div>
+        </div> */}
           <Stack
             direction="column"
             justifyContent="center"
@@ -44,27 +56,27 @@ const SignUp = () => {
                 id="outlined-basic"
                 label="Tài khoản"
                 variant="outlined"
-                InputProps={{ style: { borderRadius: "30px", paddingLeft: "18px" } }}
-                InputLabelProps={{ style: { fontFamily: "'Montserrat', san-serif", borderColor: "white", borderColor: "black" }  }}
+                InputProps={{ style: { borderRadius: "30px", paddingLeft: "18px", fontSize: "1.4rem" } }}
+                InputLabelProps={{ style: { fontFamily: "'Montserrat', san-serif", fontSize: "1.4rem", borderColor: "white", borderColor: "black" }  }}
               />
               <TextField
                 id="outlined-basic"
                 label="Mật khẩu"
                 variant="outlined"
                 type="password"
-                InputProps={{ style: { borderRadius: "30px", paddingLeft: "18px" } }}
-                InputLabelProps={{ style: { fontFamily: "'Montserrat', san-serif", borderColor: "white", borderColor: "black" }  }}
+                InputProps={{ style: { borderRadius: "30px", paddingLeft: "18px", fontSize: "1.4rem" } }}
+                InputLabelProps={{ style: { fontFamily: "'Montserrat', san-serif", fontSize: "1.4rem", borderColor: "white", borderColor: "black" }  }}
               />
               <TextField
                 id="outlined-basic"
                 label="Xác nhận mật khẩu"
                 variant="outlined"
                 type="password"
-                InputProps={{ style: { borderRadius: "30px", paddingLeft: "18px" } }}
-                InputLabelProps={{ style: { fontFamily: "'Montserrat', san-serif", borderColor: "white", borderColor: "black" }  }}
+                InputProps={{ style: { borderRadius: "30px", paddingLeft: "18px", fontSize: "1.4rem" } }}
+                InputLabelProps={{ style: { fontFamily: "'Montserrat', san-serif", fontSize: "1.4rem", borderColor: "white", borderColor: "black" }  }}
               />
 
-              <div className="se-btn login-btn">Đăng ký</div>
+              <div onClick={SignUpOnClick} className="se-btn login-btn">Đăng ký</div>
             </Stack>
 
             <p>
