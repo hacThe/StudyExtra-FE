@@ -1,40 +1,48 @@
 .card-body{
     display: flex;
     flex-direction: row;
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-    margin: 10px;
-    margin-right: 20px;
+    box-shadow: 0.2rem 0.2rem 0.4rem rgba(0,0,0,0.2);
+    margin: 1rem;
+    margin-right: 2rem;
+    margin-left: 2.4rem;
     position: relative;
-    border-radius: 10px;
+    border-radius: 1rem;
     .card-number{
         font-family: 'Montserrat';
-        line-height: 60px;
+        font-size: 1.4rem;
+        line-height: 6rem;
         font-weight: 700;
-        margin-left: 16px;
-        margin-right: 40px;
+        margin-left: 1.6rem;
+        margin-right: 4rem;
     }
     .card-user-avatar{
-        width: 36px;
-        height: 36px;
-        margin: 12px;
+        width: 3.6rem;
+        height: 3.6rem;
+        margin: 1.2rem;
         border-radius: 100%;
     }
     .card-user-name{
         font-family: 'Montserrat';
-        line-height: 60px;
+        font-size: 1.4rem;
+        line-height: 6rem;
         font-weight: 700;
-        margin-left: 16px;
-        margin-right: 40px;
+        margin-left: 1.6rem;
+        margin-right: 4rem;
+        width: 32%; 
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
     .card-user-point{
         float: right;
         font-family: 'Montserrat';
-        line-height: 60px;
+        line-height: 6rem;
         font-weight: 700;
-        margin-left: 16px;
-        margin-right: 40px;
+        margin-left: 1.6rem;
+        margin-right: 4rem;
         position: absolute;
         right: 0;
+        font-size: 1.4rem;
     }
     &:hover{
         background-color: #f1f1f1!important;
