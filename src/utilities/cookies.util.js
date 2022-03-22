@@ -3,9 +3,10 @@ export const cookiesUtil = {
     set,
     get,
     remove,
-    getCurrentUser,
+    getCurrentUserInfo,
     setAccessToken,
     getAccessToken,
+    setCurrentUserInfo
 
 
 };
@@ -24,8 +25,8 @@ function get(key) {
     return null
 }
 
-function getCurrentUser() {
-    return get('THIS IS USER IDENTIFY KEY');
+function getCurrentUserInfo() {
+    return get('_user');
 }
 
 function remove(key) {
@@ -38,10 +39,15 @@ function remove(key) {
 }
 
 function setAccessToken(value) {
-    cookies.set("THIS IS USER IDENTIFY KEY", value);
+    cookies.set("_jwt", value);
 }
 
 function getAccessToken() {
-    return cookies.get("THIS IS USER IDENTIFY KEY");
+    return cookies.get("_jwt");
 }
+
+function setCurrentUserInfo(value) {
+    cookies.set("_user", value)
+}
+
 
