@@ -26,7 +26,7 @@ function get(key) {
 }
 
 function getCurrentUserInfo() {
-    return get('THIS IS USER IDENTIFY KEY');
+    return get('_user');
 }
 
 function remove(key) {
