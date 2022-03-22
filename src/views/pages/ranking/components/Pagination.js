@@ -1,7 +1,6 @@
 import React from 'react';
 import '../scss/Pagination.scss';
 
-import { Button } from '@mui/material';
 
 import { IoIosArrowBack, IoIosArrowForward} from "react-icons/io";
 const Pagination = ({page}) => {

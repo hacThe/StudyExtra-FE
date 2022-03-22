@@ -1,21 +1,19 @@
-.home{
-    .carousel .thumbs{
-        display: none !important;
-    }
+.home-wrapper{
+    padding: 0 22px;
+    padding-top: 40px;
+    padding-bottom: 48px;
+    background-color: #f4f4f4;
 
+    
     .carousel .slider-wrapper{
         border-radius: 16px;
     }
 
-    .css-1oqqzyl-MuiContainer-root{
-        max-width: 100%;
-       text-decoration: 'none';
-    }
+    
     .slick-prev:before{
         color: red;
     }
     .slick-next::before{
-
         color: red;
     }
 
@@ -23,5 +21,9 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        min-width: 300px;
+        max-width: 500px;
     }
 }
+
+

@@ -1,12 +1,11 @@
 import { userConstants } from '../constaint';
 import { cookiesUtil } from '../utilities';
 
-let user = cookiesUtil.getCurrentUser();
+let user = cookiesUtil.getCurrentUserInfo();
 const initialState = user ? { waiting: false, isLoggedIn: true ,user } : {waiting: false, isLoggedIn: false };
 
 console.log({initialState})
 export function authentication(state = initialState, action) {
-  console.log('dispatch from authentication.reducer');
   switch (action.type) {
     case userConstants.LOGIN_REQUEST:
       console.log('login-request from authentication.reducer');
@@ -15,7 +14,7 @@ export function authentication(state = initialState, action) {
         error: false
       };
     case userConstants.LOGIN_SUCCESS:
-        user: cookiesUtil.getCurrentUser()
+        user: cookiesUtil.getCurrentUserInfo()
       return {
         waiting: false,
         isLoggedIn: true,
