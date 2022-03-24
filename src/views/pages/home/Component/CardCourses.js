@@ -10,6 +10,8 @@ import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import { AiFillDollarCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { stringUtils } from "../../../../utilities";
+import Stack from '@mui/material/Stack';
+
 const bull = (
   <Box
     component="span"
@@ -52,7 +54,7 @@ export default function CardCourses(props) {
         />
         <CardContent>
           <Typography
-            style={{ fontSize: "18px", fontWeight: "700" }}
+            style={{ fontSize: "18px", fontWeight: "700" ,fontFamily: "'Montserrat', san-serif"}}
             gutterBottom
             variant="h5"
             component="div"
@@ -62,7 +64,42 @@ export default function CardCourses(props) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <div
+        <Stack style={{ color: '#6E6E6E', marginLeft: '10px' }} direction="row" spacing={5}>
+          
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <FaUserGraduate
+                style={{
+                  paddingRight: "5px",
+                  transform: "translateY(-8%)",
+                  fontSize: "18px",
+                }}
+              ></FaUserGraduate>
+              <div style={{fontSize:'16px',fontFamily: "'Montserrat', san-serif"}}>{props.course.studentId.length}</div>
+            </div>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <MdOutlineAccessTimeFilled
+                style={{
+                  paddingRight: "5px",
+                  transform: "translateY(-15%)",
+                  fontSize: "22px",
+                }}
+              ></MdOutlineAccessTimeFilled>
+              <div style={{fontSize:'16px',fontFamily: "'Montserrat', san-serif"}}>999</div>
+            </div>
+            {!props.isPayment && (
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <AiFillDollarCircle
+                  style={{
+                    paddingRight: "5px",
+                    transform: "translateY(-15%)",
+                    fontSize: "22px",
+                  }}
+                ></AiFillDollarCircle>
+                <div style={{fontSize:'16px',fontFamily: "'Montserrat', san-serif"}}>{props.course.price}</div>
+              </div>
+            )}
+        </Stack>
+        {/* <div
           style={{
             display: "flex",
             justifyContent: "space-around",
@@ -103,7 +140,7 @@ export default function CardCourses(props) {
               <div>{props.course.price}</div>
             </div>
           )}
-        </div>
+        </div> */}
       </CardActions>
     </Card>
   );

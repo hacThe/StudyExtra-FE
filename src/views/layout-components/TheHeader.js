@@ -153,7 +153,7 @@ function TheHeader() {
     >
       
 
-      {notifications.map((item, index) => (
+      {/* {notifications.map((item, index) => (
           <MenuItem
           key={index}
           onClick={handleNotificationMenuClose}
@@ -166,7 +166,7 @@ function TheHeader() {
           />
           <NotificationContent notification={item} />
         </MenuItem>
-      ))}
+      ))} */}
     </Menu>
   );
   //------------------------------------------MOBILE MENU---------------------------------------------//
