@@ -8,6 +8,7 @@ const UserProfile = React.lazy(() => import("./views/pages/profile/Profile"));
 const Ranking = React.lazy(() => import('./views/pages/ranking/Ranking'))
 const Document = React.lazy(() => import('./views/pages/document/Document'))
 const Courses = React.lazy(() => import('./views/pages/courses/Courses'));
+const Search = React.lazy(() => import('./views/pages/search/Search'));
 
 
 // Những route chỉ truy xuất khi chưa đăng nhập
@@ -28,7 +29,7 @@ const commonRoute = [
   {path: '/xep-hang', name: 'Xếp hạng', element: <Ranking/>},
   {path: '/tai-lieu', name: 'Tài liệu', element: <Document/>}, 
   {path: '/khoa-hoc', name: 'Trang chủ', element: <Courses/>},
-  
+  {path: '/tim-kiem', name: 'Tìm kiếm', element: <Search/>}
 ]
 
 

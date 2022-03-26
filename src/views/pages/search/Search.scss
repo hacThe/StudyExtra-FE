@@ -1,0 +1,75 @@
+.search{
+    padding: 48px;
+
+
+    .custom-button-group{
+        margin-top: 20px;
+        color: '#939393';
+        font-size: 16px;
+    }
+
+    .css-1or64il-MuiButtonGroup-root .MuiButtonGroup-grouped:not(:last-of-type){
+        border-color: #AEAEAE;
+    }
+
+    .css-1e6y48t-MuiButtonBase-root-MuiButton-root{
+        font-size: 16px;
+        font-weight: 600;
+        color: #939393;
+        padding: 0 25px;
+        line-height: 16px;
+        text-transform: none;
+    }
+
+    .css-1or64il-MuiButtonGroup-root{
+        padding-bottom: 10px;
+        border-radius: 0;
+        border-bottom: 2.5px solid #AEAEAE;
+    }
+
+    .active.css-1e6y48t-MuiButtonBase-root-MuiButton-root{
+        color: black;
+    }
+
+
+    .active.css-1e6y48t-MuiButtonBase-root-MuiButton-root::after{
+        content: "";
+        position:absolute;
+        background-color: black;
+        bottom: -12px;
+        left: 0px;
+        border-radius: 8px;
+        right: 0px;
+        height: 2px;
+        transition: right ease-out 0.3s, left ease-out 0.3s;
+        -webkit-transition: right ease-out 0.3s, left ease-out 0.3s;
+    }
+
+    .custom-exam{
+        width: 747px;
+        height: 50px;
+        border-radius: 10px;
+        padding: 8px, 12px, 8px, 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 16px;
+        background: #FFFFFF;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+        margin-bottom: 12px;
+        cursor: pointer;
+    }
+
+    .custom-exam:hover{
+        opacity: 70%;
+    }
+    
+    .css-1j4k3n5-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{
+        background-color: #7B68EE;
+        color: white;
+    }
+    .css-1j4k3n5-MuiButtonBase-root-MuiPaginationItem-root {
+        font-size: 16px;
+        font-weight: 700;
+    }
+}
