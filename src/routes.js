@@ -8,7 +8,7 @@ const UserProfile = React.lazy(() => import("./views/pages/profile/Profile"));
 const Ranking = React.lazy(() => import('./views/pages/ranking/Ranking'))
 const Document = React.lazy(() => import('./views/pages/document/Document'))
 const Courses = React.lazy(() => import('./views/pages/courses/Courses'));
-
+const Question = React.lazy(() => import('./views/pages/question/Question'))
 
 // Những route chỉ truy xuất khi chưa đăng nhập
 const publicRoute = [
@@ -23,12 +23,12 @@ const publicRoute = [
 
 // route dùng cho mọi trường hợp
 const commonRoute = [
-  {path: '/trang-chu', name: 'Trang chủ', element: <Homepage/>},  
-  {path: '/chi-tiet-khoa-hoc/:id', name: 'Chi tiết khóa học', element: <CourseDetail/>}, 
-  {path: '/xep-hang', name: 'Xếp hạng', element: <Ranking/>},
-  {path: '/tai-lieu', name: 'Tài liệu', element: <Document/>}, 
-  {path: '/khoa-hoc', name: 'Trang chủ', element: <Courses/>},
-  
+    {path: '/trang-chu', name: 'Trang chủ', element: <Homepage/>},  
+    {path: '/chi-tiet-khoa-hoc/:id', name: 'Chi tiết khóa học', element: <CourseDetail/>}, 
+    {path: '/xep-hang', name: 'Xếp hạng', element: <Ranking/>},
+    {path: '/tai-lieu', name: 'Tài liệu', element: <Document/>}, 
+    {path: '/khoa-hoc', name: 'Trang chủ', element: <Courses/>},
+    {path: '/hoi-dap', name: 'Hỏi đáp', element: <Question/>},
 ]
 
 

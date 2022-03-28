@@ -1,11 +1,9 @@
 import React from 'react';
 import '../scss/Pagination.scss';
-import { rankingActions } from '../../../../actions/ranking.actions';
 
 import { IoIosArrowBack, IoIosArrowForward} from "react-icons/io";
 const Pagination = ({page}) => {
     var pages = Array.from(Array(page).keys());
-    rankingActions.changePagination(12);
     return (
         <div className="pagination-body">
             <button className="prev-button">

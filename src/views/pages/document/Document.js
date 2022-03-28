@@ -52,6 +52,7 @@ function Document(){
                     </div>
                     <div className="document-list">
                     {
+                        documents == null ? (null) :
                         documents.map((document) => (
                             <DocumentCard name={document.name} views={document.views}/>
                         ))
