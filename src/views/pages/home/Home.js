@@ -1,35 +1,45 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { userActions } from "../../../actions/user.actions";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Slider from "./Component/Slider";
 import Notification from "./Component/Notification";
 import YourCourses from "./Component/YourCourses";
 import FeaturedCourse from "./Component/FeaturedCourse";
 import QAndA from "./Component/QAndA";
-import 'bootstrap/dist/css/bootstrap.min.css';
-  
+import axios from "axios";
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
 const Login = () => {
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [courses, setCourses] = useState([]);
+  const [posts, setPosts] = useState([]);
 
-  function HandleLogOutOnClick(){
-    navigate('/dang-nhap');
-    dispatch(userActions.logout())
-  }
+  useEffect(async () => {
+    async function fetchData() {
+      await axios.get(`http://localhost:5000/api/courses/getAllCourses`)
+        .then(res => {
+          setCourses(res.data.data)
+        }).catch(err => {
+          console.log(err)
+        })
+      await axios.get(`http://localhost:5000/api/posts/getAllPosts`)
+      .then(res => {
+        setPosts(res.data.data)
+      }).catch(err=>{
+        console.log(err)
+      })
+    }
+    fetchData();
+  }, [])
 
 
   return (
     <>
-      <div style={{marginLeft: '88px'}} className="home">
+      <div className="home-wrapper">
         <Slider></Slider>
         <Notification></Notification>
-        <YourCourses></YourCourses>
-        <FeaturedCourse></FeaturedCourse>
-        <QAndA></QAndA>
+        <YourCourses courses={courses}></YourCourses>
+        <FeaturedCourse courses={courses}></FeaturedCourse>
+        <QAndA posts={posts}></QAndA>
       </div>
-      <button onClick={() => { HandleLogOutOnClick() }}>Đăng xuất</button>
     </>
   );
 };

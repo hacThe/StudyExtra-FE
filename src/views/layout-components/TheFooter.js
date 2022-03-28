@@ -42,7 +42,7 @@ const TheFooter = () => {
           </Grid>
 
 
-          <Grid xs={12} md={6} lg={3} className='contact'>
+          <Grid item xs={12} md={6} lg={3} className='contact'>
             <>
               <h5>Hotline: 0334.696.473</h5>
               <p style={

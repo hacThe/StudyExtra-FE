@@ -13,7 +13,7 @@ function Document(){
     const [documents, setDocuments] = useState([]);
     useEffect(async () => {
             async function fetchData() {
-            await axios.get(`http://localhost:5000/api/document`)
+            await axios.get(`http://localhost:5000/api/document/getAllDocument`)
                 .then(res => {
                     setDocuments(res.data.data);
                     console.log("document", documents);

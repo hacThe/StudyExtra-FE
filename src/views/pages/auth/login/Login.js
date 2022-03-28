@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate } from "react-router-dom";
 import { userActions } from "../../../../actions/user.actions";
@@ -6,17 +6,27 @@ import { cookiesUtil } from "../../../../utilities";
 import { TextField, Box, Grid, Stack, Button } from "@mui/material";
 import { BsGoogle, BsFacebook, BsFillReplyFill } from "react-icons/bs";
 import "./Login.scss";
-import { maxWidth } from "@mui/system";
-// import Container from '@mui/material/Container';
+
 const Login = () => {
+  // currentPage đại diện cho page đang hiển thị, 0: Login method, 1: LoginWithUserNameAndPassword
+  const [currentPage, setPage] = useState(0);
   const dispatch = useDispatch();
   const authentication = useSelector((state) => state.authentication);
+  let username = "";
+  let password = "";
+
+  function GoToLoginWithUsernameAndPasswordScreen() {
+    setPage(1);
+  }
+
+  function BackToChooseLoginMethodScreen() {
+    setPage(0);
+  }
 
   function HandleSignInButtonOnClick() {
-    
-    cookiesUtil.set("THIS IS USER IDENTIFY KEY", "haizz");
-    dispatch(userActions.login());
-    console.log(authentication);
+    // cookiesUtil.set("THIS IS USER IDENTIFY KEY", "haizz");
+    // dispatch(userActions.login());
+    dispatch(userActions.login(username, password));
   }
 
   if (authentication.isLoggedIn) return <Navigate to="/trang-chu" />;
@@ -47,7 +57,10 @@ const Login = () => {
             direction="column"
             margin="24px"
           >
-            <div className="se-btn outline-btn">
+            <div
+              onClick={GoToLoginWithUsernameAndPasswordScreen}
+              className="se-btn outline-btn"
+            >
               Đăng nhập với username/ password
             </div>
 
@@ -63,7 +76,10 @@ const Login = () => {
           </Stack>
 
           <p>
-            Chưa có tài khoản? <Link to="/dang-ky"><strong>Đăng ký</strong></Link>
+            Chưa có tài khoản?{" "}
+            <Link to="/dang-ky">
+              <strong>Đăng ký</strong>
+            </Link>
           </p>
         </Stack>
       </div>
@@ -73,124 +89,97 @@ const Login = () => {
   function LoginWithUserNameAndPassword() {
     return (
       <div className="login-with-username-and-password-modal">
-        <div className="back-btn">
-          <BsFillReplyFill/>
+        <div onClick={BackToChooseLoginMethodScreen} className="back-btn">
+          <BsFillReplyFill />
         </div>
+        <Stack
+          direction="column"
+          justifyContent="center"
+          alignItems="center"
+          sx={{
+            backgroundColor: "#fff",
+            maxWidth: "800px",
+            padding: "18px",
+            borderRadius: "10px",
+          }}
+        >
+          <div className="app-logo" />
+          <h1 className="modal-title">ĐĂNG NHẬP VÀO SE</h1>
+
           <Stack
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
             sx={{
-              backgroundColor: "#fff",
-              maxWidth: "800px",
-              padding: "18px",
-              borderRadius: "10px",
+              width: "80%",
+              maxWidth: "500px",
             }}
+            spacing={2}
+            direction="column"
+            margin="24px"
           >
-            <div className="app-logo" />
-            <h1 className="modal-title">ĐĂNG NHẬP VÀO SE</h1>
-
-            <Stack
-              sx={{
-                width: "80%",
-                maxWidth: "500px",
+            <TextField
+              onChange={(e) => {
+                username = e.target.value;
               }}
-              spacing={2}
-              direction="column"
-              margin="24px"
+              label="Tài khoản"
+              variant="outlined"
+              InputProps={{
+                style: {
+                  borderRadius: "30px",
+                  paddingLeft: "12px",
+                  fontSize: "1.4rem",
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "'Montserrat', san-serif",
+                  fontSize: "1.4rem",
+                },
+              }}
+            />
+            <TextField
+              onChange={(e) => {
+                password = e.target.value
+              }}
+              label="Mật khẩu"
+              variant="outlined"
+              type="password"
+              InputProps={{
+                style: {
+                  borderRadius: "30px",
+                  paddingLeft: "18px",
+                  fontSize: "1.4rem",
+                },
+              }}
+              InputLabelProps={{
+                style: {
+                  fontFamily: "'Montserrat', san-serif",
+                  fontSize: "1.4rem",
+                },
+              }}
+            />
+
+            <div
+              onClick={HandleSignInButtonOnClick}
+              className="se-btn login-btn"
             >
-              <TextField
-                id="outlined-basic"
-                label="Tài khoản"
-                variant="outlined"
-                InputProps={{ style: { borderRadius: "30px", paddingLeft: "18px" } }}
-                InputLabelProps={{ style: { fontFamily: "'Montserrat', san-serif", borderColor: "white", borderColor: "black" }  }}
-              />
-              <TextField
-                id="outlined-basic"
-                label="Mật khẩu"
-                variant="outlined"
-                type="password"
-                InputProps={{ style: { borderRadius: "30px", paddingLeft: "18px" } }}
-                InputLabelProps={{ style: { fontFamily: "'Montserrat', san-serif", borderColor: "white", borderColor: "black" }  }}
-              />
-
-              <div onClick={HandleSignInButtonOnClick} className="se-btn login-btn">Đăng nhập</div>
-            </Stack>
-
-            <p>
-              <Link to="/quen-mat-khau"><strong>Quên mật khẩu</strong></Link>
-            </p>
+              Đăng nhập
+            </div>
           </Stack>
+
+          <p>
+            <Link to="/quen-mat-khau">
+              <strong>Quên mật khẩu</strong>
+            </Link>
+          </p>
+          <p style={{ marginTop: "18px" }}>
+            Chưa có tài khoản?{" "}
+            <Link to="/dang-ky">
+              <strong>Đăng ký</strong>
+            </Link>
+          </p>
+        </Stack>
       </div>
     );
   }
-
-
-  // function SingUpPage() {
-  //   return (
-  //     <div className="login-with-username-and-password-modal">
-  //       <div className="back-btn">
-  //         <BsFillReplyFill/>
-  //       </div>
-  //         <Stack
-  //           direction="column"
-  //           justifyContent="center"
-  //           alignItems="center"
-  //           sx={{
-  //             backgroundColor: "#fff",
-  //             maxWidth: "800px",
-  //             padding: "18px",
-  //             borderRadius: "10px",
-  //           }}
-  //         >
-  //           <div className="app-logo" />
-  //           <h1 className="modal-title">ĐĂNG KÝ TÀI KHOẢN</h1>
-
-  //           <Stack
-  //             sx={{
-  //               width: "80%",
-  //               maxWidth: "500px",
-  //             }}
-  //             spacing={2}
-  //             direction="column"
-  //             margin="24px"
-  //           >
-  //             <TextField
-  //               id="outlined-basic"
-  //               label="Tài khoản"
-  //               variant="outlined"
-  //               InputProps={{ style: { borderRadius: "30px", paddingLeft: "18px" } }}
-  //               InputLabelProps={{ style: { fontFamily: "'Montserrat', san-serif", borderColor: "white", borderColor: "black" }  }}
-  //             />
-  //             <TextField
-  //               id="outlined-basic"
-  //               label="Mật khẩu"
-  //               variant="outlined"
-  //               type="password"
-  //               InputProps={{ style: { borderRadius: "30px", paddingLeft: "18px" } }}
-  //               InputLabelProps={{ style: { fontFamily: "'Montserrat', san-serif", borderColor: "white", borderColor: "black" }  }}
-  //             />
-  //             <TextField
-  //               id="outlined-basic"
-  //               label="Xác nhận mật khẩu"
-  //               variant="outlined"
-  //               type="password"
-  //               InputProps={{ style: { borderRadius: "30px", paddingLeft: "18px" } }}
-  //               InputLabelProps={{ style: { fontFamily: "'Montserrat', san-serif", borderColor: "white", borderColor: "black" }  }}
-  //             />
-
-  //             <div className="se-btn login-btn">Đăng ký</div>
-  //           </Stack>
-
-  //           <p>
-  //             Đã có tài khoản?
-  //             <strong>Đăng nhập</strong>
-  //           </p>
-  //         </Stack>
-  //     </div>
-  //   );
-  // }
 
   return (
     <>
@@ -203,8 +192,9 @@ const Login = () => {
             height: "100vh",
           }}
         >
-          {/* <ListOfLoginMethod></ListOfLoginMethod> */}
-          <LoginWithUserNameAndPassword></LoginWithUserNameAndPassword>
+          {currentPage == 0 && <ListOfLoginMethod></ListOfLoginMethod>}
+
+          {currentPage == 1 && <LoginWithUserNameAndPassword />}
         </Stack>
       </div>
     </>
