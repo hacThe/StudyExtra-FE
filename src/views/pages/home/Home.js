@@ -5,29 +5,20 @@ import YourCourses from "./Component/YourCourses";
 import FeaturedCourse from "./Component/FeaturedCourse";
 import QAndA from "./Component/QAndA";
 import axios from "axios";
-// import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { useDispatch, useSelector } from "react-redux";
+import { courseAction } from '../../../actions/course.action'
+import { postAction } from "../../../actions/post.action";
 const Login = () => {
+  const dispatch = useDispatch()
 
-  const [courses, setCourses] = useState([]);
-  const [posts, setPosts] = useState([]);
+  const courses = useSelector(state => state.course.courses) || []
+  const posts = useSelector(state => state.post.posts) || []
 
-  useEffect(async () => {
-    async function fetchData() {
-      await axios.get(`http://localhost:5000/api/courses/getAllCourses`)
-        .then(res => {
-          setCourses(res.data.data)
-        }).catch(err => {
-          console.log(err)
-        })
-      await axios.get(`http://localhost:5000/api/posts/getAllPosts`)
-      .then(res => {
-        setPosts(res.data.data)
-      }).catch(err=>{
-        console.log(err)
-      })
-    }
-    fetchData();
+  console.log(courses)
+  console.log(posts)
+  useEffect(() => {
+    dispatch(courseAction.getAllCourse());
+    dispatch(postAction.getAllPost())
   }, [])
 
 

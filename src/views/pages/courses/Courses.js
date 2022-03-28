@@ -5,17 +5,18 @@ import WholeCourses from "./component/WholeCourses";
 import PaginationOutlined from "./component/PaginationOutlined";
 import ButtonGroupCustom from "./component/ButtonGroupCustom";
 import { courseAction } from "../../../actions/course.action";
-import axios from "axios";
 
 function Courses(props) {
     const dispatch = useDispatch();
     const courses =
         useSelector((state) => {
-            console.log({ state });
+           
             return state.course.courses;
         }) || [];
     const [typeCourse, setTypeCourse] = useState("all");
     const [coursesCurrent, setCoursesCurrent] = useState([]);
+
+
     // //của trang khóa học của bạn
     const [currentPageInYourCourses, setCurrentPageInYourCourses] = useState(1);
     //của trang tatas cả khóa học

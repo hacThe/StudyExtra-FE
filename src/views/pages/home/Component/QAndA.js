@@ -20,7 +20,7 @@ function QAndA(props) {
                         </a>
                     </Grid>
                     {props.posts.map(post => (
-                        <Grid md={6} sm={6}>
+                        <Grid md={6} sm={12}>
                             <QuestionComponent post={post}></QuestionComponent>
                         </Grid>
                     ))}

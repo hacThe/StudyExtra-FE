@@ -15,13 +15,12 @@ function getAllCourse(){
 
         courseService.getAll().then(
             (courses)=>{
-                dispatch(success(courses))
-                console.log("course đã trả ve72 nè: ",{courses})
+                console.log(courses.data)
+                dispatch(success(courses.data))
             },
             (error)=>{
                 dispatch(failure(error.toString()))
                 console.log({error})
-                console.log("course đã trả ve72 nè: ",{error})
 
             }
         )

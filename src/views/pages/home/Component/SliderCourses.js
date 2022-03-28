@@ -33,7 +33,17 @@ export default class SliderCourses extends Component {
           }
         },
         {
-          breakpoint: 600,
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            infinite: true,
+            dots: true,
+
+          }
+        },
+        {
+          breakpoint: 620,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
