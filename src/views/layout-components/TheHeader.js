@@ -153,7 +153,8 @@ function TheHeader() {
     >
       
 
-      {notifications.map((item, index) => (
+      { notifications == null ? null :
+      notifications.map((item, index) => (
           <MenuItem
           key={index}
           onClick={handleNotificationMenuClose}
