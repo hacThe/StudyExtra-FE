@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import '../scss/Pagination.scss';
-
+import { documentActions } from '../../../../actions/document.actions';
 import { IoIosArrowBack, IoIosArrowForward} from "react-icons/io";
+
+
 const Pagination = ({page}) => {
+    const dispatch = useDispatch();
+    const [currentPage, setCurrentPage] = useState(1);
+
+
     var pages = Array.from(Array(page).keys());
+    pages.shift();
     return (
         <div className="pagination-body">
             <button className="prev-button">
@@ -12,7 +20,7 @@ const Pagination = ({page}) => {
             <div className="page-button-container">
             {
                 pages.map((item) =>(
-                    <button className="page-button">
+                    <button className="page-button" onClick={() => documentActions.changePagination(item)   }>
                         {item}
                     </button>
                 ))
