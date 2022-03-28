@@ -47,10 +47,11 @@ const Question = () => {
                         <p className="amount">62</p>
                     </div>
                 </div>
+                
                 <div className='divider'></div>
                 <div className="comment-section">
-                    <CommentItem reply={true}/>
-                    <CommentItem reply={false}/>
+                    <CommentItem reply={true} image={true} userReply={false}/>
+                    <CommentItem reply={false} userReply={true}/>
                 </div>
             </div>
             
