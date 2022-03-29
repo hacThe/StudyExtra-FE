@@ -207,7 +207,7 @@ function TheHeader() {
     {
       name: "Luyện đề",
       icon: <BsQuestionCircleFill />,
-      link: "/404",
+      link: "/luyen-de",
     },
   ];
 
