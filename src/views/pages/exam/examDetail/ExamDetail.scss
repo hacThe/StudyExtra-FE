@@ -1,0 +1,139 @@
+
+.exam-detail{
+    .exam-grid{
+        margin: 3.2rem 0rem 0rem 0rem;
+        .exam-detail_content{
+            .exam-name{
+                margin-bottom: 3.6rem;
+                h5{
+                    font-weight: 700;
+                    font-size: 28px;
+                    line-height: 34px;
+                    color: #000000;
+                    margin-bottom: 1.2rem;
+                }
+                p{
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 17px;
+                    color: #000000;
+                }
+            }
+            .exam-content{
+                margin-bottom: 3.6rem;
+                h5{
+                    font-weight: 700;
+                    font-size: 20px;
+                    line-height: 24px;
+                    color: #000000;
+                    margin-bottom: 0.8rem;
+                }
+                p{
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 17px;
+                    color: #000000;
+                }
+            }
+            .exam-require{
+                .require-group{
+                    margin-bottom: 1.3rem;
+
+                    p{
+                        display: flex;
+                        align-items: center;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 17px;
+                        color: #000000;
+                        svg{
+                            color: #7B68EE;
+                            margin-right: 1.2rem;
+                        }
+                    }
+                }
+                h5{
+                    font-weight: 700;
+                    font-size: 20px;
+                    line-height: 24px;
+                    color: #000000;
+                    margin-bottom: 1.8rem
+                };
+                
+            }
+        }
+        .leader-board_column{
+            padding: 1.6rem 4.8rem;
+            .btn-contained{
+                width: 100%;
+                background-color: #7B68EE;
+                text-transform: none;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 24px;
+                margin-bottom: 1.6rem;
+                border-radius: 10px;
+            }
+            .leader-board_group{
+                padding: 1.6rem 0rem;
+
+                h5{
+                    font-weight: 700;
+                    font-size: 19px;
+                    line-height: 23px;
+                    color: #333333;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    margin-bottom: 1.4rem;
+                    svg{
+                        margin-right: 0.8rem;
+                    }
+                }
+                .list-card{
+                    
+                    .leader-card{
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        justify-content: space-between;
+                        height: 4rem;
+                        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+                        border-radius: 10px;
+                        margin: 1.2rem 0rem;
+                        .rank{
+                            padding: 1rem;
+                            font-weight: 700;
+                            font-size: 14px;
+                            line-height: 17px;
+                            color: #000000;
+                        }
+                        .avata_group{
+                            display: flex;
+                            flex-direction: row;
+                            align-items: center;
+                            .css-1wlk0hk-MuiAvatar-root{
+                                height: 3.6rem;
+                                width: 3.6rem;
+                            }
+                            p{
+                                margin-left: 0.8rem;
+                                font-weight: 700;
+                                font-size: 14px;
+                                line-height: 17px;
+                                color: #000000;
+                            }
+                        }
+                        .score{
+                            padding: 1rem;
+                            font-weight: 700;
+                            font-size: 14px;
+                            line-height: 17px;
+                            color: #000000;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -88,16 +88,17 @@
             border-radius: 1rem;
             min-height: 7.2rem;
             min-width: 40rem;
+           // max-width: 80rem;
             width: 100%;
             padding: 0.8rem;
             margin: 0rem 0rem 1.2rem;
             .icon-group{
                 svg{
-                    height: 5rem;
-                    width: 5rem;
+                    height: 4.7rem;
+                    width: 4.7rem;
                     color: #7B68EE;
                 }
-            } 
+            }
             .card-content{
                 h1{
                     font-weight: 400;

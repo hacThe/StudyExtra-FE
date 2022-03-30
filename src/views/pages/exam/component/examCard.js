@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { GoChecklist } from 'react-icons/go';
 import { FaUserCheck } from 'react-icons/fa';
 
@@ -15,11 +15,11 @@ function ExamCard() {
 
     return (
         <div>
-            <Grid container spacing={1} className="exam-card">
-                <Grid item xs={2} className="icon-group">
+            <Grid container spacing={2} className="exam-card">
+                <Grid item xs={2} md={1} className="icon-group">
                     <GoChecklist></GoChecklist>
                 </Grid>
-                <Grid item xs={8} className="card-content">
+                <Grid item xs={8} md={9} className="card-content">
                     <h1>{ExamInfomation.name}</h1>
                     <p>Khóa học: {ExamInfomation.course} - Thời gian: {ExamInfomation.time}</p>
                 </Grid>

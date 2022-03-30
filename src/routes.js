@@ -9,6 +9,8 @@ const Ranking = React.lazy(() => import('./views/pages/ranking/Ranking'));
 const Document = React.lazy(() => import('./views/pages/document/Document'));
 const Courses = React.lazy(() => import('./views/pages/courses/Courses'));
 const Exams = React.lazy(() => import('./views/pages/exam/exams/Exams'));
+const ExamDetail = React.lazy(() => import('./views/pages/exam/examDetail/ExamDetail'));
+
 
 
 
@@ -30,7 +32,8 @@ const commonRoute = [
   {path: '/xep-hang', name: 'Xếp hạng', element: <Ranking/>},
   {path: '/tai-lieu', name: 'Tài liệu', element: <Document/>}, 
   {path: '/khoa-hoc', name: 'Trang chủ', element: <Courses/>},
-  {path: '/luyen-de', name: 'Luyện đề', element: <Exams/>}
+  {path: '/luyen-de', name: 'Luyện đề', element: <Exams/>},
+  {path: '/luyen-de/:id', name: 'Chi tiết đề thi', element: <ExamDetail/>}
 ]
 
 
