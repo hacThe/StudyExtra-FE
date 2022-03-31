@@ -1,7 +1,8 @@
 import React from 'react'
 import {Grid} from '@mui/material'
 import './scss/Lesson.scss';
-import ReactDOM from 'react-dom'
+import Credit from './component/Credit';
+import CommentItem from '../overall/components/CommentItem';
 
 function resizeIframe(obj) {
     obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
@@ -44,13 +45,24 @@ const Lesson = () => {
                             </div>
                         </div>
                         <div className='horizontal-divider'>
-                                
+                            
                         </div>
                         <div className='panel-container'>
                             <div className={panel==1 ? 'panel' : 'panel hide'}  >
                                 Đây là text về mô tả ngắn cho bài học, ngắn thôi chữ cũng cỡ 200 - 300 ký tự nha
+                                
+                                <div className="question-section">
+                                    <div className="comment-count">35 hỏi đáp</div>
+                                    <CommentItem reply={true} image={false} userReply={false}/>
+                                    <CommentItem reply={false} image={true} userReply={true}/>
+                                </div>
                             </div>
-                            <div className={panel==2 ? 'panel' : 'panel hide'}>Tổng hợp tài liệu liên quan đến bài học: https://www.facebook.com/hienthe.duong.5/</div>
+                            <div className={panel==2 ? 'panel' : 'panel hide'}>
+                                Tổng hợp tài liệu liên quan đến bài học: https://www.facebook.com/hienthe.duong.5/
+                                <div className="credit-wrapper">
+                                    <Credit/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </Grid>

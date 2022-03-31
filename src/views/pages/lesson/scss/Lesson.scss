@@ -56,6 +56,17 @@
                 .panel{
                     font-weight: 400;
                     font-size: 1.6rem;
+                    .credit-wrapper{
+                        margin-top: 8rem;
+                    }
+                    .question-section{
+                        margin-top: 3.6rem;
+                        .comment-count{
+                            font-weight: 600;
+                            font-size: 1.8rem;
+                            margin-bottom: 2.8rem;
+                        }
+                    }
                 }
                 .panel.hide{
                     display: none
