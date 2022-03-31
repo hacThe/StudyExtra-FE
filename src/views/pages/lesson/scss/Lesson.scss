@@ -3,10 +3,64 @@
     background-color: #fff;
     margin-top: 1,2rem;
     .lesson-detail{
-        .lesson-video{
-            width: 100%;
-            height: 53.4rem;
-            z-index: 100;
+        .video-responsive {
+            overflow: hidden;
+            padding-bottom: 56.25%;
+            position: relative;
+            height: 0;
+            .lesson-video{
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 100%;
+                position: absolute;
+            }
+        } 
+        .tab-panel{
+            .panel-choosing{
+                display: flex;
+                margin-left: 2.4rem;
+                margin-top: 1rem;
+                
+                .panel-choose{
+                    font-weight: 700;
+                    font-size: 1.6rem;
+                    line-height: 2rem;
+                    color: #939393;
+                }
+                .panel-choose:hover{
+                    color: #ddd;
+                    cursor: pointer;
+                }
+                .panel-choose.active{
+                    color: #000;
+                }   
+                .vertical-divider{
+                    width: 1px;
+                    height: 2rem;
+                    background-color: #AEAEAE;
+                    margin: 0 2.4rem;
+                }
+            }
+            .horizontal-divider{
+                width: 44rem;
+                height: 1px;
+                background-color: #AEAEAE;
+                margin-left: 1.4rem;
+                margin-top: 0.6rem;
+            }
+            .panel-container{
+                margin-top: 1.4rem;
+                margin-left: 2.4rem;
+                margin-bottom: 18rem;
+                .panel{
+                    font-weight: 400;
+                    font-size: 1.6rem;
+                }
+                .panel.hide{
+                    display: none
+                }
+            }
         }
     }
     .lesson-overall{

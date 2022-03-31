@@ -1,47 +1,58 @@
 import React from 'react'
-import { Box, Grid, Tab, Tabs} from '@mui/material'
+import {Grid} from '@mui/material'
 import './scss/Lesson.scss';
+import ReactDOM from 'react-dom'
 
-import TabPanel from './component/TabPanel';
-  
-  function a11yProps(index) {
-    return {
-      id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    };
-  }
+function resizeIframe(obj) {
+    obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+}
 
 const Lesson = () => {
-    const [value, setValue] = React.useState(0);
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    const [panel, setPanel] = React.useState(1);
+    const changePanel = (event, newValue) => {
+        setPanel(newValue);
+        console.log("newValue", newValue)
     };
     return (
         <div className="lesson-wrapper">
             <Grid container spacing={2}>
                 <Grid item xs={8} className="lesson-detail">
-                    <iframe 
-                        className="lesson-video" 
-                        src="https://www.youtube.com/embed/zueyEdRZQlk" 
-                        title="YouTube video player" 
-                        allowfullscreen
-                    ></iframe>
-                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                            <Tab label="Item One" {...a11yProps(0)} />
-                            <Tab label="Item Two" {...a11yProps(1)} />
-                            <Tab label="Item Three"{...a11yProps(2)} />
-                        </Tabs>
-                    </Box>
-                    <TabPanel value={value} index={0}>
-                        Item One
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                        Item Two
-                    </TabPanel>
-                    <TabPanel value={value} index={2}>
-                        Item Three
-                    </TabPanel>
+                    <div className='video-responsive'>
+                        <iframe 
+                            className="lesson-video" 
+                            src="https://www.youtube.com/embed/zueyEdRZQlk" 
+                            title="YouTube video player" 
+                            allowFullScreen
+                        ></iframe>
+                    </div>
+                    <div className='tab-panel'>
+                        <div className='panel-choosing'>
+                            <div 
+                                onClick={(e) => changePanel(e,1)} 
+                                className={panel==1 ? 'panel-choose active' : 'panel-choose'}
+                            >
+                                Tổng quan
+                            </div>
+                            <div className='vertical-divider'>
+                                
+                            </div>
+                            <div 
+                                onClick={(e) => changePanel(e,2)} 
+                                className={panel==2 ? 'panel-choose active' : 'panel-choose'}
+                            >
+                                Tài liệu
+                            </div>
+                        </div>
+                        <div className='horizontal-divider'>
+                                
+                        </div>
+                        <div className='panel-container'>
+                            <div className={panel==1 ? 'panel' : 'panel hide'}  >
+                                Đây là text về mô tả ngắn cho bài học, ngắn thôi chữ cũng cỡ 200 - 300 ký tự nha
+                            </div>
+                            <div className={panel==2 ? 'panel' : 'panel hide'}>Tổng hợp tài liệu liên quan đến bài học: https://www.facebook.com/hienthe.duong.5/</div>
+                        </div>
+                    </div>
                 </Grid>
                 <Grid item xs={4} className="lesson-overall">
                     
