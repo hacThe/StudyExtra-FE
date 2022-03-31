@@ -101,6 +101,7 @@ const Login = () => {
             maxWidth: "800px",
             padding: "18px",
             borderRadius: "10px",
+            
           }}
         >
           <div className="app-logo" />
