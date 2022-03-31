@@ -1,0 +1,28 @@
+.notion-wrapper{
+    margin-top: -0.6rem;
+    .notion-container{
+        width: calc(100% - 24px);
+        height: 40rem;
+        border: 1px solid #939393;
+        border-radius: 0.6rem;
+        .notion-controller{
+            color: #939393;
+            margin-left: 1.5rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            .controller-icon{
+                margin-right: 1.8rem;
+            }
+        }
+        .note-editing{
+            margin-left: 1.5rem;
+            width: calc( 100% - 3rem);
+            height: calc( 100% - 6rem);
+            font-family: 'Montserrat';
+            font-size: 1.4rem;
+            border: none;
+            outline: none;
+        }
+    }
+}
+

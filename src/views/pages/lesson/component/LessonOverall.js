@@ -1,6 +1,7 @@
 import React from 'react';
 import '../scss/LessonOverall.scss';
 import ChapterItem from './ChaperItem.js';
+import Notion from './Notion';
 
 const LessonOverall= () => {
     const [panel, setPanel] = React.useState(1);
@@ -39,7 +40,7 @@ const LessonOverall= () => {
                         <ChapterItem></ChapterItem>
                     </div>
                     <div className={panel==2 ? 'panel' : 'panel hide'}>
-                        Ghi chú
+                        <Notion/>
                     </div>
                 </div>
             </div>
