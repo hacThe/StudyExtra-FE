@@ -1,0 +1,76 @@
+.lesson-overall-wrapper{
+    .lesson-title{
+        font-size: 1.8rem;
+        margin-left: 2.2rem;
+        margin-top: 1.2rem;
+        font-weight: 700;
+    }
+    .tab-panel{
+        .panel-choosing{
+            display: flex;
+            margin-left: 2.4rem;
+            margin-top: 1rem;
+            
+            .panel-choose{
+                font-weight: 700;
+                font-size: 1.6rem;
+                line-height: 2rem;
+                color: #939393;
+            }
+            .panel-choose:hover{
+                color: #ddd;
+                cursor: pointer;
+            }
+            .panel-choose.active{
+                color: #000;
+                position: relative;
+            }   
+            .panel-choose.active::before{
+                content: "";
+                height: 2px;
+                background-color: #000;
+                width: calc(100% + 24px);
+                position: absolute;
+                right: -14px;
+                top: 24px;
+            }
+            .vertical-divider{
+                width: 1px;
+                height: 2rem;
+                background-color: #AEAEAE;
+                margin: 0 2.4rem;
+            }
+        }
+        .horizontal-divider{
+            width: calc(100% -2.8rem);
+            height: 1px;
+            background-color: #AEAEAE;
+            margin-left: 1.4rem;
+            margin-right: 1.4rem;
+            margin-top: 0.6rem;
+        }
+        .panel-container{
+            margin-top: 1.4rem;
+            margin-left: 2.4rem;
+            margin-bottom: 18rem;
+            .panel{
+                font-weight: 400;
+                font-size: 1.6rem;
+                .credit-wrapper{
+                    margin-top: 8rem;
+                }
+                .question-section{
+                    margin-top: 3.6rem;
+                    .comment-count{
+                        font-weight: 600;
+                        font-size: 1.8rem;
+                        margin-bottom: 2.8rem;
+                    }
+                }
+            }
+            .panel.hide{
+                display: none
+            }
+        }
+    }
+}

@@ -3,10 +3,8 @@ import {Grid} from '@mui/material'
 import './scss/Lesson.scss';
 import Credit from './component/Credit';
 import CommentItem from '../overall/components/CommentItem';
+import LessonOverall from './component/LessonOverall';
 
-function resizeIframe(obj) {
-    obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
-}
 
 const Lesson = () => {
     const [panel, setPanel] = React.useState(1);
@@ -56,6 +54,9 @@ const Lesson = () => {
                                     <CommentItem reply={true} image={false} userReply={false}/>
                                     <CommentItem reply={false} image={true} userReply={true}/>
                                 </div>
+                                <div className="credit-wrapper">
+                                    <Credit/>
+                                </div>
                             </div>
                             <div className={panel==2 ? 'panel' : 'panel hide'}>
                                 Tổng hợp tài liệu liên quan đến bài học: https://www.facebook.com/hienthe.duong.5/
@@ -67,7 +68,7 @@ const Lesson = () => {
                     </div>
                 </Grid>
                 <Grid item xs={4} className="lesson-overall">
-                    
+                    <LessonOverall/>
                 </Grid>
             </Grid>
         </div>   
