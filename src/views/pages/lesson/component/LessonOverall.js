@@ -1,5 +1,7 @@
 import React from 'react';
 import '../scss/LessonOverall.scss';
+import ChapterItem from './ChaperItem.js';
+
 const LessonOverall= () => {
     const [panel, setPanel] = React.useState(1);
     const changePanel = (event, newValue) => {
@@ -32,7 +34,9 @@ const LessonOverall= () => {
                 </div>
                 <div className='panel-container'>
                     <div className={panel==1 ? 'panel' : 'panel hide'}  >
-                        Nội dung
+                        <ChapterItem></ChapterItem>
+                        <ChapterItem></ChapterItem>
+                        <ChapterItem></ChapterItem>
                     </div>
                     <div className={panel==2 ? 'panel' : 'panel hide'}>
                         Ghi chú

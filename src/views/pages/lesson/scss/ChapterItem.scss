@@ -1,0 +1,36 @@
+.chapter-item-wrapper{
+    margin-top: 0.1rem;
+    .chapter-item-container{
+        width: 100%;
+        background-color:  #E7E7E7;
+        padding: 1rem;
+        margin-left: -1rem;
+        position: relative;
+        .chapter-title{
+            font-weight: 700;
+            font-size: 1.6rem;
+            margin-bottom: 0.4rem;
+        }
+        .chapter-detail{
+            color: #868686;
+        }
+        .chapter-open{
+            position: absolute;
+            right: 1.3rem;
+            top: 30%;
+            :hover{
+                cursor: pointer;
+                opacity: 0.3;
+            }
+            .hide{
+                display: none;
+            }
+        }
+    }
+    .lesson-items-container{
+        display: block;
+    }
+    .lesson-items-container.hide{
+        display: none;
+    }
+}

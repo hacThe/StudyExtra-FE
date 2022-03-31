@@ -1,0 +1,25 @@
+.lesson-item-wrapper{
+    display: flex;
+    padding: 0.8rem;
+    .icon-complete{
+        color: #7B68EE;
+        margin-right: 1.3rem;
+        margin-left: -0.8rem;
+    }
+    .lesson-item-container{
+        .title{
+            font-size: 1.4rem;
+        }
+        .lesson-detail{
+            display: flex;
+            .play-icon{
+                color: #929292;
+                margin-right: 0.5rem;
+            }
+            .lesson-time{
+                font-weight: 400;
+                font-size: 0.8rem;
+            }
+        }
+    }
+}
