@@ -31,11 +31,11 @@ export default function CourseCard(props) {
                     component="img"
                     height="140"
                     alt="green iguana"
-                    image= "https://files.fullstack.edu.vn/f8-prod/courses/7.png"
+                    image={props.course.imgUrl}
                 />
                 <CardContent>
                     <Typography style={{ fontSize: '18px', fontWeight: '700', fontFamily: "'Montserrat', san-serif" }} gutterBottom variant="h5" component="div">
-                        This is bài học name
+                        {props.course.name}
                     </Typography>
                 </CardContent>
             </CardActionArea>
@@ -43,7 +43,7 @@ export default function CourseCard(props) {
                 <Stack style={{color:'#6E6E6E', marginLeft:'10px'}} direction="row" spacing={5}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <FaUserGraduate style={{ paddingRight: '5px', transform: 'translateY(-8%)', fontSize: '18px' }}></FaUserGraduate>
-                        <div style={{fontSize:'16px',fontFamily: "'Montserrat', san-serif"}}>2123</div>
+                        <div style={{fontSize:'16px',fontFamily: "'Montserrat', san-serif"}}>{props.course.studentId.length}</div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <MdOutlineAccessTimeFilled style={{ paddingRight: '5px', transform: 'translateY(-15%)', fontSize: '22px' }}></MdOutlineAccessTimeFilled>

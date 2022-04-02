@@ -47,7 +47,7 @@
 
     .custom-exam{
         width: 747px;
-        height: 50px;
+        height: 56px;
         border-radius: 10px;
         padding: 8px, 12px, 8px, 12px;
         display: flex;
@@ -71,5 +71,17 @@
     .css-1j4k3n5-MuiButtonBase-root-MuiPaginationItem-root {
         font-size: 16px;
         font-weight: 700;
+    }
+
+    .css-1ri6ub7-MuiPaper-root-MuiCard-root{
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;;
+    }
+
+    .custom-a:hover{
+        color: black
     }
 }

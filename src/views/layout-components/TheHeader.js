@@ -52,10 +52,10 @@ function TheHeader() {
   };
 
   //-----------Search
-  let search = "";
+  const [search, setSearch] = useState('');
 
   const handleChangeSearch = (event) => {
-    search = event.target.value
+    setSearch(event.target.value) 
   }
 
   const handleClickSearch = (event) => {
@@ -63,9 +63,9 @@ function TheHeader() {
   }
 
   const handleKeyPressSearch = (event) => {
-
     if (event.key === 'Enter') {
       let elenmentLinkToSearch = document.querySelector('.link-to-search');
+      dispatch(searchAction.getSearch(search))
       elenmentLinkToSearch.click()
     }
   }

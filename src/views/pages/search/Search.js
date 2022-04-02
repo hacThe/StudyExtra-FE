@@ -6,6 +6,8 @@ import Exam from "./Components/Exam";
 import Document from "./Components/Document";
 import Lesson from "./Components/Lesson";
 import Courses from "./Components/Courses";
+import axios from 'axios'
+
 
 const Search = () => {
     const [active, setActive] = useState('de-thi');
@@ -13,19 +15,36 @@ const Search = () => {
     const handleClickChangeType = (type) => {
         setActive(type)
     }
+    const [exams, setExams] = useState([])
+    const [courses, setCourses] = useState([])
+    useEffect(() => {
+        const getData = async () => {
+            axios.get(`http://localhost:5000/api/search/getSearchData?search=${searchRedux}`)
+                .then(res => {
+                    setExams(res.data.exam)
+                    setCourses(res.data.course)
+                    console.log(res)
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
 
+        getData();
+
+    }, [searchRedux])
 
 
     const render = () => {
         switch (active) {
             case 'de-thi':
-                return (<Exam></Exam>)
+                return (<Exam  exam={exams}></Exam>)
             case 'tai-lieu':
-                return (<Document></Document>)
+                return (<Document document={exams}></Document>)
             case 'bai-hoc':
-                return (<Lesson></Lesson>)
+                return (<Lesson lesson={courses}></Lesson>)
             case 'khoa-hoc':
-                return (<Courses></Courses>)
+                return (<Courses  course={courses}></Courses>)
             default:
                 return <Exam></Exam>
         }
@@ -37,9 +56,12 @@ const Search = () => {
                 Kết quả tìm kiếm cho "<span style={{ color: '#7B68EE' }}>{searchRedux}</span>"
             </p>
             <GroupButton active={active} handleClickChangeType={handleClickChangeType}></GroupButton>
-            {
-                render()
-            }
+            <div style={{ marginTop: '15px' }}>
+                {
+                    render()
+                }
+            </div>
+
         </div>
     )
 }
