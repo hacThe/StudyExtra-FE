@@ -1,7 +1,7 @@
 import { searchContants } from "../constaint/search.contants";
 
 const initialState = {
-    search: "Test",
+    search: "",
     error: ""
 };
 

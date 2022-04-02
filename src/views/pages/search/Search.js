@@ -29,22 +29,32 @@ const Search = () => {
                     console.log(err)
                 })
         }
-
         getData();
-
     }, [searchRedux])
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/api/search/getSearchData?search=`)
+            .then(res => {
+                setExams(res.data.exam)
+                setCourses(res.data.course)
+                console.log(res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }, [])
 
 
     const render = () => {
         switch (active) {
             case 'de-thi':
-                return (<Exam  exam={exams}></Exam>)
+                return (<Exam exam={exams}></Exam>)
             case 'tai-lieu':
                 return (<Document document={exams}></Document>)
             case 'bai-hoc':
                 return (<Lesson lesson={courses}></Lesson>)
             case 'khoa-hoc':
-                return (<Courses  course={courses}></Courses>)
+                return (<Courses course={courses}></Courses>)
             default:
                 return <Exam></Exam>
         }
@@ -52,9 +62,11 @@ const Search = () => {
 
     return (
         <div className="search">
-            <p style={{ fontSize: '28px', fontWeight: '700', fontFamily: "'Montserrat', san-serif" }}>
-                Kết quả tìm kiếm cho "<span style={{ color: '#7B68EE' }}>{searchRedux}</span>"
-            </p>
+            {searchRedux.length !== 0 ? (
+                <p style={{ fontSize: '28px', fontWeight: '700', fontFamily: "'Montserrat', san-serif" }}>
+                    Kết quả tìm kiếm cho "<span style={{ color: '#7B68EE' }}>{searchRedux}</span>"
+                </p>
+            ) : null}
             <GroupButton active={active} handleClickChangeType={handleClickChangeType}></GroupButton>
             <div style={{ marginTop: '15px' }}>
                 {

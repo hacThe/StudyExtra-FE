@@ -23,7 +23,7 @@ function Exam(props) {
                 }
             })
                 :
-                <h1>Không có kết quả tìm kiếm</h1>
+                <h1 style={{margin:'50px'}}>Không có kết quả tìm kiếm</h1>
             }
 
 

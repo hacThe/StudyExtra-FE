@@ -23,7 +23,7 @@ function Document(props) {
                 }
             })
                 :
-                <h1>Không có kết quả tìm kiếm</h1>
+                <h1 style={{margin:'50px'}}>Không có kết quả tìm kiếm</h1>
             }
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <PaginationOutlined setCurrentPage={setCurrentPage} page={page} index={props.document.length}></PaginationOutlined>
