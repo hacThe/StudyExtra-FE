@@ -15,7 +15,7 @@ const Lesson = () => {
     return (
         <div className="lesson-wrapper">
             <Grid container spacing={2}>
-                <Grid item xs={8} className="lesson-detail">
+                <Grid item xs={12} sm={12} md={12} lg={8} className="lesson-detail">
                     <div className='video-responsive'>
                         <iframe 
                             className="lesson-video" 
@@ -67,7 +67,7 @@ const Lesson = () => {
                         </div>
                     </div>
                 </Grid>
-                <Grid item xs={4} className="lesson-overall">
+                <Grid item xs={12} sm={12} md={12} lg={4} className="lesson-overall">
                     <LessonOverall/>
                 </Grid>
             </Grid>
