@@ -6,24 +6,53 @@ import Pagination from './components/Pagination';
 import DocumentCard from './components/DocumentCard';
 
 import axios from 'axios';
-
+import {documentActions} from '../../../actions/document.actions';
+import { useDispatch, useSelector } from "react-redux";
 
 
 function Document(){
-    const [documents, setDocuments] = useState([]);
-    useEffect(async () => {
-            async function fetchData() {
-            await axios.get(`http://localhost:5000/api/document/getAllDocument`)
-                .then(res => {
-                    setDocuments(res.data.data);
-                    console.log("document", documents);
-                })
-                .catch( (err) => {
-                console.log("err", err)
-                })
-            }
-        fetchData();
-    }, [])
+    const dispatch = useDispatch();
+
+    // const [documents, setDocuments] = useState([]);
+    // useEffect(async () => {
+    //     async function fetchData() {
+    //     await axios.get(`http://localhost:5000/api/document/`)
+    //         .then(res => {
+    //             setDocuments(res.data.data);
+    //             console.log("document", documents);
+    //         })
+    //         .catch( (err) => {
+    //             console.log("err", err)
+    //         })
+    //     }
+    //     fetchData();
+    // }, [])
+
+    const documents =
+        useSelector((state) => {
+            console.log({ state });
+            return state.document.documents;
+        }) || [];
+
+    console.log("documents vip", documents);
+
+    useSelector((state) => {
+        console.log("all state", { state });
+    })
+
+    React.useEffect(async () => {
+        dispatch(documentActions.getAllDocument());
+    }, []);
+
+
+    
+    // dispatch(documentActions.changePagination(9))
+    // var currentPage =
+    //     useSelector((state) => {
+    //         console.log("all state", { state });
+    //         return state.document.pagination;
+    //     }) || 0;
+    // console.log("currentPage", currentPage);
 
     return (
         <div className="document-page-container">
@@ -52,7 +81,7 @@ function Document(){
                     </div>
                     <div className="document-list">
                     {
-                        documents == null ? (null) :
+                        documents == null ? (<div>Loading....</div>) :
                         documents.map((document) => (
                             <DocumentCard name={document.name} views={document.views}/>
                         ))

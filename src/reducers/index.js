@@ -6,10 +6,10 @@ import { document } from "./document.reducer";
 
 
 const rootReducer = combineReducers({
-  app, // appReducer
-  document,
-  course, // course
-  authentication
+    app, // appReducer
+    document, // document
+    course, // course
+    authentication
 });
 
 export default rootReducer;
