@@ -24,16 +24,23 @@
             .panel-choose.active{
                 color: #000;
                 position: relative;
+                .active-bar{
+                    height: 2px;
+                    background-color: #000;
+                    width: calc(100% + 24px);
+                    position: absolute;
+                    right: -14px;
+                    top: 24px;
+                }
+                .content{
+                    width: calc(100% + 31px);
+                    right: -22px;
+                }
+                .notion{
+                    width: calc(100% + 50px);
+                    right: -26px;
+                }
             }   
-            .panel-choose.active::before{
-                content: "";
-                height: 2px;
-                background-color: #000;
-                width: calc(100% + 24px);
-                position: absolute;
-                right: -14px;
-                top: 24px;
-            }
             .vertical-divider{
                 width: 1px;
                 height: 2rem;

@@ -35,22 +35,30 @@
                 .panel-choose.active{
                     color: #000;
                     position: relative;
+                    .active-bar{
+                        height: 2px;
+                        background-color: #000;
+                        width: calc(100% + 24px);
+                        position: absolute;
+                        right: -14px;
+                        top: 24px;
+                    }
+                    .overall{
+                        width: calc(100% + 32px);
+                        right: -23px;
+                    }
+                    .document{
+                        width: calc(100% + 44px);
+                        right: -20px;
+                    }
                 }   
-                .panel-choose.active::before{
-                    content: "";
-                    height: 2px;
-                    background-color: #000;
-                    width: calc(100% + 24px);
-                    position: absolute;
-                    right: -14px;
-                    top: 24px;
-                }  
                 .vertical-divider{
                     width: 1px;
                     height: 2rem;
                     background-color: #AEAEAE;
                     margin: 0 2.4rem;
                 }
+                
             }
             .horizontal-divider{
                 width: 44rem;

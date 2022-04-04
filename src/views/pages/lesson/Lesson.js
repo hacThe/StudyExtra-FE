@@ -31,7 +31,11 @@ const Lesson = () => {
                                 className={panel==1 ? 'panel-choose active' : 'panel-choose'}
                             >
                                 Tổng quan
+                                <div className='active-bar overall'>
+
+                                </div>
                             </div>
+                            
                             <div className='vertical-divider'>
                                 
                             </div>
@@ -40,7 +44,11 @@ const Lesson = () => {
                                 className={panel==2 ? 'panel-choose active' : 'panel-choose'}
                             >
                                 Tài liệu
+                                <div className='active-bar document'>
+
+                                </div>
                             </div>
+                            
                         </div>
                         <div className='horizontal-divider'>
                             

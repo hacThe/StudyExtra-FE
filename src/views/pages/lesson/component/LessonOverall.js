@@ -19,6 +19,9 @@ const LessonOverall= () => {
                         className={panel==1 ? 'panel-choose active' : 'panel-choose'}
                     >
                         Nội dung
+                        <div className='active-bar content'>
+                            
+                        </div>
                     </div>
                     <div className='vertical-divider'>
                         
@@ -28,6 +31,9 @@ const LessonOverall= () => {
                         className={panel==2 ? 'panel-choose active' : 'panel-choose'}
                     >
                         Ghi chú
+                        <div className='active-bar notion'>
+
+                        </div>
                     </div>
                 </div>
                 <div className='horizontal-divider'>
