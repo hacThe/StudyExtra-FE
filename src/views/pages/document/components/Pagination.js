@@ -59,7 +59,9 @@ const Pagination = ({page}) => {
                 }
                 {
                     (pages.length <= pageDisplayLimit) 
-                        || (pageDisplayLimit*(paginationIndex+1) > page ) ? (null) :
+                        || (pageDisplayLimit*(paginationIndex+1) > page ) 
+                        || (paginationIndex + 1 == page / pageDisplayLimit && page % pageDisplayLimit == 0)
+                        ? (null) :
                         <button className="page-button">
                             ...
                         </button>

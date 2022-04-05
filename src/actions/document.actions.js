@@ -26,7 +26,6 @@ function getAllDocument(){
         documentService.getAllDocument().then(
             (documents)=>{
                 dispatch(success(documents))
-                console.log("Get documents ",{documents})
             },
             (error)=>{
                 dispatch(failure(error.toString()))

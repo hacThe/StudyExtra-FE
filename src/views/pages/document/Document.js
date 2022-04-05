@@ -12,21 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 function Document(){
     const dispatch = useDispatch();
-
-    // const [documents, setDocuments] = useState([]);
-    // useEffect(async () => {
-    //     async function fetchData() {
-    //     await axios.get(`http://localhost:5000/api/document/`)
-    //         .then(res => {
-    //             setDocuments(res.data.data);
-    //             console.log("document", documents);
-    //         })
-    //         .catch( (err) => {
-    //             console.log("err", err)
-    //         })
-    //     }
-    //     fetchData();
-    // }, [])
     const types = ["Tất cả", "Lớp 10", "Lớp 11", "Lớp 12", "Luyện Thi", "Khác"];
     const [currentTypeSelect, setCurrentType] = useState(0);
     const changeType = (event, newValue) => {
@@ -34,25 +19,44 @@ function Document(){
     };
 
     const filters = ["Mới nhất", "Cũ nhất", "Xem nhiều nhất", "Xem ít nhất"];
+    
+    // Xử lý pagination
+    const documentItemLimit = 3;
+    const [pagePagination, setPagePagination] = useState(0);
+    const changePagePagination =  (newValue) => {
+        setPagePagination(newValue);
+    }
 
+    const itemDisplayIndex =
+        useSelector((state) => {
+            return state.document.pagination -1;
+        }) || 0;
+
+
+    React.useEffect(async () => {
+        dispatch(documentActions.getAllDocument());
+        console.log("documents.length", documents.length);
+        var documentLength = documents.length;
+        var numberPage = Math.ceil(documentLength / documentItemLimit);
+        if(documentLength % documentItemLimit == 0) numberPage--;
+        changePagePagination(numberPage);
+    }, []);
     const documents =
         useSelector((state) => {
             // console.log({ state });
             return state.document.documents;
         }) || [];
 
-    console.log("documents vip", documents);
-
+    console.log("documents vip", documents, documents.length);
     useSelector((state) => {
         console.log("all state", { state });
     })
 
-    React.useEffect(async () => {
-        dispatch(documentActions.getAllDocument());
-    }, []);
-
-
     
+
+
+
+
     // dispatch(documentActions.changePagination(9))
     // var currentPage =
     //     useSelector((state) => {
@@ -96,13 +100,14 @@ function Document(){
                     <div className="document-list">
                     {
                         documents == null ? (<div>Loading....</div>) :
-                        documents.map((document) => (
-                            <DocumentCard name={document.name} views={document.views}/>
+                        documents.map((document, index) => (
+                            (itemDisplayIndex*documentItemLimit <= index && index < itemDisplayIndex*documentItemLimit + documentItemLimit)
+                            ? <DocumentCard name={document.name} views={document.views}/> : (null)
                         ))
                     } 
                     </div>
                     <div className='ranking-footer'>
-                        <Pagination page={4}/>
+                        <Pagination page={pagePagination}/>
                     </div>
                 </div>
             </div>
