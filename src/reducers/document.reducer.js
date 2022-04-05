@@ -11,9 +11,11 @@ export function document(state = initialState, action) {
     console.log('dispatch from document.reducer');
     switch (action.type) {
         case documentConstants.CHANGE_PAGINATION_REQUEST:
-            console.log("action change page", action);
-            var newState = {...initialState};
+            // console.log("action change page", action);
+            var newState = {...state};
+            // console.log("currentState", state);
             newState.pagination = action.page;
+            // console.log("newState", newState);
             return newState;
         case documentConstants.GET_DOCUMENT_REQUEST: 
             return {

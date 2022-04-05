@@ -27,10 +27,17 @@ function Document(){
     //     }
     //     fetchData();
     // }, [])
+    const types = ["Tất cả", "Lớp 10", "Lớp 11", "Lớp 12", "Luyện Thi", "Khác"];
+    const [currentTypeSelect, setCurrentType] = useState(0);
+    const changeType = (event, newValue) => {
+        setCurrentType(newValue);
+    };
+
+    const filters = ["Mới nhất", "Cũ nhất", "Xem nhiều nhất", "Xem ít nhất"];
 
     const documents =
         useSelector((state) => {
-            console.log({ state });
+            // console.log({ state });
             return state.document.documents;
         }) || [];
 
@@ -59,12 +66,17 @@ function Document(){
             <div className="document-container">
                 <div className="document-body">
                     <div className='document-option-container'>
-                        <Button className='button-option' style={{textTransform: 'none'}}>Tất cả</Button>
-                        <Button className='button-option active' style={{textTransform: 'none'}}>Lớp 11</Button>
-                        <Button className='button-option' style={{textTransform: 'none'}}>Lớp 10</Button>
-                        <Button className='button-option' style={{textTransform: 'none'}}>Lớp 12</Button>
-                        <Button className='button-option' style={{textTransform: 'none'}}>Luyện thi</Button>
-                        <Button className='button-option' style={{textTransform: 'none'}}>Khác</Button>
+                        {
+                            types.map((type, index) => (
+                                <Button 
+                                    className= {currentTypeSelect == index ? 'button-option active':'button-option'}
+                                    style={{textTransform: 'none'}}
+                                    onClick={(e)=> changeType(e,index)}
+                                >
+                                    {type}
+                                </Button>
+                            ))
+                        }
                     </div>
                     <div className='document-sorting'>
                         <div className='sorting-label'>Sắp xếp theo</div>
@@ -74,9 +86,11 @@ function Document(){
                             label="Age"
                             className='sorting-control'
                         >
-                            <option className="sorting-item">Mới nhất</option>
-                            <option className="sorting-item">Cũ nhất</option>
-                            <option className="sorting-item">Xem nhiều nhất</option>
+                            {
+                                filters.map((filter, index)=>(
+                                    <option className="sorting-item">{filter}</option>
+                                ))
+                            }
                         </select>
                     </div>
                     <div className="document-list">
@@ -88,7 +102,7 @@ function Document(){
                     } 
                     </div>
                     <div className='ranking-footer'>
-                        <Pagination page={3} />
+                        <Pagination page={4}/>
                     </div>
                 </div>
             </div>
