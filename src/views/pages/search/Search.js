@@ -6,42 +6,48 @@ import Exam from "./Components/Exam";
 import Document from "./Components/Document";
 import Lesson from "./Components/Lesson";
 import Courses from "./Components/Courses";
-import axios from 'axios'
-
+import { searchAction } from '../../../actions/search.action'
 
 const Search = () => {
+    const dispatch = useDispatch()
     const [active, setActive] = useState('de-thi');
     const searchRedux = useSelector(state => state.search.search)
+    const exams = useSelector(state => state.search.exams)
+    const courses = useSelector(state=>state.search.courses)
     const handleClickChangeType = (type) => {
         setActive(type)
     }
-    const [exams, setExams] = useState([])
-    const [courses, setCourses] = useState([])
+
+    // const [exams, setExams] = useState([])
+    // const [courses, setCourses] = useState([])
     useEffect(() => {
+       
         const getData = async () => {
-            axios.get(`http://localhost:5000/api/search/getSearchData?search=${searchRedux}`)
-                .then(res => {
-                    setExams(res.data.exam)
-                    setCourses(res.data.course)
-                    console.log(res)
-                })
-                .catch(err => {
-                    console.log(err)
-                })
+            dispatch(searchAction.getDataFromSearch(searchRedux))
+            // axios.get(`http://localhost:5000/api/search/getSearchData?search=${searchRedux.search}`)
+            //     .then(res => {
+            //         setExams(res.data.exam)
+            //         setCourses(res.data.course)
+            //         console.log(res)
+            //     })
+            //     .catch(err => {
+            //         console.log(err)
+            //     })
         }
         getData();
     }, [searchRedux])
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/search/getSearchData?search=`)
-            .then(res => {
-                setExams(res.data.exam)
-                setCourses(res.data.course)
-                console.log(res)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        dispatch(searchAction.getDataFromSearch(undefined))
+        // axios.get(`http://localhost:5000/api/search/getSearchData?search=`)
+        //     .then(res => {
+        //         setExams(res.data.exam)
+        //         setCourses(res.data.course)
+        //         console.log(res)
+        //     })
+        //     .catch(err => {
+        //         console.log(err)
+        //     })
     }, [])
 
 

@@ -3,7 +3,7 @@ import React from 'react';
 import SliderCourses from './SliderCourses';
 function YourCourses(props) {
     return (
-        <div style={{ marginTop: '25px', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' , height:'300px'}}>
+        <div style={{ marginTop: '55px', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' , height:'300px'}}>
             <Container maxWidth={false} container spacing={0}>
                 <Grid container spacing={0}>
                     <Grid md={12} sm={12}>

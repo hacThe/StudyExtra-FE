@@ -4,7 +4,7 @@ import { FiChevronsRight } from 'react-icons/fi'
 import QuestionComponent from './QuestionComponent';
 function QAndA(props) {
     return (
-        <div style={{ marginTop: '25px' }}>
+        <div style={{ marginTop: '55px' }}>
             <Container maxWidth={false} container spacing={0}>
                 <Grid container spacing={0}>
                     <Grid md={12} sm={12}>

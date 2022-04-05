@@ -18,7 +18,6 @@ export function course(state = initialState, action) {
     case courseConstants.GET_COURSES_SUCCESS:
       return {
         ...state,
-        isLoading: false,
         courses: action.courses
       };
     case courseConstants.GET_COURSES_FAILURE:
