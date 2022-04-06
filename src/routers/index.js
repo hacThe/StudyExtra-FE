@@ -2,6 +2,7 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import routes from "../routes";
 import React from "react";
 import { useSelector } from "react-redux";
+import ManagerContent from "../views/pages/manager/manager-layout/ManagerContent";
 
 const loading = (
   <div>
@@ -44,6 +45,22 @@ const Routers = () => {
           name="Cập nhật thông tin người dùng"
           element={<UpdateInfo />}
         />
+
+        <Route path="/quan-ly" name="Trang chủ" element={<ManagerContent />}>
+          {
+            routes.managerRoute.map((route, idx) => {
+              return (
+                route.element && (
+                  <Route
+                    key={route.path}
+                    path={route.path}
+                    element={route.element}
+                  />
+                )
+              );
+            })
+          }
+        </Route>
         <Route path="/" name="Trang chủ" element={<TheContent />}>
           <Route index name="Trang chủ" element={<Navigate to="trang-chu" />} />
 

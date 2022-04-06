@@ -40,10 +40,19 @@ const protectedRoute = [
   
 ]
 
+const managerRoute = [
+  {path: '/quan-ly/dashboard', name: 'Trang chủ', element:<h1>Dash board</h1>},
+  {path: '/quan-ly/khoa-hoc', name: 'Trang chủ', element:<h1>Quan ly khoa hoc</h1>},
+  {path: '/quan-ly/nguoi-dung', name: 'Trang chủ', element:<h1>Quan ly nguoi dung</h1>},
+  {path: '/quan-ly/tai-lieu', name: 'Trang chủ', element:<h1>Quan ly tai lieu</h1>},
+  {path: '/quan-ly/thi-thu', name: 'Trang chủ', element:<h1>Quan ly thi thu</h1>},
+]
+
 const routes = {
   publicRoute,
   protectedRoute,
-  commonRoute
+  commonRoute,
+  managerRoute
 }
 
 export default routes;
