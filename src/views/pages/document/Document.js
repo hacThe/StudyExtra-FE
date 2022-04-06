@@ -29,18 +29,19 @@ function Document(){
 
     const itemDisplayIndex =
         useSelector((state) => {
-            return state.document.pagination -1;
+            return state.document.pagination - 1;
         }) || 0;
 
 
     React.useEffect(async () => {
-        dispatch(documentActions.getAllDocument());
+        await dispatch(documentActions.getAllDocument());
         console.log("documents.length", documents.length);
         var documentLength = documents.length;
         var numberPage = Math.ceil(documentLength / documentItemLimit);
         if(documentLength % documentItemLimit == 0) numberPage--;
         changePagePagination(numberPage);
     }, []);
+    
     const documents =
         useSelector((state) => {
             // console.log({ state });

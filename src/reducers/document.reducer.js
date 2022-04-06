@@ -8,10 +8,10 @@ const initialState = {
 };
    
 export function document(state = initialState, action) {
-    console.log('dispatch from document.reducer');
+    // console.log("inside document redux")
     switch (action.type) {
         case documentConstants.CHANGE_PAGINATION_REQUEST:
-            // console.log("action change page", action);
+            console.log("action change page", action);
             var newState = {...state};
             // console.log("currentState", state);
             newState.pagination = action.page;

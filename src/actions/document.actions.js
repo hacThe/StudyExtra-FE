@@ -1,7 +1,6 @@
 import {documentConstants} from '../constaint/';
 import { documentService } from '../services';
 
-
 export const documentActions = {
     changePagination,
     getAllDocument

@@ -7,7 +7,7 @@ import { IoIosArrowBack, IoIosArrowForward} from "react-icons/io";
 const Pagination = ({page}) => {
     const dispatch = useDispatch();
 
-    const pageDisplayLimit = 3;
+    const pageDisplayLimit = 2;
     const currentPage =
         useSelector((state) => {
             return state.document.pagination;
@@ -22,11 +22,23 @@ const Pagination = ({page}) => {
     };
     const increasePaginationIndex = (event) => {
         if(paginationIndex + 1 < (page)/pageDisplayLimit && page > pageDisplayLimit){
+
+            if(currentPage < (paginationIndex+1)*pageDisplayLimit + 1){
+                var newCurrentPage = (paginationIndex+1)*pageDisplayLimit + 1;
+                console.log("newcurrent page <", newCurrentPage);
+                changePage(newCurrentPage);
+            }
             setPaginationIndex(paginationIndex+1);
         }
+        
     };
     const decreasePaginationIndex = (event) => {
         if(paginationIndex > 0){
+                if(currentPage>(paginationIndex)*(pageDisplayLimit)){
+                    var newCurrentPage = (paginationIndex)*(pageDisplayLimit);
+                    console.log("newcurrent page >", newCurrentPage);
+                    changePage(newCurrentPage);
+                }
             setPaginationIndex(paginationIndex-1);
         }
     };

@@ -1,16 +1,15 @@
-// // import {documentConstants} from '../constaints';
+import { rankingConstants } from "../constaint";
+import { rankingService } from "../services/ranking.services";
+export const rankingActions = {
+    changePagination,
+}
 
-// export const rankingActions = {
-//     changePagination,
-// }
 
-
-// function changePagination(page){
-//     return (dispatch)=>{
-//         dispatch(request())
-//         console.log("change pagination has called")
-//         function request() {
-//             return { type: documentConstants.CHANGE_PAGINATION_REQUEST };
-//         }
-//     }
-// }
+function changePagination(page){
+    return (dispatch)=>{
+        dispatch(request())
+        function request() {
+            return { type: rankingConstants.CHANGE_PAGINATION_REQUEST , page: page};
+        }
+    }
+}
