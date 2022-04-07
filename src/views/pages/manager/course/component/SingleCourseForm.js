@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Grid, Stack } from "@mui/material";
 import "./SingleCourseForm.scss";
+import DragAndDropList from "./DragAndDropList";
 
 function SingleCourseForm(props) {
   const formik = useFormik({
@@ -80,7 +81,7 @@ function SingleCourseForm(props) {
         </Grid>
       </div>
 
-      <div className="mb3">
+      <div className="mb-3">
         <label htmlFor="name">Tên khóa học</label>
         <input
           type="text"
@@ -97,7 +98,7 @@ function SingleCourseForm(props) {
       
 
 
-      <div className="mb3">
+      <div className="mb-3">
         <label htmlFor="price">Giá khóa học</label>
         <input
           type="text"
@@ -112,8 +113,8 @@ function SingleCourseForm(props) {
       </div>
 
 
-      <div className="mb3">
-        <label htmlFor="name">Tên khóa học</label>
+      <div className="mb-3">
+        <label htmlFor="name">Mô tả</label>
         <textarea
           id="description"
           name="description"
@@ -124,7 +125,50 @@ function SingleCourseForm(props) {
           <p className="input-error-validation"> {formik.errors.description} </p>
         )}
       </div>
+
+      <div className="mb-3">
+        <span className="input-label mb-2">Tổng quan khóa học</span>
+        <DragAndDropList/>
+        <div className="add-new-item-to-list-wrapper">
+        <div className="justify-content-between">
+              <input
+                type="text"
+                id="newOverview"
+                name="newOverview"
+              />
+              <p className="se-btn">Thêm</p>
+            </div>
+        </div>
+      </div>
+
+
+      <div className="mb-3">
+        <span className="input-label mb-2">Nội dung bài học</span>
+
+      </div>
+
+
+
+      <div className="mb-3">
+        <span className="input-label mb-2">Yêu cầu trình độ</span>
+        <DragAndDropList/>
+        <div className="add-new-item-to-list-wrapper">
+        <div className="justify-content-between">
+              <input
+                type="text"
+                id="newRequirement"
+                name="newRequirement"
+              />
+              <p className="se-btn">Thêm</p>
+            </div>
+        </div>
+      </div>
+
+
+
     </div>
+
+
   );
 }
 

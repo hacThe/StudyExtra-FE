@@ -1,12 +1,12 @@
 import * as React from "react";
 import { NavLink } from "react-router-dom";
 import { BsQuestionCircleFill } from "react-icons/bs";
-import { AiOutlineDashboard} from "react-icons/ai";
+import { AiOutlineDashboard } from "react-icons/ai";
 import { MdPlayLesson } from "react-icons/md";
 import { IoIosDocument } from "react-icons/io";
 import { FaUserGraduate } from "react-icons/fa";
 import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
-import "./ManagerSideBar.scss"
+import "./ManagerSideBar.scss";
 function TheNavigation() {
   const menuList = [
     {
@@ -34,31 +34,37 @@ function TheNavigation() {
       icon: <BsQuestionCircleFill />,
       link: "/quan-ly/thi-thu",
     },
-    
   ];
   return (
     <>
       <div className="manager-side-bar-wrapper">
-        <div className="branding-heading">
+        <div className="mystery-box"></div>
+        <div className="fixed-position-content">
+          <div className="branding-heading">
             <h1>Study extra manager</h1>
-        </div>
-        <List className="manager-side-bar">
-          {menuList.map((item, index) => (
-            <NavLink
-            style={({ isActive }) =>
-              isActive ? {backgroundColor: "#8C79FF"} : undefined
-            }
-             to={item.link}
-             key={index}>
-              <ListItem className="manager-nav-item"
-              sx={{gutters: "24px"}}
+          </div>
+          <List className="manager-side-bar">
+            {menuList.map((item, index) => (
+              <NavLink
+                style={({ isActive }) =>
+                  isActive ? { backgroundColor: "#8C79FF" } : undefined
+                }
+                to={item.link}
+                key={index}
               >
-                <ListItemIcon className="manager-nav-leading">{item.icon}</ListItemIcon>
-                <ListItemText className="manager-nav-content" primary={item.name} />
-              </ListItem>
-            </NavLink>
-          ))}
-        </List>
+                <ListItem className="manager-nav-item" sx={{ gutters: "24px" }}>
+                  <ListItemIcon className="manager-nav-leading">
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    className="manager-nav-content"
+                    primary={item.name}
+                  />
+                </ListItem>
+              </NavLink>
+            ))}
+          </List>
+        </div>
       </div>
     </>
   );
