@@ -7,13 +7,7 @@ import TheNavigation from "./TheNavigation";
 import "./TheContent.scss";
 import { Box } from "@mui/material";
 
-// routes config
 
-// const loading = (
-//   <div>
-//     <p>Loading...</p>
-//   </div>
-// )
 const TheBody = () => {
   return (
     <>

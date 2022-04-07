@@ -3,6 +3,21 @@
   background-position: center;
   background-size: cover;
 
+  button{
+    display: block;
+    width: 100%;
+    margin-top: 1.8rem;
+  }
+
+  input{
+    width: 100%;
+  }
+
+  form{
+    margin: auto;
+    width: 80%;
+  }
+
   .login-with-username-and-password-modal,
   .list-of-login-method-modal {
     padding-left: 40px;
@@ -51,10 +66,7 @@
         }
     }
 
-    input {
-      border-radius: 20px;
-      font-family: "Montserrat", sans-serif !important;
-    }
+    
 
     .se-btn {
       border-radius: 30px;

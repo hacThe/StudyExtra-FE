@@ -71,7 +71,7 @@ function CourseDetailLeftSide(props) {
           <Grid container spacing={2}>
             <CheckListTile content="This is a beautiful list tile of content" />
     
-            <CheckListTile content="This is a beautiful list tile of content" />
+            <CheckListTile content="This is a beautiful list tile of This is a beaThis is a beautiful list tile of contentThis is a beautiful list tile of contentThis is a beautiful list tile of contentutiful list tile of content" />
     
             <CheckListTile content="This is a beautiful list tile of content" />
     

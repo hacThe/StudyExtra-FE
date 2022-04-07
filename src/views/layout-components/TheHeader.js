@@ -325,7 +325,7 @@ function TheHeader() {
                 <Avatar
                   sx={{ bgcolor: "green[500]", width: 36, height: 36 }}
                   variant="rounded"
-                  src="https://fullstack.edu.vn/assets/icon/f8_icon.png"
+                  src="../../public/SE-LOGO.png"
                 ></Avatar>
               </Link>
               <Typography

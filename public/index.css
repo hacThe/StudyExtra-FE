@@ -1,0 +1,29 @@
+
+html{
+    font-size: 62.5% !important;
+    line-height: 1.6em;
+    font-family: "Montserrat", sans-serif;
+    box-sizing: border-box;
+    
+  }
+
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --primary-color: #7b68ee;
+    --fade-text-color: #747474;
+    --background-color: #fff;
+    --foreground-color: #000;
+    --hover-background-color: #eeeeee;
+  }
+  
+  body {
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    background-color: #F4F4F4;
+  }
+  

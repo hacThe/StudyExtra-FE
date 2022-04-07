@@ -13,6 +13,15 @@ const Lesson = React.lazy(() => import('./views/pages/lesson/Lesson'));
 const Overall = React.lazy(() => import('./views/pages/overall/Overall'))
 const Search = React.lazy(() => import('./views/pages/search/Search'));
 const Socket = React.lazy(() => import('./views/pages/search/TestSocker'));
+const CourseListManager = React.lazy(()=> import('./views/pages/manager/course/CourseListManager/CourseListManager'))
+const CourseDetailManager = React.lazy(()=> import('./views/pages/manager/course/CourseDetailManager/CourseDetailManager'))
+const AddCourse = React.lazy(()=>import("./views/pages/manager/course/AddCourse/AddCourse"))
+const EditCourse = React.lazy(()=>import("./views/pages/manager/course/EditCourse/EditCourse"))
+
+
+const ExamListManager = React.lazy(()=>import('./views/pages/manager/exam/ExamListManager/ExamListManager'))
+const AddExam = React.lazy(()=>import("./views/pages/manager/exam/AddExam/AddExam"))
+const EditExam = React.lazy(()=>import("./views/pages/manager/exam/EditExam/EditExam"))
 
 // Những route chỉ truy xuất khi chưa đăng nhập
 const publicRoute = [
@@ -49,10 +58,24 @@ const protectedRoute = [
   
 ]
 
+const managerRoute = [
+  {path: '/quan-ly/dashboard', name: 'Trang chủ', element:<h1>Dash board</h1>},
+  {path: '/quan-ly/khoa-hoc', name: 'Trang chủ', element:<CourseListManager/>},
+  {path: '/quan-ly/khoa-hoc/:id', name: 'Trang chủ', element:<CourseDetailManager/>},
+  {path: '/quan-ly/khoa-hoc/chinh-sua/:id', name: 'Trang chủ', element:<EditCourse/>},
+  {path: '/quan-ly/khoa-hoc/tao-moi', name: 'Trang chủ', element:<AddCourse/>},
+  {path: '/quan-ly/nguoi-dung', name: 'Trang chủ', element:<h1>Quan ly nguoi dung</h1>},
+  {path: '/quan-ly/tai-lieu', name: 'Trang chủ', element:<h1>Quan ly tai lieu</h1>},
+  {path: '/quan-ly/thi-thu', name: 'Trang chủ', element:<h1><ExamListManager/></h1>},
+  {path: '/quan-ly/thi-thu/tao-moi', name: 'Trang chủ', element:<h1><AddExam/></h1>},
+  {path: '/quan-ly/thi-thu/chinh-sua/:id', name: 'Trang chủ', element:<h1><EditExam/></h1>},
+]
+
 const routes = {
   publicRoute,
   protectedRoute,
-  commonRoute
+  commonRoute,
+  managerRoute
 }
 
 export default routes;
