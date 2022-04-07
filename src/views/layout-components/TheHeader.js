@@ -341,7 +341,7 @@ function TheHeader() {
             <Grid item md={4} xs={6} className="search-box">
               <Box className="search-group">
                 <NavLink className={'link-to-search'} to={'tim-kiem'} >
-                  <BiSearch onClick={(e) => handleClickSearch(e)} className="search-icon" />
+                  <BiSearch  onClick={(e) => handleClickSearch(e)} className="search-icon" />
                 </NavLink>
                 <InputBase
                   placeholder="Tìm kiếm khóa học, tài liệu,..."

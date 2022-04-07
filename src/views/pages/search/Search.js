@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
+import { Container } from "react-bootstrap";
 import './Search.scss'
 import GroupButton from "./Components/GroupButton";
 import Exam from "./Components/Exam";
@@ -12,16 +13,14 @@ const Search = () => {
     const dispatch = useDispatch()
     const [active, setActive] = useState('de-thi');
     const searchRedux = useSelector(state => state.search.search)
-    const exams = useSelector(state => state.search.exams)
-    const courses = useSelector(state=>state.search.courses)
+    const exams = useSelector(state => state.search.exams) || []
+    const courses = useSelector(state => state.search.courses) || []
+
     const handleClickChangeType = (type) => {
         setActive(type)
     }
 
-    // const [exams, setExams] = useState([])
-    // const [courses, setCourses] = useState([])
     useEffect(() => {
-       
         const getData = async () => {
             dispatch(searchAction.getDataFromSearch(searchRedux))
             // axios.get(`http://localhost:5000/api/search/getSearchData?search=${searchRedux.search}`)
@@ -35,19 +34,10 @@ const Search = () => {
             //     })
         }
         getData();
-    }, [searchRedux])
+    }, [searchRedux, dispatch])
 
     useEffect(() => {
-        dispatch(searchAction.getDataFromSearch(undefined))
-        // axios.get(`http://localhost:5000/api/search/getSearchData?search=`)
-        //     .then(res => {
-        //         setExams(res.data.exam)
-        //         setCourses(res.data.course)
-        //         console.log(res)
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //     })
+        // dispatch(searchAction.getDataFromSearch(undefined))
     }, [])
 
 
@@ -62,25 +52,28 @@ const Search = () => {
             case 'khoa-hoc':
                 return (<Courses course={courses}></Courses>)
             default:
-                return <Exam></Exam>
+                return <Exam exam={exams}></Exam>
         }
     }
 
     return (
-        <div className="search">
-            {searchRedux.length !== 0 ? (
-                <p style={{ fontSize: '28px', fontWeight: '700', fontFamily: "'Montserrat', san-serif" }}>
-                    Kết quả tìm kiếm cho "<span style={{ color: '#7B68EE' }}>{searchRedux}</span>"
-                </p>
-            ) : null}
-            <GroupButton active={active} handleClickChangeType={handleClickChangeType}></GroupButton>
-            <div style={{ marginTop: '15px' }}>
-                {
-                    render()
-                }
-            </div>
+        <Container maxWidth={'xl'}>
+            <div className="search">
+                {searchRedux.length !== 0 ? (
+                    <p style={{ fontSize: '28px', fontWeight: '700', fontFamily: "'Montserrat', san-serif" }}>
+                        Kết quả tìm kiếm cho "<span style={{ color: '#7B68EE' }}>{searchRedux}</span>"
+                    </p>
+                ) : null}
+                <GroupButton active={active} handleClickChangeType={handleClickChangeType}></GroupButton>
+                <div style={{ marginTop: '15px' }}>
+                    {
+                        render()
+                    }
+                </div>
 
-        </div>
+            </div>
+        </Container>
+
     )
 }
 

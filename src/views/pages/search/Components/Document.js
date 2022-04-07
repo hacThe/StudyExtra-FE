@@ -18,7 +18,7 @@ function Document(props) {
             {props.document.length !== 0 ? props.document.map((document, num) => {
                 if (num < page * 8 && num >= (page - 1) * 8) {
                     return (
-                        <DocumentCard document={document}></DocumentCard>
+                        <DocumentCard key={num} document={document}></DocumentCard>
                     )
                 }
             })

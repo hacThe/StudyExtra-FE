@@ -13,14 +13,17 @@ function Exam(props) {
         setPage(num)
     }
 
+    
+
     return (
         <div style={{ marginTop: '10px' }}>
-            {props.exam.length !== 0 ? props.exam.map((exam, num) => {
+            {props.exam.length !== 0  ? props.exam.map((exam, num) => {
                 if (num < page * 8 && num >= (page - 1) * 8) {
                     return (
-                        <ExamCard exam={exam}></ExamCard>
+                        <ExamCard key={num} exam={exam}></ExamCard>
                     )
                 }
+                return null;
             })
                 :
                 <h1 style={{margin:'50px'}}>Không có kết quả tìm kiếm</h1>

@@ -1,9 +1,16 @@
 import React, { useEffect, useState, useRef } from 'react';
 import socketIOClient from 'socket.io-client';
 
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+import { deepOrange } from '@mui/material/colors';
+
+
 const host = 'http://localhost:5000'
 function TestSocker(props) {
     const socketRef = useRef()
+
+    const [user, setUser] = useState([])
 
     const [chats, setChat] = useState([])
     const [id, setId] = useState('')
@@ -26,6 +33,9 @@ function TestSocker(props) {
             setChatsPublic(oldChat => [...oldChat, data])
         })
 
+        // socketRef.current.emit('room', 'ID101')
+
+        
 
         return () => {
             socketRef.current.disconnect()
@@ -73,17 +83,29 @@ function TestSocker(props) {
 
     const handleSubmitPublic = (e) => {
         e.preventDefault();
-        socketRef.current.emit('on-chat', { name, messagePublic })
+        socketRef.current.emit('on-chat', { name, messagePublic },(res) => {
+            console.log(res.status)
+        })
         setMessagePublic('')
     }
 
-
+    const handleUserOnline = (e) => {
+        e.preventDefault()
+        let a = socketRef.current.sockets.clients()
+        console.log(a)
+    }
 
 
     return (
         <div style={{ margin: '20px', fontSize: '20px' }}>
-
-            <h1>Test socket</h1>
+            {/* <div style={{ display: 'flex' }}>
+                {user.map((element, index) => (
+                    <UserOnline name={element} key={index}></UserOnline>
+                ))
+                }
+            </div> */}
+            <button onClick={handleUserOnline}>Connect</button>
+            <h1 style={{ marginTop: '50px' }}>Test socket</h1>
             <div style={{ marginTop: '20px' }}>ID: {id}</div>
             <div style={{ marginTop: '20px' }}>Nhập Tên: <input type='text' onChange={handleChangeUser}></input></div>
             <div style={{ marginTop: '20px' }}>Chat: <input type='text' value={message} onChange={handleChangeText}></input> </div>
@@ -105,6 +127,15 @@ function TestSocker(props) {
             </ul>
         </div>
     );
+}
+
+
+const UserOnline = (props) => {
+    return (
+        <Stack direction="row" spacing={2}>
+            <Avatar sx={{ bgcolor: deepOrange[500] }}>{props.name}</Avatar>
+        </Stack>
+    )
 }
 
 export default TestSocker;

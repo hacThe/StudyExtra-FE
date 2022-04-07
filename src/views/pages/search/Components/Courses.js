@@ -22,7 +22,7 @@ function Courses(props) {
                         if (num < page * 8 && num >= (page - 1) * 8) {
                             return (
                                 <Grid md={3} sm={3}>
-                                    <CourseCard course={course}></CourseCard>
+                                    <CourseCard key={num} course={course}></CourseCard>
                                 </Grid>
                             )
                         }

@@ -58,25 +58,7 @@ export default function CardCourses(props) {
                         )
                     }
                 </Stack>
-                {/* <div style={{ display: 'flex', justifyContent: 'space-around', width: '100%', color: '#6F6F6F', fontSize: '14px' }}>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <FaUserGraduate style={{ paddingRight: '5px', transform: 'translateY(-8%)', fontSize: '18px' }}></FaUserGraduate>
-                        <div>{props.course.studentId.length}</div>
-                    </div>
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <MdOutlineAccessTimeFilled style={{ paddingRight: '5px', transform: 'translateY(-15%)', fontSize: '22px' }}></MdOutlineAccessTimeFilled>
-                        <div>999</div>
-                    </div>
-                    {
-                        !props.isPayment && (
-                            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <AiFillDollarCircle style={{ paddingRight: '5px', transform: 'translateY(-15%)', fontSize: '22px' }}></AiFillDollarCircle>
-                                <div>{props.course.price}</div>
-                            </div>
-                        )
-                    }
-
-                </div> */}
+                
             </CardActions>
         </Card>
     );

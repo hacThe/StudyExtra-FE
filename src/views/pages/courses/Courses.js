@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Container } from "@mui/material";
 import YourCourse from "./component/YourCourse";
 import WholeCourses from "./component/WholeCourses";
 import PaginationOutlined from "./component/PaginationOutlined";
@@ -47,7 +48,8 @@ function Courses(props) {
     };
 
     return (
-        <div className="courses">
+        <Container maxWidth={'xl'}>
+ <div className="courses">
             <h1 style={{ padding: "40px 20px", fontSize: "28px" }}>
                 Khóa học của bạn
             </h1>
@@ -65,6 +67,8 @@ function Courses(props) {
             <WholeCourses currentPage={currentPage} coursesCurrent={coursesCurrent}></WholeCourses>
             <PaginationOutlined setCurrentPage={setCurrentPage} index={coursesCurrent.length}></PaginationOutlined>
         </div>
+        </Container>
+       
     );
 }
 

@@ -20,7 +20,7 @@ function Lesson(props) {
                         if (num < page * 8 && num >= (page - 1) * 8) {
                             return (
                                 <Grid md={3} sm={3}>
-                                    <LessonCard lesson={lesson}></LessonCard>
+                                    <LessonCard key={num} lesson={lesson}></LessonCard>
                                 </Grid>
                             )
                         }
