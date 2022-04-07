@@ -81,7 +81,7 @@ const ExamDetail = () => {
     //------------------------------------------------------------------------------------------//
 
     return (
-        <Container className="exam-detail">
+        <Container className="exam-detail" maxWidth="xl">
             <Grid container spacing={2} className="exam-grid">
                 <Grid item xs={12} md={8} className="question-detail_box">
                     <div className="prev-next_btn">

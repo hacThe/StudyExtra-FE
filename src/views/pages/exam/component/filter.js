@@ -23,7 +23,6 @@ function Filter() {
                 <div className='document-sorting'>
                     <div className='sorting-label'>Sắp xếp theo</div>
                     <select
-                        labelId="demo-simple-select-label"
                         id="demo-simple-select"
                         label="Age"
                         className='sorting-control'

@@ -34,7 +34,7 @@ const ExamDescription = () => {
     }
 
     return (
-        <Container className="exam-detail">
+        <Container className="exam-detail" maxWidth="xl"> 
             <Grid container spacing={2} className="exam-grid">
                 <Grid item xs={12} md={7} lg={8} className="exam-detail_content">
                     <div className="exam-name">
@@ -59,7 +59,7 @@ const ExamDescription = () => {
                     <div className="leader-board_group">
                         <h5><GiQueenCrown></GiQueenCrown> Leaderboard</h5>
 
-                        {Array.from({ length: 5 }).map((_, idx) => (
+                        {Array.from({ length: 10 }).map((_, idx) => (
                             <LeaderCard key={idx}/>
                         ))}
                     </div>

@@ -6,12 +6,15 @@ import axios from "axios";
 import './Profile.scss'
 
 const Profile = () => {
-  const coursesID = ["622df8789b2c6b2273af2d69", "622dbcf49b2c6b2273af2d65", "622dc1009b2c6b2273af2d66"];
+ // const coursesID = ["622df8789b2c6b2273af2d69", "622dbcf49b2c6b2273af2d65", "622dc1009b2c6b2273af2d66"];
   const [courses, setCourses] = useState([]);
   useEffect(async () => {
       async function fetchData() {
-        const data = { coursesID: coursesID};
-        axios.post('http://localhost:5000/api/profiles/getYourCourses', data)
+         axios.get('http://localhost:5000/api/profiles/getUserCourses', {
+          headers: {
+            'Authorization': `token ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhbnRoYW5oMDgwNSIsImlhdCI6MTY0NzQ5Njc2MywiZXhwIjoxNjUxMDk2NzYzfQ.pcvJVruadBTkZOTFwAfNg1m_Q6Sfky_S_spOxXRTYeo'}`
+          }
+        })
               .then(res => {
                 setCourses(res.data.data)
               })
@@ -51,7 +54,7 @@ const Profile = () => {
 
   return (
     <>
-      <Container className='profile'>
+      <Container className='profile' maxWidth="xl">
         <div className="title-profile">
           <h1>Hồ sơ học viên</h1>
           <button variant="outlined">
