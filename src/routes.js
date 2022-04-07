@@ -8,7 +8,9 @@ const UserProfile = React.lazy(() => import("./views/pages/profile/Profile"));
 const Ranking = React.lazy(() => import('./views/pages/ranking/Ranking'))
 const Document = React.lazy(() => import('./views/pages/document/Document'))
 const Courses = React.lazy(() => import('./views/pages/courses/Courses'));
-
+const CourseListManager = React.lazy(()=> import('./views/pages/manager/course/CourseListManager/CourseListManager'))
+const CourseDetailManager = React.lazy(()=> import('./views/pages/manager/course/CourseDetailManager/CourseDetailManager'))
+const EditCourse = React.lazy(()=>import("./views/pages/manager/course/EditCourse/EditCourse"))
 
 // Những route chỉ truy xuất khi chưa đăng nhập
 const publicRoute = [
@@ -42,7 +44,9 @@ const protectedRoute = [
 
 const managerRoute = [
   {path: '/quan-ly/dashboard', name: 'Trang chủ', element:<h1>Dash board</h1>},
-  {path: '/quan-ly/khoa-hoc', name: 'Trang chủ', element:<h1>Quan ly khoa hoc</h1>},
+  {path: '/quan-ly/khoa-hoc', name: 'Trang chủ', element:<CourseListManager/>},
+  {path: '/quan-ly/khoa-hoc/:id', name: 'Trang chủ', element:<CourseDetailManager/>},
+  {path: '/quan-ly/khoa-hoc/:id/edit', name: 'Trang chủ', element:<EditCourse/>},
   {path: '/quan-ly/nguoi-dung', name: 'Trang chủ', element:<h1>Quan ly nguoi dung</h1>},
   {path: '/quan-ly/tai-lieu', name: 'Trang chủ', element:<h1>Quan ly tai lieu</h1>},
   {path: '/quan-ly/thi-thu', name: 'Trang chủ', element:<h1>Quan ly thi thu</h1>},

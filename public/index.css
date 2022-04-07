@@ -11,7 +11,6 @@ html{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    transition: all .2s;
   }
   
   :root {
@@ -19,6 +18,7 @@ html{
     --fade-text-color: #747474;
     --background-color: #fff;
     --foreground-color: #000;
+    --hover-background-color: #eeeeee;
   }
   
   body {

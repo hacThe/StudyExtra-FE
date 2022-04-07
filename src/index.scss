@@ -52,6 +52,8 @@ code {
 
 
 .justify-content-between{
+  display: flex;
+align-items: center;
   justify-content: space-between;
 }
 
@@ -71,7 +73,7 @@ label{
 
 input{
   display: block;
-  margin: auto;
+  // margin: auto;
   padding: 8px 12px;
   font-size: 1.6rem;
   font-family: 'Montserrat', sans-serif;
@@ -117,4 +119,74 @@ button{
   font-size: 1.2rem !important;
   margin-top: 4px;
   margin-bottom: 12px;
+}
+
+
+.leading-icon-button{
+  padding: 4px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg{
+    font-size: 2.4rem;
+  }
+
+  &:hover{
+    background-color: var(--hover-background-color);
+    cursor: pointer;
+  }
+
+  .content{
+    margin-left: 8px;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+}
+
+.back-icon-button{
+  padding: 4px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover{
+    background-color: var(--hover-background-color);
+    cursor: pointer;
+  }
+
+  svg{
+    font-size: 2.4rem;
+    color: var(--fade-text-color);
+  }
+
+  .content{
+    margin-left: 8px;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--fade-text-color);
+  }
+
+}
+
+
+.manager-fa-ke-modal{
+  margin: 24px;
+  padding: 12px;
+  padding-bottom: 24px;
+  background-color: var(--background-color);
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.1);
+}
+
+.blue-box,
+.red-box{
+  height: 500px;
+  background-color: red;
+}
+
+.blue-box{
+  background-color: blue;
 }

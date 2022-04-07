@@ -4,7 +4,6 @@ import { Link, Navigate } from "react-router-dom";
 import { userActions } from "../../../../actions/user.actions";
 import { cookiesUtil } from "../../../../utilities";
 import { TextField, Box, Grid, Stack, Button } from "@mui/material";
-import { BsFillReplyFill } from "react-icons/bs";
 import "./Login.scss";
 import LoginForm from "./LoginForm";
 import ListOfLoginMethodModal from "./ListOfLoginMethodModal";
