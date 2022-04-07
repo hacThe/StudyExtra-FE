@@ -4,7 +4,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { CardActionArea, CardActions } from '@mui/material';
 import { FaUserGraduate } from 'react-icons/fa';
 import { MdOutlineAccessTimeFilled } from 'react-icons/md';
 import { AiFillDollarCircle } from 'react-icons/ai'
@@ -18,7 +18,7 @@ const bull = (
     </Box>
 );
 
-export default function CardCourses(props) {
+export default function CourseCard(props) {
 
     const handleClickCourses = () => {
         console.log('Click coures');
@@ -31,7 +31,7 @@ export default function CardCourses(props) {
                     component="img"
                     height="140"
                     alt="green iguana"
-                    image={props.course.imgUrl ? props.course.imgUrl : "https://files.fullstack.edu.vn/f8-prod/courses/7.png"}
+                    image={props.course.imgUrl}
                 />
                 <CardContent>
                     <Typography style={{ fontSize: '18px', fontWeight: '700', fontFamily: "'Montserrat', san-serif" }} gutterBottom variant="h5" component="div">
@@ -49,16 +49,7 @@ export default function CardCourses(props) {
                         <MdOutlineAccessTimeFilled style={{ paddingRight: '5px', transform: 'translateY(-15%)', fontSize: '22px' }}></MdOutlineAccessTimeFilled>
                         <div style={{fontSize:'16px',fontFamily: "'Montserrat', san-serif"}}>999</div>
                     </div>
-                    {
-                        !props.isPayment && (
-                            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <AiFillDollarCircle style={{ paddingRight: '5px', transform: 'translateY(-15%)', fontSize: '22px' }}></AiFillDollarCircle>
-                                <div style={{fontSize:'16px',fontFamily: "'Montserrat', san-serif"}}>{props.course.price}</div>
-                            </div>
-                        )
-                    }
                 </Stack>
-                
             </CardActions>
         </Card>
     );

@@ -16,13 +16,9 @@ export function course(state = initialState, action) {
       };
 
     case courseConstants.GET_COURSES_SUCCESS:
-        const coursess = action.courses;
-        console.log({coursess})
       return {
         ...state,
-        isLoading: false,
-        courses: coursess.data
-        // courses: action.courses
+        courses: action.courses
       };
     case courseConstants.GET_COURSES_FAILURE:
       return {

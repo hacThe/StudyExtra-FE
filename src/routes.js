@@ -11,6 +11,8 @@ const Courses = React.lazy(() => import('./views/pages/courses/Courses'));
 const Question = React.lazy(() => import('./views/pages/question/Question'));
 const Lesson = React.lazy(() => import('./views/pages/lesson/Lesson'));
 const Overall = React.lazy(() => import('./views/pages/overall/Overall'))
+const Search = React.lazy(() => import('./views/pages/search/Search'));
+const Socket = React.lazy(() => import('./views/pages/search/TestSocker'));
 
 // Những route chỉ truy xuất khi chưa đăng nhập
 const publicRoute = [
@@ -25,6 +27,7 @@ const publicRoute = [
 
 // route dùng cho mọi trường hợp
 const commonRoute = [
+<<<<<<< HEAD
     {path: '/trang-chu', name: 'Trang chủ', element: <Homepage/>},  
     {path: '/chi-tiet-khoa-hoc/:id', name: 'Chi tiết khóa học', element: <CourseDetail/>}, 
     {path: '/xep-hang', name: 'Xếp hạng', element: <Ranking/>},
@@ -34,6 +37,15 @@ const commonRoute = [
     {path: '/bai-hoc/:id', name: 'Bài học', element: <Lesson/>}, 
     // temporary path
     {path: '/thu-nghiem', name: 'Thử nghiệm', element: <Overall/>}
+=======
+  {path: '/trang-chu', name: 'Trang chủ', element: <Homepage/>},  
+  {path: '/chi-tiet-khoa-hoc/:id', name: 'Chi tiết khóa học', element: <CourseDetail/>}, 
+  {path: '/xep-hang', name: 'Xếp hạng', element: <Ranking/>},
+  {path: '/tai-lieu', name: 'Tài liệu', element: <Document/>}, 
+  {path: '/khoa-hoc', name: 'Trang chủ', element: <Courses/>},
+  {path: '/tim-kiem', name: 'Tìm kiếm', element: <Search/>},
+  {path: '/test-socket', name: 'Tìm kiếm', element: <Socket/>}
+>>>>>>> origin/phuoc/search-and-api
 ]
 
 

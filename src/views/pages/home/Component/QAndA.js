@@ -4,7 +4,7 @@ import { FiChevronsRight } from 'react-icons/fi'
 import QuestionComponent from './QuestionComponent';
 function QAndA(props) {
     return (
-        <div style={{ marginTop: '25px' }}>
+        <div style={{ marginTop: '55px' }}>
             <Container maxWidth={false} container spacing={0}>
                 <Grid container spacing={0}>
                     <Grid md={12} sm={12}>
@@ -19,8 +19,8 @@ function QAndA(props) {
                             <FiChevronsRight style={{ paddingLeft: '5px', fontSize: '20px', transform: 'translateY(-10%)' }}></FiChevronsRight>
                         </a>
                     </Grid>
-                    {props.posts.map(post => (
-                        <Grid md={6} sm={6}>
+                    {props.posts.map((post, key) => (
+                        <Grid key={key} md={6} sm={12}>
                             <QuestionComponent post={post}></QuestionComponent>
                         </Grid>
                     ))}
