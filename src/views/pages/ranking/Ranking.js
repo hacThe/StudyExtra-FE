@@ -19,8 +19,6 @@ const Ranking = () => {
         setTypeSelect(newValue);
     }
 
-    
-
     return (
         <div className="ranking-page-container">
             <div className="ranking-container">

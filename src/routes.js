@@ -27,7 +27,6 @@ const publicRoute = [
 
 // route dùng cho mọi trường hợp
 const commonRoute = [
-<<<<<<< HEAD
     {path: '/trang-chu', name: 'Trang chủ', element: <Homepage/>},  
     {path: '/chi-tiet-khoa-hoc/:id', name: 'Chi tiết khóa học', element: <CourseDetail/>}, 
     {path: '/xep-hang', name: 'Xếp hạng', element: <Ranking/>},
@@ -35,17 +34,10 @@ const commonRoute = [
     {path: '/khoa-hoc', name: 'Trang chủ', element: <Courses/>},
     {path: '/hoi-dap', name: 'Hỏi đáp', element: <Question/>},
     {path: '/bai-hoc/:id', name: 'Bài học', element: <Lesson/>}, 
+    {path: '/tim-kiem', name: 'Tìm kiếm', element: <Search/>},
+    {path: '/test-socket', name: 'Tìm kiếm', element: <Socket/>},
     // temporary path
     {path: '/thu-nghiem', name: 'Thử nghiệm', element: <Overall/>}
-=======
-  {path: '/trang-chu', name: 'Trang chủ', element: <Homepage/>},  
-  {path: '/chi-tiet-khoa-hoc/:id', name: 'Chi tiết khóa học', element: <CourseDetail/>}, 
-  {path: '/xep-hang', name: 'Xếp hạng', element: <Ranking/>},
-  {path: '/tai-lieu', name: 'Tài liệu', element: <Document/>}, 
-  {path: '/khoa-hoc', name: 'Trang chủ', element: <Courses/>},
-  {path: '/tim-kiem', name: 'Tìm kiếm', element: <Search/>},
-  {path: '/test-socket', name: 'Tìm kiếm', element: <Socket/>}
->>>>>>> origin/phuoc/search-and-api
 ]
 
 
