@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, NavLink } from 'react-router-dom';
-import { Container, Grid, Button, FormControlLabel, RadioGroup, FormControl, FormLabel, Radio, ButtonGroup } from '@mui/material';
+import { Container, Grid, Button, FormControlLabel, RadioGroup, FormControl, FormLabel, Radio, ButtonGroup, Box } from '@mui/material';
 import './ExamDetail.scss'
 
 const ExamDetail = () => {
@@ -91,7 +91,7 @@ const ExamDetail = () => {
                 </div>
             </div>
             <Grid container spacing={2} className="exam-grid">
-                <Grid item xs={12} md={7} lg={8} className="question-detail_box">
+                <Grid item xs={12} lg={7} xl={8} className="question-detail_box">
                     <div className="prev-next_btn">
                         <Button variant="contained">Câu trước</Button>
                         <Button variant="contained">Câu sau</Button>
@@ -115,14 +115,14 @@ const ExamDetail = () => {
                         <Button variant="contained">Trả lời</Button>
                     </div>
                 </Grid>
-                <Grid item xs={12} md={5} lg={4} className="list-question">
-                    <div className="list-question_box">
+                <Grid item xs={12} lg={5} xl={4} className="list-question" sx={{display: { xs: "flex", lg: "block" }}}>
+                    <Box className="list-question_box" sx={{ position: { xs: "relative", lg: "absolute" }}}>
                         <ButtonGroup className="button-group">
                             {Array.from({ length: 35 }).map((_, idx) => (
                                 <Button key={idx} id={idx}>{idx + 1}</Button>
                             ))}
                         </ButtonGroup>
-                    </div>
+                    </Box>
                 </Grid>
             </Grid>
             <div className="btn-submit">

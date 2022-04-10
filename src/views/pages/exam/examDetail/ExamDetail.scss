@@ -89,12 +89,15 @@
         }
         .list-question{
             padding: 1.3rem;
-            display: flex;
+            position: relative;
             justify-content: center;
             .list-question_box{
                 border: 1px solid #939393;
                 border-radius: 5px;
-                width: 43rem;
+                width: 43rem !important;
+                height: 27.6rem;
+               // position: absolute;
+                right: 1.3rem;
                 .button-group{
                     display: flex;
                     justify-content: start;
