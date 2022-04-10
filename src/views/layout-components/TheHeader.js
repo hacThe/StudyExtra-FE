@@ -230,7 +230,7 @@ function TheHeader() {
       onKeyDown={toggleDrawer(anchor, false)}
       className="mobile-navbar"
     >
-      <Link to={"/profile"}>
+      <Link to={"/thong-tin-tai-khoan"}>
         <MenuItem>
           <Grid item xs={4}>
             <Avatar

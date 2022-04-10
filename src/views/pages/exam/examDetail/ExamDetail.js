@@ -82,8 +82,16 @@ const ExamDetail = () => {
 
     return (
         <Container className="exam-detail" maxWidth="xl">
+            <div className="exam-name-time_group">
+                <div className="name-exam">
+                    <h5>Đây là tên bài thi kkk</h5>
+                </div>
+                <div className="timer-component">
+                    {timerComponents.length ? timerComponents : <span>Time's up!</span>}
+                </div>
+            </div>
             <Grid container spacing={2} className="exam-grid">
-                <Grid item xs={12} md={8} className="question-detail_box">
+                <Grid item xs={12} md={7} lg={8} className="question-detail_box">
                     <div className="prev-next_btn">
                         <Button variant="contained">Câu trước</Button>
                         <Button variant="contained">Câu sau</Button>
@@ -107,18 +115,10 @@ const ExamDetail = () => {
                         <Button variant="contained">Trả lời</Button>
                     </div>
                 </Grid>
-                <Grid item xs={12} md={4} className="list-question">
-                    <div className="exam-name-time_group">
-                        <div className="name-exam">
-                            <h5>Đây là tên bài thi kkk</h5>
-                        </div>
-                        <div className="timer-component">
-                            {timerComponents.length ? timerComponents : <span>Time's up!</span>}
-                        </div>
-                    </div>
+                <Grid item xs={12} md={5} lg={4} className="list-question">
                     <div className="list-question_box">
                         <ButtonGroup className="button-group">
-                            {Array.from({ length: 40 }).map((_, idx) => (
+                            {Array.from({ length: 35 }).map((_, idx) => (
                                 <Button key={idx} id={idx}>{idx + 1}</Button>
                             ))}
                         </ButtonGroup>
