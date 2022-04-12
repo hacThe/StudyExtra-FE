@@ -2,8 +2,6 @@ import React , {useState, useEffect} from 'react';
 
 import './scss/Rankings.scss';
 import UserRankingCard from './components/UserRankingCarrd';
-
-// import Pagination from './components/Pagination';
 import { Button, ButtonGroup, Grid } from '@mui/material';
 
 import { GiLaurelCrown } from "react-icons/gi";
