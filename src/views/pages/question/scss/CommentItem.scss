@@ -42,6 +42,7 @@
                     cursor: pointer;
                     .comment-modal{
                         display: block;
+                        z-index: 5;
                     }
                 }
                 .bridge{
@@ -64,6 +65,7 @@
                     right: -116px;
                     padding: 6px 0px;
                     display: none;
+                    z-index: 10;
                     .modal-item{
                         &:hover{
                             background-color: #f4f4f4;
