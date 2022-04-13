@@ -1,5 +1,5 @@
 .datagrid-container{
-    padding: 4rem;
+    padding: 1.2rem;
 }
 .MuiDataGrid-columnHeaderTitle {
     font-weight: 600;
@@ -41,4 +41,33 @@
 }
 .MuiDataGrid-virtualScroller{
     overflow-y: auto;
+}
+.MuiMenuItem-gutters {
+    font-weight: 500;
+    font-size: 14px;
+    font-family: 'Montserrat';
+}
+
+.MuiDataGrid-filterFormColumnInput{
+    font-weight: 500;
+    font-size: 14px;
+    font-family: 'Montserrat';
+}
+
+.MuiInputLabel-formControl{
+    font-weight: 500;
+    font-size: 18px;
+    font-family: 'Montserrat';
+}
+
+.MuiNativeSelect-select {
+    font-weight: 500;
+    font-size: 14px;
+    font-family: 'Montserrat';
+}
+
+.MuiInputBase-input {
+    font-weight: 500;
+    font-size: 14px;
+    font-family: 'Montserrat';
 }

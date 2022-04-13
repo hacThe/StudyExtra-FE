@@ -71,40 +71,8 @@ const rows = [
     { stt: 9, id: 15, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
-const columnDocs = [
-    // {field: , headerName: , width: }
-    {field: 'stt', headerName: "STT"},
-    {field: 'name', headerName: "Tên tài liệu", width: 300},
-    {field: 'type', headerName: "Phân loại"},
-    {field: 'view', headerName: "Số lượt xem"},
-    {field: 'time', headerName: "Thời gian"},
-    {field: 'link', headerName: "Link"},
-]
 
-const rowDocs = [
-    { id: 1, stt: 1, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 2, stt: 2, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 3, stt: 3, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 4, stt: 4, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 5, stt: 5, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 6, stt: 6, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 7, stt: 7, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 8, stt: 8, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 9, stt: 9, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 10, stt: 10, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 11, stt: 11, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 12, stt: 12, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 13, stt: 13, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 14, stt: 14, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 15, stt: 15, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 16, stt: 16, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 17, stt: 17, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 18, stt: 18, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-    { id: 19, stt: 19, name: "Cách không làm mã vẫn có ăn", type: "Lớp 12", view: 1250, time:'15/12/2001', link: 'bac.com'},
-
-]
-
-const TableManageMent = () => {
+const TableManageMent = ({rowDocs,columnDocs, filter}) => {
     const [idSelect, setidSelect] = useState([]);
     const changeidSelect = (value) => {
         var newValue = idSelect;
@@ -132,13 +100,30 @@ const TableManageMent = () => {
         // console.log("click on row");
     }
 
+    const getShowingData = (filter) => {
+        if(filter=="") return rowDocs;
+        var res = []; 
+        rowDocs.map((rowDoc) => {
+            var vals = Object.values(rowDoc);
+            var isFind = false;
+            vals.forEach(val => {
+                if(val.toString().indexOf(filter)!=-1){
+                    isFind = true;
+                }
+            });
+            if(isFind) return res.push(rowDoc); 
+        })
+        // console.log("res", res);
+        return res;
+    }
+
     return (
         <div 
             style={{ height: 750, width: '100%' }}
             className = "datagrid-container"
         >
             <DataGrid
-                rows={rowDocs}
+                rows={getShowingData(filter)}
                 columns={columnDocs}
                 pageSize={10}
                 // rowsPerPageOptions={[5,10]}
