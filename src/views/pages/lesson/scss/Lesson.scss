@@ -51,7 +51,18 @@
                         width: calc(100% + 44px);
                         right: -20px;
                     }
-                }   
+                    .content{
+                        width: calc(100% + 50px);
+                        right: -22px;
+                    }
+                    .notion{
+                        width: calc(100% + 50px);
+                        right: -26px;
+                    }
+                }  
+                .panel-choose.divide{
+                    margin-left: 4px;
+                } 
                 .vertical-divider{
                     width: 1px;
                     height: 2rem;
@@ -61,7 +72,7 @@
                 
             }
             .horizontal-divider{
-                width: 44rem;
+                width: 48rem;
                 height: 1px;
                 background-color: #AEAEAE;
                 margin-left: 1.4rem;

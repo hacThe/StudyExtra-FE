@@ -9,6 +9,7 @@ const LessonOverall= () => {
         setPanel(newValue);
         console.log("newValue", newValue)
     };
+    
     return (
         <div className='lesson-overall-wrapper'>
             <p className="lesson-title">Đây là tên của khoá học</p>

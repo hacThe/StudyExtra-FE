@@ -1,17 +1,21 @@
-import React from 'react'
+import React , {useEffect} from 'react'
 import {Grid} from '@mui/material'
 import './scss/Lesson.scss';
 import Credit from './component/Credit';
 import CommentItem from '../overall/components/CommentItem';
 import LessonOverall from './component/LessonOverall';
-
+import useWindowDimensions from './functions/useWindowDimensions';
+import ChapterItem from './component/ChaperItem.js';
+import Notion from './component/Notion';
 
 const Lesson = () => {
+    const { height, width } = useWindowDimensions();
     const [panel, setPanel] = React.useState(1);
     const changePanel = (event, newValue) => {
         setPanel(newValue);
         console.log("newValue", newValue)
     };
+
     return (
         <div className="lesson-wrapper">
             <Grid container spacing={2}>
@@ -48,7 +52,46 @@ const Lesson = () => {
 
                                 </div>
                             </div>
-                            
+                            {
+                                (width > 920) ? (null) : (
+                                    <div className='vertical-divider'>
+                                            
+                                    </div>
+                                )
+                            }
+                            {
+                                (width > 920) ? (null) : (
+                                    <div 
+                                        onClick={(e) => changePanel(e,3)} 
+                                        className={panel==3 ? 'panel-choose divide active' : 'panel-choose divide'}
+                                    >
+                                        Nội dung
+                                        <div className='active-bar content'>
+                                            
+                                        </div>
+                                    </div>     
+                                )
+                            }
+                            {
+                                (width > 920) ? (null) : (
+                                    <div className='vertical-divider'>
+                                            
+                                    </div>
+                                )
+                            }
+                            {
+                                (width > 920) ? (null) : (
+                                    <div 
+                                        onClick={(e) => changePanel(e,4)} 
+                                        className={panel==4 ? 'panel-choose active' : 'panel-choose'}
+                                    >
+                                        Ghi chú
+                                        <div className='active-bar notion'>
+
+                                        </div>
+                                    </div>
+                                )
+                            }
                         </div>
                         <div className='horizontal-divider'>
                             
@@ -72,12 +115,35 @@ const Lesson = () => {
                                     <Credit/>
                                 </div>
                             </div>
+                            {
+                                (width > 920) ? null : (
+                                    <div className={panel==3 ? 'panel' : 'panel hide'}  >
+                                        <ChapterItem></ChapterItem>
+                                        <ChapterItem></ChapterItem>
+                                        <ChapterItem></ChapterItem>
+                                    </div>
+                                ) 
+                            }
+                            {
+                                (width > 920) ? null : (
+                                    <div className={panel==4 ? 'panel' : 'panel hide'}>
+                                        <Notion/>
+                                    </div>
+                                ) 
+                            }
+                            
+                            
                         </div>
                     </div>
                 </Grid>
-                <Grid item xs={12} sm={12} md={12} lg={4} className="lesson-overall">
-                    <LessonOverall/>
-                </Grid>
+                {
+                    (width < 920) ? null : (
+                        <Grid item xs={12} sm={12} md={12} lg={4} className="lesson-overall">
+                            <LessonOverall/>
+                        </Grid>
+                    ) 
+                }
+                
             </Grid>
         </div>   
         
