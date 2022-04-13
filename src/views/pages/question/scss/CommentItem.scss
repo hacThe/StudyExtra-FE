@@ -3,6 +3,7 @@
     .comment-item{
         margin-bottom: 0.8rem;
         width: 100%;
+        position: relative;
         .comment-heading{
             display: flex;
             .user-avatar{
@@ -26,6 +27,55 @@
                     font-size: 1.4rem;
                 }
             }
+            .comment-manage{
+                width: 2.4rem;
+                height: 2.4rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 100%;
+                margin-top: 1.8rem;
+                margin-left: 0.8rem;
+                position: relative;
+                &:hover{
+                    background-color: #F4F4F4;
+                    cursor: pointer;
+                    .comment-modal{
+                        display: block;
+                    }
+                }
+                .bridge{
+                    width: 40px;
+                    height: 80px;
+                    // background-color: yellow;
+                    position: absolute;
+                    top: -10px;
+                    right: -35px;
+                }
+                .comment-modal{
+                    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+                    border-radius: 10px;
+                    margin-left: 8px;
+                    margin-top: 12px;
+                    position: absolute;
+                    width: 440%;
+                    background-color: #fff;
+                    top: -10px;
+                    right: -116px;
+                    padding: 6px 0px;
+                    display: none;
+                    .modal-item{
+                        &:hover{
+                            background-color: #f4f4f4;
+                            cursor: pointer;
+                        }
+                        padding: 6px 12px;
+                        font-size: 1.4rem;
+                    }
+                    
+                }
+            }
+            
         }
         .comment-interact{
             display: flex;

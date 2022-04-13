@@ -2,7 +2,7 @@ import React from 'react'
 import '../scss/CommentItem.scss';
 import { BsTriangleFill } from "react-icons/bs";
 import { IoImageOutline } from "react-icons/io5";
-
+import { HiDotsHorizontal} from "react-icons/hi";
 const CommentItem = ({reply, image, userReply}) => {
   return (
     <div className="comment-item">
@@ -16,7 +16,28 @@ const CommentItem = ({reply, image, userReply}) => {
                 <div className="comment-content">
                     Mình nghĩ là vậy đó, bạn tham khảo câu trả lời của mình nha
                 </div>
-            </div> 
+            </div>
+            <div className="comment-manage">
+                <HiDotsHorizontal size={14}/>
+                <div className="bridge">
+
+                </div>
+                <div className="comment-modal">
+                    <div className="modal-item">
+                        Ẩn
+                    </div>
+                    <div className="modal-item">
+                        Xoá
+                    </div>
+                    <div className="modal-item">
+                        Báo cáo
+                    </div>
+                    <div className="modal-item">
+                        Chỉnh sửa
+                    </div>
+                </div> 
+            </div>
+            
         </div>
         
         <div className="comment-interact">
