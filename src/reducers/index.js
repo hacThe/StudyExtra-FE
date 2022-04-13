@@ -2,12 +2,13 @@ import { combineReducers } from "redux";
 
 import { app } from "./app.reducer";
 import { authentication } from "./authentication.reducer";
-import { exam } from "./exam.reducer";
+import { exam, resultExam } from "./exam.reducer";
 
 const rootReducer = combineReducers({
   app, // appReducer
   authentication,
-  exam
+  exam, 
+  resultExam
 });
 
 export default rootReducer;

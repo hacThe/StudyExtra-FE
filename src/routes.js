@@ -11,6 +11,8 @@ const Courses = React.lazy(() => import('./views/pages/courses/Courses'));
 const Exams = React.lazy(() => import('./views/pages/exam/exams/Exams'));
 const ExamDescription = React.lazy(() => import('./views/pages/exam/examDescription/ExamDescription'));
 const ExamDetail = React.lazy(() => import('./views/pages/exam/examDetail/ExamDetail'));
+const ExamResult = React.lazy(() => import('./views/pages/exam/examDetail/ExamResult'));
+
 
 
 
@@ -35,7 +37,8 @@ const commonRoute = [
   {path: '/khoa-hoc', name: 'Trang chủ', element: <Courses/>},
   {path: '/luyen-de', name: 'Luyện đề', element: <Exams/>},
   {path: '/luyen-de/id:id', name: 'Nội dung đề thi', element: <ExamDescription/>},
-  {path: '/luyen-de/id:id/vao-thi', name: 'Bài làm', element: <ExamDetail/>}
+  {path: '/luyen-de/id:id/vao-thi', name: 'Bài làm', element: <ExamDetail/>},
+  {path: '/luyen-de/id:id/ket-qua', name: 'Kết quả thi', element: <ExamResult/>}
 ]
 
 

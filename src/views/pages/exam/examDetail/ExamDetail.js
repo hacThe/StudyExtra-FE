@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { Container, Grid, Button, Modal, RadioGroup, FormControl, FormLabel, Radio, ButtonGroup, Box, Typography } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +7,9 @@ import { examAction } from "../../../../actions/exam.actions";
 import './ExamDetail.scss'
 
 const ExamDetail = () => {
-    const QuestionID = ['A', "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"];
+    const questionsID = "625642de9544c72e1353eff9";
+    const examID = "6256979a9544c72e1353f00f";
+    const TranslateID = ['A', "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"];
     const innitQuestion = [{
         title: "",
         answer: []
@@ -16,7 +18,7 @@ const ExamDetail = () => {
     const dispatch = useDispatch()
     const Questions = useSelector(state => state.exam.questions) || innitQuestion;
     useEffect(() => {
-        dispatch(examAction.getQuestions("625642de9544c72e1353eff9"));
+        dispatch(examAction.getQuestions(questionsID));
     }, [])
 
     //------------------------------------count down timer--------------------------------------------//
@@ -30,7 +32,10 @@ const ExamDetail = () => {
             timeLeftRef.current--;
             // console.log(timeLeftRef.current);
             if (timeLeftRef.current == 0) {
-                console.log(result.current);/* ----------------------------------- */
+                console.log(result.current);////////////////////////////////////////////////////////callllll api
+                let userAnswer = result.current;
+                dispatch(examAction.postResultExam(questionsID, examID, userAnswer));
+                navigate('/luyen-de/id:1/ket-qua')
             }
         }, 1000)
         return () => clearInterval(timer.current);
@@ -77,7 +82,7 @@ const ExamDetail = () => {
             </div>
         )
     }
-    //------------------------------------------------------------------------------------------//
+    //--------------------------------------------Modal-Submit----------------------------------------------//
     const style = {
         position: 'absolute',
         top: '50%',
@@ -89,6 +94,7 @@ const ExamDetail = () => {
         boxShadow: 24,
         p: 4,
     };
+    const navigate = useNavigate();
     function BasicModal() {
         const [open, setOpen] = React.useState(false);
         const handleOpen = () => setOpen(true);
@@ -97,10 +103,13 @@ const ExamDetail = () => {
             textTransform: "none", background: "#3DA43B", fontSize: "1.3rem", fontFamily: "Montserrat"
         }
         const styleBtnSubmit = {
-            textTransform: "none", background: "#D83333", fontSize: "1.3rem" , fontFamily: "Montserrat"
+            textTransform: "none", background: "#D83333", fontSize: "1.3rem", fontFamily: "Montserrat"
         }
         const handleSubmit = () => {
-            console.log(result.current);
+            console.log(result.current);////////////////////////////////////////////////////////callllll api
+            let userAnswer = result.current;
+            dispatch(examAction.postResultExam(questionsID, examID, userAnswer));
+            navigate('/luyen-de/id:1/ket-qua')
         }
         return (
             <div>
@@ -112,19 +121,19 @@ const ExamDetail = () => {
                     aria-describedby="modal-modal-description"
                 >
                     <Box sx={style}>
-                        <Typography id="modal-modal-title" variant="h6" component="h2" style={{ textAlign: "center", fontSize:"1.5rem", fontFamily: "Montserrat" }}>
+                        <Typography id="modal-modal-title" variant="h6" component="h2" style={{ textAlign: "center", fontSize: "1.5rem", fontFamily: "Montserrat" }}>
                             Nộp bài và kết thúc?
                         </Typography>
                         <Typography id="modal-modal-description" style={{ display: "flex", justifyContent: "space-around", marginTop: "2rem" }}>
-                            <Button variant="contained" style={styleBtnCancle} onClick={()=>handleClose()}>Hủy</Button>
-                            <Button variant="contained" style={styleBtnSubmit} onClick={()=>handleSubmit()}>Nộp Bài</Button>
+                            <Button variant="contained" style={styleBtnCancle} onClick={() => handleClose()}>Hủy</Button>
+                            <Button variant="contained" style={styleBtnSubmit} onClick={() => handleSubmit()}>Nộp Bài</Button>
                         </Typography>
                     </Box>
                 </Modal>
             </div>
         );
     }
-    //------------------------------------------------------------------------------------------//
+    //---------------------------------------------exam--grid-------------------------------------------//
 
     function ExamGrid() {
         const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -151,7 +160,7 @@ const ExamDetail = () => {
             })
         }
         result.current = userAnswer;
-        
+
         const handleStyle = (idx) => {
             if (currentQuestion == idx && userAnswer[idx] != 0) return ({ textDecoration: "underline", backgroundColor: "rgb(109 85 255)", color: "#ffffff", borderColor: "#ffffff" });
             if (currentQuestion == idx) return ({ textDecoration: "underline", borderColor: "#7e7e7e" });
@@ -183,7 +192,7 @@ const ExamDetail = () => {
                                             onChange={() => handleChecked(item.id)}
                                         >
                                         </input>
-                                        <label className="check-content">{QuestionID[item.id - 1]}. {item.content}</label>
+                                        <label className="check-content">{TranslateID[item.id - 1]}. {item.content}</label>
                                     </div>
                                 ))}
                             </RadioGroup>
@@ -218,7 +227,7 @@ const ExamDetail = () => {
             </Grid>
         )
     }
-
+    //------------------------------------------------------------return-----------------------------------------//
     return (
         <Container className="exam-detail" maxWidth="xl">
             <div className="exam-name-time_group">

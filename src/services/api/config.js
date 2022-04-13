@@ -7,4 +7,5 @@ export default {
 
   // exam
   URL_GET_QUESTIONS: URL_SYSTEM_V1 + '/exam/getQuestions',
+  URL_POST_RESULT_EXAM: URL_SYSTEM_V1 + '/exam/getResultExam',
 }
