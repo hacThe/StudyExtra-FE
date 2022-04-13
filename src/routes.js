@@ -35,7 +35,7 @@ const commonRoute = [
   {path: '/khoa-hoc', name: 'Trang chủ', element: <Courses/>},
   {path: '/luyen-de', name: 'Luyện đề', element: <Exams/>},
   {path: '/luyen-de/id:id', name: 'Nội dung đề thi', element: <ExamDescription/>},
-  {path: '/luyen-de/id:id/cau:cau', name: 'Bài làm', element: <ExamDetail/>}
+  {path: '/luyen-de/id:id/vao-thi', name: 'Bài làm', element: <ExamDetail/>}
 ]
 
 
