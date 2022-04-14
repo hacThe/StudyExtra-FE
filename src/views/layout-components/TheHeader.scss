@@ -167,7 +167,12 @@
         text-decoration: none;
         color: #575757;
         span{
+            font-size: 1.2rem;
             font-family: Montserrat;
+        }
+        svg{
+            height: 1.5rem;
+            width: 1.5rem;
         }
     }
     .active{
