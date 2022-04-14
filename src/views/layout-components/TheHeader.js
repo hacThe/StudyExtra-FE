@@ -62,7 +62,7 @@ function TheHeader() {
   };
 
   const [notifications, setNotification] = useState([]);
-  useEffect(async () => {
+  /* useEffect(async () => {
       async function fetchData() {
         const data = { userID: "62304b37bf2a740b60142dc5"};
         axios.post('http://localhost:5000/api/notification/getYourNotification', data)
@@ -74,7 +74,7 @@ function TheHeader() {
               })
       }
       fetchData();
-    }, []) 
+    }, [])  */
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
   const profileMenuId = "primary-search-account-menu";
   const renderMenu = (
@@ -207,7 +207,7 @@ function TheHeader() {
     {
       name: "Luyện đề",
       icon: <BsQuestionCircleFill />,
-      link: "/404",
+      link: "/luyen-de",
     },
   ];
 
@@ -230,7 +230,7 @@ function TheHeader() {
       onKeyDown={toggleDrawer(anchor, false)}
       className="mobile-navbar"
     >
-      <Link to={"/profile"}>
+      <Link to={"/thong-tin-tai-khoan"}>
         <MenuItem>
           <Grid item xs={4}>
             <Avatar
