@@ -1,8 +1,17 @@
 .manager-side-bar-wrapper {
-  height: 100vh;
-  width: 256px;
-
+  position: relative;
+  min-height: 100vh;
   background-color: var(--primary-color);
+  .mystery-box {
+    width: 256px;
+  }
+  .fixed-position-content{
+    position: sticky;
+    width: 256px;
+    right: 0;
+    top: 0;
+  }
+
 
   .branding-heading {
     height: 66px;
@@ -20,8 +29,8 @@
     }
   }
 
-  a{
-      display: block;
+  a {
+    display: block;
   }
   .manager-nav-item {
     display: flex;
