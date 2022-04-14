@@ -2,28 +2,28 @@ import React, { useEffect, useState } from "react";
 import { Grid, Container, Button, Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { FiEdit } from "react-icons/fi";
+import { MdOutlinePhotoCamera } from "react-icons/md"
 import axios from "axios";
 import './Profile.scss'
 
 const Profile = () => {
- // const coursesID = ["622df8789b2c6b2273af2d69", "622dbcf49b2c6b2273af2d65", "622dc1009b2c6b2273af2d66"];
   const [courses, setCourses] = useState([]);
   useEffect(async () => {
-      async function fetchData() {
-         axios.get('http://localhost:5000/api/profiles/getUserCourses', {
-          headers: {
-            'Authorization': `token ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhbnRoYW5oMDgwNSIsImlhdCI6MTY0NzQ5Njc2MywiZXhwIjoxNjUxMDk2NzYzfQ.pcvJVruadBTkZOTFwAfNg1m_Q6Sfky_S_spOxXRTYeo'}`
-          }
+    async function fetchData() {
+      axios.get('http://localhost:5000/api/profiles/getUserCourses', {
+        headers: {
+          'Authorization': `token ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhbnRoYW5oMDgwNSIsImlhdCI6MTY0NzQ5Njc2MywiZXhwIjoxNjUxMDk2NzYzfQ.pcvJVruadBTkZOTFwAfNg1m_Q6Sfky_S_spOxXRTYeo'}`
+        }
+      })
+        .then(res => {
+          setCourses(res.data.data)
         })
-              .then(res => {
-                setCourses(res.data.data)
-              })
-              .catch(err => {
-                console.log(err)
-              })
-      }
-      fetchData();
-    }, []) 
+        .catch(err => {
+          console.log(err)
+        })
+    }
+    fetchData();
+  }, [])
 
   const InformList = [
     {
@@ -64,39 +64,47 @@ const Profile = () => {
         </div>
 
         <Grid container spacing={2} className="information-group">
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={5} className="left-grid">
+            <div className="avatar-group">
+              <Avatar
+                alt="Remy Sharp"
+                src="https://res.cloudinary.com/tanthanh0805/image/upload/v1647218948/LuxyWine/rose_ng5wt5.jpg"
+                sx={{ width: 300, height: 300 }}
+              />
+              <Button className="btn-changeAvt"> <MdOutlinePhotoCamera></MdOutlinePhotoCamera> </Button>
+            </div>
+
             <Grid container>
-              <Grid item xs={12} sm={6} className="information-list">
-                <Grid container>
-                  <Grid item xs={6}>
-                    <div className="inform-item">
-                      <h5 className="name-inform">{InformList[0].name}</h5>
-                      <p className="value-inform">{InformList[0].value}</p>
-                    </div>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <div className="inform-item">
-                      <h5 className="name-inform">{InformList[1].name}</h5>
-                      <p className="value-inform">{InformList[1].value}</p>
-                    </div>
-                  </Grid>
-                </Grid>
-                {InformList.slice(2).map((item, index) =>
-                  <div className="inform-item" key={index}>
-                    <h5 className="name-inform">{item.name}</h5>
-                    <p className="value-inform">{item.value}</p>
-                  </div>
-                )}
-                <div style={{
-                  display: "flex",
-                  justifyContent: "left",
-                  flexWrap: "wrap"
-                }}>
-                  <Button variant="contained" className="btn-contained">Nạp tiền vào tài khoản</Button>
-                  <Button variant="text" className="btn-text">Xem lịch sử giao dịch</Button>
+              <Grid item xs={6}>
+                <div className="inform-item">
+                  <h5 className="name-inform">{InformList[0].name}</h5>
+                  <p className="value-inform">{InformList[0].value}</p>
                 </div>
               </Grid>
-              <Grid item xs={12} sm={6} className="list-course">
+              <Grid item xs={6}>
+                <div className="inform-item">
+                  <h5 className="name-inform">{InformList[1].name}</h5>
+                  <p className="value-inform">{InformList[1].value}</p>
+                </div>
+              </Grid>
+            </Grid>
+            {InformList.slice(2).map((item, index) =>
+              <div className="inform-item" key={index}>
+                <h5 className="name-inform">{item.name}</h5>
+                <p className="value-inform">{item.value}</p>
+              </div>
+            )}
+            <div style={{
+              display: "flex",
+              justifyContent: "left",
+              flexWrap: "wrap"
+            }}>
+              <Button variant="contained" className="btn-contained">Nạp tiền vào tài khoản</Button>
+            </div>
+          </Grid>
+          <Grid item xs={12} md={7} className="right-grid">
+            <Grid container className="courses-exams-group">
+              <Grid item xs={12} lg={6} className="courses-list">
                 <h5>Toàn bộ khóa học</h5>
                 {courses.map((item, index) =>
                   <div key={index} className='course-item'>
@@ -104,16 +112,17 @@ const Profile = () => {
                   </div>
                 )}
               </Grid>
+              <Grid item xs={12} lg={6} className="exams-list"> 
+                <h5>Cuộc thi đã tham gia</h5>
+                {courses.map((item, index) =>
+                  <div key={index} className='course-item'>
+                    <Link to=''>{item.name}</Link>
+                  </div>
+                )}
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid item xs={12} md={4} className="avatar-group">
-            <div>
-              <Avatar
-                alt="Remy Sharp"
-                src="https://res.cloudinary.com/tanthanh0805/image/upload/v1647218948/LuxyWine/rose_ng5wt5.jpg"
-                sx={{ width: 345, height: 345 }}
-              />
-              <Button variant="contained" className="btn-contained">Thay đổi ảnh đại diện</Button>
+            <div className="history-transaction_table">
+            <h5>Lịch sử giao dịch</h5>
             </div>
           </Grid>
         </Grid>

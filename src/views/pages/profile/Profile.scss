@@ -1,11 +1,11 @@
-
-.profile{
-    flex-wrap: wrap-reverse;
-    .title-profile{
-        padding-top: 4.8rem;
+.profile {
+    .title-profile {
+        padding-top: 3.5rem;
         display: flex;
-        flex-wrap: nowrap;
-        h1{
+        flex-wrap: swrap;
+        justify-content: space-between;
+
+        h1 {
             font-family: Montserrat;
             font-style: normal;
             font-weight: bold;
@@ -13,38 +13,67 @@
             line-height: 3.4rem;
             color: #000000;
         }
-        button{
-            margin-left: 2.4rem;
+
+        button {
             font-family: Montserrat;
             font-style: normal;
             font-weight: 500;
             font-size: 1.4rem;
             line-height: 1.7rem;
             color: #000000;
-            svg{
+
+            svg {
                 height: 1.8rem;
                 width: 1.8rem;
                 margin-right: 0.7rem;
             }
+
             border: none;
         }
     }
-    .information-group{
-        padding-top: 3.6rem;
-        display: flex;
-        flex-wrap: wrap-reverse;
-        .information-list{
-            padding: 20px; 
-            .inform-item{ 
-                margin-bottom: 3.6rem;
-                .name-inform{
+
+    .information-group {
+        margin-top: 1.5rem;
+
+        .left-grid {
+            padding: 2rem;
+
+            .avatar-group {
+                padding: 0rem;
+                display: flex;
+                justify-content: left;
+                position: relative;
+                margin-bottom: 2.4rem;
+                .btn-changeAvt {
+                    background-color: #0000002d;
+                    color: #0000003d;
+                    position: absolute;
+                    width: 30rem;
+                    height: 30rem;
+                    border-radius: 50%;
+                    opacity: 0;
+                    svg {
+                        height: 50%;
+                        width: 50%;
+                    }
+                }
+                .btn-changeAvt:hover{
+                    opacity: 1;
+                }
+            }
+
+            .inform-item {
+                margin-bottom: 2.8rem;
+                .name-inform {
                     font-family: 'Montserrat';
                     font-weight: 700;
                     font-size: 2rem;
                     line-height: 2.4rem;
                     color: #000000;
+                    margin-bottom: 0.8rem;
                 }
-                .value-inform{
+
+                .value-inform {
                     font-family: 'Montserrat';
                     font-weight: 400;
                     font-size: 1.4rem;
@@ -52,67 +81,54 @@
                     color: #000000;
                 }
             }
-            .btn-contained{
+
+            .btn-contained {
                 font-family: 'Montserrat';
                 font-weight: 600;
                 font-size: 1.8rem;
                 line-height: 2.2rem;
                 color: #FFFFFF;
-                background-color: var( --primary-color);
+                background-color: #4B4BEC;
                 text-transform: none;
                 padding: 1.2rem;
                 width: 24.5rem;
             }
-            .btn-text{
-                font-family: 'Montserrat';
-                font-weight: 700;
-                font-size: 1.4rem;
-                line-height: 1.7rem;
-                color: #000000;
-                background-color: transparent;
-                padding: 1.2rem;
-                width: 24.5rem;
-            }
         }
-        .list-course{
-            padding: 20px;
-            h5{
+
+        .right-grid {
+            padding: 2rem;
+
+            .courses-exams-group {
+                padding: 0rem;
+                .courses-list{
+                    padding-right: 2rem;
+                    padding-bottom: 3.2rem;
+                }
+                .exams-list{
+                    padding-right: 2rem;
+                    padding-bottom: 3.2rem;
+                }
+            }
+
+            h5 {
                 font-weight: 700;
                 font-size: 20px;
                 line-height: 24px;
                 color: #000000;
             }
-            .course-item{
-                a{
+
+            .course-item {
+                a {
                     font-weight: 500;
                     font-size: 14px;
                     line-height: 17px;
                     color: var(--primary-color);
                 }
+
                 margin-top: 0.8rem;
             }
         }
-        .avatar-group{
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            div{
-                text-align: center;
-            .btn-contained{
-                margin-top: 20px;
-                font-family: 'Montserrat';
-                font-weight: 600;
-                font-size: 1.8rem;
-                line-height: 2.2rem;
-                color: #FFFFFF;
-                background-color: var( --primary-color);
-                text-transform: none;
-                padding: 1.2rem;
-                height: 4.6rem;
-            }
-            }
-            
-        }
-        
+
+
     }
 }
