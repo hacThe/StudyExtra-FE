@@ -18,6 +18,13 @@ const ExamListManager = React.lazy(()=>import('./views/pages/manager/exam/ExamLi
 const AddExam = React.lazy(()=>import("./views/pages/manager/exam/AddExam/AddExam"))
 const EditExam = React.lazy(()=>import("./views/pages/manager/exam/EditExam/EditExam"))
 
+
+
+const AddQuestion = React.lazy(()=>import("./views/pages/manager/exam/AddQuestion/AddQuestion"))
+const EditQuestion = React.lazy(()=>import("./views/pages/manager/exam/EditQuestion/EditQuestion"))
+
+
+
 // Những route chỉ truy xuất khi chưa đăng nhập
 const publicRoute = [
   // {path: '/trang-chu', name: 'Trang chủ', element: <Homepage/>},
@@ -57,8 +64,10 @@ const managerRoute = [
   {path: '/quan-ly/nguoi-dung', name: 'Trang chủ', element:<h1>Quan ly nguoi dung</h1>},
   {path: '/quan-ly/tai-lieu', name: 'Trang chủ', element:<h1>Quan ly tai lieu</h1>},
   {path: '/quan-ly/thi-thu', name: 'Trang chủ', element:<h1><ExamListManager/></h1>},
-  {path: '/quan-ly/thi-thu/tao-moi', name: 'Trang chủ', element:<h1><AddExam/></h1>},
-  {path: '/quan-ly/thi-thu/chinh-sua/:id', name: 'Trang chủ', element:<h1><EditExam/></h1>},
+  {path: '/quan-ly/thi-thu/tao-moi', name: 'Trang chủ', element:<AddExam/>},
+  {path: '/quan-ly/thi-thu/chinh-sua/:id', name: 'Trang chủ', element:<EditExam/>},
+  {path: '/quan-ly/thi-thu/cau-hoi/chinh-sua/:id', name: 'Trang chủ', element:<EditQuestion/>},
+  {path: '/quan-ly/thi-thu/cau-hoi/tao-moi', name: 'Trang chủ', element:<AddQuestion/>},
 ]
 
 const routes = {
