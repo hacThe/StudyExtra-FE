@@ -1,41 +1,84 @@
 import React, { useEffect, useState } from "react";
 import './scss/Document.scss';
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select} from '@mui/material';
-
-import Pagination from './components/Pagination';
 import DocumentCard from './components/DocumentCard';
 
 import axios from 'axios';
-
+import {documentActions} from '../../../actions/document.actions';
+import { useDispatch, useSelector } from "react-redux";
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import { IoIosArrowBack, IoIosArrowForward} from "react-icons/io";
 
 
 function Document(){
-    const [documents, setDocuments] = useState([]);
-    useEffect(async () => {
-            async function fetchData() {
-            await axios.get(`http://localhost:5000/api/document/getAllDocument`)
-                .then(res => {
-                    setDocuments(res.data.data);
-                    console.log("document", documents);
-                })
-                .catch( (err) => {
-                console.log("err", err)
-                })
-            }
-        fetchData();
-    }, [])
+    const dispatch = useDispatch();
+    const types = ["Tất cả", "Lớp 10", "Lớp 11", "Lớp 12", "Luyện Thi", "Khác"];
+    const [currentTypeSelect, setCurrentType] = useState(0);
+    const changeType = (event, newValue) => {
+        setCurrentType(newValue);
+    };
 
+    const filters = ["Mới nhất", "Cũ nhất", "Xem nhiều nhất", "Xem ít nhất"];
+    
+    // Xử lý pagination
+    const documentItemLimit = 3;
+    const [pagePagination, setPagePagination] = useState(0);
+    const changePagePagination =  (newValue) => {
+        setPagePagination(newValue);
+    }
+
+    const itemDisplayIndex =
+        useSelector((state) => {
+            return state.document.pagination - 1;
+        }) || 0;
+
+
+    React.useEffect(async () => {
+        await dispatch(documentActions.getAllDocument());
+        console.log("documents.length", documents.length);
+    }, []);
+    
+    const documents =
+        useSelector((state) => {
+            // console.log({ state });
+            var doc = [];
+            doc.push(...state.document.documents);
+            doc.push(...state.document.documents);
+            return doc;
+        }) || [];
+
+    console.log("documents vip", documents, documents.length);
+    useSelector((state) => {
+        console.log("all state", { state });
+    })
+
+
+    var maxItem = 10;
+    const [page, setPage] = useState(1);
+    useEffect(() => {
+        setPage(1)
+    }, 1)
+
+    const setCurrentPage = (num) => {
+        setPage(num)
+    }
     return (
         <div className="document-page-container">
             <div className="document-container">
                 <div className="document-body">
                     <div className='document-option-container'>
-                        <Button className='button-option' style={{textTransform: 'none'}}>Tất cả</Button>
-                        <Button className='button-option active' style={{textTransform: 'none'}}>Lớp 11</Button>
-                        <Button className='button-option' style={{textTransform: 'none'}}>Lớp 10</Button>
-                        <Button className='button-option' style={{textTransform: 'none'}}>Lớp 12</Button>
-                        <Button className='button-option' style={{textTransform: 'none'}}>Luyện thi</Button>
-                        <Button className='button-option' style={{textTransform: 'none'}}>Khác</Button>
+                        {
+                            types.map((type, index) => (
+                                <Button 
+                                    className= {currentTypeSelect == index ? 'button-option active':'button-option'}
+                                    style={{textTransform: 'none'}}
+                                    onClick={(e)=> changeType(e,index)}
+                                >
+                                    {type}
+                                </Button>
+                            ))
+                        }
                     </div>
                     <div className='document-sorting'>
                         <div className='sorting-label'>Sắp xếp theo</div>
@@ -45,20 +88,40 @@ function Document(){
                             label="Age"
                             className='sorting-control'
                         >
-                            <option className="sorting-item">Mới nhất</option>
-                            <option className="sorting-item">Cũ nhất</option>
-                            <option className="sorting-item">Xem nhiều nhất</option>
+                            {
+                                filters.map((filter, index)=>(
+                                    <option className="sorting-item">{filter}</option>
+                                ))
+                            }
                         </select>
                     </div>
                     <div className="document-list">
-                    {
-                        documents.map((document) => (
-                            <DocumentCard name={document.name} views={document.views}/>
-                        ))
-                    } 
+                    {   
+                        documents.length === 0 ? (null) : 
+                            documents.map((val,index) => (
+                                (index < page * maxItem && index >= (page-1) * maxItem) ? (
+                                    <DocumentCard name={val.name} views={val.views}/>
+                                ) : (null)
+                            ))
+                    }
                     </div>
                     <div className='ranking-footer'>
-                        <Pagination page={3} />
+                        <Pagination
+                            count={Math.ceil(documents.length/maxItem)}
+                            renderItem={(item) => (
+                                <PaginationItem
+                                    components={{ 
+                                        previous: IoIosArrowBack, 
+                                        next:  IoIosArrowForward 
+                                    }}
+                                    {...item}
+                                />
+                            )}
+                            onChange = {(e, page) => {
+                                console.log("abc", page);
+                                setCurrentPage(page)
+                            }}
+                        />
                     </div>
                 </div>
             </div>

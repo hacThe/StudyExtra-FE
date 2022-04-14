@@ -1,13 +1,47 @@
 .courses{
+
+    font-family: 'Montserrat', san-serif !important;
+
     .css-1oj2twp-MuiPagination-root{
         display: flex;
         justify-content: center;
+    }
+
+    .css-1ri6ub7-MuiPaper-root-MuiCard-root{
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;;
     }
 
     .type-button.active{
         background-color: #7B68EE;
         color: white !important;
         border: 2px solid #7b68ee !important;
-        
     }
+
+    .css-1j4k3n5-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected{
+        background-color: #7B68EE;
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .css-1j4k3n5-MuiButtonBase-root-MuiPaginationItem-root{
+        font-size: 16px;
+        font-weight: 600;
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .css-h93ljk-MuiTypography-root {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 25px;
+        -webkit-line-clamp: 2;
+        height: 50px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+    }
+    
 }

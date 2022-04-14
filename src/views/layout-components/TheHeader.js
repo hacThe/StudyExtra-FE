@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { Link, NavLink } from "react-router-dom";
 import {
@@ -28,6 +29,7 @@ import { BiSearch } from "react-icons/bi";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoNotificationsSharp, IoHome } from "react-icons/io5";
 import "./TheHeader.scss";
+import { searchAction } from '../../actions/search.action'
 
 function TheHeader() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -37,6 +39,9 @@ function TheHeader() {
   const isMenuOpen = Boolean(anchorEl);
   const isNotificationMenuOpen = Boolean(anchorNt);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const dispatch = useDispatch()
+
   //----------------
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -45,6 +50,26 @@ function TheHeader() {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
+
+  //-----------Search
+  const [search, setSearch] = useState('');
+
+  const handleChangeSearch = (event) => {
+    setSearch(event.target.value) 
+  }
+
+  const handleClickSearch = (event) => {
+    dispatch(searchAction.getSearch(search))
+  }
+
+  const handleKeyPressSearch = (event) => {
+    if (event.key === 'Enter') {
+      let elenmentLinkToSearch = document.querySelector('.link-to-search');
+      dispatch(searchAction.getSearch(search))
+      elenmentLinkToSearch.click()
+    }
+  }
+
   //---------------
   const handleNotificationMenuOpen = (event) => {
     setAnchorNt(event.currentTarget);
@@ -116,11 +141,11 @@ function TheHeader() {
   );
   //--------------------------------------------------------------NOTIFICATION-MENU-------------------------------------------------------//
   const notificationMenuId = "primary-search-notification-menu";
-/*   const notificationContent1 = "đã bình luận bài viết của bạn";
-  const notificationContent2 =
-    "Chào mừng bạn đã gia nhập F8. Hãy luôn đam mê, kiên trì và theo đuổi mục tiêu tới cùng bạn nhé ❤️";
-  const typeNotification = ["comment", "system"]; // */
- // const tagName = "Hiển Thế";
+  /*   const notificationContent1 = "đã bình luận bài viết của bạn";
+    const notificationContent2 =
+      "Chào mừng bạn đã gia nhập F8. Hãy luôn đam mê, kiên trì và theo đuổi mục tiêu tới cùng bạn nhé ❤️";
+    const typeNotification = ["comment", "system"]; // */
+  // const tagName = "Hiển Thế";
   const NotificationContent = (props) => {
     const comment = (
       <p className="notification-content">
@@ -131,7 +156,7 @@ function TheHeader() {
     const systemNotification = (
       <p className="notification-content">{props.notification.content}</p>
     );
-    return props.notification.type === "system" ?systemNotification : comment;
+    return props.notification.type === "system" ? systemNotification : comment;
   };
 
   const renderNotificationMenu = (
@@ -151,9 +176,9 @@ function TheHeader() {
       onClose={handleNotificationMenuClose}
       className="notification-menu"
     >
-      
 
-      {notifications.map((item, index) => (
+
+      {/* {notifications.map((item, index) => (
           <MenuItem
           key={index}
           onClick={handleNotificationMenuClose}
@@ -166,7 +191,7 @@ function TheHeader() {
           />
           <NotificationContent notification={item} />
         </MenuItem>
-      ))}
+      ))} */}
     </Menu>
   );
   //------------------------------------------MOBILE MENU---------------------------------------------//
@@ -315,11 +340,15 @@ function TheHeader() {
 
             <Grid item md={4} xs={6} className="search-box">
               <Box className="search-group">
-                <BiSearch className="search-icon" />
+                <NavLink className={'link-to-search'} to={'tim-kiem'} >
+                  <BiSearch  onClick={(e) => handleClickSearch(e)} className="search-icon" />
+                </NavLink>
                 <InputBase
                   placeholder="Tìm kiếm khóa học, tài liệu,..."
                   inputProps={{ "aria-label": "search" }}
                   className="search-inp"
+                  onKeyPress={(e) => handleKeyPressSearch(e)}
+                  onChange={(e) => handleChangeSearch(e)}
                 ></InputBase>
               </Box>
             </Grid>

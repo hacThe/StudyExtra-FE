@@ -33,7 +33,17 @@ export default class SliderCourses extends Component {
           }
         },
         {
-          breakpoint: 600,
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2,
+            infinite: true,
+            dots: true,
+
+          }
+        },
+        {
+          breakpoint: 620,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -52,9 +62,9 @@ export default class SliderCourses extends Component {
     return (
       <div>
         <Slider {...settings}>
-          {this.props.courses.map(course => (
+          {this.props.courses.map((course,key) => (
             <div>
-              <CardCourses isPayment={this.props.isPayment} course={course}></CardCourses>
+              <CardCourses key={key} isPayment={this.props.isPayment} course={course}></CardCourses>
             </div>
           ))}
         </Slider>

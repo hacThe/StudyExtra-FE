@@ -62,7 +62,35 @@
                     }
                 }
             }
-            
+            .ranking-footer{
+                margin-top: 2.4rem;
+                margin-bottom: 4.8rem;
+                display: flex;
+                justify-content: center;
+                .MuiPaginationItem-text{
+                    font-size: 1.6rem;
+                    width: 4rem;
+                    height: 4rem;
+                    border-radius: 100%;
+                    font-weight: 700;
+                    color: #000;
+                    box-shadow: .0rem .0rem .4rem rgba(0,0,0,.25);
+                    font-family: 'Montserrat';
+                    line-height: 4rem;
+                    .MuiPaginationItem-icon{
+                        width: 1.4rem;
+                        height: 1.4rem;
+                    }   
+                }
+                .Mui-selected{
+                    background-color:#7B68EE;
+                    color: #fff;
+                }
+                .MuiPaginationItem-previousNext{
+                    margin-left: 0.8rem;
+                    margin-right: 0.8rem;
+                }
+            }
         }
     }
 }

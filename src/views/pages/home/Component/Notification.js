@@ -10,7 +10,7 @@ function Notification(props) {
                         <h1 style={{ fontSize: '28px', fontWeight: '700' }}>Thông báo</h1>
                     </Grid>
                     <Grid md={6} sm={6}>
-                        <Container style={{ paddingLeft: '0' }}>
+                        <Container style={{ paddingLeft: '0',fontFamily: "'Montserrat', san-serif" }}>
                             <Grid container spacing={0}>
                                 <Grid style={{ marginBottom: '15px' }} md={6} sm={6}>
                                     <p style={{ fontSize: '18px', fontWeight: '600' }}>Thông báo chung</p>
