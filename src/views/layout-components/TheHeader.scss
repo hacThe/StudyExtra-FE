@@ -8,6 +8,8 @@
     z-index: 10;
     .toolbar{
         height: 100%;
+        display: flex;
+        justify-content: space-between;
     }
     .logo_group{
 
