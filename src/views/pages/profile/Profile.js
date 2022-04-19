@@ -7,30 +7,24 @@ import { MdOutlinePhotoCamera } from "react-icons/md"
 import axios from "axios";
 import './Profile.scss';
 import TransactionTable from './component/TransactionTable';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "./../../../actions/user.actions";
+
 
 const Profile = () => {
-  const [courses, setCourses] = useState([]);
+  const dispatch = useDispatch()
   const UserInfo = useSelector(state => state.authentication.user);
+  const courses = useSelector(state => state.userCourses.courses.data) || [];
   const [avatar, setAvatar] = useState(UserInfo.avatar);
+
+  console.log("state: ", useSelector(state => state));
+  console.log("user: ", UserInfo);
+
+
   useEffect(async () => {
-    async function fetchData() {
-      axios.get('http://localhost:5000/api/profiles/getUserCourses', {
-        headers: {
-          'Authorization': `token ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRhbnRoYW5oMDgwNSIsImlhdCI6MTY0NzQ5Njc2MywiZXhwIjoxNjUxMDk2NzYzfQ.pcvJVruadBTkZOTFwAfNg1m_Q6Sfky_S_spOxXRTYeo'}`
-        }
-      })
-        .then(res => {
-          setCourses(res.data.data)
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
-    fetchData();
+    dispatch(userActions.getUserCourses());
   }, [])
 
-  console.log("user: ", UserInfo);
 
 
   const InformList = [
