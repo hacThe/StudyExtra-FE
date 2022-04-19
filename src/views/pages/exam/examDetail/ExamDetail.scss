@@ -63,10 +63,15 @@
                 .radio-group{
                     div{
                         margin-bottom: 1.2rem;
+                        display: flex;
+                        flex-wrap: nowrap;
+                        align-items: center;
+
                     }
                         .input-radio{
                             accent-color: #7B68EE;
                             margin-right: 1rem;
+                            min-width: 1px !important;
                         }
                         .check-content{
                             font-family: 'Montserrat';
@@ -75,6 +80,7 @@
                             font-size: 18px;
                             line-height: 22px;
                             color: #000000;
+                            margin: 0rem;
                         }
                 }
             }
