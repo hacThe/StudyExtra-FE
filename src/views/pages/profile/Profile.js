@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Grid, Container, Button, Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { FiEdit } from "react-icons/fi";
+import clsx from 'clsx';
 import { MdOutlinePhotoCamera } from "react-icons/md"
 import axios from "axios";
-import './Profile.scss'
+import './Profile.scss';
+import TransactionTable from './component/TransactionTable';
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [courses, setCourses] = useState([]);
+  const UserInfo = useSelector(state => state.authentication.user);
+  const [avatar, setAvatar] = useState(UserInfo.avatar);
   useEffect(async () => {
     async function fetchData() {
       axios.get('http://localhost:5000/api/profiles/getUserCourses', {
@@ -25,32 +30,76 @@ const Profile = () => {
     fetchData();
   }, [])
 
+  console.log("user: ", UserInfo);
+
+
   const InformList = [
     {
       name: "Họ và tên",
-      value: "Nguyễn Tấn Thành"
+      value: UserInfo.name
     },
     {
       name: "ID",
-      value: "IUSERV"
+      value: UserInfo.username
     },
     {
       name: "Ngày sinh",
-      value: "15-04-2001"
+      value: UserInfo.birthday.split('T')[0]
     },
     {
       name: "Email",
-      value: "tanthanhe@gmail.com"
+      value: UserInfo.mail
     },
     {
       name: "Số điện thoại",
-      value: "0912511015"
+      value: UserInfo.phone
     },
     {
       name: "Số dư",
-      value: "500 GEM"
+      value: UserInfo.gem + " GEM"
     },
   ];
+
+  var [filter, setFilter] = useState('');
+  var changeFilter = (e) => {
+    setFilter(e.target.value);
+  }
+
+  const columnDocs = [
+    // {field: , headerName: , width: }
+    { field: 'stt', headerName: "STT", width: 80 },
+    { field: 'thoigian', headerName: "Thời gian", width: 200 },
+    {
+      field: 'thaydoi', headerName: "Thay đổi (GEM)", width: 150,
+      cellClassName: (params) => {
+        if (params.value == null) {
+          return '';
+        }
+        return clsx('super-app', {
+          negative: params.value < 0,
+          positive: params.value > 0,
+        });
+      }
+    },
+    { field: 'sodu', headerName: "Số dư (GEM)", width: 150 },
+    { field: 'ghichu', headerName: "Ghi chú", width: 200 }
+  ]
+
+  const rowDocs = [
+    { id: 1, stt: 1, thoigian: "12:12:00 16/04/2001", thaydoi: -500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+    { id: 2, stt: 2, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+    { id: 3, stt: 3, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+    { id: 4, stt: 4, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+    { id: 5, stt: 5, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+    { id: 6, stt: 6, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+    { id: 7, stt: 7, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+    { id: 8, stt: 8, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+    { id: 9, stt: 9, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+    { id: 10, stt: 10, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+    { id: 11, stt: 11, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+    { id: 12, stt: 12, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+    { id: 13, stt: 13, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' }
+  ]
 
   return (
     <>
@@ -66,11 +115,11 @@ const Profile = () => {
         <Grid container spacing={2} className="information-group">
           <Grid item xs={12} md={5} className="left-grid">
             <div className="avatar-group">
-              <Avatar
+              {<Avatar
                 alt="Remy Sharp"
-                src="https://res.cloudinary.com/tanthanh0805/image/upload/v1647218948/LuxyWine/rose_ng5wt5.jpg"
+                src={avatar}
                 sx={{ width: 300, height: 300 }}
-              />
+              />}
               <Button className="btn-changeAvt"> <MdOutlinePhotoCamera></MdOutlinePhotoCamera> </Button>
             </div>
 
@@ -112,7 +161,7 @@ const Profile = () => {
                   </div>
                 )}
               </Grid>
-              <Grid item xs={12} lg={6} className="exams-list"> 
+              <Grid item xs={12} lg={6} className="exams-list">
                 <h5>Cuộc thi đã tham gia</h5>
                 {courses.map((item, index) =>
                   <div key={index} className='course-item'>
@@ -122,7 +171,12 @@ const Profile = () => {
               </Grid>
             </Grid>
             <div className="history-transaction_table">
-            <h5>Lịch sử giao dịch</h5>
+              <h5>Lịch sử giao dịch</h5>
+              <TransactionTable
+                columnDocs={columnDocs}
+                rowDocs={rowDocs}
+                filter={filter}
+              />
             </div>
           </Grid>
         </Grid>
