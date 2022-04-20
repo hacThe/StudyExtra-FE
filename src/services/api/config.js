@@ -16,6 +16,8 @@ export default {
 
   //account
   URL_GET_USER_COURSES: URL_SYSTEM_V1 + '/profiles/getUserCourses',
+  URL_GET_USER_NOTIFICATIONS: URL_SYSTEM_V1 + '/notification/getUserNotification',
+
 
   // document
   URL_GET_DOCUMENTS: URL_SYSTEM_V1 + '/document/',

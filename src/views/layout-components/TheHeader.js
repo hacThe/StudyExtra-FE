@@ -30,6 +30,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { IoNotificationsSharp, IoHome } from "react-icons/io5";
 import "./TheHeader.scss";
 import { searchAction } from '../../actions/search.action';
+import { userActions } from "../../actions/user.actions";
 
 function TheHeader() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -88,20 +89,12 @@ function TheHeader() {
     setMobileMoreAnchorEl(null);
   };
 
-  const [notifications, setNotification] = useState([]);
-  /* useEffect(async () => {
-      async function fetchData() {
-        const data = { userID: "62304b37bf2a740b60142dc5"};
-        axios.post('http://localhost:5000/api/notification/getYourNotification', data)
-              .then(res => {
-                setNotification(res.data.data)
-              })
-              .catch(err => {
-                console.log(err)
-              })
-      }
-      fetchData();
-    }, [])  */
+  //const [notifications, setNotification] = useState([]);
+  console.log("state: ", useSelector(state => state))/////////
+  const notifications = useSelector(state => state.userNotifications.notifications.data) || []
+  useEffect(async () => {
+    dispatch(userActions.getUserNotifications());
+  }, []);
 
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
   const profileMenuId = "primary-search-account-menu";
@@ -159,40 +152,38 @@ function TheHeader() {
   };
 
   const renderNotificationMenu = (
-    <Menu
-      anchorEl={anchorNt}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "right",
-      }}
-      id={notificationMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-      open={isNotificationMenuOpen}
-      onClose={handleNotificationMenuClose}
-      className="notification-menu"
-    >
-
-
-      {/* {notifications.map((item, index) => (
+      <Menu
+        anchorEl={anchorNt}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        id={notificationMenuId}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+        open={isNotificationMenuOpen}
+        onClose={handleNotificationMenuClose}
+        className="notification-menu"
+      >
+        {notifications.map((item, index) => (
           <MenuItem
-          key={index}
-          onClick={handleNotificationMenuClose}
-          className="notification_group"
-        >
-          <Avatar
-            className="avatar"
-            alt="Remy Sharp"
-            src="https://vieclamthemonline.com/wp-content/uploads/2021/10/anh-blackpink-rose.jpg"
-          />
-          <NotificationContent notification={item} />
-        </MenuItem>
-      ))} */}
-    </Menu>
-  );
+            key={index}
+            onClick={handleNotificationMenuClose}
+            className="notification_group"
+          >
+            <Avatar
+              className="avatar"
+              alt="Remy Sharp"
+              src={item.imgUrl || "https://vieclamthemonline.com/wp-content/uploads/2021/10/anh-blackpink-rose.jpg"}
+            />
+            <NotificationContent notification={item} />
+          </MenuItem>
+        ))}
+      </Menu>
+    );
   //------------------------------------------MOBILE MENU---------------------------------------------//
 
   const [state, setState] = React.useState({
@@ -284,7 +275,7 @@ function TheHeader() {
           </NavLink>
         ))}
       </List>
-      {typeof UserInfo === "undefined" ? <div style={{display:"flex", justifyContent: "center"}}>{LoginBtn}</div> : <></>}
+      {typeof UserInfo === "undefined" ? <div style={{ display: "flex", justifyContent: "center" }}>{LoginBtn}</div> : <></>}
     </Box>
   );
   //-----------------------------------------------------------Notification-Avatar_GROUP--------------------------------------------//
@@ -295,13 +286,13 @@ function TheHeader() {
       <Box className="avatar-notification_box">
         <IconButton
           size="large"
-          aria-label="show 17 new notifications"
+          aria-label="show new notifications"
           color="inherit"
           aria-controls={notificationMenuId}
           onClick={handleNotificationMenuOpen}
           className="notification_group"
         >
-          <Badge badgeContent={17} color="error">
+          <Badge badgeContent={notifications.length} color="error">
             <IoNotificationsSharp />
           </Badge>
         </IconButton>

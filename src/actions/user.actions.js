@@ -1,4 +1,5 @@
 import { userConstants } from "../constaint";
+import { userNotifications } from "../reducers/notification.reducer";
 import { usersServices } from "../services";
 import { cookiesUtil } from "../utilities";
 
@@ -9,6 +10,7 @@ export const userActions = {
   getAll,
   delete: _delete,
   getUserCourses,
+  getUserNotifications
 };
 
 /// này là hàm login
@@ -148,5 +150,25 @@ function getUserCourses() {
   }
   function failure(error) {
     return { type: userConstants.GET_USER_COURSES_FAILURE, error };
+  }
+}
+
+function getUserNotifications() {
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.getUserNotifications().then(
+      (userNotifications) => dispatch(success(userNotifications)),
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.GET_USER_NOTIFICATION_REQUEST};
+  }
+  function success(userNotifications) {
+    return { type: userConstants.GET_USER_NOTIFICATION_SUCCESS, userNotifications};
+  }
+  function failure(error) {
+    return { type: userConstants.GET_USER_NOTIFICATION_FAILURE, error };
   }
 }

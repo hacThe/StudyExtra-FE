@@ -7,7 +7,8 @@ export const usersServices = {
   login,
   logout,
   getAll,
-  getUserCourses
+  getUserCourses,
+  getUserNotifications,
 };
 
 function login(username, password) {
@@ -28,4 +29,8 @@ function getAll(params = {}) {
 
 function getUserCourses(params = {}) {
   return handleResponse(ajaxHelper.get(config.URL_GET_USER_COURSES, params, options()));
+}
+
+function getUserNotifications(params = {}) {
+  return handleResponse(ajaxHelper.get(config.URL_GET_USER_NOTIFICATIONS, params, options()));
 }
