@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import axios from "axios";
-import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -20,6 +19,7 @@ import {
   ListItemIcon,
   ListItemText,
   Grid,
+  Button
 } from "@mui/material";
 
 import { BsBarChartFill, BsQuestionCircleFill } from "react-icons/bs";
@@ -29,7 +29,7 @@ import { BiSearch } from "react-icons/bi";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoNotificationsSharp, IoHome } from "react-icons/io5";
 import "./TheHeader.scss";
-import { searchAction } from '../../actions/search.action'
+import { searchAction } from '../../actions/search.action';
 
 function TheHeader() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -39,6 +39,8 @@ function TheHeader() {
   const isMenuOpen = Boolean(anchorEl);
   const isNotificationMenuOpen = Boolean(anchorNt);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const UserInfo = useSelector(state => state.authentication.user); /* console.log("user: ", typeof UserInfo === "undefined"); */
+
 
   const dispatch = useDispatch()
 
@@ -55,7 +57,7 @@ function TheHeader() {
   const [search, setSearch] = useState('');
 
   const handleChangeSearch = (event) => {
-    setSearch(event.target.value) 
+    setSearch(event.target.value)
   }
 
   const handleClickSearch = (event) => {
@@ -100,6 +102,7 @@ function TheHeader() {
       }
       fetchData();
     }, [])  */
+
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
   const profileMenuId = "primary-search-account-menu";
   const renderMenu = (
@@ -120,16 +123,16 @@ function TheHeader() {
       className="profile-menu"
     >
       <MenuItem className="profile_group">
-        <Grid item xs={4}>
+        <Grid item xs={4} style={{ paddingRight: "1rem" }}>
           <Avatar
             className="avatar"
             alt="Remy Sharp"
-            src="https://vieclamthemonline.com/wp-content/uploads/2021/10/anh-blackpink-rose.jpg"
+            src={typeof UserInfo === "undefined" ? "default-avatar.png" : UserInfo.avatar}
           />
         </Grid>
         <Grid item xs={8}>
-          <h6>Username</h6>
-          <p>500 GEM</p>
+          <h6>{typeof UserInfo === "undefined" ? "Username" : UserInfo.username}</h6>
+          <p>{typeof UserInfo === "undefined" ? "0" : UserInfo.gem} GEM</p>
         </Grid>
       </MenuItem>
       <Link to="/thong-tin-tai-khoan">
@@ -141,11 +144,7 @@ function TheHeader() {
   );
   //--------------------------------------------------------------NOTIFICATION-MENU-------------------------------------------------------//
   const notificationMenuId = "primary-search-notification-menu";
-  /*   const notificationContent1 = "đã bình luận bài viết của bạn";
-    const notificationContent2 =
-      "Chào mừng bạn đã gia nhập F8. Hãy luôn đam mê, kiên trì và theo đuổi mục tiêu tới cùng bạn nhé ❤️";
-    const typeNotification = ["comment", "system"]; // */
-  // const tagName = "Hiển Thế";
+
   const NotificationContent = (props) => {
     const comment = (
       <p className="notification-content">
@@ -255,21 +254,25 @@ function TheHeader() {
       onKeyDown={toggleDrawer(anchor, false)}
       className="mobile-navbar"
     >
-      <Link to={"/thong-tin-tai-khoan"}>
-        <MenuItem>
-          <Grid item xs={4}>
-            <Avatar
-              className="avatar"
-              alt="Remy Sharp"
-              src="https://vieclamthemonline.com/wp-content/uploads/2021/10/anh-blackpink-rose.jpg"
-            />
-          </Grid>
-          <Grid item xs={8}>
-            <h6>Username</h6>
-            <p>500 GEM</p>
-          </Grid>
-        </MenuItem>
-      </Link>
+      {typeof UserInfo === "undefined" ? <></> :
+        <>
+          <Link to={"/thong-tin-tai-khoan"}>
+            <MenuItem>
+              <Grid item xs={4} style={{ paddingRight: "1rem" }}>
+                <Avatar
+                  className="avatar"
+                  alt="Remy Sharp"
+                  src={typeof UserInfo === "undefined" ? "default-avatar.png" : UserInfo.avatar}
+                />
+              </Grid>
+              <Grid item xs={8}>
+                <h6>{typeof UserInfo === "undefined" ? "Username" : UserInfo.username}</h6>
+                <p>{typeof UserInfo === "undefined" ? "0" : UserInfo.gem} GEM</p>
+              </Grid>
+            </MenuItem>
+          </Link>
+        </>}
+
       <Divider />
       <List>
         {menuList.map((item, index) => (
@@ -281,8 +284,58 @@ function TheHeader() {
           </NavLink>
         ))}
       </List>
+      {typeof UserInfo === "undefined" ? <div style={{display:"flex", justifyContent: "center"}}>{LoginBtn}</div> : <></>}
     </Box>
   );
+  //-----------------------------------------------------------Notification-Avatar_GROUP--------------------------------------------//
+
+
+  const NotificationAvatarGroup = (
+    <Grid item md={4} xs={3} className="avatar-notification_group">
+      <Box className="avatar-notification_box">
+        <IconButton
+          size="large"
+          aria-label="show 17 new notifications"
+          color="inherit"
+          aria-controls={notificationMenuId}
+          onClick={handleNotificationMenuOpen}
+          className="notification_group"
+        >
+          <Badge badgeContent={17} color="error">
+            <IoNotificationsSharp />
+          </Badge>
+        </IconButton>
+        <IconButton
+          size="large"
+          edge="end"
+          aria-label="account of current user"
+          aria-controls={profileMenuId}
+          aria-haspopup="true"
+          onClick={handleProfileMenuOpen}
+          color="inherit"
+          className="avatar_group"
+          sx={{ display: { xs: "none", md: "flex" } }}
+        >
+          <Avatar
+            className="avatar"
+            alt="Remy Sharp"
+            src={typeof UserInfo === "undefined" ? "default-avatar.png" : UserInfo.avatar}
+          />
+        </IconButton>
+      </Box>
+    </Grid>
+  )
+  const navigate = useNavigate();
+  const LoginBtn = (
+    <Grid item md={4} xs={3}>
+      <Button variant="contained"
+        style={{ background: "#7B68EE", textTransform: "none", fontFamily: "Montserrat", fontSize: "1.4rem" }}
+        onClick={() => {
+          return navigate("./dang-nhap")
+        }}
+      >Đăng nhập</Button>
+    </Grid>
+  )
 
   //---------------------------------------------------------------------------------------------------------------------//
   return (
@@ -325,7 +378,7 @@ function TheHeader() {
                 <Avatar
                   sx={{ bgcolor: "green[500]", width: 36, height: 36 }}
                   variant="rounded"
-                  src="../../public/SE-LOGO.png"
+                  src="/SE-LOGO.png"
                 ></Avatar>
               </Link>
               <Typography
@@ -341,7 +394,7 @@ function TheHeader() {
             <Grid item md={4} xs={6} className="search-box">
               <Box className="search-group">
                 <NavLink className={'link-to-search'} to={'tim-kiem'} >
-                  <BiSearch  onClick={(e) => handleClickSearch(e)} className="search-icon" />
+                  <BiSearch onClick={(e) => handleClickSearch(e)} className="search-icon" />
                 </NavLink>
                 <InputBase
                   placeholder="Tìm kiếm khóa học, tài liệu,..."
@@ -352,40 +405,7 @@ function TheHeader() {
                 ></InputBase>
               </Box>
             </Grid>
-
-            <Grid item md={4} xs={3} className="avatar-notification_group">
-              <Box className="avatar-notification_box">
-                <IconButton
-                  size="large"
-                  aria-label="show 17 new notifications"
-                  color="inherit"
-                  aria-controls={notificationMenuId}
-                  onClick={handleNotificationMenuOpen}
-                  className="notification_group"
-                >
-                  <Badge badgeContent={17} color="error">
-                    <IoNotificationsSharp />
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={profileMenuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                  className="avatar_group"
-                  sx={{ display: { xs: "none", md: "flex" } }}
-                >
-                  <Avatar
-                    className="avatar"
-                    alt="Remy Sharp"
-                    src="https://vieclamthemonline.com/wp-content/uploads/2021/10/anh-blackpink-rose.jpg"
-                  />
-                </IconButton>
-              </Box>
-            </Grid>
+            {typeof UserInfo === "undefined" ? LoginBtn : NotificationAvatarGroup}
           </Toolbar>
         </AppBar>
         {renderMenu}

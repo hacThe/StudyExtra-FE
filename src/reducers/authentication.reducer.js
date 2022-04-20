@@ -14,7 +14,8 @@ export function authentication(state = initialState, action) {
         error: false
       };
     case userConstants.LOGIN_SUCCESS:
-        user: cookiesUtil.getCurrentUserInfo()
+        //user: cookiesUtil.getCurrentUserInfo()
+        window.location.reload(true);
       return {
         waiting: false,
         isLoggedIn: true,
