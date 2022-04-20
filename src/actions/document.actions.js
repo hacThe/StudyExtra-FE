@@ -3,7 +3,8 @@ import { documentService } from '../services';
 
 export const documentActions = {
     changePagination,
-    getAllDocument
+    getAllDocument,
+    changeModalStatus
 }
 
 function changePagination(page){
@@ -13,6 +14,15 @@ function changePagination(page){
         console.log("change pagination has called")
         function request() {
             return { type: documentConstants.CHANGE_PAGINATION_REQUEST , page: page};
+        }
+    }
+}
+
+function changeModalStatus(isOpen) {
+    return (dispatch) => { 
+        dispatch(request())
+        function request() {
+            return { type: documentConstants.CHANGE_MODAL_TYPE_OPEN , isOpen: isOpen};
         }
     }
 }

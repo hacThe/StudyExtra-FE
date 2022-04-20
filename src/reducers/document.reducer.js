@@ -5,6 +5,7 @@ const initialState = {
     documents: [], 
     isLoading: false,
     error: "",
+    documentTypeOpen: false,
 };
    
 export function document(state = initialState, action) {
@@ -36,6 +37,12 @@ export function document(state = initialState, action) {
                 isLoading: false,
                 error: action.error
             };
+        case documentConstants.CHANGE_MODAL_TYPE_OPEN:
+            return {
+                ...state,
+                documentTypeOpen: action.isOpen
+            }
+        
         default:
             return state;
     }

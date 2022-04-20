@@ -57,6 +57,14 @@ const ExamResult = React.lazy(() =>
   import("./views/pages/exam/examDetail/ExamResult")
 );
 
+const DocumentManage = React.lazy(() => 
+  import("./views/pages/manager/document/Document")
+);
+
+const AddDocument = React.lazy(() => 
+  import("./views/pages/manager/document/AddDocument")
+);
+
 // Những route chỉ truy xuất khi chưa đăng nhập
 const publicRoute = [
   // {path: '/trang-chu', name: 'Trang chủ', element: <Homepage/>},
@@ -144,9 +152,19 @@ const managerRoute = [
     element: <h1>Quan ly nguoi dung</h1>,
   },
   {
+      path: "/quan-ly/tai-lieu",
+      name: "Quản lý tài liệu",
+      element: <DocumentManage/>,
+  },
+  {
+      path: "/quan-ly/tai-lieu/them",
+      name: "Quản lý tài liệu",
+      element: <AddDocument/>,
+  },
+  {
     path: "/quan-ly/tai-lieu",
     name: "Trang chủ",
-    element: <h1>Quan ly tai lieu</h1>,
+    element: <DocumentManage/>,
   },
   {
     path: "/quan-ly/thi-thu",
