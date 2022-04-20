@@ -10,7 +10,8 @@ export const userActions = {
   getAll,
   delete: _delete,
   getUserCourses,
-  getUserNotifications
+  getUserNotifications,
+  uploadAvatar
 };
 
 /// này là hàm login
@@ -170,5 +171,28 @@ function getUserNotifications() {
   }
   function failure(error) {
     return { type: userConstants.GET_USER_NOTIFICATION_FAILURE, error };
+  }
+}
+
+function uploadAvatar(avatarUrl) {
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.uploadAvatar(avatarUrl).then(
+      (user) => {
+        cookiesUtil.setCurrentUserInfo(user.user)
+        dispatch(success(user))
+      },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.UPLOAD_AVATAR_REQUEST};
+  }
+  function success(user) {
+    return { type: userConstants.UPLOAD_AVATAR_SUCCESS, user};
+  }
+  function failure(error) {
+    return { type: userConstants.UPLOAD_AVATAR_FAILURE, error };
   }
 }

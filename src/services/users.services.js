@@ -9,6 +9,7 @@ export const usersServices = {
   getAll,
   getUserCourses,
   getUserNotifications,
+  uploadAvatar,
 };
 
 function login(username, password) {
@@ -33,4 +34,8 @@ function getUserCourses(params = {}) {
 
 function getUserNotifications(params = {}) {
   return handleResponse(ajaxHelper.get(config.URL_GET_USER_NOTIFICATIONS, params, options()));
+}
+
+function uploadAvatar(avatarUrl) {
+  return handleResponse(ajaxHelper.post(config.URL_UPLOAD_AVATAR, {avatarUrl}, options()));
 }

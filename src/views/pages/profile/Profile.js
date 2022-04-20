@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Container, Button, Avatar } from '@mui/material';
+import { Grid, Container, Button, Avatar, Modal, Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { FiEdit } from "react-icons/fi";
 import clsx from 'clsx';
@@ -9,13 +9,13 @@ import './Profile.scss';
 import TransactionTable from './component/TransactionTable';
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "./../../../actions/user.actions";
-
-
+import { storage } from "../../../firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 const Profile = () => {
   const dispatch = useDispatch()
   const UserInfo = useSelector(state => state.authentication.user);
   const courses = useSelector(state => state.userCourses.courses.data) || [];
-  const [avatar, setAvatar] = useState(UserInfo.avatar);
+  //const [avatar, setAvatar] = useState(UserInfo.avatar);
 
   console.log("state: ", useSelector(state => state));
   console.log("user: ", UserInfo);
@@ -95,6 +95,93 @@ const Profile = () => {
     { id: 13, stt: 13, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' }
   ]
 
+
+
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: "50rem",
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+  function UploadModal() {
+    const [open, setOpen] = React.useState(false);
+    const [upProg, setUpProg] = useState(0);
+    const [imgUrl, setImgUrl] = useState(UserInfo.avatar);
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = (event, reason) => {
+      if (reason !== 'backdropClick') {
+        setOpen(false)
+      }
+    }
+
+    const styleBtnCancle = {
+      textTransform: "none", background: "#D83333", fontSize: "1.3rem", fontFamily: "Montserrat"
+    }
+    const styleBtnSubmit = {
+      textTransform: "none", fontSize: "1.3rem", fontFamily: "Montserrat"
+    }
+    const handleChange = e => {
+      console.log("getfile ");
+      if (e.target.files[0]) {
+        uploadImg(e.target.files[0]);
+      }
+    }
+    const uploadImg = (imgSelected) => {
+      console.log("Upload ");
+      const storageRef = ref(storage, `file${imgSelected.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, imgSelected);
+
+      uploadTask.on("state_changed", (snapshot) => {
+        const prog = Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUpProg(prog);
+      },
+        (err) => { console.log(err) },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((URL) => {
+            console.log("url: ", URL);
+            setImgUrl(URL);
+          }
+          )
+        }
+      )
+    }
+
+    const handleUpload = ()=>{
+      const avatarUrl = imgUrl;
+      console.log("pre callllll: ", imgUrl)
+      dispatch(userActions.uploadAvatar(avatarUrl));
+    }
+    return (
+      <>
+        <Button className="btn-changeAvt" onClick={() => handleOpen()}> <MdOutlinePhotoCamera></MdOutlinePhotoCamera> </Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <h1>Uploaded: {upProg}</h1>
+            <Typography id="modal-modal-description" style={{ display: "flex", justifyContent: "center", marginTop: "2rem" }}>
+              <img src={imgUrl} style={{ height: "40rem", width: "40rem", objectFit: "contain" }}></img>
+            </Typography>
+            <Typography id="modal-modal-description" style={{ display: "flex", justifyContent: "space-around", marginTop: "2rem" }}>
+              <Button variant="contained" style={styleBtnCancle} onClick={() => handleClose()}>Hủy</Button>
+              <input type="file" onChange={handleChange} />
+              <Button variant="contained" onClick={() => handleUpload()}>Cập nhập ảnh</Button>
+            </Typography>
+          </Box>
+        </Modal>
+      </>
+    );
+  }
+
   return (
     <>
       <Container className='profile' maxWidth="xl">
@@ -111,10 +198,10 @@ const Profile = () => {
             <div className="avatar-group">
               {<Avatar
                 alt="Remy Sharp"
-                src={avatar}
+                src={UserInfo.avatar}
                 sx={{ width: 300, height: 300 }}
               />}
-              <Button className="btn-changeAvt"> <MdOutlinePhotoCamera></MdOutlinePhotoCamera> </Button>
+              <UploadModal></UploadModal>
             </div>
 
             <Grid container>
