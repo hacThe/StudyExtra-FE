@@ -1,0 +1,25 @@
+.single-lesson-form-wrapper {
+
+    .single-lesson-form{
+        padding-top: 48px;
+        padding-left: 64px;
+    }
+  .aspect-ratio {
+    margin-top: 12px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* The height of the item will now be 56.25% of the width. */
+  }
+
+  .aspect-ratio iframe {
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+  }
+}

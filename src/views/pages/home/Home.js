@@ -7,26 +7,33 @@ import YourCourses from "./Component/YourCourses";
 import FeaturedCourse from "./Component/FeaturedCourse";
 import QAndA from "./Component/QAndA";
 import { useDispatch, useSelector } from "react-redux";
-import { courseAction } from '../../../actions/course.action'
+import { courseAction } from "../../../actions/course.action";
 import { postAction } from "../../../actions/post.action";
 
 const Login = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const courses = useSelector(state => state.course.courses) || []
-  const posts = useSelector(state => state.post.posts) || []
+  const courses = useSelector((state) => state.course.courses) || [];
+  const posts = useSelector((state) => state.post.posts) || [];
 
   useEffect(() => {
     dispatch(courseAction.getAllCourse());
-    dispatch(postAction.getAllPost())
-  }, [dispatch])
-
+    dispatch(postAction.getAllPost());
+  }, [dispatch]);
 
   return (
     <>
-      <Container style={{backgroundColor: '#f4f4f4'}} maxWidth='xl'>
+      <Container
+        style={{
+          backgroundColor: "var(--background-color)",
+          borderRadius: "10px",
+          marginTop: "24px",
+          boxShadow: "0px 0px 4px 2px rgba(0, 0, 0, 0.1);",
+        }}
+        maxWidth="xl"
+      >
         <div className="home-wrapper">
-            <Slider></Slider>
+          <Slider></Slider>
           <Notification></Notification>
           <YourCourses courses={courses}></YourCourses>
           <FeaturedCourse courses={courses}></FeaturedCourse>

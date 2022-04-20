@@ -1,0 +1,73 @@
+.course-chappter-tile {
+  .chapter-toogle {
+    margin-bottom: 12px;
+    background-color: #f4f4f4;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    padding: 8px 12px;
+    padding-left: 24px;
+    transition: 0.2s;
+    position: relative;
+
+    &::before {
+      content: attr(dataBefore);
+      position: absolute;
+      display: inline-block;
+      width: 12px;
+      text-align: center;
+      left: 18px;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--primary-color);
+    }
+
+    &:hover {
+      cursor: pointer;
+      transform: translateY(-5px);
+    }
+
+    .chapter-name {
+      font-weight: 600;
+      font-size: 1.4rem;
+      margin-left: 12px;
+    }
+  }
+
+  .action-wrapper {
+    margin-left: 18px;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    border-radius: 50%;
+
+    &:hover {
+      background-color: #cccccc;
+    }
+  }
+
+  .course-lesson-tile {
+    background: #ffffff;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    margin-bottom: 12px;
+    transition: 0.5s;
+    margin-left: 56px;
+    padding: 8px 12px;
+
+    .action-wrapper {
+        &:hover {
+          background-color: var(--hover-background-color);
+        }
+      }
+
+    &:hover {
+      transform: translateY(-5px);
+      cursor: pointer;
+    }
+
+    .lesson-name {
+      font-size: 1.4rem;
+      font-weight: 500;
+    }
+  }
+}
