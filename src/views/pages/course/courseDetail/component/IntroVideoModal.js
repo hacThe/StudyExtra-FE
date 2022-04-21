@@ -11,7 +11,7 @@ function IntroVideoModal(props) {
 
         <h1 className="course-name">This is tên khóa học</h1>
 
-        <div class="aspect-ratio">
+        <div className="aspect-ratio">
           <iframe
             id="video"
             width="560"

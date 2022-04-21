@@ -140,12 +140,16 @@
             .hide-answer {
                 display: flex;
                 align-items: flex-end;
+                &:hover{
+                    cursor: pointer;
+                    opacity: 0.7;
+                }
                 .title{
                     font-weight: 700;
                     margin-right: 0.5rem;
                 }
                 .icon{
-                    margin-bottom: 0.5rem;
+                    margin-bottom: 0.3rem;
                 }
             }
             .reply-comment{
