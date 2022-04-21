@@ -1,5 +1,5 @@
 const handleStringDocsToMultipleChoice = (text) => {
-    //
+    // định dạng : false là sai định dạng
     let isFormat = true
     // 
     let listObjectQuestion = []
