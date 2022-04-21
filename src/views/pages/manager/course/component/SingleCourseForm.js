@@ -4,6 +4,14 @@ import * as Yup from "yup";
 import { Grid, Stack } from "@mui/material";
 import "./SingleCourseForm.scss";
 import DragAndDropList from "./DragAndDropList";
+import CourseChapterList from "./CourseChapterList";
+import SaveOrExitButton from "../../component/SaveOrExitButton"
+
+function youtube_parser(url){
+  var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  var match = url.match(regExp);
+  return (match&&match[7].length==11)? match[7] : false;
+}
 
 function SingleCourseForm(props) {
   const formik = useFormik({
@@ -20,18 +28,16 @@ function SingleCourseForm(props) {
       requirement: [],
       chapter: [],
     },
-    // validationSchema: Yup.object({
-    //   username: Yup.string().required("Required"),
-    //   password: Yup.string()
-    //     .required("Required")
-    //     .matches(
-    //       /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-    //       "Password must be minimum eight characters, at least one letter and one number"
-    //     ),
-    // }),
+     validationSchema: Yup.object({
+      imgUrl: Yup.string().required("Vui lòng chọn ảnh thumbnail cho khóa học"),
+      introVideo: Yup.string().required("Vui lòng nhập link của video intro cho khóa học"),
+      name: Yup.string().required("Vui lòng nhập tên khóa học"),
+      description: Yup.string().required("Vui lòng nhập mô tả cho khóa học"),
+      price: Yup.number().min(0,"Giá tiền lớn hơn hoặc bằng 0").required("Vui lòng nhập giá tiền cho khóa học"),
+
+     }),
     onSubmit: (values) => {
-      //   props.onSubmit(values);
-      console.log(values);
+      alert(JSON.stringify(values), null, 2)
     },
   });
 
@@ -144,7 +150,7 @@ function SingleCourseForm(props) {
 
       <div className="mb-3">
         <span className="input-label mb-2">Nội dung bài học</span>
-
+        <CourseChapterList/>
       </div>
 
 
@@ -165,6 +171,7 @@ function SingleCourseForm(props) {
       </div>
 
 
+      <SaveOrExitButton SaveOnClick={()=>alert("save")} CancelOnClick={()=>alert("exit")}/>
 
     </div>
 

@@ -8,68 +8,84 @@ import ButtonGroupCustom from "./component/ButtonGroupCustom";
 import { courseAction } from "../../../actions/course.action";
 
 function Courses(props) {
-    const dispatch = useDispatch();
-    const courses =
-        useSelector((state) => {
-           
-            return state.course.courses;
-        }) || [];
-    const [typeCourse, setTypeCourse] = useState("all");
-    const [coursesCurrent, setCoursesCurrent] = useState([]);
+  const dispatch = useDispatch();
+  const courses =
+    useSelector((state) => {
+      return state.course.courses;
+    }) || [];
+  const [typeCourse, setTypeCourse] = useState("all");
+  const [coursesCurrent, setCoursesCurrent] = useState([]);
 
+  // //của trang khóa học của bạn
+  const [currentPageInYourCourses, setCurrentPageInYourCourses] = useState(1);
+  //của trang tatas cả khóa học
+  const [currentPage, setCurrentPage] = useState(1);
 
-    // //của trang khóa học của bạn
-    const [currentPageInYourCourses, setCurrentPageInYourCourses] = useState(1);
-    //của trang tatas cả khóa học
-    const [currentPage, setCurrentPage] = useState(1);
+  React.useEffect(async () => {
+    dispatch(courseAction.getAllCourse());
+    setCoursesCurrent(courses);
+  }, []);
 
-    React.useEffect(async () => {
-        dispatch(courseAction.getAllCourse());
-        setCoursesCurrent(courses)
-    }, []);
-
-
-    const onChangeCourses = (currentType) => {
-        if (currentType == "all") {
-            setCoursesCurrent(courses);
-            setCurrentPage(1);
-        } else {
-            setCurrentPage(1);
-            let index = [];
-            courses.map((course) => {
-                if (course.categogy == currentType) {
-                    console.log(course);
-                    index.push(course);
-                }
-            });
-            setCoursesCurrent(index);
+  const onChangeCourses = (currentType) => {
+    if (currentType == "all") {
+      setCoursesCurrent(courses);
+      setCurrentPage(1);
+    } else {
+      setCurrentPage(1);
+      let index = [];
+      courses.map((course) => {
+        if (course.categogy == currentType) {
+          console.log(course);
+          index.push(course);
         }
-        setTypeCourse(currentType);
-    };
+      });
+      setCoursesCurrent(index);
+    }
+    setTypeCourse(currentType);
+  };
 
-    return (
-        <Container maxWidth={'xl'}>
- <div className="courses">
-            <h1 style={{ padding: "40px 20px", fontSize: "28px" }}>
-                Khóa học của bạn
-            </h1>
-            <YourCourse
-                currentPageInYourCourses={currentPageInYourCourses}
-                courses={courses}
-            ></YourCourse>
-            <PaginationOutlined
-                setCurrentPageInYourCourses={setCurrentPageInYourCourses}
-                index={courses.length}
-            ></PaginationOutlined>
+  return (
+    <Container
+      style={{
+        backgroundColor: "var(--background-color)",
+        borderRadius: "10px",
+        marginTop: "24px",
+        boxShadow: "0px 0px 4px 2px rgba(0, 0, 0, 0.1);",
+      }}
+      maxWidth={"xl"}
+    >
+      <div className="courses">
+        <h1 style={{ padding: "40px 20px", fontSize: "28px" }}>
+          Khóa học của bạn
+        </h1>
+        <YourCourse
+          currentPageInYourCourses={currentPageInYourCourses}
+          courses={courses}
+        ></YourCourse>
+        <PaginationOutlined
+          setCurrentPageInYourCourses={setCurrentPageInYourCourses}
+          index={courses.length}
+        ></PaginationOutlined>
 
-            <h1 style={{ padding: '40px 20px', fontSize: '28px' }}>Toàn bộ khóa học</h1>
-            <ButtonGroupCustom typeCourse={typeCourse} onChangeCourses={onChangeCourses} setTypeCourse={setTypeCourse}></ButtonGroupCustom>
-            <WholeCourses currentPage={currentPage} coursesCurrent={coursesCurrent}></WholeCourses>
-            <PaginationOutlined setCurrentPage={setCurrentPage} index={coursesCurrent.length}></PaginationOutlined>
-        </div>
-        </Container>
-       
-    );
+        <h1 style={{ padding: "40px 20px", fontSize: "28px" }}>
+          Toàn bộ khóa học
+        </h1>
+        <ButtonGroupCustom
+          typeCourse={typeCourse}
+          onChangeCourses={onChangeCourses}
+          setTypeCourse={setTypeCourse}
+        ></ButtonGroupCustom>
+        <WholeCourses
+          currentPage={currentPage}
+          coursesCurrent={coursesCurrent}
+        ></WholeCourses>
+        <PaginationOutlined
+          setCurrentPage={setCurrentPage}
+          index={coursesCurrent.length}
+        ></PaginationOutlined>
+      </div>
+    </Container>
+  );
 }
 
 export default Courses;

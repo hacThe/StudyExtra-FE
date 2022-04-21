@@ -1,0 +1,69 @@
+.CourseListManager-wapper {
+    position: relative;
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .se-btn{
+        position: absolute;
+        top: 12px;
+        right: 12px;
+    }
+
+
+    .CourseListManager-container{
+        width: 100%;
+        background-color: #fff;
+        .title{
+            padding-top: 4.2rem;
+            width: 100%;
+            text-align: center;
+            font-size: 4rem;
+            font-weight: 700;
+        }
+        .data-table-container{ 
+            padding-bottom: 32px;
+            text-align: center;
+            margin-top: 2rem;
+            width: 100%;
+            text-align: center;
+            .table-header{
+                justify-self: center;
+                
+                .heading{
+                    display: flex;
+                    justify-content: space-between;
+                    .header{
+                        font-size: 1.8rem;
+                        font-weight: 500;
+                    }
+                    .export{
+                        display: flex;
+                        font-size: 1.8rem;
+                        font-weight: 500;
+                        line-height: 2.4rem;
+                        .export-title{
+                            margin-left: 1rem;
+                        }
+                    }
+                }
+                .filter-container{
+                    display: flex;
+                    .filter-label{
+                        display: flex;
+                        font-size: 1.4rem;
+                        font-weight: 500;
+                        line-height: 2.4rem;
+                    }
+                    .filter-input{
+                        height: 2.4rem;
+                        margin-left: 1.2rem;
+                    }
+                }
+            }
+        }
+    }
+    
+}

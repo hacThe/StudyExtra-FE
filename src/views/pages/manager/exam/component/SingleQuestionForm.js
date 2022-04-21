@@ -1,106 +1,161 @@
-import React, { useState } from "react";
-import { useFormik } from "formik";
+import React from "react";
+import { AiFillDelete } from "react-icons/ai";
 import * as Yup from "yup";
+import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
+import "./SingleQuestionForm.scss";
+import SaveOrExitButton from "../../../manager/component/SaveOrExitButton";
+Yup.addMethod(Yup.array, "unique", function (message, mapper = (a) => a) {
+  return this.test("unique", message, function (list) {
+    return list.length === new Set(list.map(mapper)).size;
+  });
+});
 
 function SingleQuestionForm({ maxQuestion, question }) {
-  const [answer, setAnswer] = useState("");
-  const formik = useFormik({
-    validateOnChange: true,
-    validateOnBlur: true,
-    validateOnMount: false,
-    initialValues: {
-      index: 1,
-      question: "",
-      answers: [""],
-      correctAnswer: 0,
-      ...question,
-    },
-    validationSchema: Yup.object({
-      index: Yup.number()
-        .required("Vui lòng nhập số thứ tự")
-        .min(1, "Số thứ tự câu hỏi phải lớn hơn 0")
-        .max(
-          maxQuestion || 30,
-          "Số thứ tự câu hỏi không vượt quá tổng số câu hỏi"
-        ),
-      question: Yup.string().required("Vui lòng nhập câu hỏi"),
-      answers: Yup.array()
-        .of(Yup.string().required("Vui lòng nhập câu trả lời nhỏ"))
-        .min(2, "Cần ít nhất 2 câu trả lời")
-        .required("Vui lòng nhập câu trả lời"),
-    }),
-    onSubmit: (values) => {
-      console.log(values);
-    },
+  const initialValues = {
+    index: 1,
+    question: "",
+    answers: [""],
+    correctAnswer: undefined,
+    ...question,
+  };
+
+  const validationSchema = Yup.object({
+    index: Yup.number()
+      .required("Vui lòng nhập số thứ tự")
+      .min(1, "Số thứ tự câu hỏi phải lớn hơn 0")
+      .max(
+        maxQuestion || 30,
+        "Số thứ tự câu hỏi không vượt quá tổng số câu hỏi"
+      ),
+    question: Yup.string().required("Vui lòng nhập câu hỏi"),
+    answers: Yup.array()
+      .of(Yup.string().required("Câu trả lời không được để trống"))
+      .min(2, "Cần ít nhất 2 câu trả lời")
+      .unique("Câu trả lời không được trùng nhau"),
+    correctAnswer: Yup.number().required(
+      "Vui lòng chọn câu trả lời chính xác."
+    ),
   });
 
-  console.log("Formik values: ", formik.values, formik.errors);
   return (
     <div>
-      <form onSubmit={formik.handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="index">Số thứ tự</label>
-          <input
-            type="number"
-            id="index"
-            name="index"
-            max={maxQuestion}
-            min={1}
-            value={formik.values.index}
-            onChange={formik.handleChange}
-          />
-          {formik.errors.index && formik.touched.index && (
-            <p className="input-error-validation"> {formik.errors.index} </p>
-          )}
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="question">Câu hỏi</label>
-          <textarea
-            id="question"
-            name="question"
-            value={formik.values.question}
-            onChange={formik.handleChange}
-          />
-          {formik.errors.question && formik.touched.question && (
-            <p className="input-error-validation"> {formik.errors.question} </p>
-          )}
-
-          {
-              formik.values.answers.map((answer, index)=>{
-                  return (
-                    <div className="mb-3">
-                    <label htmlFor="index">Đáp án {index + 1}</label>
-                    <input
-                      type="text"
-                      id={"answer" + index}
-                      name={"answer" + index}
-                      value={formik.values.answers[index]}
-                      onChange={formik.handleChange}
-                    />
-                    {formik.errors.index && formik.touched.index && (
-                      <p className="input-error-validation"> {formik.errors.index} </p>
-                    )}
-                  </div>
-                  )
-              })
-          }
-
-          <div className="mb-3">
-            <label htmlFor="addAnswer">Thêm đáp án</label>
-            <div className="display-flex">
-            <input
-              type="text"
-              id="addAnswer"
-              name="addAnswer"
-              value={answer}
-              onChange={setAnswer}
-            />
-            <span className="se-btn">Thêm</span>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={async (values) => {
+          await new Promise((r) => setTimeout(r, 500));
+          alert(JSON.stringify(values, null, 2));
+        }}
+      >
+        {({ values, errors, handleSubmit }) => (
+          <Form>
+            <div className="mb-3">
+              <label htmlFor="index">Số thứ tự câu hỏi</label>
+              <Field
+                type="number"
+                id="index"
+                name="index"
+                placeholder="Nhập câu hỏi"
+              />
+              <ErrorMessage
+                name={`index`}
+                component="div"
+                className="field-error"
+              />
             </div>
-          </div>
-        </div>
-      </form>
+
+            <div className="mb-3">
+              <label htmlFor="question">Câu hỏi</label>
+              <Field
+                as="textarea"
+                id="question"
+                name="question"
+                placeholder="Nhập câu hỏi"
+              />
+              <ErrorMessage
+                name={`question`}
+                component="div"
+                className="field-error"
+              />
+            </div>
+
+            <FieldArray name="answers">
+              {({ insert, remove, push }) => (
+                <div>
+                  {values.answers.length > 0 &&
+                    values.answers.map((friend, index) => (
+                      <div className="row" key={index}>
+                        <div className="col answer-tile">
+                          <label htmlFor={`answers.${index}`}>
+                            Câu trả lời
+                          </label>
+
+                          <div className="answer-input-wrapper">
+                            <Field
+                              name={`answers.${index}`}
+                              placeholder="Nhập câu trả lời"
+                              type="text"
+                            />
+                            <div
+                              onClick={() => remove(index)}
+                              className="col remove-btn"
+                            >
+                              <AiFillDelete color="#818181" size={"2em"} />
+                            </div>
+                          </div>
+
+                          {errors.answers &&
+                            (!Array.isArray(errors.answers) ? (
+                              <ErrorMessage
+                                name={`answers`}
+                                component="div"
+                                className="field-error"
+                              />
+                            ) : (
+                              <ErrorMessage
+                                name={`answers.${index}`}
+                                component="div"
+                                className="field-error"
+                              />
+                            ))}
+                        </div>
+                      </div>
+                    ))}
+                  <span type="span" className="se-btn" onClick={() => push("")}>
+                    Thêm đáp án
+                  </span>
+                </div>
+              )}
+            </FieldArray>
+
+            <div className="mb-3">
+              <label htmlFor="question">Đáp án đúng</label>
+              <Field as="select" id="correctAnswer" name="correctAnswer">
+                <option>Chọn đáp án đúng</option>
+                {values.answers.map((answer, index) => {
+                  return (
+                    <option key={`option-${index}`} value={index}>
+                      {answer}
+                    </option>
+                  );
+                })}
+              </Field>
+              <ErrorMessage
+                name={`correctAnswer`}
+                component="div"
+                className="field-error"
+              />
+            </div>
+
+            <SaveOrExitButton
+              SaveOnClick={() => {
+                console.log(handleSubmit);
+                handleSubmit();
+              }}
+            />
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 }
