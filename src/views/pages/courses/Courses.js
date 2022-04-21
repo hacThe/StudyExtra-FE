@@ -59,11 +59,7 @@ function Courses(props) {
             var doc = new Docxtemplater(new PizZip(content), { delimiters: { start: '12op1j2po1j2poj1po', end: 'op21j4po21jp4oj1op24j' } });
             var text = doc.getFullText();
             var list = handleStringDocsToMultipleChoice(text)
-            if (!list) {
-                return 'Sai định dạng'
-            } else {
-                console.log(list)
-            }
+            console.log(list)
         };
         reader.readAsBinaryString(e.target.files[0]);
     };
