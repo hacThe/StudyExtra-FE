@@ -10,6 +10,10 @@ import handleStringDocsToMultipleChoice from '../../../utilities/ConvertDocsToMu
 //Import docs
 import Docxtemplater from "docxtemplater";
 import PizZip from 'pizzip'
+
+//Export docs
+import handleExport from "../../../utilities/ExportDocs";
+
 function Courses(props) {
     const dispatch = useDispatch();
     const courses =
@@ -63,8 +67,42 @@ function Courses(props) {
         };
         reader.readAsBinaryString(e.target.files[0]);
     };
+    //Export
 
+    const [mockDataExportDocs, isMock] = React.useState([
+        
+        {
+            id: 1,
+            name: 'Phuoc',
+            class: 'KTPM 2019',
+            weight: '64kg',
+            height: '1m7'
+        },
+        {
+            id: 2,
+            name: 'Phi',
+            class: 'KTPM 2019',
+            weight: '64kg',
+            height: '1m7'
+        },
+        {
+            id: 3,
+            name: 'Thế',
+            class: 'KTPM 2019',
+            weight: '64kg',
+            height: '1m7'
+        },
+        {
+            id: 4,
+            name: 'Thành',
+            class: 'KTPM 2019',
+            weight: '64kg',
+            height: '1m7'
+        },
+    ])
     
+
+
     return (
         <Container maxWidth={'xl'}>
             <div className="courses">
@@ -85,6 +123,7 @@ function Courses(props) {
                 <WholeCourses currentPage={currentPage} coursesCurrent={coursesCurrent}></WholeCourses>
                 <PaginationOutlined setCurrentPage={setCurrentPage} index={coursesCurrent.length}></PaginationOutlined>
                 <input type="file" id="fileInput" onChange={(e) => showFile(e)} />
+                <div style={{border:'1px solid black', padding: '10px', display:'flex', borderRadius:'8px', width:'fit-content', cursor:'pointer'}} onClick={() => handleExport(mockDataExportDocs, 'user', 'MANAGE USER')}>Export excel</div>
             </div>
         </Container>
 
