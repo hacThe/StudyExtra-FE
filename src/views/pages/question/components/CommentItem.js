@@ -3,26 +3,67 @@ import '../scss/CommentItem.scss';
 import { BsTriangleFill } from "react-icons/bs";
 import { IoImageOutline } from "react-icons/io5";
 import { HiDotsHorizontal} from "react-icons/hi";
-
 import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
+import Consts from '../ConstKey.js';
 
-const CommentItem = ({reply, image, userReply}) => {
+const CommentItem = ({comment}) => {
 
-    const [replyDisplay, setReplyDisplay] = useState(0);
+    const [replyDisplay, setReplyDisplay] = useState(false);
     const changeReplyDisplay = () => {
         setReplyDisplay(!replyDisplay);
     } 
+
+    const [isLiked, setIsLiked] = useState(false);
+    const changeLiked = () => {
+        setIsLiked(!isLiked);
+    } 
+
+    const [userReplyDisplay, setUserReplyDisplay] = useState(false);
+    const changeUserReplyDisplay = () => {
+        setUserReplyDisplay(!userReplyDisplay);
+    }
+
+
+    const [pressedKeys, setPressedKeys] = useState([]);
+    useEffect(() => {
+        const onKeyDown = ({key}) => {
+            if (Consts.ALLOWED_KEYS.includes(key) && !pressedKeys.includes(key)) {
+                setPressedKeys(previousPressedKeys => [...previousPressedKeys, key]);
+                console.log(document.activeElement);
+                // Add cmt item
+                 
+            }
+        }
+
+        const onKeyUp = ({key}) => {
+            if (Consts.ALLOWED_KEYS.includes(key)) {
+                setPressedKeys(previousPressedKeys => previousPressedKeys.filter(k => k !== key));
+            }
+        }
+
+        document.addEventListener('keydown', onKeyDown);
+        document.addEventListener('keyup', onKeyUp);
+
+        return () => {
+            document.removeEventListener('keydown', onKeyDown);
+            document.removeEventListener('keyup', onKeyUp);
+        }
+    }, []);   
+
+    console.log("comment", comment);
+    console.log("comment.replyComment", comment.replyComment);
+    const image = false;
 
     return (
         <div className="comment-item">
             <div className="comment-heading">
                 <img className="user-avatar"
-                    src="https://img-9gag-fun.9cache.com/photo/axBB4pW_460s.jpg"
+                    src={comment.userAvatar}
                 ></img>
                 <div className="comment-container">
-                    <p className="user-name">Yae Miko</p>
+                    <p className="user-name">{comment.username}</p>
                     <div className="comment-content">
-                        Mình nghĩ là vậy đó, bạn tham khảo câu trả lời của mình nha
+                        {comment.content}
                     </div>
                 </div>
                 <div className="comment-manage">
@@ -49,29 +90,27 @@ const CommentItem = ({reply, image, userReply}) => {
             </div>
             
             <div className="comment-interact">
-                <p className="interact-item like active" >Thích</p>
-                <p className="interact-item rep" >Phản hồi</p>
+                <p 
+                    className={isLiked ?"interact-item like active" : "interact-item like"}s
+                    onClick={(e) => changeLiked()}
+                >
+                    Thích
+                </p>
+                <p 
+                    className="interact-item rep" 
+                    onClick = {(e) => changeUserReplyDisplay() }
+                >Phản hồi</p>
                 <p className="interact-time">2 phút</p>
             </div>
             {
-                image == false ? (null) :
+                comment.imgUrl == "" ? (null) :
                 <img className="comment-image"
-                    src="https://i.pinimg.com/564x/f1/9f/5d/f19f5dc827dbe910912846fe975f2b37.jpg"
+                    src={comment.imgUrl}
                 ></img>
             }
+            
             {
-                userReply == false ? (null) :
-                <div className="user-reply-comment">
-                    <img 
-                        src="https://i.pinimg.com/originals/33/c2/20/33c220ed89693515fb07aecd51a26eda.jpg"
-                        className='current-user-avatar'
-                    ></img>
-                    <input type="text" className="comment-box"></input>
-                    <IoImageOutline size={28} className='add-image-icon'/>
-                </div>
-            }
-            {
-                reply== false ? (null) : 
+                comment.replyComment.length == 0 ? (null) : 
                 <div className='reply'>
                     {
                         replyDisplay 
@@ -99,17 +138,24 @@ const CommentItem = ({reply, image, userReply}) => {
                     }
                     
                     {
-                        !replyDisplay ? (null) : 
-                            <div className="reply-comment">
-                                <div className="side-divider"></div>
-                                <CommentItem reply={false} image={false} userReply={true}/>
-                            </div>
+                        !replyDisplay || comment.replyComment.length == 0? (null) :
+                            comment.replyComment.map((commentItem)=>{
+                                return (<CommentItem comment={commentItem}/>)
+                            })
                     }
-                    
-                    
                 </div>
             }
-            
+            {
+                userReplyDisplay == false ? (null) :
+                <div className="user-reply-comment">
+                    <img 
+                        src="https://i.pinimg.com/originals/33/c2/20/33c220ed89693515fb07aecd51a26eda.jpg"
+                        className='current-user-avatar'
+                    ></img>
+                    <input type="text" className="comment-box"></input>
+                    <IoImageOutline size={28} className='add-image-icon'/>
+                </div>   
+            } 
         </div>
     )
 }
