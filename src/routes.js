@@ -46,6 +46,12 @@ const AddQuestion = React.lazy(() =>
 const EditQuestion = React.lazy(() =>
   import("./views/pages/manager/exam/EditQuestion/EditQuestion")
 );
+const UserManager = React.lazy(() =>
+  import("./views/pages/manager/user/ManagerUser")
+);
+const DetailUser = React.lazy(() =>
+  import("./views/pages/manager/user/DetailUser")
+);
 const Exams = React.lazy(() => import("./views/pages/exam/exams/Exams"));
 const ExamDescription = React.lazy(() =>
   import("./views/pages/exam/examDescription/ExamDescription")
@@ -141,7 +147,12 @@ const managerRoute = [
   {
     path: "/quan-ly/nguoi-dung",
     name: "Trang chủ",
-    element: <h1>Quan ly nguoi dung</h1>,
+    element:<UserManager />,
+  },
+  {
+    path: "/quan-ly/nguoi-dung/id:id",
+    name: "Chi tiet nguoi dung",
+    element:<DetailUser />,
   },
   {
     path: "/quan-ly/tai-lieu",

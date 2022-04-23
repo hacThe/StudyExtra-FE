@@ -147,7 +147,7 @@ function ManagerHeader(props) {
                     <Avatar
                         className="avatar"
                         alt="Remy Sharp"
-                        src={item.imgUrl || "default-avatar.png"}
+                        src={item.imgUrl || "/default-avatar.png"}
                     />
                     <NotificationContent notification={item} />
                 </MenuItem>
@@ -202,7 +202,7 @@ function ManagerHeader(props) {
                                 <Avatar
                                     className="avatar"
                                     alt="Remy Sharp"
-                                    src={typeof UserInfo === "undefined" ? "default-avatar.png" : UserInfo.avatar}
+                                    src={typeof UserInfo === "undefined" ? "/default-avatar.png" : UserInfo.avatar}
                                 />
                             </IconButton>
                         </Box>

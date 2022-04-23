@@ -178,7 +178,7 @@ function TheHeader() {
           <Avatar
             className="avatar"
             alt="Remy Sharp"
-            src={item.imgUrl || "default-avatar.png"}
+            src={item.imgUrl || "/default-avatar.png"}
           />
           <NotificationContent notification={item} />
         </MenuItem>
@@ -254,7 +254,7 @@ function TheHeader() {
                 <Avatar
                   className="avatar"
                   alt="Remy Sharp"
-                  src={typeof UserInfo === "undefined" ? "default-avatar.png" : UserInfo.avatar}
+                  src={typeof UserInfo === "undefined" ? "/default-avatar.png" : UserInfo.avatar}
                 />
               </Grid>
               <Grid item xs={8}>
@@ -311,7 +311,7 @@ function TheHeader() {
           <Avatar
             className="avatar"
             alt="Remy Sharp"
-            src={typeof UserInfo === "undefined" ? "default-avatar.png" : UserInfo.avatar}
+            src={typeof UserInfo === "undefined" ? "/default-avatar.png" : UserInfo.avatar}
           />
         </IconButton>
       </Box>
@@ -319,7 +319,7 @@ function TheHeader() {
   )
   const navigate = useNavigate();
   const LoginBtn = (
-    <Grid item md={4} xs={3}>
+    <Grid item md={4} xs={3}  className="avatar-notification_group">
       <Button variant="contained"
         style={{ background: "#7B68EE", textTransform: "none", fontFamily: "Montserrat", fontSize: "1.4rem" }}
         onClick={() => {
