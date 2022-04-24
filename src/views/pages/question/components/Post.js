@@ -1,10 +1,12 @@
 import React , {useState, useEffect} from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import { AiFillLike } from "react-icons/ai";
 import { FaCommentAlt } from "react-icons/fa";
 import CommentItem from './CommentItem';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import '../scss/Post.scss';
+import { cookiesUtil } from '../../../../utilities';
 
 const Post = ({post}) => {
     const [isLiked, setLiked] = useState(false);
@@ -13,6 +15,14 @@ const Post = ({post}) => {
     }
 
     console.log(post);
+
+    useSelector((state) => {
+        console.log({ state });
+    })
+    let user = cookiesUtil.getCurrentUserInfo();
+    console.log("user", user);
+
+    
 
     return (
         <div className="question-body">

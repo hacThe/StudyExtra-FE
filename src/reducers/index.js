@@ -7,6 +7,7 @@ import { document } from "./document.reducer";
 import { ranking } from "./ranking.reducer";
 import { search } from "./search.reducer";
 import { post } from "./post.reducer";
+import {article} from "./article.reducer";
 const rootReducer = combineReducers({
   app, // appReducer
   course, // course
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   search,
   post,
   document,
+  article,
 });
 
 export default rootReducer;

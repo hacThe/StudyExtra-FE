@@ -20,19 +20,6 @@ function Document(){
     };
 
     const filters = ["Mới nhất", "Cũ nhất", "Xem nhiều nhất", "Xem ít nhất"];
-    
-    // Xử lý pagination
-    const documentItemLimit = 3;
-    const [pagePagination, setPagePagination] = useState(0);
-    const changePagePagination =  (newValue) => {
-        setPagePagination(newValue);
-    }
-
-    const itemDisplayIndex =
-        useSelector((state) => {
-            return state.document.pagination - 1;
-        }) || 0;
-
 
     React.useEffect(async () => {
         await dispatch(documentActions.getAllDocument());

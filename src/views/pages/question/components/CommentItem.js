@@ -29,9 +29,11 @@ const CommentItem = ({comment}) => {
         const onKeyDown = ({key}) => {
             if (Consts.ALLOWED_KEYS.includes(key) && !pressedKeys.includes(key)) {
                 setPressedKeys(previousPressedKeys => [...previousPressedKeys, key]);
-                console.log(document.activeElement);
-                // Add cmt item
-                 
+                const currentActive = document.activeElement;
+                if(currentActive.classList.contains('comment-box')){
+                    console.log("Thêm comment vào cái list");
+                    // Viết hàm thêm, tác động redux là ok
+                }
             }
         }
 
@@ -52,11 +54,19 @@ const CommentItem = ({comment}) => {
 
     console.log("comment", comment);
     console.log("comment.replyComment", comment.replyComment);
-    const image = false;
+
+    const hideThisComment = () => {
+        // Ở đây mình gọi redux các kiểu
+        console.log('hide this comment');
+        console.log('comment.isHide', comment.isHide)
+    }
+
+    
 
     return (
         <div className="comment-item">
             <div className="comment-heading">
+
                 <img className="user-avatar"
                     src={comment.userAvatar}
                 ></img>
@@ -72,8 +82,12 @@ const CommentItem = ({comment}) => {
 
                     </div>
                     <div className="comment-modal">
-                        <div className="modal-item">
+                        <div 
+                            className="modal-item"
+                            onClick={()=>hideThisComment()}
+                        >
                             Ẩn
+
                         </div>
                         <div className="modal-item">
                             Xoá

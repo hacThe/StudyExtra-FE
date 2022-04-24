@@ -16,4 +16,6 @@ export default {
 
     // document
     URL_GET_DOCUMENTS: URL_SYSTEM_V1 + '/document/',
+    // article
+    URL_ARTICLE: URL_SYSTEM_V1 + '/article/',
 }

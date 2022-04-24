@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+
 import './scss/Question.scss';
 import Post from './components/Post.js';
-
+import { articleActions } from '../../../actions/article.action';
 
 
 const Question = () => {
 
+    // Fake data
     const posts = [
         {
             userID: 'abc',
             username: 'Raiden Shogun',
             userAvatar: 'https://i.pinimg.com/474x/84/e0/08/84e008e416a5662ada45185058678ed7.jpg',
             contents : "Mọi người có thể giúp em so sánh sự khác nhau giữa beautiful và handsome được không ạ, quả là khó khăn đó nha hahaha đạy là câu hỏi ví dụ thoi",
-            isHide: false,
             imgUrl: [
                 "https://gamek.mediacdn.vn/133514250583805952/2021/9/2/base64-1630595438805599368242.png",
                 "https://cdn.tgdd.vn//GameApp/1395135//cach-choi-raiden-genshin-impact-thong-tin-guide-skill-moi-thumb-800x450.jpg",
@@ -45,6 +47,19 @@ const Question = () => {
             ]
         }
     ]
+
+    // Get real data
+    const dispatch = useDispatch();
+    React.useEffect(async () => {
+        await dispatch(articleActions.getAllArticle());
+    }, []);
+
+    const articles =
+        useSelector((state) => {
+            console.log({ state });
+            return state;
+        }) || [];
+
     return (
         <div>
             <div className="question-page-container">
