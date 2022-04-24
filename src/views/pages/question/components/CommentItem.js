@@ -7,7 +7,6 @@ import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
 import Consts from '../ConstKey.js';
 
 const CommentItem = ({comment}) => {
-
     const [replyDisplay, setReplyDisplay] = useState(false);
     const changeReplyDisplay = () => {
         setReplyDisplay(!replyDisplay);
@@ -117,14 +116,14 @@ const CommentItem = ({comment}) => {
                 <p className="interact-time">2 phút</p>
             </div>
             {
-                comment.imgUrl == "" ? (null) :
+                !comment.imgUrl ? (null) :
                 <img className="comment-image"
                     src={comment.imgUrl}
                 ></img>
             }
             
             {
-                comment.replyComment.length == 0 ? (null) : 
+                !comment.replyComment || comment.replyComment.length == 0 ? (null) : 
                 <div className='reply'>
                     {
                         replyDisplay 

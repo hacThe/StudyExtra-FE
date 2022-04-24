@@ -8,8 +8,6 @@ export const articleActions = {
 function getAllArticle(){
     return (dispatch)=>{
         dispatch(request())
-        console.log("Gọi article action");
-
         articleService.getAllArticle().then(
             (articles)=>{
                 dispatch(success(articles))

@@ -4,7 +4,55 @@ import { useDispatch, useSelector } from "react-redux";
 import './scss/Question.scss';
 import Post from './components/Post.js';
 import { articleActions } from '../../../actions/article.action';
+import { FaCommentsDollar } from 'react-icons/fa';
 
+const refineComments = (comments) => {
+    var res = [];
+    
+    try{
+        comments.forEach(cmt => {
+            var tempt = {
+                commentID: cmt.commentID,
+                userID: cmt.userID,
+                username: "Yae Miko Real",
+                userAvatar: "https://img-9gag-fun.9cache.com/photo/axBB4pW_460s.jpg",
+                content: cmt.content,
+                userTagID: cmt.userTagID,
+                userTagName: 'Raiden Ei',
+                imgUrl: cmt.imgUrl,
+                isHide: false,
+            }
+            if(cmt.replyComment || cmt.replyComment.length > 0)
+                tempt.replyComment =  refineComments(cmt.replyComment);
+            else tempt.replyComment = [];
+            res.push(tempt);
+        });
+    }
+    catch(e){
+        console.log("error", e);
+        console.log("comments", comments);
+    }
+    
+    // var tempt ={};
+    return res;
+}
+
+const refineData = (data) => {
+    var res = [];
+    data.forEach(item => {
+        var temp = {
+            userID: item.userID,
+            username: item.username,
+            userAvatar: item.avatar,
+            contents: item.content,
+            imgUrl: item.imgUrl
+        }
+        var tempComment = refineComments(item.comments);
+        temp.comment = tempComment;
+        res.push(temp);
+    });
+    return res;
+}
 
 const Question = () => {
 
@@ -56,17 +104,22 @@ const Question = () => {
 
     const articles =
         useSelector((state) => {
-            console.log({ state });
-            return state;
+            return state.article.articles;
         }) || [];
+    console.log("articles", articles)
 
     return (
         <div>
             <div className="question-page-container">
                 <div className="question-container">
                     {
-                        posts.map((post)=>{
-                            return (<Post post={post}/>);
+                        refineData(articles).map((item)=>{
+                            console.log("item", item)
+                            return (
+                                <Post 
+                                    post = {item}
+                                />
+                            );
                         })
                     }
                 </div>
