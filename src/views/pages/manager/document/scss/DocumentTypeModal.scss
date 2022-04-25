@@ -13,10 +13,72 @@
     }
     .document-type-manager-modal{
         position: absolute;
-        top: 25%;
+        top: 35%;
         left: 35%;
         width: 60rem;
-        height: 33.5rem;
         background-color: #fff;
+        padding: 2.7rem;
+        border-radius: 1rem;
+        .title{
+            font-weight: 600;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 3.6rem;
+        }
+        .document-type-container{
+            display: flex;
+            flex-wrap: wrap;
+            .type-container{
+                padding: 0.8rem 1.2rem;
+                background-color: #fff;
+                display: flex;
+                color: #464646;
+                border-radius: 2rem;
+                margin-bottom: 1.2rem;
+                margin-right: 1.2rem;
+                border: 1px solid #333;
+                &.active{
+                    background-color: #7B68EE;
+                    color: #fff;
+                    border: none;
+                    padding-top: 1.2rem;
+                    .type-name{
+                        font-size: 1.4rem;   
+                        font-weight: 600; 
+                        line-height: 2.1rem;
+                    }
+                }
+                .type-name{
+                    font-size: 1.4rem;   
+                    font-weight: 600; 
+                    line-height: 2.1rem;
+                }
+                .edit-type{
+                    margin-left: 2rem;
+                }
+                .type-delete{
+                    margin-left: 1.5rem;
+                    &:hover{
+                        opacity: 0.7;
+                    }
+                }
+            }
+
+        }
+        .insert-document-type{
+            display: flex;
+            margin-top: 2.4rem;
+            .input-document-type{
+                flex: 1;
+            }
+            .button-add-type{
+                border-radius: 1rem;
+                background-color: #4FCF54;
+                font-family: 'Montserrat';
+                margin-left: 1.2rem;
+            }
+            
+        }
+        
     }
 }
