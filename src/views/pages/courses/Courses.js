@@ -22,8 +22,7 @@ function Courses(props) {
             return state.course.courses;
         }) || [];
     const [typeCourse, setTypeCourse] = useState("all");
-    const [coursesCurrent, setCoursesCurrent] = useState([]);
-
+    const [coursesCurrent, setCoursesCurrent] = useState(courses);
 
     // //của trang khóa học của bạn
     const [currentPageInYourCourses, setCurrentPageInYourCourses] = useState(1);
@@ -32,9 +31,8 @@ function Courses(props) {
 
     React.useEffect(async () => {
         dispatch(courseAction.getAllCourse());
-        setCoursesCurrent(courses)
+        console.log(coursesCurrent)
     }, []);
-
 
     const onChangeCourses = (currentType) => {
         if (currentType == "all") {
@@ -70,7 +68,7 @@ function Courses(props) {
     //Export
 
     const [mockDataExportDocs, isMock] = React.useState([
-        
+
         {
             id: 1,
             name: 'Phuoc',
@@ -100,7 +98,7 @@ function Courses(props) {
             height: '1m7'
         },
     ])
-    
+
 
 
     return (
@@ -119,11 +117,18 @@ function Courses(props) {
                 ></PaginationOutlined>
 
                 <h1 style={{ padding: '40px 20px', fontSize: '28px' }}>Toàn bộ khóa học</h1>
-                <ButtonGroupCustom typeCourse={typeCourse} onChangeCourses={onChangeCourses} setTypeCourse={setTypeCourse}></ButtonGroupCustom>
-                <WholeCourses currentPage={currentPage} coursesCurrent={coursesCurrent}></WholeCourses>
+                <ButtonGroupCustom
+                    typeCourse={typeCourse}
+                    onChangeCourses={onChangeCourses}
+                    setTypeCourse={setTypeCourse}
+                ></ButtonGroupCustom>
+                <WholeCourses
+                    currentPage={currentPage}
+                    coursesCurrent={coursesCurrent}
+                ></WholeCourses>
                 <PaginationOutlined setCurrentPage={setCurrentPage} index={coursesCurrent.length}></PaginationOutlined>
                 <input type="file" id="fileInput" onChange={(e) => showFile(e)} />
-                <div style={{border:'1px solid black', padding: '10px', display:'flex', borderRadius:'8px', width:'fit-content', cursor:'pointer'}} onClick={() => handleExport(mockDataExportDocs, 'user', 'MANAGE USER')}>Export excel</div>
+                <div style={{ border: '1px solid black', padding: '10px', display: 'flex', borderRadius: '8px', width: 'fit-content', cursor: 'pointer' }} onClick={() => handleExport(mockDataExportDocs, 'user', 'MANAGE USER')}>Export excel</div>
             </div>
         </Container>
 
