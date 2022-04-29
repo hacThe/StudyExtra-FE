@@ -1,40 +1,50 @@
 .profile {
+    box-shadow: 0px 0px 4px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 2.5rem;
+    padding-bottom: 2.5rem;
+
     .title-profile {
-        padding-top: 3.5rem;
+        padding-top: 1.5rem;
         display: flex;
         flex-wrap: swrap;
         justify-content: space-between;
 
-        h1 {
-            font-family: Montserrat;
-            font-style: normal;
-            font-weight: bold;
-            font-size: 2.8rem;
-            line-height: 3.4rem;
-            color: #000000;
-        }
-
         button {
-            font-family: Montserrat;
+            font-family: 'Montserrat';
             font-style: normal;
-            font-weight: 500;
-            font-size: 1.4rem;
-            line-height: 1.7rem;
-            color: #000000;
-            background-color: #FFFFFF;
-
-            svg {
-                height: 1.8rem;
-                width: 1.8rem;
-                margin-right: 0.7rem;
-            }
-
-            border: none;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 17px;
+            color: #747474;
         }
+
+        .btn-group {
+            display: flex;
+            padding-right: 1rem;
+            button {
+                font-family: Montserrat;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 1.4rem;
+                line-height: 1.7rem;
+                color: #000000;
+                background-color: #FFFFFF;
+
+                svg {
+                    height: 1.8rem;
+                    width: 1.8rem;
+                    margin-right: 0.7rem;
+                }
+
+                border: none;
+            }
+        }
+
     }
 
     .information-group {
-        margin-top: 1.5rem;
+        margin-top: 0.5rem;
 
         .left-grid {
             padding: 2rem;
@@ -45,28 +55,14 @@
                 justify-content: left;
                 position: relative;
                 margin-bottom: 2.4rem;
-                .btn-changeAvt {
-                    background-color: #0000002d;
-                    color: #0000003d;
-                    position: absolute;
-                    width: 30rem;
-                    height: 30rem;
-                    border-radius: 50%;
-                    opacity: 0;
-                    svg {
-                        height: 50%;
-                        width: 50%;
-                    }
-                }
-                .btn-changeAvt:hover{
-                    opacity: 1;
-                }
             }
 
             .inform-item {
-                margin-bottom: 2.8rem;
+                margin-bottom: 3.6rem;
+
                 .name-inform {
                     font-family: 'Montserrat';
+                    font-style: normal;
                     font-weight: 700;
                     font-size: 2rem;
                     line-height: 2.4rem;
@@ -101,20 +97,24 @@
 
             .courses-exams-group {
                 padding: 0rem;
-                .courses-list{
+
+                .courses-list {
                     padding-right: 2rem;
                     padding-bottom: 3.2rem;
                 }
-                .exams-list{
+
+                .exams-list {
                     padding-right: 2rem;
                     padding-bottom: 3.2rem;
                 }
             }
 
             h5 {
+                font-family: 'Montserrat';
+                font-style: normal;
                 font-weight: 700;
-                font-size: 20px;
-                line-height: 24px;
+                font-size: 2rem;
+                line-height: 2.4rem;
                 color: #000000;
             }
 
@@ -128,8 +128,9 @@
 
                 margin-top: 0.8rem;
             }
-            .history-transaction_table{
-                h5{
+
+            .history-transaction_table {
+                h5 {
                     margin-bottom: 3.3rem;
                 }
             }

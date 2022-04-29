@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 import { FiEdit } from "react-icons/fi";
 import clsx from 'clsx';
 import { MdOutlinePhotoCamera } from "react-icons/md"
+import { AiOutlineExport, AiOutlineLock, AiOutlineDelete } from "react-icons/ai";
 import axios from "axios";
 import './DetailUser.scss';
 import TransactionTable from './component/TransactionTable';
 import { useDispatch, useSelector } from "react-redux";
+import BackToPageButton from "./../../../components/BackToPageButton"
 
 const DetailUser = () => {
 
@@ -39,9 +41,9 @@ const DetailUser = () => {
   ];
 
   const courses = [{
-      name: "khóa học gì không biết nữa kkk"
+    name: "khóa học gì không biết nữa kkk"
   }, {
-      name: "Khóa học này cũng không biết luôn"
+    name: "Khóa học này cũng không biết luôn"
   }]
 
   var [filter, setFilter] = useState('');
@@ -84,17 +86,29 @@ const DetailUser = () => {
     { id: 12, stt: 12, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
     { id: 13, stt: 13, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' }
   ]
-  
+
 
   return (
     <>
       <Container className='profile' maxWidth="xl">
         <div className="title-profile">
-          <h1>Hồ sơ học viên</h1>
-          <button variant="outlined">
-            <FiEdit />
-            Chỉnh sửa
-          </button>
+          <BackToPageButton content="Danh sách người dùng"/>
+          <div className="btn-group">
+            <button variant="outlined">
+              <AiOutlineExport />
+              Xuất Excel
+            </button>
+
+            <button variant="outlined">
+              <AiOutlineLock />
+              Khóa tài khoản
+            </button>
+
+            <button variant="outlined">
+              <AiOutlineDelete />
+              Xóa tài khoản
+            </button>
+          </div>
         </div>
 
         <Grid container spacing={2} className="information-group">
@@ -103,7 +117,7 @@ const DetailUser = () => {
               {<Avatar
                 alt="Remy Sharp"
                 src="/SE-LOGO.png"
-                sx={{ width: 300, height: 300 }}
+                sx={{ width: 210, height: 210 }}
               />}
             </div>
 

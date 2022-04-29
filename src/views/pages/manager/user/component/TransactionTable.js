@@ -74,18 +74,19 @@ const TransactionTable = ({ rowDocs, columnDocs, filter }) => {
     }
 
     const getShowingData = (filter) => {
-        if (filter == "") return rowDocs;
-        var res = [];
+        if(filter=="") return rowDocs;
+        var res = []; 
         rowDocs.map((rowDoc) => {
             var vals = Object.values(rowDoc);
             var isFind = false;
             vals.forEach(val => {
-                if (val.toString().indexOf(filter) != -1) {
+                if(val.toString().indexOf(filter)!=-1){
                     isFind = true;
                 }
             });
-            if (isFind) return res.push([...rowDoc]);
+            if(isFind) return res.push(rowDoc); 
         })
+        // console.log("res", res);
         return res;
     }
 
@@ -98,6 +99,7 @@ const TransactionTable = ({ rowDocs, columnDocs, filter }) => {
                 rows={getShowingData(filter)}
                 columns={columnDocs}
                 pageSize={10}
+                rowsPerPageOptions={[10]}
                 sx={datagridSx}
                 onCellClick={(params, event) => onCellClick(params, event)}
                 onRowClick={() => onRowClick()}

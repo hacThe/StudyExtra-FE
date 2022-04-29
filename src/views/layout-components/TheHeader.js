@@ -57,9 +57,9 @@ function TheHeader() {
   //-----------Search
   const [search, setSearch] = useState('');
 
-  /*  const handleChangeSearch = (event) => {
+   const handleChangeSearch = (event) => {
      setSearch(event.target.value)
-   } */
+   }
 
   const handleClickSearch = (event) => {
     dispatch(searchAction.getSearch(search))
@@ -393,7 +393,7 @@ function TheHeader() {
                   inputProps={{ "aria-label": "search" }}
                   className="search-inp"
                   onKeyPress={(e) => handleKeyPressSearch(e)}
-                /*  onChange={(e) => handleChangeSearch(e)} */
+                 onChange={(e) => handleChangeSearch(e)}
                 ></InputBase>
               </Box>
             </Grid>
