@@ -73,7 +73,7 @@ export default function CardCourses(props) {
                   fontSize: "18px",
                 }}
               ></FaUserGraduate>
-              <div style={{fontSize:'16px',fontFamily: "'Montserrat', san-serif"}}>{props.course.studentId.length}</div>
+              <div style={{fontSize:'16px',fontFamily: "'Montserrat', san-serif"}}>{props.course.studentIds.length}</div>
             </div>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <MdOutlineAccessTimeFilled

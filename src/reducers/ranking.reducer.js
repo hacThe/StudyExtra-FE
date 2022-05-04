@@ -7,7 +7,6 @@ const initialState = {
   
   
 export function ranking(state = initialState, action) {
-    console.log("inside ranking redux")
     switch (action.type) {
         case rankingConstants.CHANGE_PAGINATION_REQUEST:
             var newState = {...state};

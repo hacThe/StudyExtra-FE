@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "../CourseDetail.scss";
 import { Grid } from "@mui/material";
 
-function CourseDetailLeftSide(props) {
-  function CourseChapterToogle(props) {
-    const [visible, setvisible] = useState(!!props.showLesson);
+function CourseDetailLeftSide({ course }) {
+  console.log({ course });
+
+  function CourseChapterToogle({ index, chapter, showLesson }) {
+    const [visible, setvisible] = useState(!!showLesson);
 
     function toogleLessonTile() {
       setvisible(!visible);
@@ -17,62 +19,66 @@ function CourseDetailLeftSide(props) {
           dataBefore={!visible ? "+" : "-"}
           className="chapter-toogle display-flex justify-content-between"
         >
-          <span className="chapter-name">{`${1}. ${"This is chapter name"}`}</span>
-          <span className="chapter-count">{`${6} bài học`}</span>
+          <span className="chapter-name">{`${index + 1}. ${
+            chapter.name
+          }`}</span>
+          <span className="chapter-count">{`${
+            chapter.lessons?.length || 0
+          } bài học`}</span>
         </div>
 
-        {visible && <CourseLessonTile />}
+        {visible && <CourseLessonTile lessons={chapter.lessons} />}
       </div>
     );
   }
 
-  function CourseLessonTile(props) {
+  function CourseLessonTile({ lessons }) {
     return (
-      <div className="course-lesson-tile display-flex justify-content-between">
-        <div className="align-center">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M13.5 3H4.5C2.84315 3 1.5 4.34315 1.5 6V12C1.5 13.6569 2.84315 15 4.5 15H13.5C15.1569 15 16.5 13.6569 16.5 12V6C16.5 4.34315 15.1569 3 13.5 3Z"
-              stroke="#7B68EE"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M11.25 9L7.5 6.75V11.25L11.25 9Z"
-              stroke="#7B68EE"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <span className="lesson-name">{`${1}. ${"This is chapter name"}`}</span>
+      <>
+        <div className="lesson-list">
+          {lessons.map((lesson) => {
+            return (
+              <div className="course-lesson-tile display-flex justify-content-between">
+                <div className="align-center">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M13.5 3H4.5C2.84315 3 1.5 4.34315 1.5 6V12C1.5 13.6569 2.84315 15 4.5 15H13.5C15.1569 15 16.5 13.6569 16.5 12V6C16.5 4.34315 15.1569 3 13.5 3Z"
+                      stroke="#7B68EE"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M11.25 9L7.5 6.75V11.25L11.25 9Z"
+                      stroke="#7B68EE"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  <span className="lesson-name">{`${lesson.index}. ${lesson.name}`}</span>
+                </div>
+                <span className="lesson-time">{`${lesson.time}`}</span>
+              </div>
+            );
+          })}
         </div>
-        <span className="lesson-time">{`${"15:19"}`}</span>
-      </div>
+      </>
     );
   }
 
-  function CourseDetailCheckList(props) {
+  function CourseDetailCheckList({ list }) {
     return (
       <Grid container spacing={2}>
-        <CheckListTile content="This is a beautiful list tile of content" />
-
-        <CheckListTile content="This is a beautiful list tile of This is a beaThis is a beautiful list tile of contentThis is a beautiful list tile of contentThis is a beautiful list tile of contentutiful list tile of content" />
-
-        <CheckListTile content="This is a beautiful list tile of content" />
-
-        <CheckListTile content="This is a beautiful list tile of content" />
-
-        <CheckListTile content="This is a beautiful list tile of content" />
-
-        <CheckListTile content="This is a beautiful list tile of content" />
+        {list.map((item) => {
+          return <CheckListTile content={item} />;
+        })}
       </Grid>
     );
   }
@@ -107,13 +113,9 @@ function CourseDetailLeftSide(props) {
   function CourseDescriptionSection() {
     return (
       <div className="course-description-section">
-        <h1 className="course-name">Đây là tên của khóa học</h1>
+        <h1 className="course-name">{course.name}</h1>
 
-        <p className="course-description">
-          Đây là mô tả ngắn về khóa họcn ngắn thôi chứ không phải ngắn lắm, từ
-          100 đến 300 ký tự là oke, chiếm 8/12 col của content nha nghe hông,
-          tức là cái cục bên kia chiếm 4 phần ó :3
-        </p>
+        <p className="course-description">{course.description}</p>
       </div>
     );
   }
@@ -122,7 +124,7 @@ function CourseDetailLeftSide(props) {
     return (
       <div className="course-overview-section">
         <h2 className="section-title">Tổng quan khóa học</h2>
-        <CourseDetailCheckList></CourseDetailCheckList>
+        <CourseDetailCheckList list={course.contents}></CourseDetailCheckList>
       </div>
     );
   }
@@ -132,23 +134,30 @@ function CourseDetailLeftSide(props) {
       <div className="course-qualified">
         <h2 className="section-title">Yêu cầu trình độ</h2>
 
-        <CourseDetailCheckList></CourseDetailCheckList>
+        <CourseDetailCheckList
+          list={course.requirements}
+        ></CourseDetailCheckList>
       </div>
     );
   }
 
-  function CourseLessonSection() {
+  function CourseLessonSection({ chapters }) {
     return (
       <div className="course-lesson-section">
         <h2 className="section-title">Nội dung khóa học</h2>
 
         <p className="course-volume-description">
-          6 chương - 35 bài học - Thời lượng 150 giờ 39 phút
+          {`${chapters.length} chương - 35 bài học - Thời lượng 150 giờ 39 phút`}
         </p>
-
-        <CourseChapterToogle showLesson={true} />
-        <CourseChapterToogle />
-        <CourseChapterToogle />
+        {chapters.map((item, index) => {
+          return (
+            <CourseChapterToogle
+              index={index}
+              chapter={item}
+              showLesson={index === 0}
+            />
+          );
+        })}
       </div>
     );
   }
@@ -159,7 +168,7 @@ function CourseDetailLeftSide(props) {
 
       <CourseOverviewSection />
 
-      <CourseLessonSection />
+      <CourseLessonSection chapters={course.chapters} />
 
       <CourseQualified />
     </div>

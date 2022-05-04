@@ -5,41 +5,113 @@ import { Grid, Stack } from "@mui/material";
 import "./SingleCourseForm.scss";
 import DragAndDropList from "./DragAndDropList";
 import CourseChapterList from "./CourseChapterList";
-import SaveOrExitButton from "../../component/SaveOrExitButton"
+import SaveOrExitButton from "../../component/SaveOrExitButton";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../../../../../firebase";
 
-function youtube_parser(url){
-  var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+function youtube_parser(url) {
+  var regExp =
+    /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
   var match = url.match(regExp);
-  return (match&&match[7].length==11)? match[7] : false;
+  return match && match[7].length == 11 ? match[7] : false;
 }
 
-function SingleCourseForm(props) {
+function SingleCourseForm({ course, onSubmit }) {
   const formik = useFormik({
     validateOnChange: true,
     validateOnBlur: true,
     validateOnMount: false,
     initialValues: {
-      imgUrl: "",
-      introVideo: "",
-      name: "",
-      description: "",
-      content: [],
-      price: 0,
-      requirement: [],
-      chapter: [],
+      ...course
     },
-     validationSchema: Yup.object({
+    validationSchema: Yup.object({
       imgUrl: Yup.string().required("Vui lòng chọn ảnh thumbnail cho khóa học"),
-      introVideo: Yup.string().required("Vui lòng nhập link của video intro cho khóa học"),
+      introVideoUrl: Yup.string().required(
+        "Vui lòng nhập link của video intro cho khóa học"
+      ),
       name: Yup.string().required("Vui lòng nhập tên khóa học"),
       description: Yup.string().required("Vui lòng nhập mô tả cho khóa học"),
-      price: Yup.number().min(0,"Giá tiền lớn hơn hoặc bằng 0").required("Vui lòng nhập giá tiền cho khóa học"),
-
-     }),
-    onSubmit: (values) => {
-      alert(JSON.stringify(values), null, 2)
-    },
+      price: Yup.number()
+        .min(0, "Giá tiền lớn hơn hoặc bằng 0")
+        .required("Vui lòng nhập giá tiền cho khóa học"),
+    }),
+    onSubmit: onSubmit
   });
+
+  console.log("render single course form");
+  console.log(formik.values);
+
+  // const handleAddChapterOnClick = () => {
+  //   const chapterName = document.getElementById("newChapter").value.trim();
+  //   if (!chapterName) return;
+  //   const newChapter = {
+  //     name: chapterName,
+  //     lessons: [],
+  //   };
+  //   const chapterList = formik.values.chapters;
+  //   if (chapterList.some(e=>e.name===newChapter.name))
+  //   {
+  //     alert("Tên chương không được trùng lặp")
+  //   }
+  //   else {
+
+  //     formik.setFieldValue("chapters", [...chapterList, newChapter]);
+  //   }
+  //   document.getElementById("newChapter").value = "";
+
+  // };
+
+  const handleAddContentOnClick = () => {
+    if (document.getElementById("newContent").value.trim()) {
+      const contentTile = document.getElementById("newContent").value.trim();
+      const contentList = formik.values.contents;
+      if (contentList.includes(contentTile)) {
+        alert("Nội dung không được trùng lặp");
+      } else {
+        formik.setFieldValue("contents", [...contentList, contentTile]);
+      }
+    }
+    document.getElementById("newContent").value = "";
+  };
+
+  const handleAddRequirementOnClick = () => {
+    if (document.getElementById("newRequirement").value.trim()) {
+      const requirementTile = document.getElementById("newRequirement").value.trim();
+      const requirementList = formik.values.requirements;
+      if (requirementList.includes(requirementTile)) {
+        alert("Nội dung không được trùng lặp");
+      } else {
+        formik.setFieldValue("requirements", [...requirementList, requirementTile]);
+        console.log(formik.values.requirements);
+      }
+    }
+    document.getElementById("newRequirement").value = "";
+  };
+
+
+  const handleChange = e => {
+    if (e.target.files[0]) {
+      uploadImg(e.target.files[0]);
+    }
+  }
+  const uploadImg = (imgSelected) => {
+    const storageRef = ref(storage, `file${imgSelected.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, imgSelected);
+
+    uploadTask.on("state_changed", (snapshot) => {
+      const prog = Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      //setUpProg(prog);
+    },
+      (err) => { console.log(err) },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((URL) => {
+          formik.setFieldValue('imgUrl', URL)
+          console.log("url: ", URL);
+        }
+        )
+      }
+    )
+  }
 
   return (
     <div className="single-course-form-wrapper">
@@ -49,13 +121,15 @@ function SingleCourseForm(props) {
           <Grid item xs={12} lg={6}>
             <div className="justify-content-between">
               <span className="input-label">Thumnail</span>
-              <label htmlFor="imgUrl">
+              <label htmlFor="uploadThumbnailInput">
                 <div className="se-btn">Chọn ảnh</div>
               </label>
+              <input id="uploadThumbnailInput" style={{display: "none"}} type="file" onChange={handleChange} />
+
             </div>
             <div className="aspect-ratio">
               <img
-                src="https://thetinydots.files.wordpress.com/2020/07/emma-matthews-digital-content-production-o_cljxjzn3m-unsplash.jpg?w=1024"
+                src={ formik.values.imgUrl || window.location.origin  + '/img/default.jpg'}
                 alt=""
                 width={"100%"}
               />
@@ -63,25 +137,32 @@ function SingleCourseForm(props) {
           </Grid>
           <Grid item xs={12} lg={6}>
             <div className="justify-content-between">
-              <label htmlFor="introVideo">Link intro: </label>
+              <label htmlFor="introVideoUrl">Link intro: </label>
               <input
                 type="text"
-                id="introVideo"
-                name="introVideo"
-                value={formik.values.introVideo}
-                onChange={formik.handleChange}
+                id="introVideoUrlBackup"
+                name="introVideoUrlBackup"
+                onChange={(e)=>{
+                  formik.setFieldValue("introVideoUrl", youtube_parser(e.target.value))
+                }}
               />
             </div>
             <div className="aspect-ratio">
-              <iframe
-                width="560"
-                height="315"
-                src="https://www.youtube.com/embed/BMmyB0K85Rc"
-                title="YouTube video player"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
+              {
+                formik.values.introVideoUrl ? (<iframe
+                  width="560"
+                  height="315"
+                  src={`https://www.youtube.com/embed/${formik.values.introVideoUrl}` }
+                  title="YouTube video player"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen
+                ></iframe>)
+                :(
+                  <h1 className="align-center" style={{marginTop: "20%"}}>Nhập đúng đường dẫn video youtube của bạn</h1>
+                )
+              }
+              
             </div>
           </Grid>
         </Grid>
@@ -101,9 +182,6 @@ function SingleCourseForm(props) {
         )}
       </div>
 
-      
-
-
       <div className="mb-3">
         <label htmlFor="price">Giá khóa học</label>
         <input
@@ -118,7 +196,6 @@ function SingleCourseForm(props) {
         )}
       </div>
 
-
       <div className="mb-3">
         <label htmlFor="name">Mô tả</label>
         <textarea
@@ -128,54 +205,72 @@ function SingleCourseForm(props) {
           onChange={formik.handleChange}
         />
         {formik.errors.description && formik.touched.description && (
-          <p className="input-error-validation"> {formik.errors.description} </p>
+          <p className="input-error-validation">
+            {" "}
+            {formik.errors.description}{" "}
+          </p>
         )}
       </div>
 
       <div className="mb-3">
         <span className="input-label mb-2">Tổng quan khóa học</span>
-        <DragAndDropList/>
+        <DragAndDropList
+          items={Array.from(formik.values.contents)}
+          setValues={(e) => {
+            formik.setFieldValue("contents", e);
+          }}
+        />
         <div className="add-new-item-to-list-wrapper">
-        <div className="justify-content-between">
-              <input
-                type="text"
-                id="newOverview"
-                name="newOverview"
-              />
-              <p className="se-btn">Thêm</p>
-            </div>
+          <div className="justify-content-between">
+            <input type="text" id="newContent" name="newContent" />
+            <p onClick={handleAddContentOnClick} className="se-btn">
+              Thêm
+            </p>
+          </div>
         </div>
       </div>
 
-
-      <div className="mb-3">
-        <span className="input-label mb-2">Nội dung bài học</span>
-        <CourseChapterList/>
-      </div>
-
-
+      {/* <div className="mb-3">
+        <span className="input-label mb-2">Danh sách các chương</span>
+        <CourseChapterList
+          setValues={(values) => {
+            formik.setFieldValue("chapters", values);
+          }}
+          chapters={Array.from(formik.values.chapters)}
+        />
+        <div className="add-new-item-to-list-wrapper">
+          <div className="justify-content-between">
+            <input type="text" id="newChapter" name="newChapter" />
+            <p onClick={handleAddChapterOnClick} className="se-btn">
+              Thêm
+            </p>
+          </div>
+        </div>
+      </div> */}
 
       <div className="mb-3">
         <span className="input-label mb-2">Yêu cầu trình độ</span>
-        <DragAndDropList/>
+        <DragAndDropList
+          items={Array.from(formik.values.requirements)}
+          setValues={(e) => {
+            formik.setFieldValue("requirements", e);
+          }}
+        />
         <div className="add-new-item-to-list-wrapper">
-        <div className="justify-content-between">
-              <input
-                type="text"
-                id="newRequirement"
-                name="newRequirement"
-              />
-              <p className="se-btn">Thêm</p>
-            </div>
+          <div className="justify-content-between">
+            <input type="text" id="newRequirement" name="newRequirement" />
+            <p onClick={handleAddRequirementOnClick} className="se-btn">
+              Thêm
+            </p>
+          </div>
         </div>
       </div>
 
-
-      <SaveOrExitButton SaveOnClick={()=>alert("save")} CancelOnClick={()=>alert("exit")}/>
-
+      <SaveOrExitButton
+        SaveOnClick={formik.handleSubmit}
+        CancelOnClick={() => alert("exit")}
+      />
     </div>
-
-
   );
 }
 

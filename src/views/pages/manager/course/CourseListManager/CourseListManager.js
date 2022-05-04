@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./CourseListManager.scss";
 
 import { GrDocumentExcel } from "react-icons/gr";
 import DataTableComponent from "../../../../components/DataTableComponent";
 import LeadingIconButton from "../../../../components/LeadingIconButton";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { courseAction } from "../../../../../actions/course.action";
 
 const columnDocs = [
   // {field: , headerName: , width: }
@@ -14,206 +16,47 @@ const columnDocs = [
   { field: "lessons", headerName: "Số bài học" },
   { field: "attendee", headerName: "Số học sinh" },
   { field: "price", headerName: "Giá bán" },
-  { field: "createAt", headerName: "Ngày tạo" },
+  { field: "createdAt", headerName: "Ngày tạo", width: 300 },
 ];
-
-const RawrowDocs = [
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-
-  {
-    id: 1,
-    name: "Tên của khóa học X nè nha, thử 1 cái tên dài dằn dặc xem sao nào",
-    lessons: 30,
-    attendee: 100,
-    category: "Lớp 11",
-    price: 600,
-    createAt: "11/12/2021",
-  },
-];
-
-const rowDocs = RawrowDocs.map((row, index) => {
-  row.stt = index + 1;
-  row.id = index;
-  return row;
-});
 
 const CourseListManager = () => {
-    const navigate = useNavigate()
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(courseAction.getAllCourse());
+  }, []);
+  const rawData = useSelector((state) => state.course.courses);
+
+  const rowDocs = rawData.map((item, index) => {
+    const temp = {};
+    temp.id = item.courseId
+    temp.stt = index + 1;
+    temp.name = item.name;
+    temp.category = item.category;
+    temp.lessons = 1000;
+    temp.attendee = item.studentIds.length;
+    temp.price = item.price;
+    temp.createdAt = item.createdAt;
+    return temp;
+  });
+
+  const navigate = useNavigate();
   var [filter, setFilter] = useState("");
   var changeFilter = (e) => {
     setFilter(e.target.value);
   };
+
+  const editCourseHandleOnClick = (e) => {
+    navigate(`/quan-ly/khoa-hoc/${e.id}`);
+  };
+
+  const addCourseHandleOnClick = () => {
+    navigate("/quan-ly/khoa-hoc/tao-moi");
+  };
   return (
     <div className=" manager-fa-ke-modal CourseListManager-wapper">
-      <span className="se-btn">Thêm khóa học</span>
+      <span onClick={addCourseHandleOnClick} className="se-btn">
+        Thêm khóa học
+      </span>
       <div className="CourseListManager-container">
         <div className="title">Quản lý khóa học</div>
         <div className="data-table-container">
@@ -235,9 +78,7 @@ const CourseListManager = () => {
             </div>
           </div>
           <DataTableComponent
-          onRowClick={()=>{
-            navigate(`/quan-ly/khoa-hoc/id`)
-          }}
+            onRowClick={editCourseHandleOnClick}
             columnDocs={columnDocs}
             rowDocs={rowDocs}
             filter={filter}

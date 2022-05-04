@@ -3,7 +3,13 @@ const URL_SYSTEM_V1 = 'http://localhost:5000/api';
 export default {
   URL_LOGIN: URL_SYSTEM_V1 + '/auth/login',
   URL_REGISTER: URL_SYSTEM_V1 + '/auth/register',
+  
+  // Course
   URL_GET_COURSES: URL_SYSTEM_V1 + '/courses/getAllCourses',
+  URL_GET_COURSE: URL_SYSTEM_V1 + '/courses',
+  URL_CREATE_COURSE: URL_SYSTEM_V1 + '/courses/new',
+  URL_UPDATE_COURSE: URL_SYSTEM_V1 + '/courses/update',
+  URL_DELETE_COURSE: URL_SYSTEM_V1 + '/courses',
 
 
   // exam

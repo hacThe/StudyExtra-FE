@@ -1,8 +1,97 @@
-import React, { useState } from "react";
-import { GrAddCircle } from "react-icons/gr";
+import React, { Component, useState } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
-import { Outlet } from "react-router-dom";
+import { GrAddCircle } from "react-icons/gr";
 import "./CourseChapterList.scss";
+
+// a little function to help us with reordering the result
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return result;
+};
+
+const grid = 8;
+
+const getItemStyle = (isDragging, draggableStyle) => ({
+  // some basic styles to make the items look a bit nicer
+  userSelect: "none",
+  padding: "8px 12px",
+  margin: `0 0 ${grid}px 0`,
+  width: "100%",
+  borderRadius: "10px",
+  // change background colour if dragging
+  background: isDragging ? "#e0e0e0" : "transparent",
+  borderBottom: isDragging ? "3px solid #ccc" : "none",
+  font: "'Montserrat', san-serif",
+  fontSize: "1.4rem",
+  fontWeight: "500",
+  boxShadow: "0px 0px 2px rgba(0, 0, 0, 0.25)",
+  // styles we need to apply on draggables
+  ...draggableStyle,
+});
+
+const getListStyle = (isDraggingOver) => ({
+  background: !isDraggingOver ? "white" : "white",
+  width: "100%",
+});
+
+function CourseChapterTile({ chapter, index }) {
+  const [visible, setvisible] = useState(true);
+
+  function toogleLessonTile() {
+    setvisible(!visible);
+  }
+
+  function addNewChappterOnClick(e) {
+    e.stopPropagation();
+    alert("action-button-onclick");
+  }
+
+  function editChappterOnClick(e) {
+    e.stopPropagation();
+    alert("action-button-onclick");
+  }
+
+  function deleteChappterOnClick(e) {
+    e.stopPropagation();
+    alert("action-button-onclick");
+  }
+
+  return (
+    <div className="course-chappter-tile">
+      <div
+        onClick={toogleLessonTile}
+        dataBefore={!visible ? "+" : "-"}
+        className="chapter-toogle display-flex justify-content-between"
+      >
+        <p className="chapter-name">{`${index + 1}. ${chapter.name}`}</p>
+        <div className="chappter-action display-flex">
+          <div onClick={addNewChappterOnClick} className="action-wrapper">
+            <GrAddCircle size={"2.2rem"} />
+          </div>
+          <div onClick={editChappterOnClick} className="action-wrapper">
+            <AiOutlineEdit size={"2.2rem"} />
+          </div>
+          <div onClick={deleteChappterOnClick} className="action-wrapper">
+            <AiOutlineDelete size={"2.2rem"} />
+          </div>
+        </div>
+      </div>
+
+      {visible &&
+        chapter.lessons.map((lesson, index) => (
+          <div
+            className="lesson-tile-wrapper"
+            key={`lesson-${lesson.id}-${index}`}
+          >
+            <CourseLessonTile lesson={lesson} />
+          </div>
+        ))}
+    </div>
+  );
+}
 
 function CourseLessonTile({ lesson }) {
   return (
@@ -45,186 +134,78 @@ function CourseLessonTile({ lesson }) {
   );
 }
 
-function CourseChapterTile({ chapter }) {
-  const [visible, setvisible] = useState(true);
-
-  function toogleLessonTile() {
-    setvisible(!visible);
+class CourseChapterList extends Component {
+  constructor(props) {
+    super(props);
+    console.log({props})
+    this.state = {
+      items: props.chapters,
+    };
+    this.onDragEnd = this.onDragEnd.bind(this);
   }
 
-  function addNewChappterOnClick(e) {
-    e.stopPropagation();
-    alert("action-button-onclick")
+  
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps === this.props) return
+    this.setState(
+      {items: this.props.chapters}
+    )
   }
 
-  function editChappterOnClick(e) {
-    e.stopPropagation();
-    alert("action-button-onclick")
+  onDragEnd(result) {
+    // dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+
+    const items = reorder(
+      this.state.items,
+      result.source.index,
+      result.destination.index
+    );
+    this.setState({
+      items
+    })
+    this.props.setValues([...items])
   }
 
-  function deleteChappterOnClick(e) {
-    e.stopPropagation();
-    alert("action-button-onclick")
+  // Normally you would want to split things out into separate components.
+  // But in this example everything is just done in one place for simplicity
+  render() {
+    return (
+      <DragDropContext onDragEnd={this.onDragEnd}>
+        <Droppable droppableId="droppable">
+          {(provided, snapshot) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              style={getListStyle(snapshot.isDraggingOver)}
+            >
+              {this.state.items.map((item, index) => (
+                <Draggable key={item.name} draggableId={item.name} index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                      className="drag-and-drop-item"
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={getItemStyle(
+                        snapshot.isDragging,
+                        provided.draggableProps.style
+                      )}
+                    >
+                      <CourseChapterTile chapter={item} index={index}/>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+    );
   }
-
-  return (
-    <div className="course-chappter-tile">
-      <div
-        onClick={toogleLessonTile}
-        dataBefore={!visible ? "+" : "-"}
-        className="chapter-toogle display-flex justify-content-between"
-      >
-        <p className="chapter-name">{`${1}. ${"This is chapter name"}`}</p>
-        <div className="chappter-action display-flex">
-          <div onClick={addNewChappterOnClick} className="action-wrapper">
-            <GrAddCircle size={"2.2rem"} />
-          </div>
-          <div onClick={editChappterOnClick} className="action-wrapper">
-            <AiOutlineEdit size={"2.2rem"} />
-          </div>
-          <div onClick={deleteChappterOnClick} className="action-wrapper">
-            <AiOutlineDelete size={"2.2rem"} />
-          </div>
-        </div>
-      </div>
-
-      {visible &&
-        chapter.lesson.map((lesson, index) => (
-          <div
-            className="lesson-tile-wrapper"
-            key={`lesson-${lesson.id}-${index}`}
-          >
-            <CourseLessonTile lesson={lesson} />
-          </div>
-        ))}
-    </div>
-  );
-}
-
-function CourseChapterList(props) {
-  const mockChapterList = [
-    {
-      id: 3,
-      name: "Đây là tên của chương bài học, có thể ngắn hoặc rất rất dài",
-      lesson: [
-        {
-          id: 12,
-          name: "Đây là tên của bài học nè nha",
-          index: 1,
-          time: {
-            h: 0,
-            m: 35,
-            s: 40,
-          },
-        },
-        {
-          id: 12,
-          name: "Đây là tên của bài học nè nha",
-          index: 2,
-          time: {
-            h: 0,
-            m: 35,
-            s: 40,
-          },
-        },
-        {
-          id: 12,
-          name: "Đây là tên của bài học nè nha",
-          index: 3,
-          time: {
-            h: 0,
-            m: 35,
-            s: 40,
-          },
-        },
-      ],
-    },
-
-    {
-      id: 3,
-      name: "Đây là tên của chương bài học, có thể ngắn hoặc rất rất dài",
-      lesson: [
-        {
-          id: 12,
-          name: "Đây là tên của bài học nè nha",
-          index: 1,
-          time: {
-            h: 0,
-            m: 35,
-            s: 40,
-          },
-        },
-        {
-          id: 12,
-          name: "Đây là tên của bài học nè nha",
-          index: 1,
-          time: {
-            h: 0,
-            m: 35,
-            s: 40,
-          },
-        },
-        {
-          id: 12,
-          name: "Đây là tên của bài học nè nha",
-          index: 1,
-          time: {
-            h: 0,
-            m: 35,
-            s: 40,
-          },
-        },
-      ],
-    },
-
-    {
-      id: 3,
-      name: "Đây là tên của chương bài học, có thể ngắn hoặc rất rất dài",
-      lesson: [
-        {
-          id: 12,
-          name: "Đây là tên của bài học nè nha",
-          index: 1,
-          time: {
-            h: 0,
-            m: 35,
-            s: 40,
-          },
-        },
-        {
-          id: 12,
-          name: "Đây là tên của bài học nè nha",
-          index: 1,
-          time: {
-            h: 0,
-            m: 35,
-            s: 40,
-          },
-        },
-        {
-          id: 12,
-          name: "Đây là tên của bài học nè nha",
-          index: 1,
-          time: {
-            h: 0,
-            m: 35,
-            s: 40,
-          },
-        },
-      ],
-    },
-  ];
-
-  return (
-    <div className="course-chapter-list">
-      {mockChapterList.map((chapter, index) => (
-        <CourseChapterTile
-          chapter={chapter}
-          key={`chapter-${chapter.id}-${index}`}
-        />
-      ))}
-    </div>
-  );
 }
 
 export default CourseChapterList;

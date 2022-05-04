@@ -3,11 +3,6 @@ import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import "./DragAndDropList.scss";
 // fake data generator
-const getItems = (count) =>
-  Array.from({ length: count }, (v, k) => k).map((k) => ({
-    id: `item-${k}`,
-    content: `This is content for item ${k}`,
-  }));
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -46,11 +41,22 @@ const getListStyle = (isDraggingOver) => ({
 class DragAndDropList extends Component {
   constructor(props) {
     super(props);
+    console.log({props}, "props nè")
     this.state = {
-      items: getItems(8),
+      items: props.items,
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
+
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps === this.props) return
+    this.setState(
+      {items: this.props.items}
+    )
+  }
+
+  
 
   onDragEnd(result) {
     // dropped outside the list
@@ -67,6 +73,8 @@ class DragAndDropList extends Component {
     this.setState({
       items,
     });
+
+    this.props.setValues([...items])
   }
 
   // Normally you would want to split things out into separate components.
@@ -82,7 +90,7 @@ class DragAndDropList extends Component {
               style={getListStyle(snapshot.isDraggingOver)}
             >
               {this.state.items.map((item, index) => (
-                <Draggable key={item.id} draggableId={item.id} index={index}>
+                <Draggable key={item} draggableId={item} index={index}>
                   {(provided, snapshot) => (
                     <div
                       className="drag-and-drop-item"
@@ -95,7 +103,7 @@ class DragAndDropList extends Component {
                       )}
                     >
                       <div className="justify-content-between">
-                        {` ${index + 1}. ${item.content}`}
+                        {` ${index + 1}. ${item}`}
                         <div className="align-center">
                           <div className="action-wrapper">
                             <AiOutlineEdit />

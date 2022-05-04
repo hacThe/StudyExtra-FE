@@ -1,11 +1,41 @@
-import React from 'react';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { courseAction } from "../../../../../actions/course.action";
+import SingleCourseForm from "../component/SingleCourseForm";
 
 function AddCourse(props) {
-    return (
-        <div>
-            
-        </div>
-    );
+  const blankCourse = {
+    name: "",
+    description: "",
+    price: "",
+    imgUrl: "",
+    introVideoUrl: "",
+    contents: [],
+    categories: [],
+    requirements: [],
+  };
+
+  const dispatch = useDispatch()
+
+
+  const onSubmit = (values)=>{
+    dispatch(courseAction.create(values));
+  }
+  return (
+    <div className="manager-fa-ke-modal edit-course-wrapper">
+      <h1
+        style={{
+          textAlign: "center",
+          margin: "24px auto",
+          fontSize: "2.8em",
+          marginBottom: "48px",
+        }}
+      >
+        Thêm khóa học
+      </h1>
+      <SingleCourseForm onSubmit={onSubmit} course={blankCourse} />
+    </div>
+  );
 }
 
 export default AddCourse;

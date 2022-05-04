@@ -21,7 +21,7 @@ const Profile = () => {
   console.log("user: ", UserInfo);
 
 
-  useEffect(async () => {
+  useEffect(() => {
     dispatch(userActions.getUserCourses());
   }, [])
 
@@ -38,7 +38,7 @@ const Profile = () => {
     },
     {
       name: "Ngày sinh",
-      value: UserInfo.birthday.split('T')[0]
+      value: UserInfo.birthday?.split('T')[0]
     },
     {
       name: "Email",

@@ -26,6 +26,10 @@ const AddCourse = React.lazy(() =>
 const EditCourse = React.lazy(() =>
   import("./views/pages/manager/course/EditCourse/EditCourse")
 );
+
+const EditCourseChapter = React.lazy(() =>
+  import("./views/pages/manager/course/ChapterManager/ChapterManager")
+);
 const EditLesson = React.lazy(()=>
   import("./views/pages/manager/course/EditLesson/EditLesson")
 )
@@ -142,6 +146,15 @@ const managerRoute = [
     name: "Trang chủ",
     element: <EditCourse />,
   },
+
+  {
+    path: "/quan-ly/khoa-hoc/chinh-sua-noi-dung/:id",
+    name: "Trang chủ",
+    element: <EditCourseChapter />,
+  },
+
+
+  
   {
     path: "/quan-ly/khoa-hoc/tao-moi",
     name: "Trang chủ",

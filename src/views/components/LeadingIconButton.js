@@ -2,8 +2,7 @@ import React from 'react';
 
 function LeadingIconButton(props) {
     return (
-        <div>
-            <div className="leading-icon-button">
+            <div onClick={props.onClick} className="leading-icon-button">
                 {
                     props.icon
                 }
@@ -11,8 +10,6 @@ function LeadingIconButton(props) {
                     {props.content}
                 </div>
             </div>
-            
-        </div>
     );
 }
 
