@@ -10,15 +10,15 @@
         flex-wrap: swrap;
         justify-content: space-between;
 
-        button {
-            font-family: 'Montserrat';
-            font-style: normal;
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 17px;
-            color: #747474;
+        button{
+            background-color: #FFFFFF;
         }
-
+        button:hover{
+            background-color: #FFFFFF;
+            div{
+                background-color: #FFFFFF;
+            }
+        }
         .btn-group {
             display: flex;
             padding-right: 1rem;

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
+import { useNavigate } from 'react-router-dom';
 import './UsersTable.scss';
 
 const datagridSx = {
@@ -69,9 +70,10 @@ const UsersTable = ({ rowDocs, columnDocs, filter }) => {
         if(params.field === "__check__") changeidSelect(params.id);
     }
 
+    const navigate = useNavigate()
     const onCellDoubleClick = (params, event) => {
          console.log("cell double click: ", params);
-        
+        navigate('/quan-ly/nguoi-dung/id:1');
     }
 
     const getShowingData = (filter) => {

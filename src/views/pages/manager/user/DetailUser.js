@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Container, Button, Avatar, Modal, Box, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { FiEdit } from "react-icons/fi";
 import clsx from 'clsx';
 import { MdOutlinePhotoCamera } from "react-icons/md"
@@ -10,6 +10,7 @@ import './DetailUser.scss';
 import TransactionTable from './component/TransactionTable';
 import { useDispatch, useSelector } from "react-redux";
 import BackToPageButton from "./../../../components/BackToPageButton"
+import { useNavigate } from "react-router-dom";
 
 const DetailUser = () => {
 
@@ -87,12 +88,19 @@ const DetailUser = () => {
     { id: 13, stt: 13, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' }
   ]
 
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(-1);
+  }
+
 
   return (
     <>
       <Container className='profile' maxWidth="xl">
         <div className="title-profile">
-          <BackToPageButton content="Danh sách người dùng"/>
+          <button onClick={() => handleClick()}>
+            <BackToPageButton content="Danh sách người dùng" />
+          </button>
           <div className="btn-group">
             <button variant="outlined">
               <AiOutlineExport />
