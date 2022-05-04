@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { NavLink } from "react-router-dom";
 import {Button, Grid} from '@mui/material';
-import './scss/AddDocument.scss';
+import './scss/ModifyDocument.scss';
 import { IoReturnUpBack } from "react-icons/io5";
 import { BiHide } from "react-icons/bi";
 import { MdOutlineDeleteOutline } from "react-icons/md";
@@ -10,8 +10,8 @@ import DocumentTypeModal from './DocumentTypeModal.js';
 import {documentActions} from '../../../../actions/document.actions.js'
 
 
-
-function AddDocument(props) {
+function ModifyDocument(props) {
+    const documentTypes = ["Lớp 10", "Lớp 11", "Lớp 12", "Tất cả"];
     const dispatch = useDispatch();
     const isOpen =
         useSelector((state) => {
@@ -23,38 +23,32 @@ function AddDocument(props) {
     }
 
 
-    const [documentType, setDocumentType] = useState([]);
-
-    const changeIndexValue = (index) => {
-        var newVal = [];
-        for(let i = 0 ; i < documentType.length; i++){
-            if(i==index)
-            {
-                newVal.push(!documentType[i])
-            }
-            else {
-                newVal.push(documentType[i]);
-            }
-        }
-        setDocumentType(newVal);
-    }
-
-    React.useEffect(async () => {
-        await dispatch(documentActions.getAllDocumentType());
-        console.log("documentTypes", documentTypes);
-        var tempt = [];
-        for(var i = 0; i < documentTypes.length; i++){
-            tempt.push(false);
-        }
-        setDocumentType(tempt);
-    }, []);
-    
-    const documentTypes =
-        useSelector((state) => {
-            console.log({ state });
-            return state.document.documentType;
-        }) || [];
-
+    const [documentType, setDocumentType] = useState([
+        {
+            type: "Lớp 10",
+            selected: true,
+        },
+        {
+            type: "Lớp 11",
+            selected: true,
+        },
+        {
+            type: "Lớp 12",
+            selected: false,
+        },
+        {
+            type: "Khác",
+            selected: false
+        },
+        {
+            type: "Anh văn giao tiếp",
+            selected: true,
+        },
+        {
+            type: "Nâng cao",
+            selected: false
+        },
+    ]);
 
     return (
         <div>
@@ -103,17 +97,14 @@ function AddDocument(props) {
                             </div>
                             <div className='document-select-type-container'>
                                 {
-                                    documentTypes.map((item, index)=>{
+                                    documentType.map((item)=>{
                                         return (
                                             <div 
-                                                className={documentType[index]
+                                                className={item.selected 
                                                     ? 'document-type-item selected' 
                                                     :  'document-type-item' }
-                                                onClick={(e) => {
-                                                    changeIndexValue(index);  
-                                                }}
                                             >
-                                                {item.name}
+                                                {item.type}
                                             </div>
                                         );
                                     })
@@ -148,9 +139,15 @@ function AddDocument(props) {
                         <div className="iframe-manage">
                             <Button 
                                 variant="contained"
-                                className='manage-button add'
+                                className='manage-button cancel'
                             >
-                                Thêm
+                                Huỷ
+                            </Button>
+                            <Button 
+                                variant="contained"
+                                className='manage-button'
+                            >
+                                Xoá
                             </Button>
                         </div>
                     </Grid>
@@ -164,4 +161,4 @@ function AddDocument(props) {
     );
 }
 
-export default AddDocument;
+export default ModifyDocument;

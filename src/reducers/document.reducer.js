@@ -6,6 +6,7 @@ const initialState = {
     isLoading: false,
     error: "",
     documentTypeOpen: false,
+    documentType:[],
 };
    
 export function document(state = initialState, action) {
@@ -42,7 +43,26 @@ export function document(state = initialState, action) {
                 ...state,
                 documentTypeOpen: action.isOpen
             }
-        
+        case documentConstants.GET_TYPE_DOCUMENT_FAILURE:{
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            };
+        }
+        case documentConstants.GET_TYPE_DOCUMENT_REQUEST:{
+            return {
+                ...state,
+                isLoading: true,
+            };
+        }
+        case documentConstants.GET_TYPE_DOCUMENT_SUCCESS: {
+            console.log('action', action.documentType.data)
+            return {
+                ...state,
+                documentType: action.documentType.data,
+            }
+        }
         default:
             return state;
     }

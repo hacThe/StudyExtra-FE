@@ -71,11 +71,29 @@
             .input-document-type{
                 flex: 1;
             }
+            .editting-manager{
+                display: flex;
+                .button-save-type{
+                    border-radius: 1rem;
+                    background-color: #4FCF54;
+                    font-family: 'Montserrat';
+                    margin-left: 1.2rem;
+                    padding: 1rem;
+                }
+                .button-cancel-type{
+                    border-radius: 1rem;
+                    background-color: #CF4F4F;
+                    font-family: 'Montserrat';
+                    margin-left: 1.2rem;
+                    padding: 1rem;
+                }
+            }
             .button-add-type{
                 border-radius: 1rem;
                 background-color: #4FCF54;
                 font-family: 'Montserrat';
                 margin-left: 1.2rem;
+                padding: 1rem;
             }
             
         }

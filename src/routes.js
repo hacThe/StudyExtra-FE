@@ -65,6 +65,10 @@ const AddDocument = React.lazy(() =>
   import("./views/pages/manager/document/AddDocument")
 );
 
+const ModifyDocument = React.lazy(() => 
+  import("./views/pages/manager/document/ModifyDocument")
+);
+
 // Những route chỉ truy xuất khi chưa đăng nhập
 const publicRoute = [
   // {path: '/trang-chu', name: 'Trang chủ', element: <Homepage/>},
@@ -160,6 +164,11 @@ const managerRoute = [
       path: "/quan-ly/tai-lieu/them",
       name: "Quản lý tài liệu",
       element: <AddDocument/>,
+  },
+  {
+    path: "/quan-ly/tai-lieu/chinh-sua/:id",
+    name: "Quản lý tài liệu",
+    element: <ModifyDocument/>,
   },
   {
     path: "/quan-ly/tai-lieu",

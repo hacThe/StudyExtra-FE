@@ -4,7 +4,8 @@ import { documentService } from '../services';
 export const documentActions = {
     changePagination,
     getAllDocument,
-    changeModalStatus
+    changeModalStatus,
+    getAllDocumentType
 }
 
 function changePagination(page){
@@ -49,6 +50,32 @@ function getAllDocument(){
         }
         function failure(error) {
             return { type: documentConstants.GET_DOCUMENT_FAILURE, error };
+        }
+    }
+}
+
+function getAllDocumentType() {
+    return (dispatch)=>{
+        dispatch(request())
+        // console.log("Course Action get all has called")
+
+        documentService.getAllDocumentType().then(
+            (documentType)=>{
+                dispatch(success(documentType))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        function request() {
+            return { type: documentConstants.GET_TYPE_DOCUMENT_REQUEST };
+        }
+        function success(documentType ) {
+            return {type: documentConstants.GET_TYPE_DOCUMENT_SUCCESS, documentType};
+        }
+        function failure(error) {
+            return { type: documentConstants.GET_TYPE_DOCUMENT_FAILURE, error };
         }
     }
 }
