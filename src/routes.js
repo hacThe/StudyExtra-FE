@@ -89,9 +89,9 @@ const commonRoute = [
     name: "Nội dung đề thi",
     element: <ExamDescription />,
   },
-  { path: "/luyen-de/id:id/vao-thi", name: "Bài làm", element: <ExamDetail /> },
+  { path: "/luyen-de/:id/vao-thi", name: "Bài làm", element: <ExamDetail /> },
   {
-    path: "/luyen-de/id:id/ket-qua",
+    path: "/luyen-de/:id/ket-qua",
     name: "Kết quả thi",
     element: <ExamResult />,
   },
@@ -110,6 +110,7 @@ const commonRoute = [
   { path: "/test-socket", name: "Tìm kiếm", element: <Socket /> },
   // temporary path
   { path: "/thu-nghiem", name: "Thử nghiệm", element: <Overall /> },
+
 ];
 
 // rout khi đã đăng nhập
@@ -150,7 +151,7 @@ const managerRoute = [
     element:<UserManager />,
   },
   {
-    path: "/quan-ly/nguoi-dung/id:id",
+    path: "/quan-ly/nguoi-dung/:id",
     name: "Chi tiet nguoi dung",
     element:<DetailUser />,
   },
