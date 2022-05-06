@@ -5,7 +5,8 @@ export const documentActions = {
     changePagination,
     getAllDocument,
     changeModalStatus,
-    getAllDocumentType
+    getAllDocumentType,
+    addNewDocumentType
 }
 
 function changePagination(page){
@@ -76,6 +77,32 @@ function getAllDocumentType() {
         }
         function failure(error) {
             return { type: documentConstants.GET_TYPE_DOCUMENT_FAILURE, error };
+        }
+    }
+}
+
+function addNewDocumentType(newName) {
+    return (dispatch)=>{
+        dispatch(request())
+        // console.log("Course Action get all has called")
+
+        documentService.addNewDocumentType(newName).then(
+            (documentType)=>{
+                dispatch(success(documentType))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        function request() {
+            return { type: documentConstants.ADD_NEW_TYPE_DOCUMENT_REQUEST };
+        }
+        function success(documentType ) {
+            return {type: documentConstants.ADD_NEW_TYPE_DOCUMENT_SUCCESS, documentType};
+        }
+        function failure(error) {
+            return { type: documentConstants.ADD_NEW_TYPE_DOCUMENT_FAILURE, error };
         }
     }
 }

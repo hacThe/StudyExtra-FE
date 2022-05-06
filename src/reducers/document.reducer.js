@@ -63,6 +63,28 @@ export function document(state = initialState, action) {
                 documentType: action.documentType.data,
             }
         }
+        case documentConstants.ADD_NEW_TYPE_DOCUMENT_REQUEST:{
+            return {
+                ...state,
+                isLoading: true,
+            };
+        }
+        case documentConstants.ADD_NEW_TYPE_DOCUMENT_FAILURE:{
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            };
+        }
+        case documentConstants.ADD_NEW_TYPE_DOCUMENT_SUCCESS:{
+            console.log('action nè, có vào đây không =)))', action.documentType.data)
+            var newDocumentType = state.documentType;
+            newDocumentType.push(action.documentType.data);
+            return {
+                ...state,
+                documentType: newDocumentType,
+            }
+        }
         default:
             return state;
     }

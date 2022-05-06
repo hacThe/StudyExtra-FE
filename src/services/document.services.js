@@ -5,7 +5,8 @@ import ajaxHelper from './api';
 
 export const documentService = {
     getAllDocument,
-    getAllDocumentType
+    getAllDocumentType,
+    addNewDocumentType
 };
 
 function getAllDocument() {
@@ -17,5 +18,11 @@ function getAllDocument() {
 function getAllDocumentType() {
     return handleResponse(
         ajaxHelper.get(config.URL_TYPE_CATEGORY, {}, options())
+    );
+}
+
+function addNewDocumentType(newName) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_TYPE_CATEGORY, {name: newName}, options())
     );
 }

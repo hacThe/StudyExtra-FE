@@ -14,28 +14,7 @@ function DocumentTypeModal() {
     }
 
 
-    const [documentType, setDocumentType] = useState([
-        {
-            type: "Lớp 10",
-            active: true,
-        },
-        {
-            type: "Lớp 11",
-            active: true,
-        },
-        {
-            type: "Lớp 12",
-            active: true,
-        },
-        {
-            type: "Anh văn giao tiếp",
-            active: true,
-        },
-        {
-            type: "Khác",
-            active: true
-        },
-    ]);
+    const [documentType, setDocumentType] = useState([]);
 
     const changeDocument = (documentObject) => {
         setDocumentType(documentType);
@@ -87,6 +66,22 @@ function DocumentTypeModal() {
         changeEditingStatus(value);
     } 
 
+    const documentTypes =
+        useSelector((state) => {
+            console.log({ state });
+            return state.document.documentType;
+        }) || [];
+
+    useSelector((state) => {
+        console.log({ state });
+        return state.document.documentType;
+    })
+
+    const addDocumentType = () => {
+        const typeDocumentInput = document.querySelector('.input-document-type').value;
+        dispatch(documentActions.addNewDocumentType(typeDocumentInput));
+    }
+
     return (
         <div className="overlay-modal">
             <div 
@@ -132,7 +127,8 @@ function DocumentTypeModal() {
 
                     </input>
                     {
-                        isEditting ?
+                        isEditting 
+                        ?
                             <div className="editting-manager">
                                 <button 
                                     className="button-save-type"
@@ -156,7 +152,13 @@ function DocumentTypeModal() {
                                 </button>
                             </div> 
                             
-                            : <button className="button-add-type">
+                        : 
+                            <button 
+                                className="button-add-type"
+                                onClick={() => {
+                                    addDocumentType();
+                                }}
+                            >
                                 Thêm 
                             </button>
                     }

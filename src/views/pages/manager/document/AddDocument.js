@@ -22,7 +22,7 @@ function AddDocument(props) {
         dispatch(documentActions.changeModalStatus(!isOpen));
     }
 
-
+    let isSetDocumentSelection = false;
     const [documentType, setDocumentType] = useState([]);
 
     const changeIndexValue = (index) => {
@@ -30,7 +30,10 @@ function AddDocument(props) {
         for(let i = 0 ; i < documentType.length; i++){
             if(i==index)
             {
-                newVal.push(!documentType[i])
+                newVal.push({
+                    ...documentType[i],
+                    selected: !documentType[i].selected,
+                })
             }
             else {
                 newVal.push(documentType[i]);
@@ -38,24 +41,60 @@ function AddDocument(props) {
         }
         setDocumentType(newVal);
     }
-
-    React.useEffect(async () => {
-        await dispatch(documentActions.getAllDocumentType());
-        console.log("documentTypes", documentTypes);
-        var tempt = [];
-        for(var i = 0; i < documentTypes.length; i++){
-            tempt.push(false);
-        }
-        setDocumentType(tempt);
-    }, []);
-    
     const documentTypes =
         useSelector((state) => {
             console.log({ state });
             return state.document.documentType;
         }) || [];
 
+    React.useEffect(async () => {
+        await dispatch(documentActions.getAllDocumentType());
+    }, []);
 
+    useSelector((state) => {
+        // Khi mà thay đổi thì tính lại state các kiểu
+        if(state.document.documentType.length != documentType.length){
+            if(documentType.length == 0){
+                var newVal = []; 
+                for(var i  = 0 ; i < state.document.documentType.length; i++){
+                    newVal.push({
+                        id: state.document.documentType[i]._id,
+                        name: state.document.documentType[i].name,
+                        selected: false,
+                    })
+                }
+                setDocumentType(newVal)
+            }
+            else {
+                var newVal = []; 
+                for(var i  = 0 ; i < state.document.documentType.length; i++){
+                    var isFound = false;
+                    for(var j = 0; j < documentType.length; j++){
+                        if(documentType[j]._id == state.document.documentType[i]._id){
+                            newVal.push({
+                                id: state.document.documentType[i]._id,
+                                name: state.document.documentType[i].name,
+                                selected: documentType[j].selected,
+                            })
+                            isFound = true;
+                            break;
+                        }
+                    }
+                    if(!isFound){
+                        newVal.push({
+                            id: state.document.documentType[i]._id,
+                            name: state.document.documentType[i].name,
+                            selected: false,
+                        })
+                    }
+
+                }
+                setDocumentType(newVal)
+            }
+        }
+        return ;
+    })
+    
     return (
         <div>
             <div className="manager-fa-ke-modal add-document-wrapper">
@@ -106,7 +145,10 @@ function AddDocument(props) {
                                     documentTypes.map((item, index)=>{
                                         return (
                                             <div 
-                                                className={documentType[index]
+                                                className={
+                                                    index < documentType.length &&
+                                                    typeof documentType[index].selected != 'undefined' && 
+                                                    documentType[index].selected
                                                     ? 'document-type-item selected' 
                                                     :  'document-type-item' }
                                                 onClick={(e) => {
