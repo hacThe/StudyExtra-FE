@@ -73,13 +73,52 @@ function DocumentTypeModal() {
         }) || [];
 
     useSelector((state) => {
-        console.log({ state });
-        return state.document.documentType;
+        if(state.document.documentType.length != documentType.length){
+            if(documentType.length == 0){
+                var newVal = []; 
+                for(var i  = 0 ; i < state.document.documentType.length; i++){
+                    newVal.push({
+                        id: state.document.documentType[i]._id,
+                        name: state.document.documentType[i].name,
+                        active: true,
+                    })
+                }
+                setDocumentType(newVal)
+            }
+            else {
+                var newVal = []; 
+                for(var i  = 0 ; i < state.document.documentType.length; i++){
+                    var isFound = false;
+                    for(var j = 0; j < documentType.length; j++){
+                        if(documentType[j]._id == state.document.documentType[i]._id){
+                            newVal.push({
+                                id: state.document.documentType[i]._id,
+                                name: state.document.documentType[i].name,
+                                active: documentType[j].active,
+                            })
+                            isFound = true;
+                            break;
+                        }
+                    }
+                    if(!isFound){
+                        newVal.push({
+                            id: state.document.documentType[i]._id,
+                            name: state.document.documentType[i].name,
+                            active: true,
+                        })
+                    }
+
+                }
+                setDocumentType(newVal)
+            }
+        }
+        return ;
     })
 
     const addDocumentType = () => {
         const typeDocumentInput = document.querySelector('.input-document-type').value;
         dispatch(documentActions.addNewDocumentType(typeDocumentInput));
+        document.querySelector('.input-document-type').value = '';
     }
 
     return (
@@ -94,13 +133,17 @@ function DocumentTypeModal() {
                 </div>
                 <div className="document-type-container">
                     {
-                        documentType.map((type, index)=>{
+                        documentTypes.map((type, index)=>{
                             return (
                                 <div 
-                                    className= {type.active ? 'type-container active' : 'type-container '}
+                                    className= {
+                                        index < documentType.length &&
+                                        typeof documentType[index].active  != 'undefined' &&
+                                        documentType[index].active 
+                                        ? 'type-container active' : 'type-container '}
                                 >
                                     <div className='type-name'>
-                                        {type.type}
+                                        {type.name}
                                     </div>
                                     <div 
                                         className='edit-type'

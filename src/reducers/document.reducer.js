@@ -77,7 +77,7 @@ export function document(state = initialState, action) {
             };
         }
         case documentConstants.ADD_NEW_TYPE_DOCUMENT_SUCCESS:{
-            console.log('action nè, có vào đây không =)))', action.documentType.data)
+            // console.log('action nè, có vào đây không =)))', action.documentType.data)
             var newDocumentType = state.documentType;
             newDocumentType.push(action.documentType.data);
             return {
