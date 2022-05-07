@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {documentActions} from '../../../../actions/document.actions.js'
 import { MdModeEdit } from "react-icons/md";
 import { AiFillCloseCircle} from "react-icons/ai";
+import { cookiesUtil } from "../../../../utilities";
 
 
 function DocumentTypeModal() {
@@ -117,13 +118,25 @@ function DocumentTypeModal() {
 
     const addDocumentType = () => {
         const typeDocumentInput = document.querySelector('.input-document-type').value;
-        dispatch(documentActions.addNewDocumentType(typeDocumentInput));
-        document.querySelector('.input-document-type').value = '';
+        if(typeDocumentInput == false || typeDocumentInput == '' || typeDocumentInput.length ==0 ){
+           
+        }
+        else {
+            dispatch(documentActions.addNewDocumentType(typeDocumentInput));
+            document.querySelector('.input-document-type').value = '';
+        }
+        
     }
 
     const deleteDocumentType = (typeID) => {
         console.log("TypeID", typeID);
         dispatch(documentActions.deleteDocumentType(typeID));
+    }
+
+    const [currentIdType,changeCurrentIDType] = useState("nothing");
+    const changeCurrentType = (id, name) => {
+        changeCurrentIDType(id);
+        document.querySelector('.input-document-type').value = name
     }
 
     return (
@@ -155,6 +168,8 @@ function DocumentTypeModal() {
                                         onClick={() => {
                                                 changeEditingStatus(true)
                                                 changeDocumentAt(index, false);
+                                                if(!isEditting)
+                                                    changeCurrentType(type._id, type.name)
                                             }
                                         }
                                     >
@@ -163,7 +178,8 @@ function DocumentTypeModal() {
                                     <div 
                                         className='type-delete'
                                         onClick={() => {
-                                            deleteDocumentType(type._id);
+                                            if(!isEditting)
+                                                deleteDocumentType(type._id);
                                         }}
                                     >
                                         <AiFillCloseCircle size={16} />
@@ -186,6 +202,10 @@ function DocumentTypeModal() {
                                     onClick={() => {
                                             changeEditingStatus(false);
                                             changeAllDocument();
+                                            // console.log("currentIdType", currentIdType);
+                                            deleteDocumentType(currentIdType);
+                                            addDocumentType();
+                                            document.querySelector('.input-document-type').value = "";
                                         }
                                     }
                                 >
@@ -196,6 +216,7 @@ function DocumentTypeModal() {
                                     onClick={() => {
                                         changeEditingStatus(false);
                                         changeAllDocument();
+                                        document.querySelector('.input-document-type').value = "";
                                     }
                                 }
                                 >

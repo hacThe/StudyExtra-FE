@@ -51,6 +51,8 @@ function AddDocument(props) {
         await dispatch(documentActions.getAllDocumentType());
     }, []);
 
+    // const check
+
     useSelector((state) => {
         // Khi mà thay đổi thì tính lại state các kiểu
         if(state.document.documentType.length != documentType.length){

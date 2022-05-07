@@ -99,7 +99,6 @@ export function document(state = initialState, action) {
             };
         }
         case documentConstants.DELETE_TYPE_DOCUMENT_SUCCESS:{
-            console.log("action.data.data", action.data.data);
             var newDocumentType = state.documentType;
             newDocumentType = newDocumentType.filter(function(item) {
                 return item._id !== action.data.data._id
