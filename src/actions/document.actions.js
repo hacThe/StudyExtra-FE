@@ -6,7 +6,8 @@ export const documentActions = {
     getAllDocument,
     changeModalStatus,
     getAllDocumentType,
-    addNewDocumentType
+    addNewDocumentType,
+    deleteDocumentType
 }
 
 function changePagination(page){
@@ -103,6 +104,30 @@ function addNewDocumentType(newName) {
         }
         function failure(error) {
             return { type: documentConstants.ADD_NEW_TYPE_DOCUMENT_FAILURE, error };
+        }
+    }
+}
+
+function deleteDocumentType(id){
+    return (dispatch)=>{
+        dispatch(request())
+        documentService.deleteDocumentType(id).then(
+            (res)=>{
+                dispatch(success(res))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        function request() {
+            return { type: documentConstants.DELETE_TYPE_DOCUMENT_REQUEST };
+        }
+        function success(res) {
+            return {type: documentConstants.DELETE_TYPE_DOCUMENT_SUCCESS, data: res};
+        }
+        function failure(error) {
+            return { type: documentConstants.DELETE_TYPE_DOCUMENT_FAILURE, error };
         }
     }
 }

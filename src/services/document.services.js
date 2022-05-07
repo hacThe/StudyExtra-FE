@@ -6,7 +6,8 @@ import ajaxHelper from './api';
 export const documentService = {
     getAllDocument,
     getAllDocumentType,
-    addNewDocumentType
+    addNewDocumentType,
+    deleteDocumentType
 };
 
 function getAllDocument() {
@@ -24,5 +25,12 @@ function getAllDocumentType() {
 function addNewDocumentType(newName) {
     return handleResponse(
         ajaxHelper.post(config.URL_TYPE_CATEGORY, {name: newName}, options())
+    );
+}
+
+function deleteDocumentType(id) {
+    console.log("Vô được đây rồi, ID: ", id);
+    return handleResponse(
+        ajaxHelper.deleteFix(config.URL_TYPE_CATEGORY, {_id: id})
     );
 }

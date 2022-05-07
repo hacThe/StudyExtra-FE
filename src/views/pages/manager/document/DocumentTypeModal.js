@@ -121,6 +121,11 @@ function DocumentTypeModal() {
         document.querySelector('.input-document-type').value = '';
     }
 
+    const deleteDocumentType = (typeID) => {
+        console.log("TypeID", typeID);
+        dispatch(documentActions.deleteDocumentType(typeID));
+    }
+
     return (
         <div className="overlay-modal">
             <div 
@@ -157,6 +162,9 @@ function DocumentTypeModal() {
                                     </div>
                                     <div 
                                         className='type-delete'
+                                        onClick={() => {
+                                            deleteDocumentType(type._id);
+                                        }}
                                     >
                                         <AiFillCloseCircle size={16} />
                                     </div>

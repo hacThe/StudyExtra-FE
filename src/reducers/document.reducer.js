@@ -85,6 +85,31 @@ export function document(state = initialState, action) {
                 documentType: newDocumentType,
             }
         }
+        case documentConstants.DELETE_TYPE_DOCUMENT_REQUEST:{
+            return {
+                ...state,
+                isLoading: true,
+            };
+        }
+        case documentConstants.DELETE_TYPE_DOCUMENT_FAILURE:{
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            };
+        }
+        case documentConstants.DELETE_TYPE_DOCUMENT_SUCCESS:{
+            console.log("action.data.data", action.data.data);
+            var newDocumentType = state.documentType;
+            newDocumentType = newDocumentType.filter(function(item) {
+                return item._id !== action.data.data._id
+            })
+            return {
+                ...state,
+                isLoading: true,
+                documentType: newDocumentType,
+            };
+        }
         default:
             return state;
     }
