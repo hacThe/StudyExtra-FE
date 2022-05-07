@@ -5,14 +5,22 @@ import ajaxHelper from './api';
 
 export const documentService = {
     getAllDocument,
+    addNewDocument,
     getAllDocumentType,
     addNewDocumentType,
-    deleteDocumentType
+    deleteDocumentType,
+
 };
 
 function getAllDocument() {
     return handleResponse(
         ajaxHelper.get(config.URL_GET_DOCUMENTS, {}, options())
+    );
+}
+
+function addNewDocument(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_GET_DOCUMENTS,{...data}, options())
     );
 }
 

@@ -4,6 +4,7 @@ import { documentService } from '../services';
 export const documentActions = {
     changePagination,
     getAllDocument,
+    addNewDocument,
     changeModalStatus,
     getAllDocumentType,
     addNewDocumentType,
@@ -52,6 +53,31 @@ function getAllDocument(){
         }
         function failure(error) {
             return { type: documentConstants.GET_DOCUMENT_FAILURE, error };
+        }
+    }
+}
+
+function addNewDocument(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        // console.log("Course Action get all has called")
+        documentService.addNewDocument(data).then(
+            (data)=>{
+                dispatch(success(data))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        function request() {
+            return { type: documentConstants.ADD_NEW_DOCUMENT_REQUEST };
+        }
+        function success(data ) {
+            return {type: documentConstants.ADD_NEW_DOCUMENT_SUCCESS, data};
+        }
+        function failure(error) {
+            return { type: documentConstants.ADD_NEW_DOCUMENT_FAILURE, error };
         }
     }
 }
