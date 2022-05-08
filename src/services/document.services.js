@@ -6,6 +6,7 @@ import ajaxHelper from './api';
 export const documentService = {
     getAllDocument,
     addNewDocument,
+    deleteDocuments,
     getAllDocumentType,
     addNewDocumentType,
     deleteDocumentType,
@@ -24,11 +25,19 @@ function addNewDocument(data) {
     );
 }
 
+function deleteDocuments(data) {
+    return handleResponse(
+        ajaxHelper.deleteFix(config.URL_GET_DOCUMENTS, {...data})
+    );
+}
+
 function getAllDocumentType() {
     return handleResponse(
         ajaxHelper.get(config.URL_TYPE_CATEGORY, {}, options())
     );
 }
+
+
 
 function addNewDocumentType(newName) {
     return handleResponse(

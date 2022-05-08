@@ -1,3 +1,4 @@
+import { plPL } from "@mui/material/locale";
 import { documentConstants } from "../constaint";
 
 const initialState = {
@@ -38,6 +39,41 @@ export function document(state = initialState, action) {
                 isLoading: false,
                 error: action.error
             };
+        case documentConstants.DELETE_DOCUMENT_REQUEST:{
+            return {
+                ...state,
+                isLoading: true,
+            };
+        }
+        case documentConstants.DELETE_DOCUMENT_FAILURE:{
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            };
+        }
+        case documentConstants.DELETE_DOCUMENT_SUCCESS:{
+            // console.log("Object.values(action.data.data)", )
+            console.log("Vô được success rồi");
+            var listDocumentDelete = Object.values(action.data.data);
+            var newDocumentList = state.documents;
+            try {
+                for(var i = 0 ; i < listDocumentDelete.length; i++){
+                    newDocumentList = newDocumentList.filter(function(item) {
+                        return item._id !== listDocumentDelete[i]
+                    })
+                }
+            }
+            catch(e){
+                console.log("e", e);
+            }
+            console.log("newDocumentList", newDocumentList);
+            return {
+                ...state,
+                isLoading: false,
+                documents: newDocumentList
+            }
+        }
         case documentConstants.CHANGE_MODAL_TYPE_OPEN:
             return {
                 ...state,
@@ -109,6 +145,7 @@ export function document(state = initialState, action) {
                 documentType: newDocumentType,
             };
         }
+        
         default:
             return state;
     }

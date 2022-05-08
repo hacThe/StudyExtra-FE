@@ -5,6 +5,7 @@ export const documentActions = {
     changePagination,
     getAllDocument,
     addNewDocument,
+    deleteMultiDocuments,
     changeModalStatus,
     getAllDocumentType,
     addNewDocumentType,
@@ -78,6 +79,30 @@ function addNewDocument(data) {
         }
         function failure(error) {
             return { type: documentConstants.ADD_NEW_DOCUMENT_FAILURE, error };
+        }
+    }
+}
+
+function deleteMultiDocuments(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        documentService.deleteDocuments(data).then(
+            (res)=>{
+                dispatch(success(res))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        function request() {
+            return { type: documentConstants.DELETE_DOCUMENT_REQUEST };
+        }
+        function success(res) {
+            return {type: documentConstants.DELETE_DOCUMENT_SUCCESS, data: data};
+        }
+        function failure(error) {
+            return { type: documentConstants.DELETE_DOCUMENT_FAILURE, error };
         }
     }
 }

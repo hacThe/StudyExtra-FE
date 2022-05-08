@@ -111,19 +111,6 @@ function AddDocument(props) {
         if(e.target.value.indexOf("https://") == -1){
             return;
         }
-        // var request = new XMLHttpRequest();  
-        // request.open('GET', e.target.value, true);
-        // request.onreadystatechange = function(){
-        //     if (request.readyState === 4){
-        //         if (request.status >= 404) {  
-        //             alert("Oh no, it does not exist!");
-        //         } else if(request.status == 0){
-        //             console.log("Fuck");
-        //             return;
-        //         }
-        //     }
-        // };
-        // request.send();
         document.querySelector('#iframe-document').setAttribute('src',e.target.value)
     }
 

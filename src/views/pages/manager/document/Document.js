@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
 import './scss/Document.scss';
-import TableManagement from '../../overall/components/TableManagement.js';
+import TableManagement from './components/TableManagement.js';
 import { GrDocumentExcel } from "react-icons/gr";
 import {documentActions} from '../../../../actions/document.actions.js'
 import { useDispatch, useSelector } from "react-redux";
-import {Button} from '@mui/material';
 import { NavLink } from "react-router-dom";
 
 const columnDocs = [
@@ -54,7 +53,7 @@ const convertDocumentToData = (document) => {
     var res = [];
     for(var i =0 ; i< document.length; i++){
         var temp = {
-            id: i+1,
+            id: document[i]._id,
             stt: i+1,
             name: document[i].name,
             type: document[i].type,
@@ -71,6 +70,7 @@ function DocumentManage(props) {
     const dispatch = useDispatch();
     var [filter, setFilter] = useState('');
     var changeFilter = (e) => {
+        console.log("val input", e.target.value);
         setFilter(e.target.value);
     }
 
@@ -84,8 +84,8 @@ function DocumentManage(props) {
             console.log({ state });
             var doc = [];
             doc.push(...state.document.documents);
-            doc.push(...state.document.documents);
-            console.log('doc',doc);
+            // doc.push(...state.document.documents);
+            // console.log('doc',doc);
             return doc;
         }) || [];
     
