@@ -8,7 +8,9 @@ export const courseService = {
   create,
   getOne,
   update,
-  _delete
+  _delete,
+  addChapter,
+  editChapter
 };
 
 function getAll() {
@@ -42,4 +44,19 @@ function create(data) {
   return handleResponse(
     ajaxHelper.post(config.URL_CREATE_COURSE, { ...data }, options())
   );
+}
+
+
+function addChapter(chapter, id) {
+  return handleResponse(
+    ajaxHelper.post(config.URL_ADD_CHAPTER + `/${id}`, {...chapter}, options())
+  )
+}
+
+
+
+function editChapter(chapter) {
+  return handleResponse(
+    ajaxHelper.post(config.URL_EDIT_CHAPTER + `/${chapter._id}`, {...chapter}, options())
+  )
 }

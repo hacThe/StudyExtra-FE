@@ -37,7 +37,9 @@ const getListStyle = (isDraggingOver) => ({
   width: "100%",
 });
 
-function CourseChapterTile({ chapter, index }) {
+function CourseChapterTile({ chapter, index, editChappterOnClick }) {
+
+
   const [visible, setvisible] = useState(true);
 
   function toogleLessonTile() {
@@ -49,9 +51,8 @@ function CourseChapterTile({ chapter, index }) {
     alert("action-button-onclick");
   }
 
-  function editChappterOnClick(e) {
-    e.stopPropagation();
-    alert("action-button-onclick");
+  function handleEditChappterOnClick(chapter, index) {
+    editChappterOnClick(chapter, index);
   }
 
   function deleteChappterOnClick(e) {
@@ -71,7 +72,12 @@ function CourseChapterTile({ chapter, index }) {
           <div onClick={addNewChappterOnClick} className="action-wrapper">
             <GrAddCircle size={"2.2rem"} />
           </div>
-          <div onClick={editChappterOnClick} className="action-wrapper">
+          <div
+            onClick={() => {
+              handleEditChappterOnClick(chapter, index);
+            }}
+            className="action-wrapper"
+          >
             <AiOutlineEdit size={"2.2rem"} />
           </div>
           <div onClick={deleteChappterOnClick} className="action-wrapper">
@@ -137,19 +143,16 @@ function CourseLessonTile({ lesson }) {
 class CourseChapterList extends Component {
   constructor(props) {
     super(props);
-    console.log({props})
+    console.log({ props }, "props nè nha");
     this.state = {
       items: props.chapters,
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
-  
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps === this.props) return
-    this.setState(
-      {items: this.props.chapters}
-    )
+    if (prevProps === this.props) return;
+    this.setState({ items: this.props.chapters });
   }
 
   onDragEnd(result) {
@@ -164,46 +167,58 @@ class CourseChapterList extends Component {
       result.destination.index
     );
     this.setState({
-      items
-    })
-    this.props.setValues([...items])
+      items,
+    });
+    this.props.setValues([...items]);
   }
 
   // Normally you would want to split things out into separate components.
   // But in this example everything is just done in one place for simplicity
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <Droppable droppableId="droppable">
-          {(provided, snapshot) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-              style={getListStyle(snapshot.isDraggingOver)}
-            >
-              {this.state.items.map((item, index) => (
-                <Draggable key={item.name} draggableId={item.name} index={index}>
-                  {(provided, snapshot) => (
-                    <div
-                      className="drag-and-drop-item"
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                      )}
-                    >
-                      <CourseChapterTile chapter={item} index={index}/>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      // <DragDropContext onDragEnd={this.onDragEnd}>
+      //   <Droppable droppableId="droppable">
+      //     {(provided, snapshot) => (
+      //       <div
+      //         {...provided.droppableProps}
+      //         ref={provided.innerRef}
+      //         style={getListStyle(snapshot.isDraggingOver)}
+      //       >
+      //         {this.state.items.map((item, index) => (
+      //           <Draggable key={item.name} draggableId={item.name} index={index}>
+      //             {(provided, snapshot) => (
+      //               <div
+      //                 className="drag-and-drop-item"
+      //                 ref={provided.innerRef}
+      //                 {...provided.draggableProps}
+      //                 {...provided.dragHandleProps}
+      //                 style={getItemStyle(
+      //                   snapshot.isDragging,
+      //                   provided.draggableProps.style
+      //                 )}
+      //               >
+      //                 <CourseChapterTile chapter={item} index={index}/>
+      //               </div>
+      //             )}
+      //           </Draggable>
+      //         ))}
+      //         {provided.placeholder}
+      //       </div>
+      //     )}
+      //   </Droppable>
+      // </DragDropContext>
+
+      <>
+        {this.state.items.map((item, index) => (
+          <div className="drag-and-drop-item">
+            <CourseChapterTile
+              editChappterOnClick={this.props.editChapterOnClick}
+              chapter={item}
+              index={index}
+            />
+          </div>
+        ))}
+      </>
     );
   }
 }

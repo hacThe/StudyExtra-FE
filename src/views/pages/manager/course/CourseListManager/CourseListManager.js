@@ -24,7 +24,10 @@ const CourseListManager = () => {
   useEffect(() => {
     dispatch(courseAction.getAllCourse());
   }, []);
-  const rawData = useSelector((state) => state.course.courses);
+  const rawData = useSelector((state) => {
+    console.log({state})
+    return state.course.courses});
+  
 
   const rowDocs = rawData.map((item, index) => {
     const temp = {};

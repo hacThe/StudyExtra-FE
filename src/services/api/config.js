@@ -10,6 +10,8 @@ export default {
   URL_CREATE_COURSE: URL_SYSTEM_V1 + '/courses/new',
   URL_UPDATE_COURSE: URL_SYSTEM_V1 + '/courses/update',
   URL_DELETE_COURSE: URL_SYSTEM_V1 + '/courses',
+  URL_ADD_CHAPTER: URL_SYSTEM_V1 + '/courses/addNewChapter',
+  URL_EDIT_CHAPTER: URL_SYSTEM_V1 + '/courses/chapter',
 
 
   // exam

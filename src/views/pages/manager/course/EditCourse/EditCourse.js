@@ -10,12 +10,13 @@ import { BiHide } from "react-icons/bi";
 import "./EditCourse.scss";
 import SingleCourseForm from "../component/SingleCourseForm";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { courseAction } from "../../../../../actions/course.action";
 function EditCourse(props) {
   const dispatch = useDispatch();
   const course = useSelector((state) => state.course.course);
   const {id} = useParams();
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (!course || !course.name) {
@@ -24,11 +25,16 @@ function EditCourse(props) {
   }, []);
 
   const onSubmit = (values)=>{
-    dispatch(courseAction.update(id, values))
+    dispatch(courseAction.update(id, values, navigate))
   }
 
   const handleToogleIsHideClick = () => {
     dispatch(courseAction.update(id, {isHide: !course.isHide}))
+  }
+
+  
+  const handleDeleteCourse = () => {
+    dispatch(courseAction._delete(course._id, navigate))
   }
 
   console.log({ course }, "course nè nha");
@@ -39,7 +45,7 @@ function EditCourse(props) {
         <div className="course-action align-center">
           <LeadingIconButton icon={<AiOutlineExport />} content="Xuất Excel" />
           <LeadingIconButton onClick={handleToogleIsHideClick} icon={<BiHide />} content={course.isHide ? "Hủy ẩn" : "Ẩn"} />
-          <LeadingIconButton icon={<AiOutlineDelete />} content="Xóa" />
+          <LeadingIconButton onClick={handleDeleteCourse} icon={<AiOutlineDelete />} content="Xóa" />
         </div>
       </div>
 

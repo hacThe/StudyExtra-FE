@@ -113,6 +113,26 @@ export function course(state = initialState, action) {
         isLoading: false,
         error: action.error,
       };
+
+      case courseConstants.CREATE_CHAPTER_REQUEST:
+        return {
+          ...state,
+          isLoading: true,
+        };
+  
+      case courseConstants.CREATE_CHAPTER_SUCCESS:
+        return {
+          ...state,
+          isLoading: false,
+          course: action.course,
+        };
+  
+      case courseConstants.CREATE_CHAPTER_FAILURE:
+        return {
+          ...state,
+          isLoading: false,
+          error: action.error,
+        };
     default:
       return state;
   }

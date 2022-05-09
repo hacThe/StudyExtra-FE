@@ -28,7 +28,7 @@ const EditCourse = React.lazy(() =>
 );
 
 const EditCourseChapter = React.lazy(() =>
-  import("./views/pages/manager/course/ChapterManager/ChapterManager")
+  import("./views/pages/manager/course/EditCourseChapters/EditCourseChapters")
 );
 const EditLesson = React.lazy(()=>
   import("./views/pages/manager/course/EditLesson/EditLesson")
@@ -92,7 +92,7 @@ const commonRoute = [
   { path: "/khoa-hoc", name: "Trang chủ", element: <Courses /> },
   { path: "/luyen-de", name: "Luyện đề", element: <Exams /> },
   {
-    path: "/luyen-de/id:id",
+    path: "/luyen-de/:id",
     name: "Nội dung đề thi",
     element: <ExamDescription />,
   },

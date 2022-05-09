@@ -149,7 +149,6 @@ function CourseDetailManager(props) {
       email: "hienthe473@gmail.com",
     },
   ];
-
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -181,7 +180,7 @@ function CourseDetailManager(props) {
   }
 
   const handleDeleteCourse = () => {
-    dispatch(courseAction._delete(course._id))
+    dispatch(courseAction._delete(course._id, navigate))
   }
 
   const style = {

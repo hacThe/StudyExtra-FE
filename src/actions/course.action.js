@@ -7,7 +7,9 @@ export const courseAction = {
   create,
   getOne,
   update,
-  _delete
+  _delete,
+  addChapter,
+  editChapter
 };
 
 function getOne(courseId) {
@@ -38,7 +40,7 @@ function getOne(courseId) {
   };
 }
 
-function update(id, course) {
+function update(id, course, navigate) {
   return (dispatch) => {
     dispatch(request());
     if (course.name) {
@@ -53,6 +55,10 @@ function update(id, course) {
       (course) => {
         console.log(course);
         dispatch(success(course));
+        if (navigate)
+          {
+              navigate('/quan-ly/khoa-hoc')
+          }
       },
       (error) => {
         dispatch(failure(error.toString()));
@@ -100,7 +106,7 @@ function getAllCourse() {
   };
 }
 
-function create(data) {
+function create(data, navigate) {
   return (dispatch) => {
     dispatch(request());
     data["_id"] = stringUtils.makeDashString(data.name).toLowerCase();
@@ -111,6 +117,10 @@ function create(data) {
       (course) => {
         console.log(course);
         dispatch(success(course));
+        if (navigate)
+          {
+              navigate('/quan-ly/khoa-hoc')
+          }
       },
       (error) => {
         dispatch(failure(error.toString()));
@@ -129,14 +139,77 @@ function create(data) {
   };
 }
 
+function addChapter(chapter, id, callback){
+  return (dispatch)=>{
+    dispatch(request())
+    courseService.addChapter(chapter, id).then(
+      (course) => {
+        console.log(course);
+        dispatch(success(course.data));
+        if (callback)
+          {
+              callback()
+          }
+      },
+      (error) => {
+        dispatch(failure(error.toString()));
+        console.log({ error });
+      }
+    );
+    function request() {
+      return { type: courseConstants.CREATE_CHAPTER_REQUEST };
+    }
+    function success(course) {
+      return { type: courseConstants.CREATE_CHAPTER_SUCCESS, course };
+    }
+    function failure(error) {
+      return { type: courseConstants.CREATE_CHAPTER_FAILURE, error };
+    }
+  }
+}
 
-function _delete(id) {
+
+function editChapter(chapter, callback){
+  return (dispatch)=>{
+    dispatch(request())
+    courseService.editChapter(chapter).then(
+      (course) => {
+        console.log(course);
+        dispatch(success(course.data));
+        if (callback)
+          {
+              callback()
+          }
+      },
+      (error) => {
+        dispatch(failure(error.toString()));
+        console.log({ error });
+      }
+    );
+    function request() {
+      return { type: courseConstants.CREATE_CHAPTER_REQUEST };
+    }
+    function success(course) {
+      return { type: courseConstants.CREATE_CHAPTER_SUCCESS, course };
+    }
+    function failure(error) {
+      return { type: courseConstants.CREATE_CHAPTER_FAILURE, error };
+    }
+  }
+}
+
+
+function _delete(id, navigate) {
     return (dispatch) => {
       dispatch(request());
       courseService._delete(id).then(
         (res) => {
           console.log(res);
           dispatch(success(res));
+          if (navigate)
+          {
+              navigate('/quan-ly/khoa-hoc')
+          }
         },
         (error) => {
           dispatch(failure(error.toString()));
