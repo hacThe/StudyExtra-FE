@@ -11,6 +11,7 @@ import { userCourses } from "./account.reducer";
 import { userNotifications } from "./notification.reducer";
 
 import {article} from "./article.reducer";
+import { searchAnnouncement } from './searchAnnouncement.reducer'
 const rootReducer = combineReducers({
   app, // appReducer
   course, // course
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   userCourses, 
   userNotifications,
   article,
+  searchAnnouncement
 });
 
 export default rootReducer;

@@ -80,7 +80,6 @@ const Routers = () => {
                 )
               );
             })}
-
           {authentication.isLoggedIn &&
             routes.protectedRoute.map((route, idx) => {
               return (

@@ -88,6 +88,9 @@ const ModifyDocument = React.lazy(() =>
   import("./views/pages/manager/document/ModifyDocument")
 );
 
+const Announcement = React.lazy(() => import('./views/pages/announcement/Announcement'))
+const GenarelAnnouncement = React.lazy(() => import('./views/pages/announcement/GenarelAnnouncement'))
+
 // Những route chỉ truy xuất khi chưa đăng nhập
 const publicRoute = [
   // {path: '/trang-chu', name: 'Trang chủ', element: <Homepage/>},
@@ -135,7 +138,8 @@ const commonRoute = [
   { path: "/test-socket", name: "Tìm kiếm", element: <Socket /> },
   // temporary path
   { path: "/thu-nghiem", name: "Thử nghiệm", element: <Overall /> },
-
+  { path: '/announcement/:slug', name: 'Thông báo', element: <Announcement /> },
+  { path: '/announcement', name: 'Thông báo', element: <GenarelAnnouncement /> },
 ];
 
 // rout khi đã đăng nhập
