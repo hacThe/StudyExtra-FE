@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import './TransactionTable.scss';
+import { useNavigate } from 'react-router-dom';
+import './UsersTable.scss';
 
 const datagridSx = {
     borderRadius: 2,
@@ -45,7 +46,7 @@ const datagridSx = {
 };
 
 
-const TransactionTable = ({ rowDocs, columnDocs, filter }) => {
+const UsersTable = ({ rowDocs, columnDocs, filter }) => {
     const [idSelect, setidSelect] = useState([]);
     const changeidSelect = (value) => {
         var newValue = idSelect;
@@ -66,11 +67,13 @@ const TransactionTable = ({ rowDocs, columnDocs, filter }) => {
     const onCellClick = (params, event) => {
         // console.log("click on cell");
         console.log("params", params);
-        changeidSelect(params.id);
+        if(params.field === "__check__") changeidSelect(params.id);
     }
 
-    const onRowClick = () => {
-        // console.log("click on row");
+    const navigate = useNavigate()
+    const onCellDoubleClick = (params, event) => {
+         console.log("cell double click: ", params);
+        navigate('/quan-ly/nguoi-dung/id:1');
     }
 
     const getShowingData = (filter) => {
@@ -90,22 +93,26 @@ const TransactionTable = ({ rowDocs, columnDocs, filter }) => {
         return res;
     }
 
+
+
     return (
         <div
-            style={{ height: 550, width: '100%' }}
+            style={{ height: 700, width: '100%' }}
             className="datagrid-container"
         >
             <DataGrid
                 rows={getShowingData(filter)}
                 columns={columnDocs}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
+                pageSize={14}
+                rowsPerPageOptions={[14]}
                 sx={datagridSx}
                 onCellClick={(params, event) => onCellClick(params, event)}
-                onRowClick={() => onRowClick()}
+                onCellDoubleClick={(params, event) => onCellDoubleClick(params, event)}
+                checkboxSelection
+                disableSelectionOnClick
             />
         </div>
     );
 }
 
-export default TransactionTable;
+export default UsersTable;

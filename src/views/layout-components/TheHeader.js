@@ -57,9 +57,9 @@ function TheHeader() {
   //-----------Search
   const [search, setSearch] = useState('');
 
-  const handleChangeSearch = (event) => {
-    setSearch(event.target.value)
-  }
+   const handleChangeSearch = (event) => {
+     setSearch(event.target.value)
+   }
 
   const handleClickSearch = (event) => {
     dispatch(searchAction.getSearch(search))
@@ -93,7 +93,8 @@ function TheHeader() {
   console.log("state: ", useSelector(state => state))/////////
   const notifications = useSelector(state => state.userNotifications.notifications.data) || []
   useEffect(async () => {
-    dispatch(userActions.getUserNotifications());
+    if (typeof UserInfo !== "undefined")
+      dispatch(userActions.getUserNotifications());
   }, []);
 
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
@@ -152,38 +153,38 @@ function TheHeader() {
   };
 
   const renderNotificationMenu = (
-      <Menu
-        anchorEl={anchorNt}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-        id={notificationMenuId}
-        keepMounted
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "right",
-        }}
-        open={isNotificationMenuOpen}
-        onClose={handleNotificationMenuClose}
-        className="notification-menu"
-      >
-        {notifications.map((item, index) => (
-          <MenuItem
-            key={index}
-            onClick={handleNotificationMenuClose}
-            className="notification_group"
-          >
-            <Avatar
-              className="avatar"
-              alt="Remy Sharp"
-              src={item.imgUrl || "https://vieclamthemonline.com/wp-content/uploads/2021/10/anh-blackpink-rose.jpg"}
-            />
-            <NotificationContent notification={item} />
-          </MenuItem>
-        ))}
-      </Menu>
-    );
+    <Menu
+      anchorEl={anchorNt}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right",
+      }}
+      id={notificationMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isNotificationMenuOpen}
+      onClose={handleNotificationMenuClose}
+      className="notification-menu"
+    >
+      {notifications.map((item, index) => (
+        <MenuItem
+          key={index}
+          onClick={handleNotificationMenuClose}
+          className="notification_group"
+        >
+          <Avatar
+            className="avatar"
+            alt="Remy Sharp"
+            src={item.imgUrl || "/default-avatar.png"}
+          />
+          <NotificationContent notification={item} />
+        </MenuItem>
+      ))}
+    </Menu>
+  );
   //------------------------------------------MOBILE MENU---------------------------------------------//
 
   const [state, setState] = React.useState({
@@ -253,7 +254,7 @@ function TheHeader() {
                 <Avatar
                   className="avatar"
                   alt="Remy Sharp"
-                  src={typeof UserInfo === "undefined" ? "default-avatar.png" : UserInfo.avatar}
+                  src={typeof UserInfo === "undefined" ? "/default-avatar.png" : UserInfo.avatar}
                 />
               </Grid>
               <Grid item xs={8}>
@@ -310,7 +311,7 @@ function TheHeader() {
           <Avatar
             className="avatar"
             alt="Remy Sharp"
-            src={typeof UserInfo === "undefined" ? "default-avatar.png" : UserInfo.avatar}
+            src={typeof UserInfo === "undefined" ? "/default-avatar.png" : UserInfo.avatar}
           />
         </IconButton>
       </Box>
@@ -318,7 +319,7 @@ function TheHeader() {
   )
   const navigate = useNavigate();
   const LoginBtn = (
-    <Grid item md={4} xs={3}>
+    <Grid item md={4} xs={3}  className="avatar-notification_group">
       <Button variant="contained"
         style={{ background: "#7B68EE", textTransform: "none", fontFamily: "Montserrat", fontSize: "1.4rem" }}
         onClick={() => {
@@ -333,7 +334,7 @@ function TheHeader() {
     <>
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static" className="the-header">
-          <Toolbar className="toolbar">
+          <Grid container className="toolbar">
             <Grid
               item
               sx={{ display: { xs: "flex", md: "none" } }}
@@ -392,15 +393,15 @@ function TheHeader() {
                   inputProps={{ "aria-label": "search" }}
                   className="search-inp"
                   onKeyPress={(e) => handleKeyPressSearch(e)}
-                  onChange={(e) => handleChangeSearch(e)}
+                 onChange={(e) => handleChangeSearch(e)}
                 ></InputBase>
               </Box>
             </Grid>
             {typeof UserInfo === "undefined" ? LoginBtn : NotificationAvatarGroup}
-          </Toolbar>
+          </Grid>
         </AppBar>
-        {renderMenu}
-        {renderNotificationMenu}
+        {typeof UserInfo === "undefined" ? <></> : renderMenu}
+        {typeof UserInfo === "undefined" ? <></> : renderNotificationMenu}
       </Box>
     </>
   );

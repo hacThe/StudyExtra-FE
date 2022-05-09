@@ -59,6 +59,12 @@ const AddQuestion = React.lazy(() =>
 const EditQuestion = React.lazy(() =>
   import("./views/pages/manager/exam/EditQuestion/EditQuestion")
 );
+const UserManager = React.lazy(() =>
+  import("./views/pages/manager/user/ManagerUser")
+);
+const DetailUser = React.lazy(() =>
+  import("./views/pages/manager/user/DetailUser")
+);
 const Exams = React.lazy(() => import("./views/pages/exam/exams/Exams"));
 const ExamDescription = React.lazy(() =>
   import("./views/pages/exam/examDescription/ExamDescription")
@@ -96,9 +102,9 @@ const commonRoute = [
     name: "Nội dung đề thi",
     element: <ExamDescription />,
   },
-  { path: "/luyen-de/id:id/vao-thi", name: "Bài làm", element: <ExamDetail /> },
+  { path: "/luyen-de/:id/vao-thi", name: "Bài làm", element: <ExamDetail /> },
   {
-    path: "/luyen-de/id:id/ket-qua",
+    path: "/luyen-de/:id/ket-qua",
     name: "Kết quả thi",
     element: <ExamResult />,
   },
@@ -117,6 +123,7 @@ const commonRoute = [
   { path: "/test-socket", name: "Tìm kiếm", element: <Socket /> },
   // temporary path
   { path: "/thu-nghiem", name: "Thử nghiệm", element: <Overall /> },
+
 ];
 
 // rout khi đã đăng nhập
@@ -173,7 +180,12 @@ const managerRoute = [
   {
     path: "/quan-ly/nguoi-dung",
     name: "Trang chủ",
-    element: <h1>Quan ly nguoi dung</h1>,
+    element:<UserManager />,
+  },
+  {
+    path: "/quan-ly/nguoi-dung/:id",
+    name: "Chi tiet nguoi dung",
+    element:<DetailUser />,
   },
   {
     path: "/quan-ly/tai-lieu",

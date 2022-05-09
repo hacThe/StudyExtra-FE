@@ -1,6 +1,7 @@
 .manager-side-bar-wrapper {
   position: relative;
   min-height: 100vh;
+  z-index: 100;
   background-color: var(--primary-color);
   .mystery-box {
     width: 256px;
