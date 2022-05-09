@@ -86,6 +86,13 @@
             .interact-item{
                 font-size: 1.2rem;
                 margin-right: 1.2rem;
+                &:hover{
+                    opacity: 0.6;
+                    cursor: pointer;
+                    user-select: none;
+                    -moz-user-select: none;
+                    -webkit-user-select: none;
+                }
             }
             .interact-item.like{
                 font-weight: 600;
@@ -97,6 +104,7 @@
             .interact-time{
                 font-size: 1.2rem;
             }
+
         }
         .comment-image{
             width: 30%;
@@ -107,6 +115,8 @@
             margin-top: 1.2rem;
             width: 100%;
             position: relative;
+            margin-left: 5.8rem;
+            padding-right: 5.8rem;
             .current-user-avatar{
                 width: 36px;
                 height: 36px;
@@ -129,7 +139,7 @@
             }
             .add-image-icon{
                 position: absolute;
-                right: 4.4rem;
+                right: 10rem;
                 top: 0.4rem;    
                 color: #999999;
             }
@@ -140,12 +150,16 @@
             .hide-answer {
                 display: flex;
                 align-items: flex-end;
+                &:hover{
+                    cursor: pointer;
+                    opacity: 0.7;
+                }
                 .title{
                     font-weight: 700;
                     margin-right: 0.5rem;
                 }
                 .icon{
-                    margin-bottom: 0.5rem;
+                    margin-bottom: 0.3rem;
                 }
             }
             .reply-comment{

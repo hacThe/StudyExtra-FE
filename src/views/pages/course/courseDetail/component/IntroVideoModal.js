@@ -11,7 +11,7 @@ function IntroVideoModal({videoId, toogle, courseName}) {
 
         <h1 className="course-name">{courseName}</h1>
 
-        <div class="aspect-ratio">
+        <div className="aspect-ratio">
           <iframe
             id="video"
             width="560"

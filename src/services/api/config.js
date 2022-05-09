@@ -28,6 +28,10 @@ export default {
   URL_UPLOAD_AVATAR: URL_SYSTEM_V1 + '/profiles/uploadAvatar',
 
 
-  // document
-  URL_GET_DOCUMENTS: URL_SYSTEM_V1 + '/document/',
+    // document
+    URL_GET_DOCUMENTS: URL_SYSTEM_V1 + '/document/',
+    // article
+    URL_ARTICLE: URL_SYSTEM_V1 + '/article/',
+    // type category
+    URL_TYPE_CATEGORY: URL_SYSTEM_V1 + '/type-category/',
 }

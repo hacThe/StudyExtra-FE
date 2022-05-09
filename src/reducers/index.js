@@ -10,6 +10,7 @@ import { post } from "./post.reducer";
 import { userCourses } from "./account.reducer";
 import { userNotifications } from "./notification.reducer";
 
+import {article} from "./article.reducer";
 const rootReducer = combineReducers({
   app, // appReducer
   course, // course
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   post,
   document,
   userCourses, 
-  userNotifications
+  userNotifications,
+  article,
 });
 
 export default rootReducer;
