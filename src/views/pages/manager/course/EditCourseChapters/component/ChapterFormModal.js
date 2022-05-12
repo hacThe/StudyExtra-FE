@@ -27,7 +27,7 @@ function ChapterFormModal({open, handleClose, editModal, course, chapter, onSubm
       >
         <Box sx={style}>
           <h1 style={{ textAlign: "center" }}>{editModal ? "Chỉnh sửa thông tin chương" : "Thêm chương mới"}</h1>
-          <SingleChapterForm onCanCel={handleClose} course={course} chapter={chapter} onSubmit={onSubmit} />
+          <SingleChapterForm editModal={editModal} onCanCel={handleClose} course={course} chapter={chapter} onSubmit={onSubmit} />
         </Box>
       </Modal>
     );

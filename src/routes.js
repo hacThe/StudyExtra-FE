@@ -41,9 +41,9 @@ const AddLesson = React.lazy(() =>
 const ManageAnnouncement = React.lazy(() =>
   import('./views/pages/manager/announcement/ManageAnnouncement')
 );
-const AddAnnouncement = React.lazy(() => {
+const AddAnnouncement = React.lazy(() =>
   import('./views/pages/manager/announcement/components/AddAnnouncement.js')
-})
+)
 
 const Dashboard = React.lazy(() =>
   import("./views/pages/manager/dashboard/Dashboard")

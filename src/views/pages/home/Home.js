@@ -9,6 +9,7 @@ import QAndA from "./Component/QAndA";
 import { useDispatch, useSelector } from "react-redux";
 import { courseAction } from "../../../actions/course.action";
 import { postAction } from "../../../actions/post.action";
+import { appActions } from "../../../actions";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,19 @@ const Login = () => {
           <YourCourses courses={courses}></YourCourses>
           <FeaturedCourse courses={courses}></FeaturedCourse>
           <QAndA posts={posts}></QAndA>
+
+          <span
+            onClick={() => {
+              dispatch(
+                appActions.openConfirmDialog("THis is content", () => {
+                  console.log("haha");
+                })
+              );
+            }}
+            className="se-btn"
+          >
+            Click me
+          </span>
         </div>
       </Container>
     </>

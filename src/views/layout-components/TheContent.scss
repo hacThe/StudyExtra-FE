@@ -1,16 +1,57 @@
-.app-body{
-    width: 100%;
-    min-height: 500px;
-    display: flex;
-    flex-wrap: nowrap;
+.app-body {
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  flex-wrap: nowrap;
 
-    .navigation{
-        width: 88px;
-        height: 100%;
+  .navigation {
+    width: 88px;
+    height: 100%;
+  }
+  .app-content {
+    background-color: #f4f4f4;
+    padding-top: 66px;
+    flex: 1;
+  }
+}
+
+.modal-container-fe {
+  h1 {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 12px;
+  }
+
+  p {
+    font-family: "Montserrat";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 24px;
+  }
+
+  .action-btn {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    .se-btn {
+      margin-left: 24px;
+      display: inline-block !important;
     }
-    .app-content{
-        background-color: #f4f4f4;
-        padding-top: 66px;
-        flex: 1;
+
+    .hover-blur {
+      background-color: white;
+      color: #000;
+
+      &:hover {
+        background-color: var(--hover-background-color);
+      }
     }
+  }
 }

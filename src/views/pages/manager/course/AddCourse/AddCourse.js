@@ -13,7 +13,7 @@ function AddCourse(props) {
     imgUrl: "",
     introVideoUrl: "",
     contents: [],
-    categories: [],
+    categories: 0,
     requirements: [],
   };
   const navigate = useNavigate();
