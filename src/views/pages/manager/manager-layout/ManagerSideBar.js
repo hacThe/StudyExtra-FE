@@ -5,6 +5,7 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { MdPlayLesson } from "react-icons/md";
 import { IoIosDocument } from "react-icons/io";
 import { FaUserGraduate } from "react-icons/fa";
+import { RiNotification4Fill } from 'react-icons/ri'
 import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import "./ManagerSideBar.scss";
 function TheNavigation() {
@@ -34,6 +35,11 @@ function TheNavigation() {
       icon: <BsQuestionCircleFill />,
       link: "/quan-ly/thi-thu",
     },
+    {
+      name: 'Quản lý thông báo',
+      icon: <RiNotification4Fill/>,
+      link: "/quan-ly/thong-bao-chung"
+    }
   ];
   return (
     <>

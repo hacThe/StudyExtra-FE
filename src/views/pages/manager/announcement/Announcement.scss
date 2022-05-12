@@ -1,0 +1,59 @@
+.announcement {
+    height: 100%;
+
+    .css-1oqqzyl-MuiContainer-root {
+        max-width: 1225px
+    }
+
+    .box-shadow {
+        margin-bottom: 25px;
+        margin-top: 25px;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        padding: 12px;
+        border-radius: 10px;
+
+        .title {
+            height: 22px;
+            font-weight: 500;
+            font-size: 18px;
+            line-height: 22px;
+        }
+
+        .btn-add-announce {
+            font-family: 'Montserrat';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 20px;
+            background: #7B68EE;
+            border-radius: 10px;
+            color: white;
+            padding: 5px 10px;
+        }
+
+        .btn-add-announce:hover {
+            opacity: .8;
+            cursor: pointer;
+        }
+
+        .filter-container {
+            display: flex;
+            align-items: center;
+            margin-top: 16px;
+
+            .filter-label {
+                margin-right: 11px;
+                font-family: 'Montserrat';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 17px;
+            }
+
+            .filter-input {
+                width: 265px;
+                height: 24px;
+            }
+        }
+    }
+}

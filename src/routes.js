@@ -30,14 +30,20 @@ const EditCourse = React.lazy(() =>
 const EditCourseChapter = React.lazy(() =>
   import("./views/pages/manager/course/EditCourseChapters/EditCourseChapters")
 );
-const EditLesson = React.lazy(()=>
+const EditLesson = React.lazy(() =>
   import("./views/pages/manager/course/EditLesson/EditLesson")
 )
-const AddLesson = React.lazy(()=>
+const AddLesson = React.lazy(() =>
   import("./views/pages/manager/course/AddLesson/AddLesson")
 )
 
 
+const ManageAnnouncement = React.lazy(() =>
+  import('./views/pages/manager/announcement/ManageAnnouncement')
+);
+const AddAnnouncement = React.lazy(() => {
+  import('./views/pages/manager/announcement/components/AddAnnouncement.js')
+})
 
 const Dashboard = React.lazy(() =>
   import("./views/pages/manager/dashboard/Dashboard")
@@ -76,15 +82,15 @@ const ExamResult = React.lazy(() =>
   import("./views/pages/exam/examDetail/ExamResult")
 );
 
-const DocumentManage = React.lazy(() => 
+const DocumentManage = React.lazy(() =>
   import("./views/pages/manager/document/Document")
 );
 
-const AddDocument = React.lazy(() => 
+const AddDocument = React.lazy(() =>
   import("./views/pages/manager/document/AddDocument")
 );
 
-const ModifyDocument = React.lazy(() => 
+const ModifyDocument = React.lazy(() =>
   import("./views/pages/manager/document/ModifyDocument")
 );
 
@@ -177,7 +183,6 @@ const managerRoute = [
   },
 
 
-  
   {
     path: "/quan-ly/khoa-hoc/tao-moi",
     name: "Trang chủ",
@@ -196,32 +201,32 @@ const managerRoute = [
   {
     path: "/quan-ly/nguoi-dung",
     name: "Trang chủ",
-    element:<UserManager />,
+    element: <UserManager />,
   },
   {
     path: "/quan-ly/nguoi-dung/:id",
     name: "Chi tiet nguoi dung",
-    element:<DetailUser />,
+    element: <DetailUser />,
   },
   {
-      path: "/quan-ly/tai-lieu",
-      name: "Quản lý tài liệu",
-      element: <DocumentManage/>,
+    path: "/quan-ly/tai-lieu",
+    name: "Quản lý tài liệu",
+    element: <DocumentManage />,
   },
   {
-      path: "/quan-ly/tai-lieu/them",
-      name: "Quản lý tài liệu",
-      element: <AddDocument/>,
+    path: "/quan-ly/tai-lieu/them",
+    name: "Quản lý tài liệu",
+    element: <AddDocument />,
   },
   {
     path: "/quan-ly/tai-lieu/chinh-sua/:id",
     name: "Quản lý tài liệu",
-    element: <ModifyDocument/>,
+    element: <ModifyDocument />,
   },
   {
     path: "/quan-ly/tai-lieu",
     name: "Trang chủ",
-    element: <DocumentManage/>,
+    element: <DocumentManage />,
   },
   {
     path: "/quan-ly/thi-thu",
@@ -248,6 +253,17 @@ const managerRoute = [
     name: "Trang chủ",
     element: <AddQuestion />,
   },
+  {
+    path: '/quan-ly/thong-bao-chung/tao-moi',
+    name: 'Trang chủ',
+    element: <AddAnnouncement />
+  },  
+  {
+    path: "/quan-ly/thong-bao-chung",
+    name: 'Trang chủ',
+    element: <ManageAnnouncement />
+  },
+
 ];
 
 const routes = {

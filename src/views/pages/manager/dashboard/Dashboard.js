@@ -9,7 +9,7 @@ import RevenueChart from './components/RevenueChart';
 
 function Dashboard(props) {
     return (
-        <Container className='dashboard' maxWidth='xl'>
+        <Container className='dashboard' >
             <GeneralStatistics></GeneralStatistics>
             <Traffic></Traffic>
             <UserChart></UserChart>
