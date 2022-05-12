@@ -19,9 +19,7 @@ function EditCourse(props) {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!course || !course.name) {
       dispatch(courseAction.getOne(id));
-    }
   }, []);
 
   const onSubmit = (values)=>{

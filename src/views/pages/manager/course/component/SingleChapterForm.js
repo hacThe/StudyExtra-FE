@@ -2,7 +2,7 @@ import React from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import './SingleChapterForm.scss'
-function SingleChapterForm({ course, chapter, onSubmit, onCanCel }) {
+function SingleChapterForm({editModal, course, chapter, onSubmit, onCanCel }) {
   const initialValues = {
     name: "",
     index: course.chapters.length,
@@ -39,7 +39,7 @@ function SingleChapterForm({ course, chapter, onSubmit, onCanCel }) {
                     <option value={index}>{index + 1}</option>
                   );
                 })}
-                <option value={course.chapters.length}>{course.chapters.length + 1}</option>
+               { editModal || <option value={course.chapters.length}>{course.chapters.length + 1}</option>}
               </Field>
               {errors.chapter && touched.chapter && <div>{errors.chapter}</div>}
             </div>

@@ -25,6 +25,7 @@ function SingleCourseForm({ course, onSubmit }) {
       ...course
     },
     validationSchema: Yup.object({
+      categories: Yup.number().required("Vui lòng chọn thể loại cho khóa học"),
       imgUrl: Yup.string().required("Vui lòng chọn ảnh thumbnail cho khóa học"),
       introVideoUrl: Yup.string().required(
         "Vui lòng nhập link của video intro cho khóa học"
@@ -185,12 +186,31 @@ function SingleCourseForm({ course, onSubmit }) {
       <div className="mb-3">
         <label htmlFor="price">Giá khóa học</label>
         <input
-          type="text"
+          type="number"
           id="price"
           name="price"
           value={formik.values.price}
           onChange={formik.handleChange}
         />
+        {formik.errors.price && formik.touched.price && (
+          <p className="input-error-validation"> {formik.errors.price} </p>
+        )}
+      </div>
+
+
+      <div className="mb-3">
+        <label htmlFor="categories">Loại khóa học</label>
+        <select
+          id="categories"
+          name="categories"
+          value={formik.values.categories}
+          onChange={formik.handleChange}
+        >
+          <option value={0}>Lớp 10</option>
+          <option value={1}>Lớp 11</option>
+          <option value={2}>Lớp 12</option>
+          <option value={3}>Khác</option>
+        </select>
         {formik.errors.price && formik.touched.price && (
           <p className="input-error-validation"> {formik.errors.price} </p>
         )}

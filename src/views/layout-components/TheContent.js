@@ -6,6 +6,7 @@ import TheFooter from "./TheFooter";
 import TheNavigation from "./TheNavigation";
 import "./TheContent.scss";
 import { Box } from "@mui/material";
+import ConfirmActionModal from "./ConfirmActionModal";
 
 
 const TheBody = () => {
@@ -19,14 +20,6 @@ const TheBody = () => {
           <Outlet></Outlet>
         </div>
       </div> 
-
-      {/* <div className="app-body display-flex">
-        <TheNavigation />
-
-        <div className="app-content">
-          <Outlet />
-        </div>
-      </div> */}
     </>
   );
 };
@@ -34,6 +27,7 @@ const TheBody = () => {
 const TheContent = () => {
   return (
     <>
+      <ConfirmActionModal/>
       <TheHeader></TheHeader>
       <TheBody></TheBody>
       <TheFooter></TheFooter>
