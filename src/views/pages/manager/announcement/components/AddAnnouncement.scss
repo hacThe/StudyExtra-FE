@@ -1,0 +1,42 @@
+.add-announcement {
+    margin: 25px 0;
+    height: calc(100vh - 66px - 50px);
+    padding: 12px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 10px;
+
+    .btn-add {
+        padding: 5px 10px;
+        border-radius: 8px;
+        align-items: center;
+        margin-right: 20px;
+    }
+
+    .btn-add:hover {
+        background-color: rgba(0, 0, 0, 0.121);
+    }
+
+    .name {
+        margin-top: 20px;
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 17px;
+        color: black;
+        margin-bottom: 8px;
+    }
+
+    .create-content{
+        background-color: #C4C4C4;
+        
+        overflow-y: auto;
+    }
+
+    .review-content{
+        background-color: #C4C4C4;
+        overflow-y: auto;
+        height: 70vh;
+        border-radius: 10px;
+    }
+}
