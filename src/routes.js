@@ -263,7 +263,6 @@ const managerRoute = [
     name: 'Trang chủ',
     element: <ManageAnnouncement />
   },
-
 ];
 
 const routes = {
