@@ -4,13 +4,14 @@ import { BsFillCaretRightFill } from 'react-icons/bs'
 import '../Announcement.scss'
 import axios from 'axios'
 import { Link } from "react-router-dom";
+import URL from '../../../../services/api/config'
 
 function GeneralNotion(props) {
     const [listAnnouncement, setListAnnouncement] = useState([])
     const [page, setPage] = useState(1);
     useEffect(() => {
         const fetApi = async () => {
-            await axios.get('http://localhost:5000/api/announcement/getAllAnnouncement')
+            await axios.get(URL.URL_GET_ALL_ANNOUNCEMENT)
                 .then(res => {
                     console.log(res.data)
                     setListAnnouncement(res.data.data)
@@ -54,7 +55,7 @@ function GeneralNotion(props) {
                                         <p style={{ lineHeight: '20px' }}>
                                             <BsFillCaretRightFill style={{ fontSize: '10px', lineHeight: '16px' }}></BsFillCaretRightFill>
                                             {item.title}
-                                            <span className='notification-time' style={{ lineHeight: '16px', marginLeft: '5px' }}> {renderTime(item.createAt)}</span>
+                                            <span className='notification-time' style={{ lineHeight: '16px', marginLeft: '5px' }}> {renderTime(item.updatedAt)}</span>
                                         </p>
                                     </Link>
                                 </div>

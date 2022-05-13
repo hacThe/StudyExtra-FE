@@ -44,6 +44,9 @@ const ManageAnnouncement = React.lazy(() =>
 const AddAnnouncement = React.lazy(() =>
   import('./views/pages/manager/announcement/components/AddAnnouncement.js')
 )
+const EditAnnouncement = React.lazy(() => 
+  import('./views/pages/manager/announcement/components/EditAnnouncement')
+)
 
 const Dashboard = React.lazy(() =>
   import("./views/pages/manager/dashboard/Dashboard")
@@ -263,6 +266,11 @@ const managerRoute = [
     name: 'Trang chủ',
     element: <ManageAnnouncement />
   },
+  {
+    path: "/quan-ly/thong-bao-chung/chinh-sua/:slug",
+    name: 'Trang chủ',
+    element: <EditAnnouncement/>
+  }
 ];
 
 const routes = {

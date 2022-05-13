@@ -62,7 +62,7 @@ const DataTableComponent = ({ rowDocs, columnDocs, filter, onRowClick }) => {
     <div style={{ height: 750, width: "100%" }} className="datagrid-container-wrapper">
       {selectionModel?.length > 0 && (
         <span className="selected-rows-count">
-          Đã chọn {selectionModel.length} hàng. <strong onClick={()=>alert("Xóa hàng")}>Xóa hàng đã chọn</strong>
+          Đã chọn {selectionModel.length} hàng. <strong onClick={() => alert("Xóa hàng")}>Xóa hàng đã chọn</strong>
         </span>
       )}
       <DataGrid

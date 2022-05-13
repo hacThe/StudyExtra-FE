@@ -3,7 +3,7 @@ const URL_SYSTEM_V1 = 'http://localhost:5000/api';
 export default {
   URL_LOGIN: URL_SYSTEM_V1 + '/auth/login',
   URL_REGISTER: URL_SYSTEM_V1 + '/auth/register',
-  
+
   // Course
   URL_GET_COURSES: URL_SYSTEM_V1 + '/courses/getAllCourses',
   URL_GET_COURSE: URL_SYSTEM_V1 + '/courses',
@@ -28,12 +28,19 @@ export default {
   URL_UPLOAD_AVATAR: URL_SYSTEM_V1 + '/profiles/uploadAvatar',
 
 
-    // document
-    URL_GET_DOCUMENTS: URL_SYSTEM_V1 + '/document/',
-    // article
-    URL_ARTICLE: URL_SYSTEM_V1 + '/article/',
-    // type category
-    URL_TYPE_CATEGORY: URL_SYSTEM_V1 + '/type-category/',
+  // document
+  URL_GET_DOCUMENTS: URL_SYSTEM_V1 + '/document/',
+  // article
+  URL_ARTICLE: URL_SYSTEM_V1 + '/article/',
+  // type category
+  URL_TYPE_CATEGORY: URL_SYSTEM_V1 + '/type-category/',
   URL_GET_POSTS: URL_SYSTEM_V1 + '/posts/getAllPosts',
   URL_GET_NOTIFICATIONS: URL_SYSTEM_V1 + '/notifications/getAllNotification',
+
+  // Announcement
+  URL_ADD_ANNOUNCEMENT: URL_SYSTEM_V1 + '/announcement/add-new-announcement',
+  URL_GET_ALL_ANNOUNCEMENT: URL_SYSTEM_V1 + '/announcement/getAllAnnouncement',
+  URL_GET_ANNOUNCEMENT: URL_SYSTEM_V1 + '/announcement/', //+ slug
+  URL_DELETE_ANNOUNCEMENT: URL_SYSTEM_V1 +'/announcement/delete-announcement',
+  URL_UPDATE_ANNOUNCEMENT: URL_SYSTEM_V1 +'/announcement/update-announcement',
 }
