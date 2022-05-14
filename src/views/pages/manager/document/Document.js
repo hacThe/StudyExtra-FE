@@ -5,6 +5,7 @@ import { GrDocumentExcel } from "react-icons/gr";
 import {documentActions} from '../../../../actions/document.actions.js'
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const columnDocs = [
     // {field: , headerName: , width: }
@@ -14,6 +15,7 @@ const columnDocs = [
     {field: 'view', headerName: "Số lượt xem"},
     {field: 'time', headerName: "Thời gian", width: 120},
     {field: 'link', headerName: "Link", width: 240},
+    {field: 'hide', headerName: "Chế độ xem", width: 240},
 ]
 
 const rowDocs = [
@@ -60,6 +62,7 @@ const convertDocumentToData = (document) => {
             view: document[i].views,
             link: document[i].link ? document[i].link : "https://www.pinterest.com/",
             time: convertStringToReadableDate(document[i].createdAt),
+            hide: document[i].isHidden ? "Hiden" : "Showing",
         }
         res.push(temp);
     }
@@ -68,6 +71,8 @@ const convertDocumentToData = (document) => {
 
 function DocumentManage(props) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    
     var [filter, setFilter] = useState('');
     var changeFilter = (e) => {
         console.log("val input", e.target.value);
@@ -84,8 +89,6 @@ function DocumentManage(props) {
             console.log({ state });
             var doc = [];
             doc.push(...state.document.documents);
-            // doc.push(...state.document.documents);
-            // console.log('doc',doc);
             return doc;
         }) || [];
     

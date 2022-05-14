@@ -76,7 +76,7 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
     }
 
     const editDocument = ()  => {
-        console.log("edit Doc");
+        console.log("edit Doc", idSelect[0]);
     }
 
     const editButton = document.createElement('button');

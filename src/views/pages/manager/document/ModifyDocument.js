@@ -8,7 +8,7 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import DocumentTypeModal from './DocumentTypeModal.js';
 import {documentActions} from '../../../../actions/document.actions.js'
-
+import {useParams} from 'react-router-dom';
 
 function ModifyDocument(props) {
     const documentTypes = ["Lớp 10", "Lớp 11", "Lớp 12", "Tất cả"];
@@ -22,6 +22,10 @@ function ModifyDocument(props) {
         dispatch(documentActions.changeModalStatus(!isOpen));
     }
 
+    console.log("props", props);
+
+    const {id} = useParams();
+    console.log("id", id);
 
     const [documentType, setDocumentType] = useState([
         {
