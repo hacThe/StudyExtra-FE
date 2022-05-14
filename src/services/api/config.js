@@ -26,6 +26,7 @@ export default {
   URL_GET_USER_COURSES: URL_SYSTEM_V1 + '/profiles/getUserCourses',
   URL_GET_USER_NOTIFICATIONS: URL_SYSTEM_V1 + '/notification/getUserNotification',
   URL_UPLOAD_AVATAR: URL_SYSTEM_V1 + '/profiles/uploadAvatar',
+  URL_VERIFY_EMAIL: URL_SYSTEM_V1 + '/auth/',
 
 
     // document

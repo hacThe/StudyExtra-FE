@@ -11,7 +11,8 @@ export const userActions = {
   delete: _delete,
   getUserCourses,
   getUserNotifications,
-  uploadAvatar
+  uploadAvatar,
+  verifyEmail
 };
 
 /// này là hàm login
@@ -194,5 +195,27 @@ function uploadAvatar(avatarUrl) {
   }
   function failure(error) {
     return { type: userConstants.UPLOAD_AVATAR_FAILURE, error };
+  }
+}
+
+function verifyEmail(id, token) {
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.verifyEmail(id, token).then(
+      (emailVerifyResult) => {
+        dispatch(success())
+      },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.VERIFY_EMAIL_REQUEST};
+  }
+  function success() {
+    return { type: userConstants.VERIFY_EMAIL_SUCCESS};
+  }
+  function failure(error) {
+    return { type: userConstants.VERIFY_EMAIL_FAILURE, error };
   }
 }

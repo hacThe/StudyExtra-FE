@@ -10,6 +10,7 @@ export const usersServices = {
   getUserCourses,
   getUserNotifications,
   uploadAvatar,
+  verifyEmail
 };
 
 function login(username, password) {
@@ -38,4 +39,8 @@ function getUserNotifications(params = {}) {
 
 function uploadAvatar(avatarUrl) {
   return handleResponse(ajaxHelper.post(config.URL_UPLOAD_AVATAR, {avatarUrl}, options()));
+}
+
+function verifyEmail(id, token) {
+  return handleResponse(ajaxHelper.get(config.URL_VERIFY_EMAIL + id + "/verify/" + token, options()));
 }
