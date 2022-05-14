@@ -108,9 +108,9 @@ function AddDocument(props) {
     }
 
     const changeLink = (e) => {
-        if(e.target.value.indexOf("https://") == -1){
-            return;
-        }
+        // if(e.target.value.indexOf("https://") == -1){
+        //     return;
+        // }
         document.querySelector('#iframe-document').setAttribute('src',e.target.value)
     }
 
@@ -122,7 +122,6 @@ function AddDocument(props) {
             views: 0,
             link: document.querySelector('#document-link').value,
         }
-        console.log("data", data);
         dispatch(documentActions.addNewDocument(data));
         document.querySelector('.back-to-manage').click();
     }

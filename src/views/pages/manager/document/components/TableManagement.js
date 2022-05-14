@@ -40,9 +40,7 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
     const addManageDocument = () => {
         if(document.querySelector('.MuiDataGrid-selectedRowCount') != null){
             const element = document.querySelector('.MuiDataGrid-selectedRowCount');
-            console.log(element);
         }
-        console.log("idSelect",idSelect);
     }
 
 
@@ -53,7 +51,6 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
 
     const [idSelect, setidSelect] = useState([]);
     const changeidSelect = (value) => {
-        console.log("value", value)
         var newValue = idSelect;
         var isFind = false;
         for( var i = 0; i < newValue.length; i++){                           
@@ -103,7 +100,6 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
             ele.insertBefore(divContainer, ele.children[0]);
             isLoaded = true;
         }
-        console.log("params",params);
         changeidSelect(params.id);
         addManageDocument();
         const element = divContainer;
@@ -135,7 +131,6 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
     }
 
     const getShowingData = (filter) => {
-        console.log("filter", filter);
         if(filter=="") return rowDocs;
         
         var res = []; 
