@@ -9,6 +9,7 @@ import { FaUserGraduate } from 'react-icons/fa';
 import { MdOutlineAccessTimeFilled } from 'react-icons/md';
 import { AiFillDollarCircle } from 'react-icons/ai'
 import Stack from '@mui/material/Stack';
+import { useNavigate } from 'react-router-dom';
 const bull = (
     <Box
         component="span"
@@ -19,9 +20,10 @@ const bull = (
 );
 
 export default function CourseCard(props) {
+    const navigate = useNavigate()
 
     const handleClickCourses = () => {
-        console.log('Click coures');
+        navigate(`/chi-tiet-khoa-hoc/${props.course.courseId}`)
     }
 
     return (
@@ -43,7 +45,7 @@ export default function CourseCard(props) {
                 <Stack style={{color:'#6E6E6E', marginLeft:'10px'}} direction="row" spacing={5}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <FaUserGraduate style={{ paddingRight: '5px', transform: 'translateY(-8%)', fontSize: '18px' }}></FaUserGraduate>
-                        <div style={{fontSize:'16px',fontFamily: "'Montserrat', san-serif"}}>{props.course.studentId.length}</div>
+                        <div style={{fontSize:'16px',fontFamily: "'Montserrat', san-serif"}}>{props.course.studentIds.length}</div>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <MdOutlineAccessTimeFilled style={{ paddingRight: '5px', transform: 'translateY(-15%)', fontSize: '22px' }}></MdOutlineAccessTimeFilled>

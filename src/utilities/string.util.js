@@ -1,6 +1,7 @@
 export const stringUtils = {
     removeVietnameseTones,
-    replaceSpaceWithDash
+    replaceSpaceWithDash,
+    makeDashString
 }
 
 function removeVietnameseTones(str) {
@@ -35,4 +36,9 @@ function removeVietnameseTones(str) {
 function replaceSpaceWithDash(str)
 {
     return str.trim().split(' ').join('-');
+}
+
+function makeDashString(str)
+{
+    return replaceSpaceWithDash(removeVietnameseTones(str));
 }

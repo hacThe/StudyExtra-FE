@@ -6,7 +6,11 @@ import ajaxHelper from './api';
 export const usersServices = {
   login,
   logout,
-  getAll
+  getAll,
+  getUserCourses,
+  getUserNotifications,
+  uploadAvatar,
+  verifyEmail
 };
 
 function login(username, password) {
@@ -25,3 +29,18 @@ function getAll(params = {}) {
   return handleResponse(ajaxHelper.get(config.URL_USERS, params, options()));
 }
 
+function getUserCourses(params = {}) {
+  return handleResponse(ajaxHelper.get(config.URL_GET_USER_COURSES, params, options()));
+}
+
+function getUserNotifications(params = {}) {
+  return handleResponse(ajaxHelper.get(config.URL_GET_USER_NOTIFICATIONS, params, options()));
+}
+
+function uploadAvatar(avatarUrl) {
+  return handleResponse(ajaxHelper.post(config.URL_UPLOAD_AVATAR, {avatarUrl}, options()));
+}
+
+function verifyEmail(id, token) {
+  return handleResponse(ajaxHelper.get(config.URL_VERIFY_EMAIL + id + "/verify/" + token, options()));
+}

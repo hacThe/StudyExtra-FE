@@ -11,6 +11,7 @@ html{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    outline: none !important;
   }
   
   :root {
@@ -18,12 +19,11 @@ html{
     --fade-text-color: #747474;
     --background-color: #fff;
     --foreground-color: #000;
-    --hover-background-color: #eeeeee;
+    --hover-background-color: #DEDEDE;
   }
   
   body {
     margin: 0;
     font-family: "Montserrat", sans-serif;
-    background-color: #F4F4F4;
   }
   

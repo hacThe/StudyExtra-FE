@@ -198,9 +198,6 @@ const ExamDetail = () => {
                             </RadioGroup>
                         </FormControl>
                     </div>
-                    <div className="btn-answer">
-                        <Button variant="contained">Trả lời</Button>
-                    </div>
                 </Grid>
                 <Grid item xs={12} lg={5} xl={4} className="question-group">
                     <Box className="list-question-wrapper" sx={{ display: { xs: "flex", lg: "block" } }}>

@@ -25,6 +25,9 @@ const UpdateInfo = React.lazy(() =>
 const ForgotPassword = React.lazy(() =>
   import("../views/pages/auth/forgotPassword/ForgotPassword")
 );
+const EmailVerification = React.lazy(() =>
+  import("../views/pages/emailVerification/EmailVerification")
+);
 
 const Routers = () => {
   const authentication = useSelector((state) => state.authentication);
@@ -45,6 +48,7 @@ const Routers = () => {
           name="Cập nhật thông tin người dùng"
           element={<UpdateInfo />}
         />
+        <Route path="/xac-nhan-email/:id/:token" name="Xác nhận email" element={<EmailVerification />} />
 
         <Route path="/quan-ly" name="Trang chủ" element={<ManagerContent />}>
           {
@@ -76,7 +80,6 @@ const Routers = () => {
                 )
               );
             })}
-
           {authentication.isLoggedIn &&
             routes.protectedRoute.map((route, idx) => {
               return (

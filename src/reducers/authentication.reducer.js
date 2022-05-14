@@ -2,9 +2,9 @@ import { userConstants } from '../constaint';
 import { cookiesUtil } from '../utilities';
 
 let user = cookiesUtil.getCurrentUserInfo();
-const initialState = user ? { waiting: false, isLoggedIn: true ,user } : {waiting: false, isLoggedIn: false };
+const initialState = user ? { waiting: false, isLoggedIn: true, user } : { waiting: false, isLoggedIn: false };
 
-console.log({initialState})
+console.log({ initialState })
 export function authentication(state = initialState, action) {
   switch (action.type) {
     case userConstants.LOGIN_REQUEST:
@@ -14,12 +14,13 @@ export function authentication(state = initialState, action) {
         error: false
       };
     case userConstants.LOGIN_SUCCESS:
-        user: cookiesUtil.getCurrentUserInfo()
+      //user: cookiesUtil.getCurrentUserInfo()
+      window.location.reload(true);
       return {
         waiting: false,
         isLoggedIn: true,
         error: false,
-        user      
+        user
       };
     case userConstants.LOGOUT:
       window.location.reload(true);
@@ -29,6 +30,28 @@ export function authentication(state = initialState, action) {
         ...state,
         waiting: false,
         error: 'Unregconize username or password'
+      };
+    case userConstants.UPLOAD_AVATAR_REQUEST:
+      return {
+        ...state,
+        waiting: true,
+        isLoggedIn: true,
+        error: false,
+      };
+      case userConstants.UPLOAD_AVATAR_FAILURE:
+        return {
+          ...state,
+          waiting: false,
+          isLoggedIn: true,
+          error: true,
+        };
+    case userConstants.UPLOAD_AVATAR_SUCCESS:
+      window.location.reload(true);
+      return {
+        waiting: false,
+        isLoggedIn: true,
+        error: false,
+        user: action.user
       };
     default:
       return state

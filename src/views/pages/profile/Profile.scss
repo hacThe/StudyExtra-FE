@@ -21,6 +21,7 @@
             font-size: 1.4rem;
             line-height: 1.7rem;
             color: #000000;
+            background-color: #FFFFFF;
 
             svg {
                 height: 1.8rem;
@@ -126,6 +127,11 @@
                 }
 
                 margin-top: 0.8rem;
+            }
+            .history-transaction_table{
+                h5{
+                    margin-bottom: 3.3rem;
+                }
             }
         }
 

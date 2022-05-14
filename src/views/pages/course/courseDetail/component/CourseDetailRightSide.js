@@ -3,14 +3,14 @@ import { dividerClasses, Grid } from "@mui/material";
 import "../CourseDetail.scss";
 import {AiFillPlayCircle} from "react-icons/ai";
 import {RiMoneyDollarCircleFill} from "react-icons/ri";
-const CourseDetailRightSide = (props) => {
+const CourseDetailRightSide = ({course, toogle}) => {
 
 
 
   return (
     <div className="right-side-wrapper">
-      <div onClick={props.toogle} className="course-intro-video">
-        <img src="https://t3.ftcdn.net/jpg/03/75/29/46/360_F_375294645_YZ1qfcGxbLoLmLLVCCbIC1G8bOblM8Rk.jpg" alt="" />
+      <div onClick={toogle} className="course-intro-video">
+        <img src={course.imgUrl} alt="" />
         <AiFillPlayCircle className="play-icon"/>
       </div>
 
