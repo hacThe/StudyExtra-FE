@@ -6,6 +6,7 @@ import ajaxHelper from './api';
 export const usersServices = {
   login,
   logout,
+  register,
   getAll,
   getUserCourses,
   getUserNotifications,
@@ -17,6 +18,10 @@ function login(username, password) {
   return handleResponse(
     ajaxHelper.post(config.URL_LOGIN, { username, password }, options())
   );
+}
+
+function register(user) {
+  return handleResponse(ajaxHelper.post(config.URL_REGISTER, user, options()));
 }
 
 function logout() {

@@ -6,7 +6,7 @@ import { cookiesUtil } from "../utilities";
 export const userActions = {
   login,
   logout,
-  register,
+ // register,
   getAll,
   delete: _delete,
   getUserCourses,
@@ -62,18 +62,19 @@ function logout() {
   }
 }
 
-function register(user) {
+/* function register(user) {
   return (dispatch) => {
-    dispatch(request(user));
+    //dispatch(request(user));
 
     usersServices.register(user).then(
       () => {
-        dispatch(success());
-        // history.push('/login');
+      //  dispatch(success());
+        alert("register successfully");
         // dispatch(alertActions.success('Registration successful'));
       },
       (error) => {
-        dispatch(failure(error.toString()));
+     ////   dispatch(failure(error.toString()));
+        alert("ERROR: " + error.toString());
         // dispatch(alertActions.error(error.toString()));
       }
     );
@@ -88,7 +89,7 @@ function register(user) {
   function failure(error) {
     return { type: userConstants.REGISTER_FAILURE, error };
   }
-}
+} */
 
 function getAll() {
   return (dispatch) => {

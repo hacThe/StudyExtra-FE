@@ -34,6 +34,7 @@ function SignUpForm(props) {
     }),
     onSubmit: (values) => {
       console.log(values)
+      props.onSubmit(values);
     },
   });
   return (
