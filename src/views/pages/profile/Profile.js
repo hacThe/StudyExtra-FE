@@ -112,6 +112,7 @@ const Profile = () => {
     const [open, setOpen] = React.useState(false);
     const [upProg, setUpProg] = useState(0);
     const [imgUrl, setImgUrl] = useState(UserInfo.avatar);
+    const [file, setFile] = useState(null);
 
     const handleOpen = () => setOpen(true);
     const handleClose = (event, reason) => {
@@ -127,12 +128,23 @@ const Profile = () => {
       textTransform: "none", fontSize: "1.3rem", fontFamily: "Montserrat"
     }
     const handleChange = e => {
-      console.log("getfile ");
-      if (e.target.files[0]) {
-        uploadImg(e.target.files[0]);
+      setFile(e.target.files[0]) ;
+      const fileSelected = e.target.files[0];
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImgUrl(reader.result);
+      };
+      if (fileSelected.type.match(/image.*/)) {
+        reader.readAsDataURL(fileSelected);
+      } else {
+        alert("File is not an image");
       }
     }
     const uploadImg = (imgSelected) => {
+      if(!imgSelected.type.match(/image*/)){
+        alert("File is not an image");
+        return;
+      }
       console.log("Upload ");
       const storageRef = ref(storage, `file${imgSelected.name}`);
       const uploadTask = uploadBytesResumable(storageRef, imgSelected);
@@ -145,7 +157,8 @@ const Profile = () => {
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then((URL) => {
             console.log("url: ", URL);
-            setImgUrl(URL);
+            //setImgUrl(URL);
+            dispatch(userActions.uploadAvatar(URL));
           }
           )
         }
@@ -153,9 +166,7 @@ const Profile = () => {
     }
 
     const handleUpload = ()=>{
-      const avatarUrl = imgUrl;
-      console.log("pre callllll: ", imgUrl)
-      dispatch(userActions.uploadAvatar(avatarUrl));
+      uploadImg(file);
     }
     return (
       <>
@@ -173,7 +184,7 @@ const Profile = () => {
             </Typography>
             <Typography id="modal-modal-description" style={{ display: "flex", justifyContent: "space-around", marginTop: "2rem" }}>
               <Button variant="contained" style={styleBtnCancle} onClick={() => handleClose()}>Hủy</Button>
-              <input type="file" onChange={handleChange} />
+              <input type="file" onChange={handleChange}/>
               <Button variant="contained" onClick={() => handleUpload()}>Cập nhập ảnh</Button>
             </Typography>
           </Box>
