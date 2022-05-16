@@ -8,6 +8,7 @@ const initialState = {
     error: "",
     documentTypeOpen: false,
     documentType:[],
+    currentEditingDoc:{},
 };
    
 export function document(state = initialState, action) {
@@ -78,7 +79,7 @@ export function document(state = initialState, action) {
             return {
                 ...state,
                 documentTypeOpen: action.isOpen
-            }
+        }
         case documentConstants.GET_TYPE_DOCUMENT_FAILURE:{
             return {
                 ...state,
@@ -145,7 +146,27 @@ export function document(state = initialState, action) {
                 documentType: newDocumentType,
             };
         }
-        
+        case documentConstants.GET_DOCUMENT_BY_ID_REQUEST:{
+            return {
+                ...state,
+                isLoading: true,
+            };
+        }
+        case documentConstants.GET_DOCUMENT_BY_ID_FAILURE:{
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            };
+        }
+        case documentConstants.GET_DOCUMENT_BY_ID_SUCCESS:{
+            console.log("action.document.data",action.document.data)
+            return {
+                ...state,
+                isLoading: false,
+                currentEditingDoc: action.document.data
+            };
+        }
         default:
             return state;
     }

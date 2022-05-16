@@ -3,6 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import '../scss/TableManagement.scss';
 import {documentActions} from '../../../../../actions/document.actions.js'
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const datagridSx = {
     borderRadius: 2,
@@ -35,7 +36,7 @@ const datagridSx = {
 };
 
 const TableManageMent = ({rowDocs,columnDocs, filter}) => {
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const addManageDocument = () => {
         if(document.querySelector('.MuiDataGrid-selectedRowCount') != null){
@@ -73,10 +74,19 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
         dispatch(documentActions.deleteMultiDocuments({data: {...idSelect}}));
         if(deleteButton.parentNode!=null)
             deleteButton.parentNode.removeChild(deleteButton);
+        if(editButton.parentNode!=null)
+            editButton.parentNode.removeChild(editButton);
+        setidSelect([]);
     }
 
     const editDocument = ()  => {
         console.log("edit Doc", idSelect[0]);
+        navigate('/quan-ly/tai-lieu/chinh-sua/' + idSelect[0]);
+        setidSelect([]);
+        if(editButton.parentNode!=null)
+            editButton.parentNode.removeChild(editButton);
+        if(deleteButton.parentNode!=null)
+            deleteButton.parentNode.removeChild(deleteButton);
     }
 
     const editButton = document.createElement('button');
@@ -84,6 +94,7 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
     editButton.textContent = "SỬA";
     editButton.onclick = (e) => {
         editDocument();
+        
     }
 
     const deleteButton = document.createElement('button');

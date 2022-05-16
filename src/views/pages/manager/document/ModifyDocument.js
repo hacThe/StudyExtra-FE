@@ -11,7 +11,6 @@ import {documentActions} from '../../../../actions/document.actions.js'
 import {useParams} from 'react-router-dom';
 
 function ModifyDocument(props) {
-    const documentTypes = ["Lớp 10", "Lớp 11", "Lớp 12", "Tất cả"];
     const dispatch = useDispatch();
     const isOpen =
         useSelector((state) => {
@@ -22,37 +21,118 @@ function ModifyDocument(props) {
         dispatch(documentActions.changeModalStatus(!isOpen));
     }
 
-    console.log("props", props);
+    let isSetDocumentSelection = false;
+    const [documentType, setDocumentType] = useState([]);
+
+    const changeIndexValue = (index) => {
+        var newVal = [];
+        for(let i = 0 ; i < documentType.length; i++){
+            if(i==index)
+            {
+                newVal.push({
+                    ...documentType[i],
+                    selected: !documentType[i].selected,
+                })
+            }
+            else {
+                newVal.push(documentType[i]);
+            }
+        }
+        setDocumentType(newVal);
+    }
+    const documentTypes =
+        useSelector((state) => {
+            console.log({ state });
+            return state.document.documentType;
+        }) || [];
+
+    React.useEffect(async () => {
+        await dispatch(documentActions.getAllDocumentType());
+    }, []);
+
+    // const check
+
+    useSelector((state) => {
+        // Khi mà thay đổi thì tính lại state các kiểu
+        if(state.document.documentType.length != documentType.length){
+            if(documentType.length == 0){
+                var newVal = []; 
+                for(var i  = 0 ; i < state.document.documentType.length; i++){
+                    newVal.push({
+                        id: state.document.documentType[i]._id,
+                        name: state.document.documentType[i].name,
+                        selected: false,
+                    })
+                }
+                setDocumentType(newVal)
+            }
+            else {
+                var newVal = []; 
+                for(var i  = 0 ; i < state.document.documentType.length; i++){
+                    var isFound = false;
+                    for(var j = 0; j < documentType.length; j++){
+                        if(documentType[j]._id == state.document.documentType[i]._id){
+                            newVal.push({
+                                id: state.document.documentType[i]._id,
+                                name: state.document.documentType[i].name,
+                                selected: documentType[j].selected,
+                            })
+                            isFound = true;
+                            break;
+                        }
+                    }
+                    if(!isFound){
+                        newVal.push({
+                            id: state.document.documentType[i]._id,
+                            name: state.document.documentType[i].name,
+                            selected: false,
+                        })
+                    }
+
+                }
+                setDocumentType(newVal)
+            }
+        }
+        return ;
+    })
+    
+    const getAllSelectedTypeID = () => {
+        var res = [];
+        for(var i = 0 ; i < documentType.length; i++){
+            if(documentType[i].selected == true){
+                res.push(documentType[i].id)
+            }
+        }
+        return res;
+    }
+
+    const changeLink = (e) => {
+        // if(e.target.value.indexOf("https://") == -1){
+        //     return;
+        // }
+        document.querySelector('#iframe-document').setAttribute('src',e.target.value)
+    }
+
+    const addDocument = () => {
+        const data = {
+            name: document.querySelector('#document-title').value,
+            typeID: getAllSelectedTypeID(),
+            author: document.querySelector('#document-author').value,
+            views: 0,
+            link: document.querySelector('#document-link').value,
+        }
+        dispatch(documentActions.addNewDocument(data));
+        document.querySelector('.back-to-manage').click();
+    }
 
     const {id} = useParams();
-    console.log("id", id);
-
-    const [documentType, setDocumentType] = useState([
-        {
-            type: "Lớp 10",
-            selected: true,
-        },
-        {
-            type: "Lớp 11",
-            selected: true,
-        },
-        {
-            type: "Lớp 12",
-            selected: false,
-        },
-        {
-            type: "Khác",
-            selected: false
-        },
-        {
-            type: "Anh văn giao tiếp",
-            selected: true,
-        },
-        {
-            type: "Nâng cao",
-            selected: false
-        },
-    ]);
+    React.useEffect(async () => {
+        await dispatch(documentActions.getDocumentByID(id));
+    }, []);
+    
+    useSelector((state) => {
+        console.log("state", state);
+    })
 
     return (
         <div>
@@ -66,26 +146,31 @@ function ModifyDocument(props) {
                                 <IoReturnUpBack size={20}/>
                             </div>
                             <div className='title'>
-                                Danh sách tài liệu
+                                Danh sách tài liệu {id}
                             </div>
                         </NavLink>
                         <div className="document-info-item">
                             <div className="title">
                                 Tên tài liệu
                             </div>
-                            <input type='text' className="text-info"/>
+                            <input type='text' className="text-info" id="document-title"/>
                         </div>
                         <div className="document-info-item">
                             <div className="title">
                                 Tác giả
                             </div>
-                            <input type='text' className="text-info"/>
+                            <input type='text' className="text-info" id="document-author"/>
                         </div>
                         <div className="document-info-item">
                             <div className="title">
                                 Link
                             </div>
-                            <input type='text' className="text-info"/>
+                            <input type='text' className="text-info" onChange={(e)=> {
+                                    console.log("Đổi chi vậy", e.target.value);
+                                    changeLink(e);
+                                }}
+                                id="document-link"
+                            />
                         </div>
                         <div className='document-info-item'>
                             <div className='heading-container'>
@@ -101,14 +186,20 @@ function ModifyDocument(props) {
                             </div>
                             <div className='document-select-type-container'>
                                 {
-                                    documentType.map((item)=>{
+                                    documentTypes.map((item, index)=>{
                                         return (
                                             <div 
-                                                className={item.selected 
+                                                className={
+                                                    index < documentType.length &&
+                                                    typeof documentType[index].selected != 'undefined' && 
+                                                    documentType[index].selected
                                                     ? 'document-type-item selected' 
                                                     :  'document-type-item' }
+                                                onClick={(e) => {
+                                                    changeIndexValue(index);  
+                                                }}
                                             >
-                                                {item.type}
+                                                {item.name}
                                             </div>
                                         );
                                     })
@@ -133,25 +224,23 @@ function ModifyDocument(props) {
                         </div>
                         <div className='iframe-container'>
                             <iframe 
-                                src="https://drive.google.com/file/d/1C33DHPgFjXcivBlWl4HTjv3-gGEauOVN/preview" 
+                                src="" 
                                 width="100%"
                                 allow="autoplay"
                                 className="iframe-concrete"
+                                id="iframe-document"
                             >    
                             </iframe>
                         </div>
                         <div className="iframe-manage">
                             <Button 
                                 variant="contained"
-                                className='manage-button cancel'
+                                className='manage-button add'
+                                onClick = {() => {
+                                    addDocument();
+                                }}
                             >
-                                Huỷ
-                            </Button>
-                            <Button 
-                                variant="contained"
-                                className='manage-button'
-                            >
-                                Xoá
+                                Thêm
                             </Button>
                         </div>
                     </Grid>

@@ -5,6 +5,7 @@ export const documentActions = {
     changePagination,
     getAllDocument,
     addNewDocument,
+    getDocumentByID,
     deleteMultiDocuments,
     changeModalStatus,
     getAllDocumentType,
@@ -28,6 +29,32 @@ function changeModalStatus(isOpen) {
         dispatch(request())
         function request() {
             return { type: documentConstants.CHANGE_MODAL_TYPE_OPEN , isOpen: isOpen};
+        }
+    }
+}
+
+function getDocumentByID(id){
+    return (dispatch)=>{
+        dispatch(request())
+        console.log("truyền vào được đây rồi", id)
+
+        documentService.getDocumentbyID(id).then(
+            (document)=>{
+                dispatch(success(document))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        function request() {
+            return { type: documentConstants.GET_DOCUMENT_BY_ID_REQUEST };
+        }
+        function success(document ) {
+            return {type: documentConstants.GET_DOCUMENT_BY_ID_SUCCESS, document };
+        }
+        function failure(error) {
+            return { type: documentConstants.GET_DOCUMENT_BY_ID_FAILURE, error };
         }
     }
 }
@@ -182,3 +209,4 @@ function deleteDocumentType(id){
         }
     }
 }
+
