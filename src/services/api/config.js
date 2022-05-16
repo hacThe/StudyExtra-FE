@@ -27,6 +27,9 @@ export default {
   URL_GET_USER_NOTIFICATIONS: URL_SYSTEM_V1 + '/notification/getUserNotification',
   URL_UPLOAD_AVATAR: URL_SYSTEM_V1 + '/profiles/uploadAvatar',
   URL_VERIFY_EMAIL: URL_SYSTEM_V1 + '/auth/',
+  URL_VERIFY_SEND_VERIFY_CODE: URL_SYSTEM_V1 + '/auth/sendVerifyCode',
+  URL_VERIFY_CODE: URL_SYSTEM_V1 + '/auth/verifyCode',
+  URL_SET_NEW_PASSWORD: URL_SYSTEM_V1 + '/auth/setNewPassword',
 
 
     // document

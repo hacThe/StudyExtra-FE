@@ -11,7 +11,10 @@ export const usersServices = {
   getUserCourses,
   getUserNotifications,
   uploadAvatar,
-  verifyEmail
+  verifyEmail,
+  sendVerifyCode,
+  verifyCode,
+  setNewPassword
 };
 
 function login(username, password) {
@@ -48,4 +51,14 @@ function uploadAvatar(avatarUrl) {
 
 function verifyEmail(id, token) {
   return handleResponse(ajaxHelper.get(config.URL_VERIFY_EMAIL + id + "/verify/" + token, options()));
+}
+
+function sendVerifyCode(username) {
+  return handleResponse(ajaxHelper.post(config.URL_VERIFY_SEND_VERIFY_CODE, {username}, options()));
+}
+function verifyCode(username, verifyCode) {
+  return handleResponse(ajaxHelper.post(config.URL_VERIFY_CODE, {username, verifyCode}, options()));
+}
+function setNewPassword(username, verifyCode, newPassword) {
+  return handleResponse(ajaxHelper.post(config.URL_SET_NEW_PASSWORD, {username, verifyCode, newPassword}, options()));
 }
