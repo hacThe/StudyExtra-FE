@@ -46,7 +46,6 @@ export function authentication(state = initialState, action) {
           error: true,
         };
     case userConstants.UPLOAD_AVATAR_SUCCESS:
-      window.location.reload(true);
       return {
         waiting: false,
         isLoggedIn: true,

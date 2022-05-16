@@ -183,6 +183,7 @@ function uploadAvatar(avatarUrl) {
       (user) => {
         cookiesUtil.setCurrentUserInfo(user.user)
         dispatch(success(user))
+        window.location.reload(true);
       },
       (error) => dispatch(failure(error.toString()))
     );
