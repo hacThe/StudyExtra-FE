@@ -43,7 +43,7 @@ const ForgotPassword = () => {
       // execute re-send verify code
       usersServices.sendVerifyCode(props.username.current).then(
         (data) => {
-          alert("Verify code has just sent to email: " + data.email);
+          alert("Verify code has just sent to email: *******" + data.email.slice(7));
           props.targetEmail.current = data.email;
           setPage(1);
         },
@@ -74,7 +74,7 @@ const ForgotPassword = () => {
           <p>
             Vui lòng kiểm tra email để nhận mã đặt lại mật khẩu gồm 8 chữ số.
           </p>
-          <p>Chúng tôi đã gửi mã xác nhận đến email: {props.targetEmail.current}</p>
+          <p>Chúng tôi đã gửi mã xác nhận đến email: *******{props.targetEmail.current.slice(7)}</p>
 
           <Stack
             sx={{
@@ -260,7 +260,7 @@ const ForgotPassword = () => {
       // execute send verify code
       usersServices.sendVerifyCode(value.username).then(
         (data) => {
-          alert("Verify code has just sent to email: " + data.email);
+          alert("Verify code has just sent to email: *******" + data.email.slice(7));
           props.targetEmail.current = data.email;
           props.username.current = value.username;
           setPage(1);

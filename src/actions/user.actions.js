@@ -12,7 +12,8 @@ export const userActions = {
   getUserCourses,
   getUserNotifications,
   uploadAvatar,
-  verifyEmail
+  verifyEmail,
+  updateProfile
 };
 
 /// này là hàm login
@@ -219,5 +220,31 @@ function verifyEmail(id, token) {
   }
   function failure(error) {
     return { type: userConstants.VERIFY_EMAIL_FAILURE, error };
+  }
+}
+
+
+  
+function updateProfile(newInfo) {
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.updateProfile(newInfo).then(
+      (user) => {
+        cookiesUtil.setCurrentUserInfo(user.user)
+        dispatch(success(user))
+        window.location.reload(true);
+      },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.UPDATE_PROFILE_REQUEST};
+  }
+  function success(user) {
+    return { type: userConstants.UPDATE_PROFILE_SUCCESS, user};
+  }
+  function failure(error) {
+    return { type: userConstants.UPDATE_PROFILE_FAILURE, error };
   }
 }

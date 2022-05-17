@@ -30,7 +30,7 @@ export default {
   URL_VERIFY_SEND_VERIFY_CODE: URL_SYSTEM_V1 + '/auth/sendVerifyCode',
   URL_VERIFY_CODE: URL_SYSTEM_V1 + '/auth/verifyCode',
   URL_SET_NEW_PASSWORD: URL_SYSTEM_V1 + '/auth/setNewPassword',
-
+  URL_UPDATE_PROFILE: URL_SYSTEM_V1 + '/profiles/updateProfile',
 
     // document
     URL_GET_DOCUMENTS: URL_SYSTEM_V1 + '/document/',

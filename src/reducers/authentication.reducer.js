@@ -52,6 +52,28 @@ export function authentication(state = initialState, action) {
         error: false,
         user: action.user
       };
+
+      case userConstants.UPDATE_PROFILE_REQUEST:
+        return {
+          ...state,
+          waiting: true,
+          isLoggedIn: true,
+          error: false,
+        };
+        case userConstants.UPDATE_PROFILE_FAILURE:
+          return {
+            ...state,
+            waiting: false,
+            isLoggedIn: true,
+            error: true,
+          };
+      case userConstants.UPDATE_PROFILE_SUCCESS:
+        return {
+          waiting: false,
+          isLoggedIn: true,
+          error: false,
+          user: action.user
+        };
     default:
       return state
   }

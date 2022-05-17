@@ -1,4 +1,6 @@
 .profile {
+    margin-bottom: 10rem;
+
     .title-profile {
         padding-top: 3.5rem;
         display: flex;
@@ -45,6 +47,7 @@
                 justify-content: left;
                 position: relative;
                 margin-bottom: 2.4rem;
+
                 .btn-changeAvt {
                     background-color: #0000002d;
                     color: #0000003d;
@@ -53,18 +56,21 @@
                     height: 30rem;
                     border-radius: 50%;
                     opacity: 0;
+
                     svg {
                         height: 50%;
                         width: 50%;
                     }
                 }
-                .btn-changeAvt:hover{
+
+                .btn-changeAvt:hover {
                     opacity: 1;
                 }
             }
 
             .inform-item {
                 margin-bottom: 2.8rem;
+
                 .name-inform {
                     font-family: 'Montserrat';
                     font-weight: 700;
@@ -80,6 +86,17 @@
                     font-size: 1.4rem;
                     line-height: 1.7rem;
                     color: #000000;
+                }
+
+                .email-item{
+                    display: flex;
+                    flex-wrap: nowrap;
+                    button{
+                        background-color: transparent;
+                        padding: 0rem;
+                        color: red;
+                        margin-left: 1rem;
+                    }
                 }
             }
 
@@ -101,11 +118,14 @@
 
             .courses-exams-group {
                 padding: 0rem;
-                .courses-list{
+                min-height: 15rem;
+
+                .courses-list {
                     padding-right: 2rem;
                     padding-bottom: 3.2rem;
                 }
-                .exams-list{
+
+                .exams-list {
                     padding-right: 2rem;
                     padding-bottom: 3.2rem;
                 }
@@ -128,13 +148,76 @@
 
                 margin-top: 0.8rem;
             }
-            .history-transaction_table{
-                h5{
+
+            .history-transaction_table {
+                h5 {
                     margin-bottom: 3.3rem;
                 }
             }
         }
+    }
+}
 
 
+.css-79ws1d-MuiModal-root {
+    .box-modal {
+        .form-group {
+            padding: 5rem;
+            background-color: #FFFFFF;
+            min-height: 50rem;
+
+            h1 {
+                margin-bottom: 5rem;
+            }
+
+            .form-update {
+                input {
+                    width: 40rem;
+                }
+
+                .input-item {
+                    margin-bottom: 2rem;
+                    h5 {
+                        font-family: 'Montserrat';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 17px;
+                        line-height: 24px;
+                        color: #000000;
+                        margin-bottom: 0.3rem;
+                    }
+                }
+            }
+            .btn-change-password{
+                display: flex;
+                justify-content: end;
+                button{
+                    background-color: transparent;
+                    color: #000;padding: 0.5rem;
+                    transition: none;
+                }
+                button:hover{
+                    color: #4B4BEC;
+                }
+            }
+            .btn-group{
+                margin-top: 2rem;
+                display: flex;
+                justify-content: end;
+                .btn-cancle{
+                    background-color: white;
+                    border: 1px solid #000000;
+                    margin-right: 2rem;
+                    border-radius: 1rem;
+                    color: #000000;
+                }
+                .btn-update{
+                    border-radius: 1rem;
+                }
+                button{
+                    transition: none;
+                }
+            }
+        }
     }
 }

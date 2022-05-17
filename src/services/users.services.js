@@ -11,6 +11,7 @@ export const usersServices = {
   getUserCourses,
   getUserNotifications,
   uploadAvatar,
+  updateProfile,
   verifyEmail,
   sendVerifyCode,
   verifyCode,
@@ -47,6 +48,9 @@ function getUserNotifications(params = {}) {
 
 function uploadAvatar(avatarUrl) {
   return handleResponse(ajaxHelper.post(config.URL_UPLOAD_AVATAR, {avatarUrl}, options()));
+}
+function updateProfile(newInfo) {
+  return handleResponse(ajaxHelper.post(config.URL_UPDATE_PROFILE, newInfo, options()));
 }
 
 function verifyEmail(id, token) {

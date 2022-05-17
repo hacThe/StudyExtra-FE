@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Container, Button, Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { FiEdit } from "react-icons/fi";
 import clsx from 'clsx';
 import './Profile.scss';
 import TransactionTable from './component/TransactionTable';
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "./../../../actions/user.actions";
 import { UploadModal } from "./component/UpLoadAvatarModal";
+import { EditModal } from "./component/EditProfileModal";
 const Profile = () => {
   const dispatch = useDispatch()
   const UserInfo = useSelector(state => state.authentication.user);
@@ -39,7 +39,8 @@ const Profile = () => {
     },
     {
       name: "Email",
-      value: UserInfo.mail
+      value: UserInfo.mail,
+      verified: UserInfo.emailVerified
     },
     {
       name: "Số điện thoại",
@@ -92,17 +93,14 @@ const Profile = () => {
     { id: 13, stt: 13, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' }
   ]
 
-  
+
 
   return (
     <>
       <Container className='profile' maxWidth="xl">
         <div className="title-profile">
           <h1>Hồ sơ học viên</h1>
-          <button variant="outlined">
-            <FiEdit />
-            Chỉnh sửa
-          </button>
+          <EditModal user = {UserInfo}/>
         </div>
 
         <Grid container spacing={2} className="information-group">
@@ -113,7 +111,7 @@ const Profile = () => {
                 src={UserInfo.avatar}
                 sx={{ width: 300, height: 300 }}
               />}
-              <UploadModal avatar = {UserInfo.avatar}></UploadModal>
+              <UploadModal avatar={UserInfo.avatar}></UploadModal>
             </div>
 
             <Grid container>
@@ -133,7 +131,12 @@ const Profile = () => {
             {InformList.slice(2).map((item, index) =>
               <div className="inform-item" key={index}>
                 <h5 className="name-inform">{item.name}</h5>
-                <p className="value-inform">{item.value}</p>
+                {item.name === "Email" && !item.verified ?
+                  <div className="email-item">
+                    <p className="value-inform">{item.value}</p>
+                    <button>Verify</button>
+                  </div>
+                  : <p className="value-inform">{item.value}</p>}
               </div>
             )}
             <div style={{
