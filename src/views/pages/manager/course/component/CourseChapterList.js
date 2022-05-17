@@ -37,18 +37,21 @@ const getListStyle = (isDraggingOver) => ({
   width: "100%",
 });
 
-function CourseChapterTile({ chapter, index, editChappterOnClick }) {
-
-
+function CourseChapterTile({
+  chapter,
+  index,
+  editChappterOnClick,
+  addLessonOnClick,
+}) {
   const [visible, setvisible] = useState(true);
 
   function toogleLessonTile() {
     setvisible(!visible);
   }
 
-  function addNewChappterOnClick(e) {
+  function addNewLessonOnClick(e, chapter, index) {
     e.stopPropagation();
-    alert("action-button-onclick");
+    addLessonOnClick(chapter, index);
   }
 
   function handleEditChappterOnClick(chapter, index) {
@@ -69,7 +72,14 @@ function CourseChapterTile({ chapter, index, editChappterOnClick }) {
       >
         <p className="chapter-name">{`${index + 1}. ${chapter.name}`}</p>
         <div className="chappter-action display-flex">
-          <div onClick={addNewChappterOnClick} className="action-wrapper">
+          <div
+            onClick={(e) => {
+              console.log({ chapter, index }, "add onclick nè");
+
+              addNewLessonOnClick(e, chapter, index);
+            }}
+            className="action-wrapper"
+          >
             <GrAddCircle size={"2.2rem"} />
           </div>
           <div
@@ -92,14 +102,14 @@ function CourseChapterTile({ chapter, index, editChappterOnClick }) {
             className="lesson-tile-wrapper"
             key={`lesson-${lesson.id}-${index}`}
           >
-            <CourseLessonTile lesson={lesson} />
+            <CourseLessonTile index={index} lesson={lesson} />
           </div>
         ))}
     </div>
   );
 }
 
-function CourseLessonTile({ lesson }) {
+function CourseLessonTile({ index, lesson }) {
   return (
     <div className="course-lesson-tile display-flex justify-content-between">
       <div className="align-center">
@@ -126,7 +136,7 @@ function CourseLessonTile({ lesson }) {
             stroke-linejoin="round"
           />
         </svg>
-        <span className="lesson-name">{`${lesson.index}. ${lesson.name}`}</span>
+        <span className="lesson-name">{`${index + 1} . ${lesson.name}`}</span>
       </div>
       <span className="lesson-action display-flex">
         <div className="action-wrapper">
@@ -212,6 +222,7 @@ class CourseChapterList extends Component {
         {this.state.items.map((item, index) => (
           <div className="drag-and-drop-item">
             <CourseChapterTile
+              addLessonOnClick={this.props.addLessonOnClick}
               editChappterOnClick={this.props.editChapterOnClick}
               chapter={item}
               index={index}

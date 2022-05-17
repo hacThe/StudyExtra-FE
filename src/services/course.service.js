@@ -10,7 +10,9 @@ export const courseService = {
   update,
   _delete,
   addChapter,
-  editChapter
+  editChapter,
+  addLesson,
+  editLesson
 };
 
 function getAll() {
@@ -52,6 +54,20 @@ function addChapter(chapter, id) {
     ajaxHelper.post(config.URL_ADD_CHAPTER + `/${id}`, {...chapter}, options())
   )
 }
+
+
+function addLesson(lesson) {
+  return handleResponse(
+    ajaxHelper.post(config.URL_ADD_LESSON + `/${lesson.chapter}`, {...lesson}, options())
+  )
+}
+
+function editLesson(lesson) {
+  return handleResponse(
+    ajaxHelper.post(config.URL_EDIT_LESSON + `/${lesson._id}`, {...lesson}, options())
+  )
+}
+
 
 
 

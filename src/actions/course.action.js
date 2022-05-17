@@ -9,7 +9,8 @@ export const courseAction = {
   update,
   _delete,
   addChapter,
-  editChapter
+  editChapter,
+  addLesson
 };
 
 function getOne(courseId) {
@@ -173,6 +174,36 @@ function editChapter(chapter, callback){
   return (dispatch)=>{
     dispatch(request())
     courseService.editChapter(chapter).then(
+      (course) => {
+        console.log(course);
+        dispatch(success(course.data));
+        if (callback)
+          {
+              callback()
+          }
+      },
+      (error) => {
+        dispatch(failure(error.toString()));
+        console.log({ error });
+      }
+    );
+    function request() {
+      return { type: courseConstants.CREATE_CHAPTER_REQUEST };
+    }
+    function success(course) {
+      return { type: courseConstants.CREATE_CHAPTER_SUCCESS, course };
+    }
+    function failure(error) {
+      return { type: courseConstants.CREATE_CHAPTER_FAILURE, error };
+    }
+  }
+}
+
+
+function addLesson(lesson, callback){
+  return (dispatch)=>{
+    dispatch(request())
+    courseService.addLesson(lesson).then(
       (course) => {
         console.log(course);
         dispatch(success(course.data));
