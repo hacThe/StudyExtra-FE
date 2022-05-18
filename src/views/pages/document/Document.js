@@ -28,11 +28,7 @@ function Document(){
     
     const documents =
         useSelector((state) => {
-            // console.log({ state });
-            var doc = [];
-            doc.push(...state.document.documents);
-            doc.push(...state.document.documents);
-            return doc;
+            return state.document.documents;
         }) || [];
 
     console.log("documents vip", documents, documents.length);
@@ -50,19 +46,38 @@ function Document(){
     const setCurrentPage = (num) => {
         setPage(num)
     }
+
+
+    const documentTypes =
+        useSelector((state) => {
+            console.log("state.document.documentType", state.document.documentType);
+            return [
+                {
+                    _id: 'abc',
+                    name: "Tất cả",
+                },
+                ...state.document.documentType,
+            ];
+        }) || [];
+
+    React.useEffect(async () => {
+        await dispatch(documentActions.getAllDocumentType());
+    }, []);
+
+
     return (
         <div className="document-page-container">
             <div className="document-container">
                 <div className="document-body">
                     <div className='document-option-container'>
                         {
-                            types.map((type, index) => (
+                            documentTypes.map((type, index) => (
                                 <Button 
                                     className= {currentTypeSelect == index ? 'button-option active':'button-option'}
                                     style={{textTransform: 'none'}}
                                     onClick={(e)=> changeType(e,index)}
                                 >
-                                    {type}
+                                    {type.name}
                                 </Button>
                             ))
                         }
@@ -86,9 +101,18 @@ function Document(){
                     {   
                         documents.length === 0 ? (null) : 
                             documents.map((val,index) => (
-                                (index < page * maxItem && index >= (page-1) * maxItem) ? (
-                                    <DocumentCard name={val.name} views={val.views}/>
-                                ) : (null)
+                                (index < page * maxItem && index >= (page-1) * maxItem)
+                                ?
+                                    val.isHidden ? (null) :
+                                    (typeof documentTypes[currentTypeSelect]!='undefined')&&documentTypes[currentTypeSelect]._id=='abc' ?
+                                        (<DocumentCard name={val.name} views={val.views}/>)  
+                                    :
+                                        (val.typeID.includes(documentTypes[currentTypeSelect]._id) 
+                                            ?(<DocumentCard name={val.name} views={val.views}/>)
+                                            :(null)
+                                        )
+                                :
+                                    (null)
                             ))
                     }
                     </div>

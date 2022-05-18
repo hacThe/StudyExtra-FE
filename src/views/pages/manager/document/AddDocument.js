@@ -9,8 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import DocumentTypeModal from './DocumentTypeModal.js';
 import {documentActions} from '../../../../actions/document.actions.js'
 
-
-
 function AddDocument(props) {
     const dispatch = useDispatch();
     const isOpen =
