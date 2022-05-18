@@ -215,7 +215,7 @@ const managerRoute = [
   },
   {
     path: "/quan-ly/tai-lieu/chinh-sua/:id",
-    name: "Quản lý tài liệu",
+    name: "Chỉnh sửa tài liệu",
     element: <ModifyDocument/>,
   },
   {

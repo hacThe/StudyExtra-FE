@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import {Button, Grid} from '@mui/material';
 import './scss/ModifyDocument.scss';
 import { IoReturnUpBack } from "react-icons/io5";
-import { BiHide } from "react-icons/bi";
+import { BiHide,BiShow } from "react-icons/bi";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import DocumentTypeModal from './DocumentTypeModal.js';
@@ -97,6 +97,7 @@ function ModifyDocument(props) {
         author: currentDocumentData.author,
         link: currentDocumentData.link,
         typeID: currentDocumentData.typeID,
+        isHidden: currentDocumentData.isHidden
     })
 
     // console.log("val",val)
@@ -114,6 +115,7 @@ function ModifyDocument(props) {
         author: false,
         link: false,
         typeID: false,
+        isHidden: false,
     });
 
     const changeSpecValidation = (value) => {
@@ -131,6 +133,7 @@ function ModifyDocument(props) {
         author: currentDocumentData.author,
         link: currentDocumentData.link,
         typeID: currentDocumentData.typeID,
+        isHidden: currentDocumentData.isHidden,
     } 
     console.log("val1",val1, currentDocumentData);
     // document.querySelector('#document-title').defaultValue = currentDocumentData.name;
@@ -255,16 +258,26 @@ function ModifyDocument(props) {
         }
         const data = {
             _id: val1.id,
-            name: val.name,
-            typeID: getAllSelectedTypeID(),
-            link: val.link,
-            author: val.author,
+            name: isValidation.name ? val.name : val1.name,
+            typeID: isValidation.typeID ? getAllSelectedTypeID() : val1.typeID,
+            link: isValidation.link ? val.link : val1.link,
+            author: isValidation.author ? val.author : val1.author,
+            isHidden: isValidation.isHidden ? val.isHidden : val1.isHidden,
         }
         console.log("data", data);
         await dispatch(documentActions.editDocument(data));
         document.querySelector('.back-to-manage').click();
     }
 
+    const cancel = () => { 
+        document.querySelector('.back-to-manage').click();
+    }
+
+    const deleteDocument = () => {
+        console.log("val1.id", val1.id);
+        dispatch(documentActions.deleteMultiDocuments({data:[val1.id]}));
+        document.querySelector('.back-to-manage').click();
+    }
 
 
     return (
@@ -394,15 +407,48 @@ function ModifyDocument(props) {
                         <div className='document-manage'>
                             <div className="manage-item">
                                 <div className="icon">
-                                    <BiHide size={24}/>
+                                    {
+                                        isValidation.isHidden 
+                                            ? !val.isHidden ? <BiHide size={24}/> : <BiShow size={24}/>
+                                            : !val1.isHidden ? <BiHide size={24}/> : <BiShow size={24}/>   
+                                    }
                                 </div>
-                                <div className='label'>Ẩn tài liệu</div>
+                                <div 
+                                    className=
+                                        {
+                                            isValidation.isHidden 
+                                                ? val.isHidden ? 'label' : 'label hidden'
+                                                : val1.isHidden ? 'label' : 'label hidden'    
+                                        }
+                                    onClick={()=> {
+                                        if(!isValidation.isHidden){
+                                            changeSpecVal({isHidden: !val1.isHidden});
+                                            changeSpecValidation({isHidden: true});
+                                        }
+                                        else {
+                                            changeSpecVal({isHidden: !val.isHidden});
+                                        }
+                                    }}
+                                >
+                                    {
+                                        isValidation.isHidden 
+                                            ? val.isHidden ? <>Hiện tài liệu</> : <>Ẩn tài liệu</>
+                                            : val1.isHidden ? <>Hiện tài liệu</> : <>Ẩn tài liệu</>    
+                                    }
+                                </div>
                             </div>
                             <div className="manage-item">
                                 <div className="icon">
                                     <MdOutlineDeleteOutline size={24}/>
                                 </div>
-                                <div className='label'>Xoá tài liệu</div>
+                                <div 
+                                    className='label'
+                                    onClick = {() => {
+                                        deleteDocument();
+                                    }}
+                                >
+                                    Xoá tài liệu
+                                </div>
                             </div>
                         </div>
                         <div className='iframe-container'>
@@ -419,7 +465,9 @@ function ModifyDocument(props) {
                         <Button 
                                 variant="contained"
                                 className='manage-button cancel'
-                                
+                                onClick = {()=>{
+                                    cancel();
+                                }}
                             >
                                 Huỷ
                             </Button>
@@ -430,7 +478,7 @@ function ModifyDocument(props) {
                                     editDocument();
                                 }}
                             >
-                                Chỉnh sửa
+                                Lưu
                             </Button>
                         </div>
                     </Grid>
