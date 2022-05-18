@@ -124,42 +124,52 @@ function ModifyDocument(props) {
         link: currentDocumentData.link,
         typeID: currentDocumentData.typeID,
     } 
-    // console.log("val1",val1);
+    console.log("val1",val1);
     // document.querySelector('#document-title').defaultValue = currentDocumentData.name;
 
     const [isLoadInitType, setLoadInit] = useState(false);
+    const initType = () => {
+        console.log("Tạo cái list ban đầu");
+        console.log("documentTypes", documentTypes);
+        if(documentType.length == 0){
+            var documentTypeInit = [];
+            for(var i = 0; i < documentTypes.length; i++){
+                documentTypeInit.push({
+                    ...documentTypes,
+                    selected: false,
+                });
+            }
+            setDocumentType(documentTypeInit);
+        }
+    }
+
     const loadInitialType = (ids) => {
         if(!isLoadInitType){
-            if(documentType.length == 0){
-                var documentTypeInit = [];
-                for(var i = 0; i < documentTypes.length; i++){
-                    documentTypeInit.push({
-                        ...documentTypes,
-                        selected: false,
-                    });
-                }
-                setDocumentType(documentTypeInit);
+            var documentTypeInit = [];
+            for(var i = 0; i < documentTypes.length; i++){
+                documentTypeInit.push({
+                    ...documentTypes[i],
+                    selected: false,
+                });
             }
             ids.forEach((id, index) => {
                 for(var i = 0; i < documentTypes.length; i++){
-                    console.log("documentTypes[i]", documentTypes[i],"id", id);
                     if(documentTypes[i]._id == id){
-                        console.log("Có bằng rồi")
-                        changeIndexValue(index);
-                        console.log("documentType",documentType)
+                        documentTypeInit[index].selected = true;
                         break;
                     }
                 }
             });
+            setDocumentType(documentTypeInit);
             setLoadInit(true);
         }
-        
     }
     useEffect(()=>{
+        // initType();
         changeLink(val1.link);
-        console.log("currentDocumentData.typeID", currentDocumentData.typeID);
         loadInitialType();
     })
+
     useSelector((state) => {
         // Khi mà thay đổi thì tính lại state các kiểu
         if(!isLoadInitType || state.document.documentType.length != documentType.length){
@@ -203,7 +213,20 @@ function ModifyDocument(props) {
         }
         return ;
     })
+
+    const findinVal1 = (id) => {
+        for(var i = 0; i < val1.typeID.length; i++){
+            if(val1.typeID[i] == id){
+                console.log(true);
+                return true;
+            }
+        }
+        console.log(false, id);
+        return false;
+    }
+
     loadInitialType(currentDocumentData.typeID);
+
     return (
         <div>
             <div className="manager-fa-ke-modal add-document-wrapper">
@@ -248,7 +271,6 @@ function ModifyDocument(props) {
                                     changeSpecValidation({author: true})
                                     changeSpecVal({author: e.target.value})
                                     // console.log("isValidation",isValidation);
-
                                 }}
                             />
                         </div>
@@ -288,13 +310,36 @@ function ModifyDocument(props) {
                                         return (
                                             <div 
                                                 className={
-                                                    index < documentType.length &&
-                                                    typeof documentType[index].selected != 'undefined' && 
-                                                    documentType[index].selected
-                                                    ? 'document-type-item selected' 
-                                                    :  'document-type-item' }
+                                                    isValidation.typeID 
+                                                    ?(index < documentType.length &&
+                                                        typeof documentType[index].selected != 'undefined' && 
+                                                        documentType[index].selected
+                                                        ? 'document-type-item selected' 
+                                                        :  'document-type-item') 
+                                                    : (findinVal1(documentTypes[index]._id)
+                                                        ? 'document-type-item selected' 
+                                                        :  'document-type-item') 
+                                                    }
                                                 onClick={(e) => {
-                                                    changeIndexValue(index);  
+                                                    if(!isValidation.typeID){
+                                                        var documentTypeTemp = documentType;
+                                                        for( var j = 0; j < documentTypeTemp.length; j++){
+                                                            documentTypeTemp[j].selected = false;
+                                                        } 
+                                                        for(var i = 0; i < val1.typeID.length; i++){
+                                                            for( var j = 0; j < documentTypeTemp.length; j++){
+                                                                console.log(documentTypeTemp[j]._id, val1.typeID[i]);
+                                                                if(documentTypeTemp[j]._id==val1.typeID[i]){
+                                                                    documentTypeTemp[j].selected = true;
+                                                                    break;
+                                                                }
+                                                            } 
+                                                        }
+                                                        console.log("documentTypeTemp", documentTypeTemp)
+                                                        setDocumentType(documentTypeTemp);
+                                                    }
+                                                    changeIndexValue(index); 
+                                                    changeSpecValidation({typeID: true}) 
                                                 }}
                                             >
                                                 {item.name}

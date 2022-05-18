@@ -90,6 +90,7 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
         console.log("edit Doc", idSelect[0]);
         
         await dispatch(documentActions.getDocumentByID(idSelect[0]));
+        // await dispatch(documentActions.getDocumentByID(idSelect[0]));
 
         navigate(`/quan-ly/tai-lieu/chinh-sua/${stringUtils.replaceSpaceWithDash(
             stringUtils.removeVietnameseTones(getCurrentName(idSelect[0]))
