@@ -5,7 +5,7 @@ import { Grid } from "@mui/material";
 
 // const linkCheck = require("link-check");
 import "./SingleLessonForm.scss";
-function SingleLessonForm({ lesson, course, chapter, onSubmit }) {
+function SingleLessonForm({editModal, lesson, course, chapter, onSubmit }) {
   const initialValues = {
     index: chapter.lessons?.length || 0,
     name: "",
@@ -94,7 +94,7 @@ function SingleLessonForm({ lesson, course, chapter, onSubmit }) {
                   {errors.name && touched.name && <div>{errors.name}</div>}
                 </div>
 
-                <div className="mb-3">
+                {editModal || <div className="mb-3">
                   <label htmlFor="chapter">Chương học</label>
                   <Field name="chapter" as="select">
                     {course.chapters.map((item) => (
@@ -104,7 +104,7 @@ function SingleLessonForm({ lesson, course, chapter, onSubmit }) {
                   {errors.chapter && touched.chapter && (
                     <div>{errors.chapter}</div>
                   )}
-                </div>
+                </div>}
 
                 <div className="mb-3">
                   <label htmlFor="index">Thứ tự trong chương</label>
@@ -112,12 +112,13 @@ function SingleLessonForm({ lesson, course, chapter, onSubmit }) {
                     {chapter.lessons.map((item, index) => {
                       return <option value={index}>{index + 1}</option>;
                     })}
-                    <option value={chapter.lessons?.length || 0}>
-                      {" "}
-                      {chapter.lessons?.length
-                        ? chapter.lessons?.length + 1
-                        : 1}
-                    </option>
+                    {editModal || (
+                      <option value={chapter.lessons?.length || 0}>
+                        {chapter.lessons?.length
+                          ? chapter.lessons?.length + 1
+                          : 1}
+                      </option>
+                    )}
                   </Field>
                   {errors.index && touched.index && <div>{errors.index}</div>}
                 </div>

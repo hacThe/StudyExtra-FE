@@ -7,6 +7,7 @@ import './ManagerUser.scss';
 import GemRequestMenu from './component/GemRequestMenu';
 import { useDispatch, useSelector } from "react-redux";
 import UsersTable from "./component/UsersTable";
+import DataTableComponent from "../../../components/DataTableComponent";
 
 
 
@@ -34,34 +35,14 @@ const ManagerUser = () => {
     // {field: , headerName: , width: }
     { field: 'stt', headerName: "STT", width: 100 },
     { field: 'username', headerName: "Username", width: 120 },
-    { field: 'ten', headerName: "Tên người dùng", width: 200 },
-    { field: 'ngaysinh', headerName: "Ngày sinh", width: 100 },
-    { field: 'gioitinh', headerName: "Giới tính", width: 100 },
+    { field: 'name', headerName: "Tên người dùng", width: 200 },
     { field: 'email', headerName: "Email", width: 200 },
-    { field: 'sdt', headerName: "Số điện thoại", width: 120 },
-    { field: 'loai', headerName: "Loại người dùng", width: 150 }
+    { field: 'phone', headerName: "Số điện thoại", width: 120 },
+    { field: 'role', headerName: "Loại người dùng", width: 150 }
   ]
 
   const rowUsers = [
-    { id: 1, stt: 1, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 2, stt: 2, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 3, stt: 3, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 4, stt: 4, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 5, stt: 5, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 6, stt: 6, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 7, stt: 7, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 8, stt: 8, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 9, stt: 9, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 10, stt: 10, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 11, stt: 11, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 12, stt: 12, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 13, stt: 13, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 14, stt: 14, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 15, stt: 15, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 16, stt: 16, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 17, stt: 17, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"},
-    { id: 18, stt: 18, username: "tanthanh", ten: "Nguyễn Tấn Thành", ngaysinh: "16/04/2001", gioitinh: 'nam', email: "tanthanhe@gmail.com", sdt:"0912511015", loai: "user"}
-  ]
+     ]
 
   return (
     <div className="manager-user-wrapper">
@@ -103,11 +84,12 @@ const ManagerUser = () => {
         </div>
 
 
-          <UsersTable
+          <DataTableComponent
+            onRowClick={()=>alert("Click")}
             columnDocs={columnUsers}
             rowDocs={rowUsers}
             filter={filter}
-          ></UsersTable>
+          ></DataTableComponent>
       </Container>
     </div>
   );

@@ -8,6 +8,7 @@ import ChapterFormModal from "./component/ChapterFormModal";
 import { courseAction } from "../../../../../actions/course.action";
 import { useNavigate, useParams } from "react-router-dom";
 import AddLessonModal from "./component/AddLessonModal";
+import EditLessonModal from "./component/EditLessonModal";
 function ChapterManager(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ function ChapterManager(props) {
   const [addLessonForm, setAddLessonForm] = useState(false);
   const [editLessonForm, setEditLessonForm] = useState(false);
   const [currentChapter, setCurrentChapter] = useState();
+  const [currentLesson, setCurrentLesson] = useState();
   useEffect(() => {
     if (!course || !course.name) {
       console.log("get course nè");
@@ -43,9 +45,13 @@ function ChapterManager(props) {
     setAddLessonForm(true);
   };
 
-  const EditLessonOnClick = (courseId) => {
-    navigate(`/quan-ly/khoa-hoc/bai-hoc/chinh-sua/:id`);
+  const EditLessonOnClick = (lesson, chapter, index) => {
+    console.log({lesson, chapter, index }, "add onclick truyền lên nè");
+    setCurrentChapter({ ...chapter, index });
+    setCurrentLesson(lesson)
+    setEditLessonForm(true);
   };
+
 
   const handleAddChapterOnClick = (values) => {
     dispatch(
@@ -86,6 +92,16 @@ function ChapterManager(props) {
           handleClose={handleCloseModal}
           course={course}
           chapter={currentChapter}
+        />
+      )}
+      
+      {editLessonForm && (
+        <EditLessonModal
+          open={editLessonForm}
+          handleClose={handleCloseModal}
+          course={course}
+          chapter={currentChapter}
+          lesson={currentLesson}
         />
       )}
       <div className="justify-content-between top-action-bar">

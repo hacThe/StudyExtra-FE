@@ -12,7 +12,9 @@ export const courseService = {
   addChapter,
   editChapter,
   addLesson,
-  editLesson
+  editLesson,
+  deleteChapter,
+  deleteLesson
 };
 
 function getAll() {
@@ -21,7 +23,7 @@ function getAll() {
 
 function update(course, id) {
   return handleResponse(
-    ajaxHelper.post(
+    ajaxHelper.put(
       config.URL_UPDATE_COURSE + `/${id}`,
       { ...course },
       options()
@@ -56,6 +58,12 @@ function addChapter(chapter, id) {
 }
 
 
+
+
+
+
+
+
 function addLesson(lesson) {
   return handleResponse(
     ajaxHelper.post(config.URL_ADD_LESSON + `/${lesson.chapter}`, {...lesson}, options())
@@ -64,7 +72,7 @@ function addLesson(lesson) {
 
 function editLesson(lesson) {
   return handleResponse(
-    ajaxHelper.post(config.URL_EDIT_LESSON + `/${lesson._id}`, {...lesson}, options())
+    ajaxHelper.put(config.URL_EDIT_LESSON + `/${lesson._id}`, {...lesson}, options())
   )
 }
 
@@ -73,6 +81,21 @@ function editLesson(lesson) {
 
 function editChapter(chapter) {
   return handleResponse(
-    ajaxHelper.post(config.URL_EDIT_CHAPTER + `/${chapter._id}`, {...chapter}, options())
+    ajaxHelper.put(config.URL_EDIT_CHAPTER + `/${chapter._id}`, {...chapter}, options())
+  )
+}
+
+
+
+function deleteChapter(chapter) {
+  return handleResponse(
+    ajaxHelper.put(config.URL_DELETE_CHAPTER + `/${chapter._id}`, {courseId: chapter.courseId}, options())
+  )
+}
+
+
+function deleteLesson(lesson) {
+  return handleResponse(
+    ajaxHelper.put(config.URL_DELETE_LESSON + `/${lesson._id}`, {chapterId: lesson.chapterId}, options())
   )
 }

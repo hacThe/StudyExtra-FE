@@ -2,6 +2,9 @@ import React, { Component, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 import { GrAddCircle } from "react-icons/gr";
+import { useDispatch } from "react-redux";
+import { appActions } from "../../../../../actions/app.action";
+import { courseAction } from "../../../../../actions/course.action";
 import "./CourseChapterList.scss";
 
 // a little function to help us with reordering the result
@@ -42,9 +45,10 @@ function CourseChapterTile({
   index,
   editChappterOnClick,
   addLessonOnClick,
+  editLessonOnClick,
 }) {
   const [visible, setvisible] = useState(true);
-
+  const dispatch = useDispatch();
   function toogleLessonTile() {
     setvisible(!visible);
   }
@@ -58,9 +62,17 @@ function CourseChapterTile({
     editChappterOnClick(chapter, index);
   }
 
-  function deleteChappterOnClick(e) {
+  function deleteChappterOnClick(e, chapter) {
+    console.log({ chapter });
     e.stopPropagation();
-    alert("action-button-onclick");
+    dispatch(
+      appActions.openConfirmDialog(
+        "Bạn có chắc chắn muốn xóa chương này? Bao gồm tất cả các bài học của chương?",
+        () => {
+          dispatch(courseAction.deleteChapter(chapter));
+        }
+      )
+    );
   }
 
   return (
@@ -90,7 +102,12 @@ function CourseChapterTile({
           >
             <AiOutlineEdit size={"2.2rem"} />
           </div>
-          <div onClick={deleteChappterOnClick} className="action-wrapper">
+          <div
+            onClick={(e) => {
+              deleteChappterOnClick(e, chapter);
+            }}
+            className="action-wrapper"
+          >
             <AiOutlineDelete size={"2.2rem"} />
           </div>
         </div>
@@ -102,14 +119,36 @@ function CourseChapterTile({
             className="lesson-tile-wrapper"
             key={`lesson-${lesson.id}-${index}`}
           >
-            <CourseLessonTile index={index} lesson={lesson} />
+            <CourseLessonTile
+              chapter={chapter}
+              editLessonOnClick={editLessonOnClick}
+              index={index}
+              lesson={lesson}
+            />
           </div>
         ))}
     </div>
   );
 }
 
-function CourseLessonTile({ index, lesson }) {
+function CourseLessonTile({ editLessonOnClick, chapter, index, lesson }) {
+  function handleEditLessonOnClick(e, lesson, chapter, index) {
+    e.stopPropagation();
+    editLessonOnClick(lesson, chapter, index);
+  }
+  const dispatch = useDispatch();
+  function handleDeleteLessonOnClick(e, lesson) {
+    e.stopPropagation();
+    dispatch(
+      appActions.openConfirmDialog(
+        "Bạn có chắc chắn muốn xóa bài học này?",
+        () => {
+          dispatch(courseAction.deleteLesson(lesson));
+        }
+      )
+    );
+  }
+
   return (
     <div className="course-lesson-tile display-flex justify-content-between">
       <div className="align-center">
@@ -139,10 +178,20 @@ function CourseLessonTile({ index, lesson }) {
         <span className="lesson-name">{`${index + 1} . ${lesson.name}`}</span>
       </div>
       <span className="lesson-action display-flex">
-        <div className="action-wrapper">
+        <div
+          onClick={(e) => {
+            handleEditLessonOnClick(e, { ...lesson, index }, chapter, index);
+          }}
+          className="action-wrapper"
+        >
           <AiOutlineEdit size={"2.2rem"} />
         </div>
-        <div className="action-wrapper">
+        <div
+          onClick={(e) => {
+            handleDeleteLessonOnClick(e, lesson);
+          }}
+          className="action-wrapper"
+        >
           <AiOutlineDelete size={"2.2rem"} />
         </div>
       </span>
@@ -220,9 +269,10 @@ class CourseChapterList extends Component {
 
       <>
         {this.state.items.map((item, index) => (
-          <div className="drag-and-drop-item">
+          <div key={item.name} className="drag-and-drop-item">
             <CourseChapterTile
               addLessonOnClick={this.props.addLessonOnClick}
+              editLessonOnClick={this.props.editLessonOnClick}
               editChappterOnClick={this.props.editChapterOnClick}
               chapter={item}
               index={index}
