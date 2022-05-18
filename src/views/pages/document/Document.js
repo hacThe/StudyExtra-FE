@@ -19,22 +19,38 @@ function Document(){
         setCurrentType(newValue);
     };
 
-    const filters = ["Mới nhất", "Cũ nhất", "Xem nhiều nhất", "Xem ít nhất"];
+    const filters = ["Cũ nhất", "Mới nhất", "Xem nhiều nhất", "Xem ít nhất"];
+    const [currentFilterIndex, changeCurrentFilterIndex] = useState(0);
+
+
 
     React.useEffect(async () => {
         await dispatch(documentActions.getAllDocument());
         console.log("documents.length", documents.length);
     }, []);
     
+    
+    var documentWithFilter = [];
     const documents =
         useSelector((state) => {
+            documentWithFilter = state.document.documents;
+            // documentWithFilter.sort( 
+                
+            //     function(a, b){
+            //         console.log("gọi lần n");
+            //         return new Date(b.createdAt) - new Date(a.createdAt);
+            //     }
+            // )
             return state.document.documents;
         }) || [];
+    // console.log("documentWithFilter", documentWithFilter);
 
-    console.log("documents vip", documents, documents.length);
-    useSelector((state) => {
-        console.log("all state", { state });
-    })
+    
+
+    // console.log("documents vip", documents, documents.length);
+    // useSelector((state) => {
+    //     console.log("all state", { state });
+    // })
 
 
     var maxItem = 10;
@@ -50,7 +66,7 @@ function Document(){
 
     const documentTypes =
         useSelector((state) => {
-            console.log("state.document.documentType", state.document.documentType);
+            // console.log("state.document.documentType", state.document.documentType);
             return [
                 {
                     _id: 'abc',
@@ -89,6 +105,50 @@ function Document(){
                             id="demo-simple-select"
                             label="Age"
                             className='sorting-control'
+                            onChange={(e)=>{
+                                console.log("a",e.target.value);
+                                switch (e.target.value) {
+                                    case "Mới nhất":
+                                        console.log("documentWithFilter before sort", documentWithFilter);
+                                        documentWithFilter.sort( 
+                                            function(a, b){
+                                                return new Date(b.createdAt) - new Date(a.createdAt);
+                                            }
+                                        )
+                                        console.log("documentWithFilter after sort", documentWithFilter);
+                                        break;
+                                    case "Cũ nhất":
+                                        console.log("documentWithFilter before sort", documentWithFilter);
+                                        documentWithFilter.sort( 
+                                            function(a, b){
+                                                // console.log('date', new Date(b.createdAt) - new Date(a.createdAt))
+                                                return new Date(a.createdAt) - new Date(b.createdAt);
+                                            }
+                                        )
+                                        console.log("documentWithFilter after sort", documentWithFilter);
+                                        break;  
+                                    case "Xem nhiều nhất": 
+                                        documentWithFilter.sort( 
+                                            function(a, b){
+                                                // console.log('date', new Date(b.createdAt) - new Date(a.createdAt))
+                                                return new Date(b.views) - new Date(a.views);
+                                            }
+                                        )
+                                        break;
+                                    case "Xem ít nhất":
+                                        documentWithFilter.sort( 
+                                            function(a, b){
+                                                // console.log('date', new Date(b.createdAt) - new Date(a.createdAt))
+                                                return new Date(a.views) - new Date(b.views);
+                                            }
+                                        )
+                                        break;      
+                                    default:
+                                        break;
+                                }
+                                changeCurrentFilterIndex(filters.indexOf(e.target.value));
+                                
+                            }}
                         >
                             {
                                 filters.map((filter, index)=>(
