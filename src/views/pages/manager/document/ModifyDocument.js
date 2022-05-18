@@ -57,9 +57,16 @@ function ModifyDocument(props) {
     
     const getAllSelectedTypeID = () => {
         var res = [];
-        for(var i = 0 ; i < documentType.length; i++){
-            if(documentType[i].selected == true){
-                res.push(documentType[i].id)
+        if(!isValidation.typeID){
+            for(var i = 0; i < val1.typeID.length; i++){
+                res.push(val1.typeID[i]);
+            }
+        }
+        else {
+            for(var i = 0 ; i < documentType.length; i++){
+                if(documentType[i].selected == true){
+                    res.push(documentType[i]._id)
+                }
             }
         }
         return res;
@@ -117,14 +124,15 @@ function ModifyDocument(props) {
         }
         setValidation(currentVal);
     }
-
+    
     var val1 = {
+        id: currentDocumentData._id,
         name: currentDocumentData.name,
         author: currentDocumentData.author,
         link: currentDocumentData.link,
         typeID: currentDocumentData.typeID,
     } 
-    console.log("val1",val1);
+    console.log("val1",val1, currentDocumentData);
     // document.querySelector('#document-title').defaultValue = currentDocumentData.name;
 
     const [isLoadInitType, setLoadInit] = useState(false);
@@ -164,9 +172,16 @@ function ModifyDocument(props) {
             setLoadInit(true);
         }
     }
+
+    const [isLoadLink, setLoadLink] = useState(false);
+
     useEffect(()=>{
         // initType();
-        changeLink(val1.link);
+        if(!isLoadLink){
+            changeLink(val1.link);
+            setLoadLink(true);
+        }
+            
         loadInitialType();
     })
 
@@ -226,6 +241,31 @@ function ModifyDocument(props) {
     }
 
     loadInitialType(currentDocumentData.typeID);
+
+    const editDocument = async() => {
+        var checkValidation = false;
+        for(var i = 0; i < Object.values(isValidation).length; i++){
+            if(Object.values(isValidation)[i] == true){
+                checkValidation = true;
+            }
+        }
+        if(checkValidation == false) {
+            alert("Bạn chưa thay đổi trường nào, không thể lưu");
+            return;
+        }
+        const data = {
+            _id: val1.id,
+            name: val.name,
+            typeID: getAllSelectedTypeID(),
+            link: val.link,
+            author: val.author,
+        }
+        console.log("data", data);
+        await dispatch(documentActions.editDocument(data));
+        document.querySelector('.back-to-manage').click();
+    }
+
+
 
     return (
         <div>
@@ -329,7 +369,7 @@ function ModifyDocument(props) {
                                                         for(var i = 0; i < val1.typeID.length; i++){
                                                             for( var j = 0; j < documentTypeTemp.length; j++){
                                                                 console.log(documentTypeTemp[j]._id, val1.typeID[i]);
-                                                                if(documentTypeTemp[j]._id==val1.typeID[i]){
+                                                                if(documentTypeTemp[j]._id == val1.typeID[i]){
                                                                     documentTypeTemp[j].selected = true;
                                                                     break;
                                                                 }
@@ -379,14 +419,18 @@ function ModifyDocument(props) {
                         <Button 
                                 variant="contained"
                                 className='manage-button cancel'
+                                
                             >
                                 Huỷ
                             </Button>
                             <Button 
                                 variant="contained"
                                 className='manage-button'
+                                onClick={() => {
+                                    editDocument();
+                                }}
                             >
-                                Xoá
+                                Chỉnh sửa
                             </Button>
                         </div>
                     </Grid>

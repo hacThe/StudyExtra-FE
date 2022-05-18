@@ -7,6 +7,7 @@ export const documentService = {
     getAllDocument,
     getDocumentbyID,
     addNewDocument,
+    editDocument,
     deleteDocuments,
     getAllDocumentType,
     addNewDocumentType,
@@ -32,11 +33,22 @@ function getDocumentbyID(id) {
     );
 }
 
+function editDocument(data){
+    return handleResponse(
+        ajaxHelper.put(config.URL_GET_DOCUMENTS, {...data})
+    );
+}
+
 function deleteDocuments(data) {
     return handleResponse(
         ajaxHelper.deleteFix(config.URL_GET_DOCUMENTS, {...data})
     );
 }
+
+
+
+
+
 
 function getAllDocumentType() {
     return handleResponse(
