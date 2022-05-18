@@ -4,7 +4,7 @@ import '../scss/TableManagement.scss';
 import {documentActions} from '../../../../../actions/document.actions.js'
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import { stringUtils } from '../../../../../utilities';
 const datagridSx = {
     borderRadius: 2,
         "& .MuiDataGrid-main": { borderRadius: 2 },
@@ -79,9 +79,22 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
         setidSelect([]);
     }
 
-    const editDocument = ()  => {
+    const getCurrentName = (id) => {
+        console.log("rowDocs",rowDocs);
+        for(var i = 0; i < rowDocs.length; i++){
+            if(rowDocs[i].id == id) return rowDocs[i].name;
+        }
+        return 'abc';
+    }
+    const editDocument = async()  => {
         console.log("edit Doc", idSelect[0]);
-        navigate('/quan-ly/tai-lieu/chinh-sua/' + idSelect[0]);
+        
+        await dispatch(documentActions.getDocumentByID(idSelect[0]));
+
+        navigate(`/quan-ly/tai-lieu/chinh-sua/${stringUtils.replaceSpaceWithDash(
+            stringUtils.removeVietnameseTones(getCurrentName(idSelect[0]))
+          ).toLowerCase()}`);
+
         setidSelect([]);
         if(editButton.parentNode!=null)
             editButton.parentNode.removeChild(editButton);
@@ -160,11 +173,14 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
         return res;
     }
 
-
+    const currentEditingDoc = useSelector((state) => {
+        // console.log("state", state);
+        return state.document.currentEditingDoc;
+    }) || {};
     
     return (
         <div 
-            style={{ height: 750, width: '100%' }}
+            style={{ height: 500, width: '100%' }}
             className = "datagrid-container"
         >
             <DataGrid

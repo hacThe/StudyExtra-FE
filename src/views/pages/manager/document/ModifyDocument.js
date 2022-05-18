@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import { NavLink } from "react-router-dom";
 import {Button, Grid} from '@mui/material';
 import './scss/ModifyDocument.scss';
@@ -21,10 +21,11 @@ function ModifyDocument(props) {
         dispatch(documentActions.changeModalStatus(!isOpen));
     }
 
-    let isSetDocumentSelection = false;
+    const [isReload, setIsReload] = useState(false);
     const [documentType, setDocumentType] = useState([]);
 
     const changeIndexValue = (index) => {
+        console.log("changeIndexValue", index);
         var newVal = [];
         for(let i = 0 ; i < documentType.length; i++){
             if(i==index)
@@ -42,7 +43,7 @@ function ModifyDocument(props) {
     }
     const documentTypes =
         useSelector((state) => {
-            console.log({ state });
+            // console.log({ state });
             return state.document.documentType;
         }) || [];
 
@@ -52,9 +53,116 @@ function ModifyDocument(props) {
 
     // const check
 
+    
+    
+    const getAllSelectedTypeID = () => {
+        var res = [];
+        for(var i = 0 ; i < documentType.length; i++){
+            if(documentType[i].selected == true){
+                res.push(documentType[i].id)
+            }
+        }
+        return res;
+    }
+
+    const changeLink = (value) => {
+        if(typeof value == 'undefined'){
+            document.querySelector('#iframe-document').setAttribute('src',"https://acb")
+            return;
+        }
+        if(value.indexOf("https://") == -1){
+            document.querySelector('#iframe-document').setAttribute('src',`https://${value}`)
+            return;
+        }
+        document.querySelector('#iframe-document').setAttribute('src',value)
+    }
+    
+    const currentDocumentData = useSelector((state) => {
+        return state.document.currentEditingDoc;
+    }) || [];
+    
+    var refList = {
+        name: useRef(null),
+    }
+        
+    const [val, setVal] = useState({
+        name: currentDocumentData.name,
+        author: currentDocumentData.author,
+        link: currentDocumentData.link,
+        typeID: currentDocumentData.typeID,
+    })
+
+    // console.log("val",val)
+    const changeSpecVal = (value) => {
+        var currentVal = val;
+        currentVal = {
+            ...currentVal,
+            ...value,
+        }
+        setVal(currentVal);
+    }
+
+    const [isValidation, setValidation]= useState({
+        name: false,
+        author: false,
+        link: false,
+        typeID: false,
+    });
+
+    const changeSpecValidation = (value) => {
+        var currentVal = isValidation;
+        currentVal = {
+            ...currentVal,
+            ...value,
+        }
+        setValidation(currentVal);
+    }
+
+    var val1 = {
+        name: currentDocumentData.name,
+        author: currentDocumentData.author,
+        link: currentDocumentData.link,
+        typeID: currentDocumentData.typeID,
+    } 
+    // console.log("val1",val1);
+    // document.querySelector('#document-title').defaultValue = currentDocumentData.name;
+
+    const [isLoadInitType, setLoadInit] = useState(false);
+    const loadInitialType = (ids) => {
+        if(!isLoadInitType){
+            if(documentType.length == 0){
+                var documentTypeInit = [];
+                for(var i = 0; i < documentTypes.length; i++){
+                    documentTypeInit.push({
+                        ...documentTypes,
+                        selected: false,
+                    });
+                }
+                setDocumentType(documentTypeInit);
+            }
+            ids.forEach((id, index) => {
+                for(var i = 0; i < documentTypes.length; i++){
+                    console.log("documentTypes[i]", documentTypes[i],"id", id);
+                    if(documentTypes[i]._id == id){
+                        console.log("Có bằng rồi")
+                        changeIndexValue(index);
+                        console.log("documentType",documentType)
+                        break;
+                    }
+                }
+            });
+            setLoadInit(true);
+        }
+        
+    }
+    useEffect(()=>{
+        changeLink(val1.link);
+        console.log("currentDocumentData.typeID", currentDocumentData.typeID);
+        loadInitialType();
+    })
     useSelector((state) => {
         // Khi mà thay đổi thì tính lại state các kiểu
-        if(state.document.documentType.length != documentType.length){
+        if(!isLoadInitType || state.document.documentType.length != documentType.length){
             if(documentType.length == 0){
                 var newVal = []; 
                 for(var i  = 0 ; i < state.document.documentType.length; i++){
@@ -95,45 +203,7 @@ function ModifyDocument(props) {
         }
         return ;
     })
-    
-    const getAllSelectedTypeID = () => {
-        var res = [];
-        for(var i = 0 ; i < documentType.length; i++){
-            if(documentType[i].selected == true){
-                res.push(documentType[i].id)
-            }
-        }
-        return res;
-    }
-
-    const changeLink = (e) => {
-        // if(e.target.value.indexOf("https://") == -1){
-        //     return;
-        // }
-        document.querySelector('#iframe-document').setAttribute('src',e.target.value)
-    }
-
-    const addDocument = () => {
-        const data = {
-            name: document.querySelector('#document-title').value,
-            typeID: getAllSelectedTypeID(),
-            author: document.querySelector('#document-author').value,
-            views: 0,
-            link: document.querySelector('#document-link').value,
-        }
-        dispatch(documentActions.addNewDocument(data));
-        document.querySelector('.back-to-manage').click();
-    }
-
-    const {id} = useParams();
-    React.useEffect(async () => {
-        await dispatch(documentActions.getDocumentByID(id));
-    }, []);
-    
-    useSelector((state) => {
-        console.log("state", state);
-    })
-
+    loadInitialType(currentDocumentData.typeID);
     return (
         <div>
             <div className="manager-fa-ke-modal add-document-wrapper">
@@ -146,30 +216,58 @@ function ModifyDocument(props) {
                                 <IoReturnUpBack size={20}/>
                             </div>
                             <div className='title'>
-                                Danh sách tài liệu {id}
+                                Danh sách tài liệu
                             </div>
                         </NavLink>
                         <div className="document-info-item">
                             <div className="title">
                                 Tên tài liệu
                             </div>
-                            <input type='text' className="text-info" id="document-title"/>
+                            <input 
+                                type='text' 
+                                className="text-info" 
+                                id="document-title"
+                                value={isValidation.name ? val.name : val1.name}
+                                onChange={(e)=>{
+                                    changeSpecValidation({name: true})
+                                    changeSpecVal({name: e.target.value})
+                                    console.log("isValidation",isValidation);
+                                }}
+                            />
                         </div>
                         <div className="document-info-item">
                             <div className="title">
                                 Tác giả
                             </div>
-                            <input type='text' className="text-info" id="document-author"/>
+                            <input 
+                                type='text' 
+                                className="text-info" 
+                                id="document-author"
+                                value={isValidation.author ? val.author : val1.author}
+                                onChange={(e)=>{
+                                    changeSpecValidation({author: true})
+                                    changeSpecVal({author: e.target.value})
+                                    // console.log("isValidation",isValidation);
+
+                                }}
+                            />
                         </div>
                         <div className="document-info-item">
                             <div className="title">
                                 Link
                             </div>
-                            <input type='text' className="text-info" onChange={(e)=> {
-                                    console.log("Đổi chi vậy", e.target.value);
-                                    changeLink(e);
-                                }}
+                            <input 
+                                type='text' 
+                                className="text-info" 
                                 id="document-link"
+                                value={isValidation.link ? val.link : val1.link}
+                                onChange={(e)=>{
+                                    changeSpecValidation({link: true});
+                                    changeSpecVal({link: e.target.value});
+                                    changeLink(e.target.value);
+                                    // console.log("isValidation",isValidation);
+
+                                }}
                             />
                         </div>
                         <div className='document-info-item'>
@@ -233,14 +331,17 @@ function ModifyDocument(props) {
                             </iframe>
                         </div>
                         <div className="iframe-manage">
+                        <Button 
+                                variant="contained"
+                                className='manage-button cancel'
+                            >
+                                Huỷ
+                            </Button>
                             <Button 
                                 variant="contained"
-                                className='manage-button add'
-                                onClick = {() => {
-                                    addDocument();
-                                }}
+                                className='manage-button'
                             >
-                                Thêm
+                                Xoá
                             </Button>
                         </div>
                     </Grid>

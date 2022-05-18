@@ -9,17 +9,14 @@ const initialState = {
     documentTypeOpen: false,
     documentType:[],
     currentEditingDoc:{},
+    isFlushed: true,
 };
    
 export function document(state = initialState, action) {
-    // console.log("inside document redux")
     switch (action.type) {
         case documentConstants.CHANGE_PAGINATION_REQUEST:
-            console.log("action change page", action);
             var newState = {...state};
-            // console.log("currentState", state);
             newState.pagination = action.page;
-            // console.log("newState", newState);
             return newState;
         case documentConstants.GET_DOCUMENT_REQUEST: 
             return {
@@ -54,8 +51,6 @@ export function document(state = initialState, action) {
             };
         }
         case documentConstants.DELETE_DOCUMENT_SUCCESS:{
-            // console.log("Object.values(action.data.data)", )
-            console.log("Vô được success rồi");
             var listDocumentDelete = Object.values(action.data.data);
             var newDocumentList = state.documents;
             try {
@@ -68,7 +63,6 @@ export function document(state = initialState, action) {
             catch(e){
                 console.log("e", e);
             }
-            console.log("newDocumentList", newDocumentList);
             return {
                 ...state,
                 isLoading: false,
@@ -94,7 +88,6 @@ export function document(state = initialState, action) {
             };
         }
         case documentConstants.GET_TYPE_DOCUMENT_SUCCESS: {
-            console.log('action', action.documentType.data)
             return {
                 ...state,
                 documentType: action.documentType.data,
@@ -114,7 +107,6 @@ export function document(state = initialState, action) {
             };
         }
         case documentConstants.ADD_NEW_TYPE_DOCUMENT_SUCCESS:{
-            // console.log('action nè, có vào đây không =)))', action.documentType.data)
             var newDocumentType = state.documentType;
             newDocumentType.push(action.documentType.data);
             return {
@@ -160,7 +152,7 @@ export function document(state = initialState, action) {
             };
         }
         case documentConstants.GET_DOCUMENT_BY_ID_SUCCESS:{
-            console.log("action.document.data",action.document.data)
+            // console.log("action.document.data vô đây rồi mà, cmn",action.document.data)
             return {
                 ...state,
                 isLoading: false,
