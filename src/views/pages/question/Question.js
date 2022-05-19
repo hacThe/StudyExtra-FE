@@ -104,14 +104,98 @@ const Question = () => {
 
     const articles =
         useSelector((state) => {
+            console.log("state", state);
             return state.article.articles;
         }) || [];
     console.log("articles", articles)
 
-    return (
-        <div>
-            <div className="question-page-container">
-                <div className="question-container">
+
+    const userInfo = useSelector(state => state.authentication.user);
+    console.log("userInfo", userInfo);
+
+    const imgList = [
+        "https://c.wallhere.com/photos/87/b3/Makise_Kurisu_Steins_Gate_anime-1250421.jpg!d",
+        "https://i.pinimg.com/474x/9f/45/28/9f4528ca270dd877228545f04200c58c.jpg",
+        "https://static.wikia.nocookie.net/steins-gate/images/5/50/KurisuMakise_animeprofile_%280%29.jpg/revision/latest?cb=20220212065513",
+    ]
+
+    const [isOpenPost, setIsOpenPost] = useState(false);
+
+    return (    
+        <div className="question-page-container">
+            <div className="question-container">
+                <div className="add-post-section">
+                    <div className="add-post-overall">
+                        <div className="add-post-header">
+                            <img 
+                                src="https://firebasestorage.googleapis.com/v0/b/se-img.appspot.com/o/file281556402_7443940532345703_1970040466900861195_n.jpg?alt=media&token=bbbcb3d0-6916-4d53-bed4-84c82bfde6c4"
+                                className='user-avatar'
+                            />
+                            <div
+                                className='user-question'
+                            >
+                                Nguyễn Công Phi ơi, bạn có câu hỏi hay thắc mắc gì không?
+                            </div>
+                            
+                        </div>                        
+                        <button 
+                            className = "button-add-post"
+                            onClick = {()=> {
+                                setIsOpenPost(!isOpenPost)
+                            }}
+                        >
+                            Thêm bài đăng
+                        </button>
+                    </div>
+                    {
+                        !isOpenPost ? (null) :
+                        <div className="add-post-concrete">
+                            <div className="add-post-heading">
+                                <div className="add-post-title">
+                                    Tạo bài viết
+                                </div>
+                                {/* <div className='divider'>
+    
+                                </div> */}
+                                <div className="user-info-container">
+                                    <img 
+                                        src="https://firebasestorage.googleapis.com/v0/b/se-img.appspot.com/o/file281556402_7443940532345703_1970040466900861195_n.jpg?alt=media&token=bbbcb3d0-6916-4d53-bed4-84c82bfde6c4"
+                                        className='user-avatar'
+                                    />
+                                    <div className='user-name'>
+                                        Nguyễn Công Phi
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="add-post-body">
+                                <textarea 
+                                    className='post-content-input'
+                                    placeholder='Câu hỏi của bạn'
+                                />
+                                <div className="image-displayer">
+                                    {
+                                        imgList.map((value, index)=> {
+                                            return (
+                                                <img 
+                                                    src={value}
+                                                    className='image-item'
+                                                />
+                                            );
+                                        })
+                                    }
+                                </div>
+                                <button 
+                                    className='post-image-add'
+                                >
+                                    Thêm ảnh
+                                </button>
+                                
+                            </div>
+                        </div> 
+                    }
+                    
+                        
+                     
                     {
                         refineData(articles).map((item)=>{
                             console.log("item", item)

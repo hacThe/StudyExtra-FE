@@ -4,6 +4,8 @@ import { BsTriangleFill } from "react-icons/bs";
 import { IoImageOutline } from "react-icons/io5";
 import { HiDotsHorizontal} from "react-icons/hi";
 import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
+import { IoSend } from "react-icons/io5";
+
 import Consts from '../ConstKey.js';
 
 const CommentItem = ({comment}) => {
@@ -167,6 +169,13 @@ const CommentItem = ({comment}) => {
                     ></img>
                     <input type="text" className="comment-box"></input>
                     <IoImageOutline size={28} className='add-image-icon'/>
+                    <IoSend 
+                        size={28} 
+                        className='send-comment'
+                        onClick={(e)=> {
+                            console.log("e.target.parentNode", e.target.parentNode);
+                        }}
+                    ></IoSend>
                 </div>   
             } 
         </div>
