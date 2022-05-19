@@ -9,7 +9,7 @@ import { search } from "./search.reducer";
 import { post } from "./post.reducer";
 import { userCourses } from "./account.reducer";
 import { userNotifications } from "./notification.reducer";
-
+import {user} from "./user.reducer";
 import {article} from "./article.reducer";
 import { searchAnnouncement } from './searchAnnouncement.reducer'
 const rootReducer = combineReducers({
@@ -25,7 +25,8 @@ const rootReducer = combineReducers({
   userCourses, 
   userNotifications,
   article,
-  searchAnnouncement
+  searchAnnouncement,
+  user
 });
 
 export default rootReducer;

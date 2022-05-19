@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Container, Button, Avatar, Modal, Box, Typography } from '@mui/material';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { FiEdit } from "react-icons/fi";
 import clsx from 'clsx';
 import { MdOutlinePhotoCamera } from "react-icons/md"
@@ -11,35 +11,56 @@ import TransactionTable from './component/TransactionTable';
 import { useDispatch, useSelector } from "react-redux";
 import BackToPageButton from "./../../../components/BackToPageButton"
 import { useNavigate } from "react-router-dom";
+import LeadingIconButton from "../../../components/LeadingIconButton";
+import { userActions } from "../../../../actions";
 
 const DetailUser = () => {
-
-  const InformList = [
+  const userInfo = useSelector(state=>state.user.user)
+  const dispatch = useDispatch()
+  const {id} = useParams()
+  console.log(id, "id nè")
+  useEffect(()=>{
+    dispatch(userActions.getOne(id))
+  }, [])
+  let InformList = [
     {
       name: "Họ và tên",
+      key: "name",
       value: "tennnn"
     },
     {
       name: "ID",
+      key: "_id",
       value: "id"
     },
     {
       name: "Ngày sinh",
+      key: "birthday",
       value: "22/4/2001"
     },
     {
       name: "Email",
+      key: "mail",
+      value: "email"
+    },
+    {
+      name: "Tên đăng nhập",
+      key: "username",
       value: "email"
     },
     {
       name: "Số điện thoại",
+      key: "phone",
       value: "0999999"
     },
     {
       name: "Số dư",
+      key: "gem",
       value: "500 GEM"
     },
   ];
+  const [inforList, setInfoList] = useState(InformList)
+
 
   const courses = [{
     name: "khóa học gì không biết nữa kkk"
@@ -96,26 +117,13 @@ const DetailUser = () => {
 
   return (
     <>
-      <Container className='profile' maxWidth="xl">
-        <div className="title-profile">
-          <button onClick={() => handleClick()}>
-            <BackToPageButton content="Danh sách người dùng" />
-          </button>
-          <div className="btn-group">
-            <button variant="outlined">
-              <AiOutlineExport />
-              Xuất Excel
-            </button>
-
-            <button variant="outlined">
-              <AiOutlineLock />
-              Khóa tài khoản
-            </button>
-
-            <button variant="outlined">
-              <AiOutlineDelete />
-              Xóa tài khoản
-            </button>
+      <Container className='manager-fa-ke-modal profile' maxWidth="xl">
+        <div className="justify-content-between">
+            <BackToPageButton onClick={() => handleClick()} content="Danh sách người dùng" />
+          <div className="align-center">
+          <LeadingIconButton icon={<AiOutlineExport />} content="Xuất Excel" />
+          <LeadingIconButton icon={<AiOutlineLock />} content="Khóa tài khoản" />
+          <LeadingIconButton icon={<AiOutlineDelete />} content="Xóa tài khoản" />
           </div>
         </div>
 
@@ -124,7 +132,7 @@ const DetailUser = () => {
             <div className="avatar-group">
               {<Avatar
                 alt="Remy Sharp"
-                src="/SE-LOGO.png"
+                src={userInfo.avatar}
                 sx={{ width: 210, height: 210 }}
               />}
             </div>
@@ -132,23 +140,43 @@ const DetailUser = () => {
             <Grid container>
               <Grid item xs={6}>
                 <div className="inform-item">
-                  <h5 className="name-inform">{InformList[0].name}</h5>
-                  <p className="value-inform">{InformList[0].value}</p>
+                  <h5 className="name-inform">Họ và tên</h5>
+                  <p className="value-inform">{userInfo.name}</p>
                 </div>
               </Grid>
               <Grid item xs={6}>
                 <div className="inform-item">
-                  <h5 className="name-inform">{InformList[1].name}</h5>
-                  <p className="value-inform">{InformList[1].value}</p>
+                  <h5 className="name-inform">ID</h5>
+                  <p className="value-inform">{userInfo._id}</p>
                 </div>
               </Grid>
             </Grid>
-            {InformList.slice(2).map((item, index) =>
-              <div className="inform-item" key={index}>
-                <h5 className="name-inform">{item.name}</h5>
-                <p className="value-inform">{item.value}</p>
+     
+            <div className="inform-item">
+                <h5 className="name-inform">Ngày sinh</h5>
+                <p className="value-inform">{userInfo.birthday}</p>
               </div>
-            )}
+
+              <div className="inform-item">
+                <h5 className="name-inform">Email</h5>
+                <p className="value-inform">{userInfo.mail}</p>
+              </div>
+              
+              <div className="inform-item">
+                <h5 className="name-inform">Tên đăng nhập</h5>
+                <p className="value-inform">{userInfo.username}</p>
+              </div>
+              
+              <div className="inform-item">
+                <h5 className="name-inform">Số điện thoại</h5>
+                <p className="value-inform">{userInfo.phone}</p>
+              </div>
+
+              
+              <div className="inform-item">
+                <h5 className="name-inform">Số dư</h5>
+                <p className="value-inform">{userInfo.gem}</p>
+              </div>
             <div style={{
               display: "flex",
               justifyContent: "left",

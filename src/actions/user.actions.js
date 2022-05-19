@@ -8,6 +8,7 @@ export const userActions = {
   logout,
   register,
   getAll,
+  getOne,
   delete: _delete,
   getUserCourses,
   getUserNotifications,
@@ -86,6 +87,32 @@ function register(user) {
   }
   function failure(error) {
     return { type: userConstants.REGISTER_FAILURE, error };
+  }
+}
+
+function getOne(id, callback) {
+  return (dispatch) => {
+    dispatch(request());
+
+    usersServices.getOne(id, callback).then(
+      (users) => {dispatch(success(users["data"]))
+        if (callback)
+        {
+          callback(users["data"])
+        }
+    },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.GETONE_REQUEST };
+  }
+  function success(user) {
+    return { type: userConstants.GETONE_SUCCESS, user };
+  }
+  function failure(error) {
+    return { type: userConstants.GETONE_FAILURE, error };
   }
 }
 

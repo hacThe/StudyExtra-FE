@@ -4,8 +4,7 @@ const initialState = {
   courses: [],
  // exams: [],
   isLoading: false,
-  error: "",
-  users: [],
+  error: ""
 };
 
 export function userCourses(state = initialState, action) {
