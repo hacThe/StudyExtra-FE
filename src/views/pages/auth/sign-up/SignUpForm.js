@@ -28,7 +28,7 @@ function SignUpForm(props) {
       email: Yup.string().email().required("Vui lòng nhập email"),
       repassword: Yup.string()
         .required("Required")
-        .oneOf([Yup.ref("password"), null], "Không trùng khớp mật khẩu"),
+        .oneOf([Yup.ref("password"), null], "Mật khẩu không trùng khớp"),
       phone: Yup.string().matches(
         /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
         "Vui lòng nhập đúng số điện thoại"

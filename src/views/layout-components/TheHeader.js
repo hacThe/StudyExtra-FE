@@ -31,6 +31,7 @@ import { IoNotificationsSharp, IoHome } from "react-icons/io5";
 import "./TheHeader.scss";
 import { searchAction } from '../../actions/search.action';
 import { userActions } from "../../actions/user.actions";
+import { ResetPasswordModal } from '../pages/profile/component/ResetPasswordModal';
 
 function TheHeader() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -54,12 +55,14 @@ function TheHeader() {
     handleMobileMenuClose();
   };
 
+  const [passwordModal, setPasswordModal] = useState(false);
+
   //-----------Search
   const [search, setSearch] = useState('');
 
-   const handleChangeSearch = (event) => {
-     setSearch(event.target.value)
-   }
+  const handleChangeSearch = (event) => {
+    setSearch(event.target.value)
+  }
 
   const handleClickSearch = (event) => {
     dispatch(searchAction.getSearch(search))
@@ -99,7 +102,7 @@ function TheHeader() {
 
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
   const profileMenuId = "primary-search-account-menu";
-  function handleLogout(){
+  function handleLogout() {
     dispatch(userActions.logout())
   }
   const renderMenu = (
@@ -135,7 +138,8 @@ function TheHeader() {
       <Link to="/thong-tin-tai-khoan">
         <MenuItem onClick={handleMenuClose}>Thông tin tài khoản</MenuItem>
       </Link>
-      <MenuItem onClick={handleMenuClose}>Đổi mật khẩu</MenuItem>
+      <MenuItem onClick={() => { setPasswordModal(true); handleMenuClose() }}>Đổi mật khẩu</MenuItem>
+      {passwordModal && <ResetPasswordModal isOpen={passwordModal} setPassOpen={setPasswordModal} />}
       <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
     </Menu>
   );
@@ -322,7 +326,7 @@ function TheHeader() {
   )
   const navigate = useNavigate();
   const LoginBtn = (
-    <Grid item md={4} xs={3}  className="avatar-notification_group">
+    <Grid item md={4} xs={3} className="avatar-notification_group">
       <Button variant="contained"
         style={{ background: "#7B68EE", textTransform: "none", fontFamily: "Montserrat", fontSize: "1.4rem" }}
         onClick={() => {
@@ -396,7 +400,7 @@ function TheHeader() {
                   inputProps={{ "aria-label": "search" }}
                   className="search-inp"
                   onKeyPress={(e) => handleKeyPressSearch(e)}
-                 onChange={(e) => handleChangeSearch(e)}
+                  onChange={(e) => handleChangeSearch(e)}
                 ></InputBase>
               </Box>
             </Grid>

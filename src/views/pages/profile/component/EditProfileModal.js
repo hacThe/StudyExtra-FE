@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { userActions } from "./../../../../actions/user.actions";
@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { FiEdit, FiRefreshCw } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
 import { Modal, Box } from '@mui/material';
+import { ResetPasswordModal } from "./ResetPasswordModal";
 import "./EditProfileModal.scss"
 
 function EditModal(props) {
@@ -66,7 +67,7 @@ function EditModal(props) {
             }
 
         },
-    });
+    });    
 
     return (
         <div className="edit-modal-wrapper">
@@ -126,7 +127,7 @@ function EditModal(props) {
                             <div className="input-item">
                                 <h5>Giới tính</h5>
                                 <select id="gender" value={formik.values.gender} onChange={formik.handleChange}>
-                                    <option value="Vietcombank">nam</option>
+                                    <option value="nam">nam</option>
                                     <option value="nữ">nữ</option>
                                     <option value="khác">khác</option>
                                 </select>
@@ -167,8 +168,9 @@ function EditModal(props) {
                                     onClick={() => { formik.setValues(formik.initialValues) }}>
                                     <FiRefreshCw style={{ height: "2rem", width: "2rem" }} />
                                 </button>
-                                <button type="button" className="reset-pass">Đổi mật khẩu</button>
+                                <button type="button" className="reset-pass" onClick={()=>{props.setPassOpen(true); handleClose()}}>Đổi mật khẩu</button>
                             </div>
+
                             <div className="btn-submit">
                                 <button
                                     className="btn-update"

@@ -157,7 +157,7 @@ const ForgotPassword = () => {
           ),
         repassword: Yup.string()
           .required("Required")
-          .oneOf([Yup.ref("password"), null], "Không trùng khớp mật khẩu"),
+          .oneOf([Yup.ref("password"), null], "Mật khẩu không trùng khớp"),
       }),
       onSubmit: (values) => {
         VerifyResetPasswordOnClick(values.password)

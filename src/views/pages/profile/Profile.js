@@ -9,6 +9,7 @@ import { userActions } from "./../../../actions/user.actions";
 import { UploadModal } from "./component/UpLoadAvatarModal";
 import { EditModal } from "./component/EditProfileModal";
 import { DepositModal } from "./component/DepositModal";
+import { ResetPasswordModal } from "./component/ResetPasswordModal";
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -114,6 +115,7 @@ const Profile = () => {
     })
   })
 
+  const [passOpen, setPassOpen] = useState(false);
 
 
   return (
@@ -121,8 +123,10 @@ const Profile = () => {
       <Container className='profile' maxWidth="xl">
         <div className="title-profile">
           <h1>Hồ sơ học viên</h1>
-          <EditModal user={UserInfo} />
+          <EditModal user={UserInfo} setPassOpen = {setPassOpen}/>
         </div>
+        {passOpen && <ResetPasswordModal isOpen= {passOpen} setPassOpen = {setPassOpen}/>}
+
 
         <Grid container spacing={2} className="information-group">
           <Grid item xs={12} md={5} className="left-grid">
@@ -163,7 +167,7 @@ const Profile = () => {
                 <h5>Toàn bộ khóa học</h5>
                 {courses.map((item, index) =>
                   <div key={index} className='course-item'>
-                    <Link to=''>{item.name}</Link>
+                    <Link to={'/chi-tiet-khoa-hoc/' + item.courseId} >{item.name}</Link>
                   </div>
                 )}
               </Grid>
