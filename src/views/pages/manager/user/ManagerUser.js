@@ -17,6 +17,11 @@ const ManagerUser = () => {
   const [anchorNt, setAnchorNt] = React.useState(null);
   const isNotificationMenuOpen = Boolean(anchorNt);
 
+  const handleDepositRequestOnClick = ()=>{
+    navigate('/quan-ly/nguoi-dung/yeu-cau-nap-gem')
+  }
+
+
   const handleNotificationMenuOpen = (event) => {
     setAnchorNt(event.currentTarget);
   };
@@ -71,12 +76,12 @@ const ManagerUser = () => {
                 variant="contained"
                 className="gem-request"
                 aria-controls={MenuId}
-                onClick={handleNotificationMenuOpen}>
+                onClick={handleDepositRequestOnClick}>
                 <FaGem />
                 Yêu cầu nạp GEM
               </Button>
             </Badge>
-            <GemRequestMenu
+            {/* <GemRequestMenu
               handleNotificationMenuOpen={handleNotificationMenuOpen}
               handleNotificationMenuClose={handleNotificationMenuClose}
               MenuId={MenuId}
@@ -84,7 +89,7 @@ const ManagerUser = () => {
               setAnchorNt={anchorNt}
               gemRequests={gemRequests}
               isNotificationMenuOpen={isNotificationMenuOpen}
-            ></GemRequestMenu>
+            ></GemRequestMenu> */}
             <Button className="btn-export">
               <AiOutlineExport />
               Xuất file

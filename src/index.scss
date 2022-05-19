@@ -27,6 +27,24 @@ code {
   }
 }
 
+.se-action-btn{
+  font-family: 'Montserrat';
+  font-size: 1.4rem;
+  text-align: center;
+  line-height: 37px;
+  padding: 0 12px;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  color: white;
+  &:hover{
+    cursor: pointer;
+    filter: brightness(.8);
+  }
+}
+
+.se-action-btn.danger{
+  background-color: var(--danger-color);
+}
 .outline-btn {
   background-color: transparent;
   border: 1px solid var(--primary-color);
