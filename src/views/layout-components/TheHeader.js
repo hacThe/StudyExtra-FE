@@ -99,6 +99,9 @@ function TheHeader() {
 
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
   const profileMenuId = "primary-search-account-menu";
+  function handleLogout(){
+    dispatch(userActions.logout())
+  }
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -133,7 +136,7 @@ function TheHeader() {
         <MenuItem onClick={handleMenuClose}>Thông tin tài khoản</MenuItem>
       </Link>
       <MenuItem onClick={handleMenuClose}>Đổi mật khẩu</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Đăng xuất</MenuItem>
+      <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
     </Menu>
   );
   //--------------------------------------------------------------NOTIFICATION-MENU-------------------------------------------------------//

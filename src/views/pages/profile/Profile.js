@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "./../../../actions/user.actions";
 import { UploadModal } from "./component/UpLoadAvatarModal";
 import { EditModal } from "./component/EditProfileModal";
+import { DepositModal } from "./component/DepositModal";
+
 const Profile = () => {
   const dispatch = useDispatch()
   const UserInfo = useSelector(state => state.authentication.user);
@@ -139,13 +141,7 @@ const Profile = () => {
                   : <p className="value-inform">{item.value}</p>}
               </div>
             )}
-            <div style={{
-              display: "flex",
-              justifyContent: "left",
-              flexWrap: "wrap"
-            }}>
-              <Button variant="contained" className="btn-contained">Nạp tiền vào tài khoản</Button>
-            </div>
+          <DepositModal />
           </Grid>
           <Grid item xs={12} md={7} className="right-grid">
             <Grid container className="courses-exams-group">

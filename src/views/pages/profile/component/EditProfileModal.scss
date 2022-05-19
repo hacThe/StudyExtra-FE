@@ -1,0 +1,94 @@
+.css-79ws1d-MuiModal-root {
+    .box-modal {
+        .form-group {
+            padding: 5rem;
+            background-color: #FFFFFF;
+            min-height: 50rem;
+            position: relative;
+
+            .btn-cancel {
+                position: absolute;
+                top: 0;
+                right: 0;
+                padding: 1rem;
+                margin: 0.5rem;
+                background-color: #FFFFFF;
+                color: #000000;
+
+                svg {
+                    height: 1.5rem;
+                    width: 1.5rem;
+                }
+            }
+
+            h1 {
+                margin-bottom: 5rem;
+            }
+
+            .form-update {
+                input {
+                    width: 40rem;
+                }
+
+                .input-item {
+                    margin-bottom: 2rem;
+
+                    h5 {
+                        font-family: 'Montserrat';
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 17px;
+                        line-height: 24px;
+                        color: #000000;
+                        margin-bottom: 0.3rem;
+                    }
+                }
+            }
+
+            .btn-change-password {
+                display: flex;
+                justify-content: end;
+                position: relative;
+
+                .reset-pass {
+                    background-color: transparent;
+                    color: #000;
+                    padding: 0.5rem;
+                    transition: none;
+                }
+
+                .reset-pass:hover {
+                    color: #4B4BEC;
+                }
+
+                .refresh-btn {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    padding: 0.5rem;
+                    background-color: transparent;
+                    color: #000
+                }
+                .refresh-btn:hover{
+                    background-color: rgba(15, 14, 14, 0.2);
+                }
+            }
+
+            .btn-submit {
+                margin-top: 2rem;
+                display: flex;
+                justify-content: center;
+
+                button {
+                    transition: none;
+                    border-radius: 0.5rem;
+                    font-size: 17px;
+                    font-weight: 600;
+                    line-height: 20px;
+                    min-width: 40rem;
+                }
+            }
+        }
+    }
+}

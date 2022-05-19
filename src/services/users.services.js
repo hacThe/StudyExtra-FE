@@ -15,7 +15,8 @@ export const usersServices = {
   verifyEmail,
   sendVerifyCode,
   verifyCode,
-  setNewPassword
+  setNewPassword,
+  depositRequest
 };
 
 function login(username, password) {
@@ -65,4 +66,7 @@ function verifyCode(username, verifyCode) {
 }
 function setNewPassword(username, verifyCode, newPassword) {
   return handleResponse(ajaxHelper.post(config.URL_SET_NEW_PASSWORD, {username, verifyCode, newPassword}, options()));
+}
+function depositRequest(transaction) {
+  return handleResponse(ajaxHelper.post(config.URL_DEPOSIT_REQUEST, transaction, options()));
 }

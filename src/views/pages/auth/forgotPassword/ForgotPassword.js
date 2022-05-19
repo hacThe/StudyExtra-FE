@@ -216,7 +216,7 @@ const ForgotPassword = () => {
                   },
                 }}
               />
-              {passwordFormik.errors.password && (
+              {passwordFormik.errors.password && passwordFormik.touched.password (
                 <p className="input-error-validation"> {passwordFormik.errors.password} </p>
               )}
 
@@ -239,7 +239,7 @@ const ForgotPassword = () => {
                   },
                 }}
               />
-              {passwordFormik.errors.repassword && (
+              {passwordFormik.errors.repassword && passwordFormik.touched.repassword(
                 <p className="input-error-validation"> {passwordFormik.errors.repassword} </p>
               )}
 

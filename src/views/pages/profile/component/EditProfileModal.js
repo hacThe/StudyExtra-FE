@@ -5,7 +5,9 @@ import { userActions } from "./../../../../actions/user.actions";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { FiEdit, FiRefreshCw } from "react-icons/fi";
+import { GrClose } from "react-icons/gr";
 import { Modal, Box } from '@mui/material';
+import "./EditProfileModal.scss"
 
 function EditModal(props) {
     const [open, setOpen] = React.useState(false);
@@ -16,7 +18,7 @@ function EditModal(props) {
             setOpen(false)
         }
     }
-    const cancleHandleClick = () => {
+    const cancelHandleClick = () => {
         formik.setValues(formik.initialValues);
         setOpen(false);
     }
@@ -55,10 +57,10 @@ function EditModal(props) {
         }),
         onSubmit: (values) => {
             console.log("Edit modal:  ", values);
-            if(values !== formik.initialValues){
+            if (values !== formik.initialValues) {
                 dispatch(userActions.updateProfile(values));
             }
-            else{
+            else {
                 alert("Thông tin không bị thay đổi");
             }
 
@@ -79,13 +81,14 @@ function EditModal(props) {
             >
                 <Box style={style} className="box-modal">
                     <div className="form-group">
+                        <button
+                            type="button"
+                            className="btn-cancel"
+                            onClick={() => cancelHandleClick()}
+                        > <GrClose />
+                        </button>
                         <h1 style={{ display: "flex", flexWrap: "nowrap", justifyContent: "space-between" }}>
                             Chỉnh sửa thông tin cá nhân
-                            <button
-                                style={{ padding: "0rem 2rem", backgroundColor: "transparent", color: "#000" }}
-                                onClick = {() => {formik.setValues(formik.initialValues)}}>
-                                <FiRefreshCw style={{ height: "2rem", width: "2rem" }} />
-                            </button>
                         </h1>
                         <form className="form-update" onSubmit={formik.handleSubmit}>
                             <div className="input-item">
@@ -148,15 +151,15 @@ function EditModal(props) {
                             </div>
 
                             <div className="btn-change-password" >
-                                <button type="button">Đổi mật khẩu</button>
-                            </div>
-                            <div className="btn-group">
                                 <button
+                                    className="refresh-btn"
                                     type="button"
-                                    className="btn-cancle"
-                                    onClick={() => cancleHandleClick()}
-                                > Hủy
+                                    onClick={() => { formik.setValues(formik.initialValues) }}>
+                                    <FiRefreshCw style={{ height: "2rem", width: "2rem" }} />
                                 </button>
+                                <button type="button" className="reset-pass">Đổi mật khẩu</button>
+                            </div>
+                            <div className="btn-submit">
                                 <button
                                     className="btn-update"
                                     type="submit"
