@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { usersServices } from "../../../../services";
 import { Link, useNavigate } from "react-router-dom";
-import { TextField, Box, Grid, Stack, Button } from "@mui/material";
+import { TextField, Box, Grid, Stack, Button, useForkRef } from "@mui/material";
 import { BsGoogle, BsFacebook, BsFillReplyFill } from "react-icons/bs";
 import "./ForgotPassword.scss";
 import { maxWidth } from "@mui/system";
@@ -9,33 +12,47 @@ import { maxWidth } from "@mui/system";
 const ForgotPassword = () => {
   // 0: ForgotPasswordModal, 1
   const [currentPage, setPage] = useState(0);
+  const username = useRef();
+  const verifyCode = useRef();
+  const targetEmail = useRef();
   const navigate = useNavigate();
 
-  function sendVerifyCodeOnClick() {
-    // execute send verify code
-    setPage(1);
-  }
-
-  function resendCodeOnClick() {
-    // execute re-send verify code
-  }
-
-  function VerifyCodeOnClick() {
-    // execute verify code\
-    setPage(2);
-  }
 
   function backButtonOnClick() {
     setPage(currentPage - 1);
   }
 
 
-  function VerifyResetPasswordOnClick(){
-    // execute reset password
-    navigate('/dang-nhap')
-  }
+  //------------------------------------------------------verify code-----------------------------------//
+  function VerifyAuthCode(props) {
+    const [inputCode, setInputCode] = useState("");
+    function VerifyCodeOnClick() {
+      usersServices.verifyCode(props.username.current, inputCode).then(
+        (data) => {
+          alert(data.message);
+          props.verifyCode.current = inputCode;
+          setPage(2);
+        },
+        (error) => {
+          alert(error.toString());
+        }
+      )
+    }
 
-  function VerifyAuthCode() {
+    function resendCodeOnClick() {
+      // execute re-send verify code
+      usersServices.sendVerifyCode(props.username.current).then(
+        (data) => {
+          alert("Verify code has just sent to email: *******" + data.email.slice(7));
+          props.targetEmail.current = data.email;
+          setPage(1);
+        },
+        (error) => {
+          alert(error.toString());
+        }
+      )
+    }
+
     return (
       <div className="sign-up-form-modal">
         <div onClick={backButtonOnClick} className="back-btn">
@@ -57,7 +74,7 @@ const ForgotPassword = () => {
           <p>
             Vui lòng kiểm tra email để nhận mã đặt lại mật khẩu gồm 8 chữ số.
           </p>
-          <p>Chúng tôi đã gửi mật mã đến email: Hienthe993@gmail.com</p>
+          <p>Chúng tôi đã gửi mã xác nhận đến email: *******{props.targetEmail.current.slice(7)}</p>
 
           <Stack
             sx={{
@@ -72,11 +89,14 @@ const ForgotPassword = () => {
               id="outlined-basic"
               label="Mã xác nhận: XXXXXXXX"
               variant="outlined"
+              value={inputCode}
+              onChange={e => setInputCode(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && VerifyCodeOnClick()}
               InputProps={{
                 style: {
                   borderRadius: "30px",
                   paddingLeft: "18px",
-                  fontSize: "1.4rem",
+                  fontSize: "1.5rem",
                 },
               }}
               InputLabelProps={{
@@ -89,9 +109,9 @@ const ForgotPassword = () => {
               }}
             />
 
-            <div onClick={VerifyCodeOnClick} className="se-btn login-btn">
+            <button onClick={VerifyCodeOnClick} className="se-btn login-btn">
               XÁC NHẬN
-            </div>
+            </button>
           </Stack>
           <p
             onClick={resendCodeOnClick}
@@ -104,144 +124,242 @@ const ForgotPassword = () => {
       </div>
     );
   }
+  //-----------------------------------------ResetPassword--------------------------------------//
+  function ResetPassword(props) {
+    function VerifyResetPasswordOnClick(password) {
+      // execute reset password
+      usersServices.setNewPassword(props.username.current, props.verifyCode.current, password).then(
+        (data) => {
+          alert("Reset password successfully");
+          console.log(data);
+          navigate('/dang-nhap')
+        },
+        (error) => {
+          alert(error.toString());
+        }
+      )
+    }
 
-  function ResetPassword() {
+    const passwordFormik = useFormik({
+      validateOnChange: true,
+      validateOnBlur: true,
+      validateOnMount: false,
+      initialValues: {
+        password: "",
+        repassword: "",
+      },
+      validationSchema: Yup.object({
+        password: Yup.string()
+          .required("Vui lòng nhập mật khẩu")
+          .matches(
+            /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+            "Mật khẩu tối thiểu 8 kí tự, bao gồm chữ cái và chữ số"
+          ),
+        repassword: Yup.string()
+          .required("Required")
+          .oneOf([Yup.ref("password"), null], "Mật khẩu không trùng khớp"),
+      }),
+      onSubmit: (values) => {
+        VerifyResetPasswordOnClick(values.password)
+      },
+    });
+
     return (
       <div className="sign-up-form-modal">
-        <div onClick={backButtonOnClick} className="back-btn">
-          <BsFillReplyFill />
-        </div>
-        <Stack
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          sx={{
-            backgroundColor: "#fff",
-            maxWidth: "800px",
-            padding: "18px",
-            borderRadius: "10px",
-          }}
-        >
-          <div className="app-logo" />
-          <h1 className="modal-title">ĐẶT LẠI MẬT KHẨU</h1>
-
+        <form onSubmit={passwordFormik.handleSubmit}>
+          <div onClick={backButtonOnClick} className="back-btn">
+            <BsFillReplyFill />
+          </div>
           <Stack
-            sx={{
-              width: "80%",
-              maxWidth: "500px",
-            }}
-            spacing={2}
             direction="column"
-            margin="24px"
+            justifyContent="center"
+            alignItems="center"
+            sx={{
+              backgroundColor: "#fff",
+              maxWidth: "800px",
+              padding: "18px",
+              borderRadius: "10px",
+            }}
           >
-            <TextField
-              id="outlined-basic"
-              label="Mật khẩu mới"
-              type="password"
-              variant="outlined"
-              InputProps={{
-                style: {
-                  borderRadius: "30px",
-                  paddingLeft: "18px",
-                  fontSize: "1.4rem",
-                },
-              }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "'Montserrat', san-serif",
-                  borderColor: "white",
-                  borderColor: "black",
-                  fontSize: "1.4rem",
-                },
-              }}
-            />
+            <div className="app-logo" />
+            <h1 className="modal-title">ĐẶT LẠI MẬT KHẨU</h1>
 
-            <TextField
-              id="outlined-basic"
-              label="Xác nhận mật khẩu"
-              type="password"
-              variant="outlined"
-              InputProps={{
-                style: { borderRadius: "30px", paddingLeft: "18px", fontSize: "1.4rem" },
+            <Stack
+              sx={{
+                width: "80%",
+                maxWidth: "500px",
               }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "'Montserrat', san-serif",
-                  borderColor: "white",
-                  borderColor: "black",
-                  fontSize: "1.4rem"
-                },
-              }}
-            />
+              spacing={2}
+              direction="column"
+              margin="24px"
+            >
+              <TextField
+                id="password"
+                label="Mật khẩu mới"
+                type="password"
+                variant="outlined"
+                value={passwordFormik.values.password}
+                onChange={passwordFormik.handleChange}
+                InputProps={{
+                  style: {
+                    borderRadius: "30px",
+                    paddingLeft: "18px",
+                    fontSize: "1.5rem",
+                  },
+                }}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "'Montserrat', san-serif",
+                    borderColor: "white",
+                    borderColor: "black",
+                    fontSize: "1.4rem",
+                  },
+                }}
+              />
+              {passwordFormik.errors.password && passwordFormik.touched.repassword && (
+                <p className="input-error-validation"> {passwordFormik.errors.password} </p>
+              )}
 
-            <div onClick={VerifyResetPasswordOnClick} className="se-btn login-btn">XÁC NHẬN</div>
+              <TextField
+                id="repassword"
+                label="Nhập lại mật khẩu"
+                type="password"
+                variant="outlined"
+                value={passwordFormik.values.repassword}
+                onChange={passwordFormik.handleChange}
+                InputProps={{
+                  style: { borderRadius: "30px", paddingLeft: "18px", fontSize: "1.5rem" },
+                }}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "'Montserrat', san-serif",
+                    borderColor: "white",
+                    borderColor: "black",
+                    fontSize: "1.4rem"
+                  },
+                }}
+              />
+              {passwordFormik.errors.repassword && passwordFormik.touched.repassword && (
+                <p className="input-error-validation"> {passwordFormik.errors.repassword} </p>
+              )}
+
+              <button type="submit" className="se-btn login-btn">XÁC NHẬN</button>
+            </Stack>
           </Stack>
-        </Stack>
+        </form>
       </div>
     );
   }
 
-  function ForgotPasswordModal() {
+
+  //------------------------------------------------create-verify-code-------------------------//
+
+  function ForgotPasswordModal(props) {
+
+    function sendVerifyCodeOnClick(value) {
+      // execute send verify code
+      usersServices.sendVerifyCode(value.username).then(
+        (data) => {
+          alert("Verify code has just sent to email: *******" + data.email.slice(7));
+          props.targetEmail.current = data.email;
+          props.username.current = value.username;
+          setPage(1);
+        },
+        (error) => {
+          alert(error.toString());
+        }
+      )
+    }
+
+    const usernameFormik = useFormik({
+      validateOnChange: true,
+      validateOnBlur: true,
+      validateOnMount: false,
+      initialValues: {
+        username: "",
+      },
+      validationSchema: Yup.object({
+        username: Yup.string().required("Vui lòng nhập tên đăng nhập").matches(/^[a-zA-Z0-9]+$/, "Tên đăng nhập chỉ chứa chữ cái và chữ số ")
+      }),
+      onSubmit: (values) => {
+        console.log(values)
+        sendVerifyCodeOnClick(values);
+      },
+    });
+
     return (
       <div className="sign-up-form-modal">
-        <Stack
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-          sx={{
-            backgroundColor: "#fff",
-            maxWidth: "800px",
-            padding: "18px",
-            borderRadius: "10px",
-          }}
-        >
-          <div className="app-logo" />
-          <h1 className="modal-title">QUÊN MẬT KHẨU</h1>
-          <p>Nhập email để tìm kiếm tài khoản của bạn</p>
-
+        <form onSubmit={usernameFormik.handleSubmit}>
           <Stack
-            sx={{
-              width: "80%",
-              maxWidth: "500px",
-            }}
-            spacing={2}
             direction="column"
-            margin="24px"
+            justifyContent="center"
+            alignItems="center"
+            sx={{
+              backgroundColor: "#fff",
+              maxWidth: "800px",
+              padding: "18px",
+              borderRadius: "10px",
+            }}
           >
-            <TextField
-              id="outlined-basic"
-              label="Email"
-              type="email"
-              variant="outlined"
-              InputProps={{
-                style: {
-                  borderRadius: "30px",
-                  paddingLeft: "18px",
-                  fontSize: "1.4rem",
-                },
-              }}
-              InputLabelProps={{
-                style: {
-                  fontFamily: "'Montserrat', san-serif",
-                  fontSize: "1.4rem",
-                  borderColor: "white",
-                  borderColor: "black",
-                },
-              }}
-            />
+            <div className="app-logo" />
+            <h1 className="modal-title">QUÊN MẬT KHẨU</h1>
+            <p>Nhập username tài khoản của bạn</p>
 
-            <div onClick={sendVerifyCodeOnClick} className="se-btn login-btn">
-              Gửi
-            </div>
+            <Stack
+              sx={{
+                width: "80%",
+                maxWidth: "500px",
+              }}
+              spacing={2}
+              direction="column"
+              margin="24px"
+            >
+              <TextField
+                id="username"
+                label="Username "
+                type="username"
+                variant="outlined"
+
+                value={usernameFormik.values.username}
+                onChange={usernameFormik.handleChange}
+                InputProps={{
+                  style: {
+                    borderRadius: "30px",
+                    paddingLeft: "18px",
+                    fontSize: "1.5rem",
+                  },
+                }}
+                InputLabelProps={{
+                  style: {
+                    fontFamily: "'Montserrat', san-serif",
+                    fontSize: "1.4rem",
+                    borderColor: "white",
+                    borderColor: "black",
+                  },
+                }}
+              />
+              {usernameFormik.errors.username && (
+                <p className="input-error-validation"> {usernameFormik.errors.username} </p>
+              )}
+
+              <button type="submit" className="se-btn login-btn">
+                Gửi
+              </button>
+            </Stack>
+            <p style={{marginBottom: "1rem"}}>
+              <Link to="/dang-nhap">
+                <strong> Đăng Nhập</strong>
+              </Link>
+            </p>
+
+            <p>
+              Chưa có tài khoản?
+              <Link to="/dang-ky">
+                <strong> Đăng Ký</strong>
+              </Link>
+            </p>
           </Stack>
-
-          <p>
-            Chưa có tài khoản?
-            <Link to="/dang-ky">
-              <strong> Đăng Ký</strong>
-            </Link>
-          </p>
-        </Stack>
+        </form>
       </div>
     );
   }
@@ -257,10 +375,11 @@ const ForgotPassword = () => {
             height: "100vh",
           }}
         >
-          {currentPage == 0 && <ForgotPasswordModal />}
-          {currentPage == 1 && <VerifyAuthCode />}
-          {currentPage == 2 && <ResetPassword />}
+          {currentPage == 0 && <ForgotPasswordModal targetEmail={targetEmail} username={username} />}
+          {currentPage == 1 && <VerifyAuthCode username={username} targetEmail={targetEmail} verifyCode={verifyCode} />}
+          {currentPage == 2 && <ResetPassword username={username} verifyCode={verifyCode} />}
         </Stack>
+
       </div>
     </>
   );

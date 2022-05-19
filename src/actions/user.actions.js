@@ -6,14 +6,16 @@ import { cookiesUtil } from "../utilities";
 export const userActions = {
   login,
   logout,
-  register,
+ // register,
   getAll,
   getOne,
   delete: _delete,
   getUserCourses,
   getUserNotifications,
   uploadAvatar,
-  toogleLockState
+  toogleLockState,
+  updateProfile,
+  getUserTransaction
 };
 
 /// này là hàm login
@@ -56,6 +58,7 @@ function login(username, password) {
 function logout() {
   return (dispatch) => {
     usersServices.logout();
+   // window.location.reload(true);
     dispatch(success());
   };
   function success() {
@@ -63,18 +66,19 @@ function logout() {
   }
 }
 
-function register(user) {
+/* function register(user) {
   return (dispatch) => {
-    dispatch(request(user));
+    //dispatch(request(user));
 
     usersServices.register(user).then(
       () => {
-        dispatch(success());
-        // history.push('/login');
+      //  dispatch(success());
+        alert("register successfully");
         // dispatch(alertActions.success('Registration successful'));
       },
       (error) => {
-        dispatch(failure(error.toString()));
+     ////   dispatch(failure(error.toString()));
+        alert("ERROR: " + error.toString());
         // dispatch(alertActions.error(error.toString()));
       }
     );
@@ -89,7 +93,7 @@ function register(user) {
   function failure(error) {
     return { type: userConstants.REGISTER_FAILURE, error };
   }
-}
+} */
 
 function getOne(id, callback) {
   return (dispatch) => {
@@ -241,6 +245,7 @@ function uploadAvatar(avatarUrl) {
       (user) => {
         cookiesUtil.setCurrentUserInfo(user.user)
         dispatch(success(user))
+        window.location.reload(true);
       },
       (error) => dispatch(failure(error.toString()))
     );
@@ -256,3 +261,77 @@ function uploadAvatar(avatarUrl) {
     return { type: userConstants.UPLOAD_AVATAR_FAILURE, error };
   }
 }
+
+/* function verifyEmail(id, token) {
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.verifyEmail(id, token).then(
+      (emailVerifyResult) => {
+        console.log("verify errrrrr: ", emailVerifyResult);
+        dispatch(success())
+      },
+      (error) => {
+        console.log("errrrrrrr: ", error.toString())
+        dispatch(failure(error.toString()))
+      }
+    );
+  };
+
+  function request() {
+    return { type: userConstants.VERIFY_EMAIL_REQUEST};
+  }
+  function success() {
+    return { type: userConstants.VERIFY_EMAIL_SUCCESS};
+  }
+  function failure(error) {
+    return { type: userConstants.VERIFY_EMAIL_FAILURE, error };
+  }
+} */
+
+  
+function updateProfile(newInfo) {
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.updateProfile(newInfo).then(
+      (user) => {
+        cookiesUtil.setCurrentUserInfo(user.user)
+        dispatch(success(user))
+        window.location.reload(true);
+      },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.UPDATE_PROFILE_REQUEST};
+  }
+  function success(user) {
+    return { type: userConstants.UPDATE_PROFILE_SUCCESS, user};
+  }
+  function failure(error) {
+    return { type: userConstants.UPDATE_PROFILE_FAILURE, error };
+  }
+}
+
+function getUserTransaction() {
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.getUserTransaction().then(
+      (userTransaction) => {
+        dispatch(success(userTransaction))
+      },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.GET_USER_TRANSACTION_REQUEST};
+  }
+  function success(userTransaction) {
+    return { type: userConstants.GET_USER_TRANSACTION_SUCCESS, userTransaction};
+  }
+  function failure(error) {
+    return { type: userConstants.GET_USER_TRANSACTION_FAILURE, error };
+  }
+}
+

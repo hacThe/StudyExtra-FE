@@ -13,6 +13,8 @@ function SignUpForm(props) {
       fullname: "",
       email: "",
       phone: "",
+      birthday: "",
+      gender: "nam"
     },
     validationSchema: Yup.object({
       username: Yup.string().required("Vui lòng nhập tên đăng nhập").matches(/^[a-zA-Z0-9]+$/, "Tên đăng nhập chỉ chứa chữ cái và chữ số "),
@@ -26,14 +28,17 @@ function SignUpForm(props) {
       email: Yup.string().email().required("Vui lòng nhập email"),
       repassword: Yup.string()
         .required("Required")
-        .oneOf([Yup.ref("password"), null], "Không trùng khớp mật khẩu"),
+        .oneOf([Yup.ref("password"), null], "Mật khẩu không trùng khớp"),
       phone: Yup.string().matches(
         /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
         "Vui lòng nhập đúng số điện thoại"
       ),
+      birthday: Yup.date()
+        .max(new Date(), "Future date not allowed")
     }),
     onSubmit: (values) => {
       console.log(values)
+      props.onSubmit(values);
     },
   });
   return (
@@ -93,6 +98,27 @@ function SignUpForm(props) {
           {formik.errors.phone && formik.touched.phone && (
             <p className="input-error-validation"> {formik.errors.phone} </p>
           )}
+        </div>
+        <div className="mb-3">
+          <label htmlFor="birthday">Ngày sinh</label>
+          <input
+            type="date"
+            id="birthday"
+            name="birthday"
+            value={formik.values.birthday}
+            onChange={formik.handleChange}
+          />
+          {formik.errors.birthday && formik.touched.birthday && (
+            <p className="input-error-validation"> {formik.errors.birthday} </p>
+          )}
+        </div>
+        <div className="mb-3">
+          <label>Giới tính</label>
+          <select id="gender" value={formik.values.gender} onChange={formik.handleChange}>
+            <option value="Vietcombank">nam</option>
+            <option value="nữ">nữ</option>
+            <option value="khác">khác</option>
+          </select>
         </div>
 
         <div className="mb-3">

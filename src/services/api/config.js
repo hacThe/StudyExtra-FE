@@ -26,12 +26,20 @@ export default {
   URL_GET_POSTS: URL_SYSTEM_V1 + "/posts/getAllPosts",
 
   //account
-  URL_GET_USER_COURSES: URL_SYSTEM_V1 + "/profiles/getUserCourses",
-  URL_GET_USER_NOTIFICATIONS:
-    URL_SYSTEM_V1 + "/notification/getUserNotification",
-  URL_UPLOAD_AVATAR: URL_SYSTEM_V1 + "/profiles/uploadAvatar",
+  URL_GET_USER_COURSES: URL_SYSTEM_V1 + '/profiles/getUserCourses',
+  URL_GET_USER_NOTIFICATIONS: URL_SYSTEM_V1 + '/notification/getUserNotification',
+  URL_UPLOAD_AVATAR: URL_SYSTEM_V1 + '/profiles/uploadAvatar',
   URL_USERS: URL_SYSTEM_V1 + "/users",
   URL_USER_TOOGLE_BLOCK: URL_SYSTEM_V1 + "/users/lock",
+  URL_VERIFY_EMAIL: URL_SYSTEM_V1 + '/auth/',
+  URL_VERIFY_SEND_VERIFY_CODE: URL_SYSTEM_V1 + '/auth/sendVerifyCode',
+  URL_VERIFY_CODE: URL_SYSTEM_V1 + '/auth/verifyCode',
+  URL_SET_NEW_PASSWORD: URL_SYSTEM_V1 + '/auth/setNewPassword',
+  URL_UPDATE_PROFILE: URL_SYSTEM_V1 + '/profiles/updateProfile',
+  URL_DEPOSIT_REQUEST: URL_SYSTEM_V1 + '/transaction/createDepositRequest',
+  URL_GET_USER_TRANSACTION: URL_SYSTEM_V1 + '/transaction/getUserTransaction',
+  URL_RESET_PASSWORD: URL_SYSTEM_V1 + '/auth/resetPassword',
+  URL_RESEND_VERIFYEMAIL: URL_SYSTEM_V1 + '/auth/resendVerifyEmail',
 
   // document
   URL_GET_DOCUMENTS: URL_SYSTEM_V1 + "/document/",

@@ -1,0 +1,149 @@
+.css-79ws1d-MuiModal-root {
+    .box-modal {
+        .deposit-form-group {
+            position: relative;
+            padding: 2.4rem 5rem;
+            background-color: #FFFFFF;
+            min-height: 40rem;
+
+            .exit-btn {
+                position: absolute;
+                top: 0rem;
+                right: 0rem;
+
+                button {
+                    padding: 1rem;
+                    margin: 0.5rem;
+                    background-color: #FFFFFF;
+
+                    svg {
+                        height: 1.5rem;
+                        width: 1.5rem;
+                    }
+                }
+            }
+
+            .back-btn {
+                position: absolute;
+                top: 0rem;
+                left: 0rem;
+
+                button {
+                    padding: 1rem;
+                    margin: 0.5rem;
+                    background-color: #FFFFFF;
+                    color: #000;
+
+                    svg {
+                        height: 2rem;
+                        width: 2rem;
+                    }
+                }
+            }
+
+            .deposit-information {
+                h1 {
+                    font-weight: 700;
+                    font-size: 24px;
+                    line-height: 29px;
+                    text-align: center;
+                    margin-bottom: 2rem;
+                }
+
+                h2 {
+                    font-weight: 600;
+                    font-size: 20px;
+                    line-height: 24px;
+                    margin-bottom: 1.2rem;
+                }
+
+                .deposit-inform-item {
+                    margin-bottom: 3rem;
+
+                    h5 {
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 20px;
+                        margin-bottom: 0.5rem;
+                    }
+
+                    p {
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 20px;
+                    }
+                }
+
+                .btn-next {
+                    display: flex;
+                    justify-content: center;
+
+                    button {
+                        font-weight: 700;
+                        font-size: 18px;
+                        line-height: 22px;
+                        transition: none;
+                        border-radius: 0.5rem;
+                    }
+                }
+
+            }
+
+            .deposit-request {
+                h1 {
+                    font-weight: 700;
+                    font-size: 24px;
+                    line-height: 29px;
+                    text-align: center;
+                    margin-bottom: 0.8rem;
+                }
+
+                h5 {
+                    margin-bottom: 2rem;
+                    font-weight: 600;
+                    font-size: 18px;
+                    line-height: 22px;
+                    text-align: center;
+                }
+
+                .deposit-request-form {
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+
+                    .input-item {
+                        margin-bottom: 1.5rem;
+
+                        h5 {
+                            font-weight: 600;
+                            font-size: 18px;
+                            line-height: 22px;
+                            margin-bottom: 0.8rem;
+                            text-align: left;
+                        }
+
+                        input {
+                            width: 33rem;
+                        }
+                        select{
+                            width: 33rem;
+                        }
+                    }
+
+                    .btn-submit {
+                        margin: 1rem 0rem;
+                        button {
+                            min-width: 33rem;
+                            border-radius: 0.5rem;
+                            font-weight: 600;
+                            font-size: 17px;
+                            line-height: 22px;
+                            transition: none;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
