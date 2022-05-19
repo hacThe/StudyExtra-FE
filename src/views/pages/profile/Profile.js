@@ -40,7 +40,11 @@ const Profile = () => {
     },
     {
       name: "Ngày sinh",
-      value: new Date(UserInfo.birthday).getDate() + "-" + new Date(UserInfo.birthday).getMonth() + "-" + new Date(UserInfo.birthday).getFullYear(),
+      value: new Date(UserInfo.birthday).getDate() + "-" + (new Date(UserInfo.birthday).getMonth() + 1) + "-" + new Date(UserInfo.birthday).getFullYear(),
+    },
+    {
+      name: "Giới tính",
+      value: UserInfo.gender,
     },
     {
       name: "Email",
@@ -103,7 +107,7 @@ const Profile = () => {
     rowDocs.push({
       id: _index + 1,
       stt: _index + 1,
-      thoigian: time.getDate() + '-' + time.getMonth() + '-' + time.getFullYear() + " __ " + time.getHours() + ":" + time.getMinutes(),
+      thoigian: time.getDate() + '-' + (time.getMonth()+1) + '-' + time.getFullYear() + " __ " + time.getHours() + ":" + time.getMinutes(),
       thaydoi: value.type === 'deposit' ? value.amount : 0 - value.amount,
       sodu: value.balance,
       ghichu: value.note
@@ -130,22 +134,17 @@ const Profile = () => {
               />}
               <UploadModal avatar={UserInfo.avatar}></UploadModal>
             </div>
-
             <Grid container>
-              <Grid item xs={6}>
-                <div className="inform-item">
-                  <h5 className="name-inform">{InformList[0].name}</h5>
-                  <p className="value-inform">{InformList[0].value}</p>
-                </div>
-              </Grid>
-              <Grid item xs={6}>
-                <div className="inform-item">
-                  <h5 className="name-inform">{InformList[1].name}</h5>
-                  <p className="value-inform">{InformList[1].value}</p>
-                </div>
-              </Grid>
+              {InformList.slice(0, 4).map((item, index) =>
+                <Grid item xs={6} key={index}>
+                  <div className="inform-item">
+                    <h5 className="name-inform">{item.name}</h5>
+                    <p className="value-inform">{item.value}</p>
+                  </div>
+                </Grid>
+              )}
             </Grid>
-            {InformList.slice(2).map((item, index) =>
+            {InformList.slice(4).map((item, index) =>
               <div className="inform-item" key={index}>
                 <h5 className="name-inform">{item.name}</h5>
                 {item.name === "Email" && !item.verified ?

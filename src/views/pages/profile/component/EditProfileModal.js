@@ -43,7 +43,8 @@ function EditModal(props) {
             fullname: props.user.name,
             email: props.user.mail,
             phone: props.user.phone,
-            birthday: props.user.birthday?.split('T')[0]
+            birthday: props.user.birthday?.split('T')[0],
+            gender: props.user.gender
         },
         validationSchema: Yup.object({
             fullname: Yup.string().required("Vui lòng nhập họ và tên"),
@@ -120,6 +121,15 @@ function EditModal(props) {
                                 {formik.errors.birthday && (
                                     <p className="input-error-validation"> {formik.errors.birthday} </p>
                                 )}
+                            </div>
+
+                            <div className="input-item">
+                                <h5>Giới tính</h5>
+                                <select id="gender" value={formik.values.gender} onChange={formik.handleChange}>
+                                    <option value="Vietcombank">nam</option>
+                                    <option value="nữ">nữ</option>
+                                    <option value="khác">khác</option>
+                                </select>
                             </div>
 
                             <div className="input-item">

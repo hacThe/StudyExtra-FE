@@ -188,7 +188,7 @@ function DepositModal(props) {
                 aria-describedby="modal-modal-description"
             >
                 <Box style={style} className="box-modal">
-                    <div className="form-group">
+                    <div className="deposit-form-group">
                         <div className="exit-btn">
                             <button onClick={handleClose}>
                                 <GrClose />
