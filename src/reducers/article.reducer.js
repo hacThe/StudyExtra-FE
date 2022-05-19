@@ -26,6 +26,7 @@ export function article(state = initialState, action) {
                 isLoading: false,
                 error: action.error
             };
+
         default:
             return state;
     }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 import './scss/Question.scss';
@@ -113,13 +113,29 @@ const Question = () => {
     const userInfo = useSelector(state => state.authentication.user);
     console.log("userInfo", userInfo);
 
-    const imgList = [
+    const [imgList, setImageList] = useState([
         "https://c.wallhere.com/photos/87/b3/Makise_Kurisu_Steins_Gate_anime-1250421.jpg!d",
-        "https://i.pinimg.com/474x/9f/45/28/9f4528ca270dd877228545f04200c58c.jpg",
-        "https://static.wikia.nocookie.net/steins-gate/images/5/50/KurisuMakise_animeprofile_%280%29.jpg/revision/latest?cb=20220212065513",
-    ]
+        // "https://i.pinimg.com/474x/9f/45/28/9f4528ca270dd877228545f04200c58c.jpg",
+        // "https://static.wikia.nocookie.net/steins-gate/images/5/50/KurisuMakise_animeprofile_%280%29.jpg/revision/latest?cb=20220212065513",
+    ])
+
+    const addNewImage = (imgLink) => {
+        setImageList([
+            ...imgList,
+            imgLink,
+        ])
+    }
 
     const [isOpenPost, setIsOpenPost] = useState(false);
+
+
+    const pageRef = {
+        postImageRef: useRef(null)
+    }
+
+    const uploadPicture = () => {
+
+    }
 
     return (    
         <div className="question-page-container">
@@ -144,16 +160,16 @@ const Question = () => {
                                 setIsOpenPost(!isOpenPost)
                             }}
                         >
-                            Thêm bài đăng
+                            {!isOpenPost ? <>Thêm bài đăng</> : <>Huỷ</>}
                         </button>
                     </div>
                     {
                         !isOpenPost ? (null) :
                         <div className="add-post-concrete">
                             <div className="add-post-heading">
-                                <div className="add-post-title">
+                                {/* <div className="add-post-title">
                                     Tạo bài viết
-                                </div>
+                                </div> */}
                                 {/* <div className='divider'>
     
                                 </div> */}
@@ -183,11 +199,44 @@ const Question = () => {
                                             );
                                         })
                                     }
+                                    <input
+                                        className='post-image-add-hidden'
+                                        type='file'
+                                        id='post-image-input'
+                                        ref={pageRef.postImageRef}
+                                        onChange={(e)=>{
+                                            var tgt = e.target || window.event.srcElement;
+                                            var files = tgt.files;
+                                            console.log("files", files);
+                                            // FileReader support
+                                            if (FileReader && files && files.length) {
+                                                var fr = new FileReader();
+                                                // fr.onload = function () {
+                                                //     document.querySelector('.product-current-upload-img').src = fr.result;
+                                                // }
+                                                // fr.readAsDataURL(files[0]);
+                                                uploadPicture();
+                                            }
+                                        }}
+                                    />
+                                    <label
+                                        className='post-image-add'
+                                        for='post-image-input'
+                                        // onClick={()=>{
+                                        //     console.log("pageRef.postImageRef", pageRef.postImageRef);
+                                        // }}
+                                    >
+                                        Thêm ảnh
+                                    </label>
+                                    
                                 </div>
-                                <button 
-                                    className='post-image-add'
+                                <button
+                                    className='post-adding-button'
+                                    onClick={ () => {
+
+                                    }}
                                 >
-                                    Thêm ảnh
+                                    Đăng bài
                                 </button>
                                 
                             </div>

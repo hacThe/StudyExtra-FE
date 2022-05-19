@@ -4,7 +4,8 @@ import { cookiesUtil } from '../utilities';
 import ajaxHelper from './api';
 
 export const articleService = {
-    getAllArticle
+    getAllArticle, 
+    uploadArticlePicture,
 };
 
 function getAllArticle() {
@@ -12,3 +13,10 @@ function getAllArticle() {
         ajaxHelper.get(config.URL_ARTICLE, {}, options())
     );
 }
+
+function uploadArticlePicture(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_ARTICLE_PICTURE, data, options())
+    );
+}
+
