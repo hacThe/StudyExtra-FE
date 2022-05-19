@@ -10,7 +10,9 @@ export const usersServices = {
   getUserCourses,
   getUserNotifications,
   uploadAvatar,
-  getOne
+  getOne,
+  toogleLockState,
+  _delete
 };
 
 function login(username, password) {
@@ -30,6 +32,20 @@ function getOne(id) {
     ajaxHelper.get(config.URL_USERS + `/${id}`, {}, options())
   );
 }
+
+
+function toogleLockState(id) {
+  return handleResponse(
+    ajaxHelper.post(config.URL_USER_TOOGLE_BLOCK + `/${id}`, {}, options())
+  );
+}
+
+function _delete(id){
+  return handleResponse(
+    ajaxHelper.delete(config.URL_USERS + `/${id}`, options())
+  )
+}
+
 
 function getAll(params = {}) {
   return handleResponse(ajaxHelper.get(config.URL_USERS, params, options()));

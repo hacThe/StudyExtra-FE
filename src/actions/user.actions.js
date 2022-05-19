@@ -12,7 +12,8 @@ export const userActions = {
   delete: _delete,
   getUserCourses,
   getUserNotifications,
-  uploadAvatar
+  uploadAvatar,
+  toogleLockState
 };
 
 /// này là hàm login
@@ -94,7 +95,7 @@ function getOne(id, callback) {
   return (dispatch) => {
     dispatch(request());
 
-    usersServices.getOne(id, callback).then(
+    usersServices.getOne(id).then(
       (users) => {dispatch(success(users["data"]))
         if (callback)
         {
@@ -115,6 +116,35 @@ function getOne(id, callback) {
     return { type: userConstants.GETONE_FAILURE, error };
   }
 }
+
+
+function toogleLockState(id, callback) {
+  return (dispatch) => {
+    dispatch(request());
+
+    usersServices.toogleLockState(id).then(
+      (users) => {dispatch(success(users["data"]))
+        if (callback)
+        {
+          callback(users["data"])
+        }
+    },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.GETONE_REQUEST };
+  }
+  function success(user) {
+    return { type: userConstants.GETONE_SUCCESS, user };
+  }
+  function failure(error) {
+    return { type: userConstants.GETONE_FAILURE, error };
+  }
+}
+
+
 
 function getAll() {
   return (dispatch) => {
@@ -138,12 +168,15 @@ function getAll() {
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
-function _delete(id) {
+function _delete(id, callback) {
   return (dispatch) => {
     dispatch(request(id));
 
-    usersServices.delete(id).then(
-      () => dispatch(success(id)),
+    usersServices._delete(id).then(
+      () => {dispatch(success(id))
+      if (callback){
+        callback(id)
+      }},
       (error) => dispatch(failure(id, error.toString()))
     );
   };

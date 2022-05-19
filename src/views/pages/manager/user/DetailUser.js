@@ -4,7 +4,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import { FiEdit } from "react-icons/fi";
 import clsx from 'clsx';
 import { MdOutlinePhotoCamera } from "react-icons/md"
-import { AiOutlineExport, AiOutlineLock, AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineExport, AiOutlineLock, AiOutlineUnLock, AiOutlineDelete } from "react-icons/ai";
 import axios from "axios";
 import './DetailUser.scss';
 import TransactionTable from './component/TransactionTable';
@@ -22,46 +22,16 @@ const DetailUser = () => {
   useEffect(()=>{
     dispatch(userActions.getOne(id))
   }, [])
-  let InformList = [
-    {
-      name: "Họ và tên",
-      key: "name",
-      value: "tennnn"
-    },
-    {
-      name: "ID",
-      key: "_id",
-      value: "id"
-    },
-    {
-      name: "Ngày sinh",
-      key: "birthday",
-      value: "22/4/2001"
-    },
-    {
-      name: "Email",
-      key: "mail",
-      value: "email"
-    },
-    {
-      name: "Tên đăng nhập",
-      key: "username",
-      value: "email"
-    },
-    {
-      name: "Số điện thoại",
-      key: "phone",
-      value: "0999999"
-    },
-    {
-      name: "Số dư",
-      key: "gem",
-      value: "500 GEM"
-    },
-  ];
-  const [inforList, setInfoList] = useState(InformList)
+  
+  const handleToogleLockState = ()=>{
+    dispatch(userActions.toogleLockState(id))
+  }
 
-
+  const handleDeleteUserOnClick= ()=>{
+    dispatch(userActions.delete(id, ()=>{
+      navigate('/quan-ly/nguoi-dung')
+    }))
+  }
   const courses = [{
     name: "khóa học gì không biết nữa kkk"
   }, {
@@ -122,8 +92,8 @@ const DetailUser = () => {
             <BackToPageButton onClick={() => handleClick()} content="Danh sách người dùng" />
           <div className="align-center">
           <LeadingIconButton icon={<AiOutlineExport />} content="Xuất Excel" />
-          <LeadingIconButton icon={<AiOutlineLock />} content="Khóa tài khoản" />
-          <LeadingIconButton icon={<AiOutlineDelete />} content="Xóa tài khoản" />
+          <LeadingIconButton onClick={handleToogleLockState} icon={userInfo.isLock ? <AiOutlineLock/> :<AiOutlineLock />} content={userInfo.isLock ? "Mở khóa" : "Khóa tài khoản"} />
+          <LeadingIconButton onClick={handleDeleteUserOnClick} icon={<AiOutlineDelete />} content="Xóa tài khoản" />
           </div>
         </div>
 

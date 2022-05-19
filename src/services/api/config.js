@@ -31,6 +31,7 @@ export default {
     URL_SYSTEM_V1 + "/notification/getUserNotification",
   URL_UPLOAD_AVATAR: URL_SYSTEM_V1 + "/profiles/uploadAvatar",
   URL_USERS: URL_SYSTEM_V1 + "/users",
+  URL_USER_TOOGLE_BLOCK: URL_SYSTEM_V1 + "/users/lock",
 
   // document
   URL_GET_DOCUMENTS: URL_SYSTEM_V1 + "/document/",
