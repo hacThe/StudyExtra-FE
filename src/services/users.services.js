@@ -16,7 +16,8 @@ export const usersServices = {
   sendVerifyCode,
   verifyCode,
   setNewPassword,
-  depositRequest
+  depositRequest,
+  getUserTransaction
 };
 
 function login(username, password) {
@@ -48,7 +49,7 @@ function getUserNotifications(params = {}) {
 }
 
 function uploadAvatar(avatarUrl) {
-  return handleResponse(ajaxHelper.post(config.URL_UPLOAD_AVATAR, {avatarUrl}, options()));
+  return handleResponse(ajaxHelper.post(config.URL_UPLOAD_AVATAR, { avatarUrl }, options()));
 }
 function updateProfile(newInfo) {
   return handleResponse(ajaxHelper.post(config.URL_UPDATE_PROFILE, newInfo, options()));
@@ -59,14 +60,17 @@ function verifyEmail(id, token) {
 }
 
 function sendVerifyCode(username) {
-  return handleResponse(ajaxHelper.post(config.URL_VERIFY_SEND_VERIFY_CODE, {username}, options()));
+  return handleResponse(ajaxHelper.post(config.URL_VERIFY_SEND_VERIFY_CODE, { username }, options()));
 }
 function verifyCode(username, verifyCode) {
-  return handleResponse(ajaxHelper.post(config.URL_VERIFY_CODE, {username, verifyCode}, options()));
+  return handleResponse(ajaxHelper.post(config.URL_VERIFY_CODE, { username, verifyCode }, options()));
 }
 function setNewPassword(username, verifyCode, newPassword) {
-  return handleResponse(ajaxHelper.post(config.URL_SET_NEW_PASSWORD, {username, verifyCode, newPassword}, options()));
+  return handleResponse(ajaxHelper.post(config.URL_SET_NEW_PASSWORD, { username, verifyCode, newPassword }, options()));
 }
 function depositRequest(transaction) {
   return handleResponse(ajaxHelper.post(config.URL_DEPOSIT_REQUEST, transaction, options()));
+}
+function getUserTransaction(params = {}) {
+  return handleResponse(ajaxHelper.get(config.URL_GET_USER_TRANSACTION, params, options()));
 }

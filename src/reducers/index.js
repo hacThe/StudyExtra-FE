@@ -7,7 +7,7 @@ import { document } from "./document.reducer";
 import { ranking } from "./ranking.reducer";
 import { search } from "./search.reducer";
 import { post } from "./post.reducer";
-import { userCourses } from "./account.reducer";
+import { userData } from "./account.reducer";
 import { userNotifications } from "./notification.reducer";
 import { emailVerification } from "./emailVerification.reducer";
 
@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
   search,
   post,
   document,
-  userCourses, 
+  userData, 
   userNotifications,
   article,
   searchAnnouncement,

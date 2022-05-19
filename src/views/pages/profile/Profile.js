@@ -13,7 +13,9 @@ import { DepositModal } from "./component/DepositModal";
 const Profile = () => {
   const dispatch = useDispatch()
   const UserInfo = useSelector(state => state.authentication.user);
-  const courses = useSelector(state => state.userCourses.courses.data) || [];
+  const courses = useSelector(state => state.userData.courses.data) || [];
+  const transaction = useSelector(state => state.userData.transaction.data) || [];
+  console.log("transaction: ", transaction);//////////
   //const [avatar, setAvatar] = useState(UserInfo.avatar);
 
   console.log("state: ", useSelector(state => state));
@@ -22,6 +24,7 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(userActions.getUserCourses());
+    dispatch(userActions.getUserTransaction());
   }, [])
 
 
@@ -37,7 +40,7 @@ const Profile = () => {
     },
     {
       name: "Ngày sinh",
-      value: UserInfo.birthday?.split('T')[0]
+      value: new Date(UserInfo.birthday).getDate() + "-" + new Date(UserInfo.birthday).getMonth() + "-" + new Date(UserInfo.birthday).getFullYear(),
     },
     {
       name: "Email",
@@ -79,21 +82,33 @@ const Profile = () => {
     { field: 'ghichu', headerName: "Ghi chú", width: 200 }
   ]
 
-  const rowDocs = [
-    { id: 1, stt: 1, thoigian: "12:12:00 16/04/2001", thaydoi: -500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-    { id: 2, stt: 2, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-    { id: 3, stt: 3, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-    { id: 4, stt: 4, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-    { id: 5, stt: 5, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-    { id: 6, stt: 6, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-    { id: 7, stt: 7, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-    { id: 8, stt: 8, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-    { id: 9, stt: 9, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-    { id: 10, stt: 10, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-    { id: 11, stt: 11, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-    { id: 12, stt: 12, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-    { id: 13, stt: 13, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' }
-  ]
+  /*  const rowDocs = [
+     { id: 1, stt: 1, thoigian: "12:12:00 16/04/2001", thaydoi: -500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+     { id: 2, stt: 2, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+     { id: 3, stt: 3, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+     { id: 4, stt: 4, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+     { id: 5, stt: 5, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+     { id: 6, stt: 6, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+     { id: 7, stt: 7, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+     { id: 8, stt: 8, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+     { id: 9, stt: 9, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+     { id: 10, stt: 10, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+     { id: 11, stt: 11, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+     { id: 12, stt: 12, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
+     { id: 13, stt: 13, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' }
+   ] */
+  const rowDocs = [];
+  transaction.map((value, _index) => {
+    const time = new Date(value.createdAt);
+    rowDocs.push({
+      id: _index + 1,
+      stt: _index + 1,
+      thoigian: time.getDate() + '-' + time.getMonth() + '-' + time.getFullYear() + " __ " + time.getHours() + ":" + time.getMinutes(),
+      thaydoi: value.type === 'deposit' ? value.amount : 0 - value.amount,
+      sodu: value.balance,
+      ghichu: value.note
+    })
+  })
 
 
 
@@ -102,7 +117,7 @@ const Profile = () => {
       <Container className='profile' maxWidth="xl">
         <div className="title-profile">
           <h1>Hồ sơ học viên</h1>
-          <EditModal user = {UserInfo}/>
+          <EditModal user={UserInfo} />
         </div>
 
         <Grid container spacing={2} className="information-group">
@@ -141,7 +156,7 @@ const Profile = () => {
                   : <p className="value-inform">{item.value}</p>}
               </div>
             )}
-          <DepositModal />
+            <DepositModal />
           </Grid>
           <Grid item xs={12} md={7} className="right-grid">
             <Grid container className="courses-exams-group">

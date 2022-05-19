@@ -13,7 +13,8 @@ export const userActions = {
   getUserNotifications,
   uploadAvatar,
   verifyEmail,
-  updateProfile
+  updateProfile,
+  getUserTransaction
 };
 
 /// này là hàm login
@@ -56,6 +57,7 @@ function login(username, password) {
 function logout() {
   return (dispatch) => {
     usersServices.logout();
+   // window.location.reload(true);
     dispatch(success());
   };
   function success() {
@@ -223,7 +225,6 @@ function verifyEmail(id, token) {
   }
 }
 
-
   
 function updateProfile(newInfo) {
   return (dispatch) => {
@@ -246,5 +247,27 @@ function updateProfile(newInfo) {
   }
   function failure(error) {
     return { type: userConstants.UPDATE_PROFILE_FAILURE, error };
+  }
+}
+
+function getUserTransaction() {
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.getUserTransaction().then(
+      (userTransaction) => {
+        dispatch(success(userTransaction))
+      },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.GET_USER_TRANSACTION_REQUEST};
+  }
+  function success(userTransaction) {
+    return { type: userConstants.GET_USER_TRANSACTION_SUCCESS, userTransaction};
+  }
+  function failure(error) {
+    return { type: userConstants.GET_USER_TRANSACTION_FAILURE, error };
   }
 }
