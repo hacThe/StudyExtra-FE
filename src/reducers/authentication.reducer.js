@@ -74,6 +74,22 @@ export function authentication(state = initialState, action) {
           error: false,
           user: action.user
         };
+        /* case userConstants.VERIFY_EMAIL_SUCCESS:
+    
+        return {
+          ...state,
+          waiting: false,
+          error: false,
+          user: { ...user, emailVerified: true}
+        };
+        case userConstants.VERIFY_EMAIL_FAILURE:
+    
+          return {
+            ...state,
+            waiting: false,
+            error: false,
+            user: { ...user, emailVerified: false}
+          }; */
     default:
       return state
   }

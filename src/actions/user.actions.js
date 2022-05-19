@@ -12,7 +12,6 @@ export const userActions = {
   getUserCourses,
   getUserNotifications,
   uploadAvatar,
-  verifyEmail,
   updateProfile,
   getUserTransaction
 };
@@ -203,14 +202,18 @@ function uploadAvatar(avatarUrl) {
   }
 }
 
-function verifyEmail(id, token) {
+/* function verifyEmail(id, token) {
   return (dispatch) => {
     dispatch(request());
     usersServices.verifyEmail(id, token).then(
       (emailVerifyResult) => {
+        console.log("verify errrrrr: ", emailVerifyResult);
         dispatch(success())
       },
-      (error) => dispatch(failure(error.toString()))
+      (error) => {
+        console.log("errrrrrrr: ", error.toString())
+        dispatch(failure(error.toString()))
+      }
     );
   };
 
@@ -223,7 +226,7 @@ function verifyEmail(id, token) {
   function failure(error) {
     return { type: userConstants.VERIFY_EMAIL_FAILURE, error };
   }
-}
+} */
 
   
 function updateProfile(newInfo) {
@@ -271,3 +274,4 @@ function getUserTransaction() {
     return { type: userConstants.GET_USER_TRANSACTION_FAILURE, error };
   }
 }
+

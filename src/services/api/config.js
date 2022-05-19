@@ -34,6 +34,7 @@ export default {
   URL_DEPOSIT_REQUEST: URL_SYSTEM_V1 + '/transaction/createDepositRequest',
   URL_GET_USER_TRANSACTION: URL_SYSTEM_V1 + '/transaction/getUserTransaction',
   URL_RESET_PASSWORD: URL_SYSTEM_V1 + '/auth/resetPassword',
+  URL_RESEND_VERIFYEMAIL: URL_SYSTEM_V1 + '/auth/resendVerifyEmail',
 
     // document
     URL_GET_DOCUMENTS: URL_SYSTEM_V1 + '/document/',

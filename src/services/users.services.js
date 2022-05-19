@@ -18,7 +18,8 @@ export const usersServices = {
   setNewPassword,
   depositRequest,
   getUserTransaction,
-  resetPassword
+  resetPassword,
+  resendVerifyEmail
 };
 
 function login(username, password) {
@@ -77,4 +78,8 @@ function getUserTransaction(params = {}) {
 }
 function resetPassword(newPassword) {
   return handleResponse(ajaxHelper.post(config.URL_RESET_PASSWORD, {newPassword}, options()));
+}
+
+function resendVerifyEmail(params = {}) {
+  return handleResponse(ajaxHelper.get(config.URL_RESEND_VERIFYEMAIL, params, options()));
 }

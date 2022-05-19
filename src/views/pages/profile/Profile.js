@@ -10,6 +10,7 @@ import { UploadModal } from "./component/UpLoadAvatarModal";
 import { EditModal } from "./component/EditProfileModal";
 import { DepositModal } from "./component/DepositModal";
 import { ResetPasswordModal } from "./component/ResetPasswordModal";
+import { usersServices } from "../../../services";
 
 const Profile = () => {
   const dispatch = useDispatch()
@@ -117,6 +118,15 @@ const Profile = () => {
 
   const [passOpen, setPassOpen] = useState(false);
 
+  function resendVerifyEmail(){
+    usersServices.resendVerifyEmail().then((data)=>{
+      alert("Link xác nhận đã được gửi tới email của bạn ");
+    },
+    (error)=>{
+      alert(error);
+    })
+  }
+
 
   return (
     <>
@@ -154,7 +164,7 @@ const Profile = () => {
                 {item.name === "Email" && !item.verified ?
                   <div className="email-item">
                     <p className="value-inform">{item.value}</p>
-                    <button>Verify</button>
+                    <button onClick={resendVerifyEmail}>Verify</button>
                   </div>
                   : <p className="value-inform">{item.value}</p>}
               </div>
