@@ -49,4 +49,7 @@ export default {
   URL_TYPE_CATEGORY: URL_SYSTEM_V1 + "/type-category/",
   URL_GET_POSTS: URL_SYSTEM_V1 + "/posts/getAllPosts",
   URL_GET_NOTIFICATIONS: URL_SYSTEM_V1 + "/notifications/getAllNotification",
+
+  // transaction
+  URL_GET_WAITING_TRANSACTIONS: URL_SYSTEM_V1 + "/transaction/getDepositeGemRequest"
 };

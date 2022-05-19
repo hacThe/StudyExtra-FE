@@ -12,6 +12,7 @@ import { userNotifications } from "./notification.reducer";
 import {user} from "./user.reducer";
 import {article} from "./article.reducer";
 import { searchAnnouncement } from './searchAnnouncement.reducer'
+import { transactionReducer } from './transaction.reducer'
 const rootReducer = combineReducers({
   app, // appReducer
   course, // course
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   userNotifications,
   article,
   searchAnnouncement,
+  transactionReducer,
   user
 });
 

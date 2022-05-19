@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GrDocumentExcel } from "react-icons/gr";
 import DataTableComponent from "../../../components/DataTableComponent";
 import LeadingIconButton from "../../../components/LeadingIconButton";
@@ -8,17 +8,26 @@ import {
   AiOutlineDelete,
 } from "react-icons/ai";
 import BackToPageButton from "../../../components/BackToPageButton";
+import { useDispatch, useSelector } from "react-redux";
+import { transactionActions } from "../../../../actions/transaction.action";
 function DepositeGemRequests(props) {
   const [filter, setFilter] = useState("");
   const changeFilter = (e) => {
     setFilter(e.target.value);
   };
+  const dispatch = useDispatch();
+  const transactions = useSelector(state=>state.transactionReducer.transactions)
+  useEffect(()=>{
+    dispatch(transactionActions.getDepositeGemRequest())
+  }, [])
+
+  
 
   const fields = [
     // {field: , headerName: , width: }
     { field: "stt", headerName: "STT" },
     { field: "username", headerName: "Username" },
-    { field: "gem", headerName: "Số tiền (GEM)", flex: 1, minWidth: 100 },
+    { field: "amount", headerName: "Số tiền (GEM)", flex: 1, minWidth: 100 },
     { field: "phone", headerName: "Số điện thoại", width: 150 },
     {
       field: "time",
@@ -26,8 +35,9 @@ function DepositeGemRequests(props) {
       width: 150
     },
     // valueGetter: (params) => (params.sex === 0 ? "Nữ" : "Nam"),
-    { field: "sendBank", headerName: "Ngân hàng gửi", flex: 1, minWidth: 100 },
-    { field: "receiveBank", headerName: "Ngân hàng nhận", flex: 1, minWidth: 100 },
+    { field: "bankSend", headerName: "Ngân hàng gửi", flex: 1, minWidth: 100 },
+    { field: "stk", headerName: "Số tài khoản", width: 150 },
+    { field: "bankReceive", headerName: "Ngân hàng nhận", flex: 1, minWidth: 100 },
     {
       field: "action",
       headerName: "Tùy chọn",
@@ -67,8 +77,8 @@ function DepositeGemRequests(props) {
       username: "hacThe",
       phone: "0334696473",
       time: "07/08/2009",
-      sendBank: "Vietcombank",
-      receiveBank: "BIDV",
+      bankSend: "Vietcombank",
+      bankReceive: "BIDV",
       gem: 600
     },
     {
@@ -77,8 +87,8 @@ function DepositeGemRequests(props) {
       username: "hacThe",
       phone: "0334696473",
       time: "07/08/2009",
-      sendBank: "Vietcombank",
-      receiveBank: "BIDV",
+      bankSend: "Vietcombank",
+      bankReceive: "BIDV",
       gem: 500
     },
 
@@ -88,8 +98,8 @@ function DepositeGemRequests(props) {
       username: "hacThe",
       phone: "0334696473",
       time: "07/08/2009",
-      sendBank: "Vietcombank",
-      receiveBank: "BIDV",
+      bankSend: "Vietcombank",
+      bankReceive: "BIDV",
       gem: 500
     },
 
@@ -99,8 +109,8 @@ function DepositeGemRequests(props) {
       username: "hacThe",
       phone: "0334696473",
       time: "07/08/2009",
-      sendBank: "Vietcombank",
-      receiveBank: "BIDV",
+      bankSend: "Vietcombank",
+      bankReceive: "BIDV",
       gem: 500
     },
 
@@ -110,8 +120,8 @@ function DepositeGemRequests(props) {
       username: "hacThe",
       phone: "0334696473",
       time: "07/08/2009",
-      sendBank: "Vietcombank",
-      receiveBank: "BIDV",
+      bankSend: "Vietcombank",
+      bankReceive: "BIDV",
       gem: 500
     },
 
@@ -121,8 +131,8 @@ function DepositeGemRequests(props) {
       username: "hacThe",
       phone: "0334696473",
       time: "07/08/2009",
-      sendBank: "Vietcombank",
-      receiveBank: "BIDV",
+      bankSend: "Vietcombank",
+      bankReceive: "BIDV",
       gem: 500
     },
 
@@ -132,8 +142,8 @@ function DepositeGemRequests(props) {
       username: "hacThe",
       phone: "0334696473",
       time: "07/08/2009",
-      sendBank: "Vietcombank",
-      receiveBank: "BIDV",
+      bankSend: "Vietcombank",
+      bankReceive: "BIDV",
       gem: 500
     },
 
@@ -143,8 +153,8 @@ function DepositeGemRequests(props) {
       username: "hacThe",
       phone: "0334696473",
       time: "07/08/2009",
-      sendBank: "Vietcombank",
-      receiveBank: "BIDV",
+      bankSend: "Vietcombank",
+      bankReceive: "BIDV",
       gem: 500
     },
 
@@ -154,8 +164,8 @@ function DepositeGemRequests(props) {
       username: "hacThe",
       phone: "0334696473",
       time: "07/08/2009",
-      sendBank: "Vietcombank",
-      receiveBank: "BIDV",
+      bankSend: "Vietcombank",
+      bankReceive: "BIDV",
       gem: 500
     },
 
@@ -165,8 +175,8 @@ function DepositeGemRequests(props) {
       username: "hacThe",
       phone: "0334696473",
       time: "07/08/2009",
-      sendBank: "Vietcombank",
-      receiveBank: "BIDV",
+      bankSend: "Vietcombank",
+      bankReceive: "BIDV",
       gem: 500
     },
   ];
@@ -198,7 +208,17 @@ function DepositeGemRequests(props) {
           </div>
           <DataTableComponent
             columnDocs={fields}
-            rowDocs={students}
+            rowDocs={transactions.map((item, index)=>{
+              item.stt = index + 1
+              item.id = item._id
+              item.bankSend = item.context?.bankSend
+              item.bankReceive = item.context?.bankReceive
+              item.time = item.createdAt
+              item.username = item.username
+              item.phone = item.userID?.phone
+              item.stk = item.context?.transactionNumber
+              return item
+            })}
             filter={filter}
           />
         </div>
