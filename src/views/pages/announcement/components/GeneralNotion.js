@@ -47,7 +47,7 @@ function GeneralNotion(props) {
             <Divider></Divider>
             <div style={{ marginTop: '15px', marginBottom: '15px' }}>
                 {
-                    listAnnouncement.map((item, index) => {
+                    listAnnouncement.length !== 0 ? listAnnouncement.map((item, index) => {
                         if (index < page * 8 && index >= (page - 1) * 8) {
                             return (
                                 <div style={{ marginLeft: '10px', marginRight: '15px', marginBottom: '15px' }}>
@@ -61,9 +61,11 @@ function GeneralNotion(props) {
                                 </div>
                             )
                         }
-                    })
+                    }) : (
+                        <h1 style={{ margin: '50px', width: '100%', textAlign: 'center' }}>Không có kết quả tìm kiếm</h1>
+                    )
                 }
-               
+
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Pagination onChange={(event, page) => choosePage(event, page)} size='small' count={renderNumberOfPage()} color="primary" />

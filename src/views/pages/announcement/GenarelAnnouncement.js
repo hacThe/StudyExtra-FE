@@ -17,6 +17,7 @@ function GenarelAnnouncement(props) {
                     <HotNews></HotNews>
                 </Grid>
                 <Grid style={{ paddingLeft: '5px', paddingRight: '5px' }} sm={12} md={9}>
+                    {/* Thông báo tìm kiếm */}
                     <NoticeToLookFor></NoticeToLookFor>
                     {/* Thông báo cá nhân */}
                     <PersonalNotice></PersonalNotice>

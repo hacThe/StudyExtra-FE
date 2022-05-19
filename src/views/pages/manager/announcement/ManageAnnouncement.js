@@ -108,9 +108,9 @@ function ManageAnnouncement(props) {
                 </div>
                 <div>
                     <DataTableComponent
-                        // onRowClick={() => {
-                        //     navigate(`/quan-ly/thong-bao-chung/chinh-sua/:id`);
-                        // }}
+                        onRowClick={(e) => {
+                            navigate(`/quan-ly/thong-bao-chung/chinh-sua/${e.row.slug}`);
+                        }}
                         columnDocs={columnDocs}
                         rowDocs={listAnnouncement}
                         filter={filter}
