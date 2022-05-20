@@ -89,15 +89,13 @@ function EditAnnouncement(props) {
         </em></span></p>
         ${content}
         `)
-        console.log(e.target.value)
     }
 
     const handleChange = (newContent) => {
-        console.log(newContent)
         setContent(newContent)
         setReview(`
         <p><span style="font-size: 20px;color: #B94A48;"><strong>
-            ${title.length !== 0 ? title : "Không có"}
+            ${title }
         </strong></span></p>
         <p><span style="font-size: 14px;"><em>
             ${renderTime()}
@@ -164,7 +162,6 @@ function EditAnnouncement(props) {
                     <div style={{ paddingRight: '10px' }}>
                         <div className='create-content'>
                             <SunEditor
-                                setContents={content}
                                 setOptions={{
                                     buttonList: [
                                         ['undo', 'redo'],
@@ -174,8 +171,8 @@ function EditAnnouncement(props) {
                                         ['align', 'horizontalRule', 'list', 'lineHeight'],
                                     ]
                                 }}
-                                // placeholder="Please type here..."
                                 autoFocus={true}
+                                setContents={content}
                                 onChange={handleChange}
                             ></SunEditor>
                         </div>
