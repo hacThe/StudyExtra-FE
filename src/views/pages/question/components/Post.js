@@ -6,9 +6,13 @@ import CommentItem from './CommentItem';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import '../scss/Post.scss';
-import { cookiesUtil } from '../../../../utilities';
 import { FiMoreHorizontal } from "react-icons/fi";
+import { articleActions } from '../../../../actions/article.action';
+
+
 const Post = ({post}) => {
+    const dispatch = useDispatch();
+
     const [isLiked, setLiked] = useState(false);
     const interactPost = () => {
         setLiked(!isLiked);
@@ -46,7 +50,9 @@ const Post = ({post}) => {
         }
     }
 
-    
+    const [isOpenManageModal, setIsOpenManageModal] = useState(false);
+
+
     return (
         <div className="question-body">
             <div className="question-header">
@@ -59,25 +65,41 @@ const Post = ({post}) => {
                     </p>
                     <p className="post-time">{calculateTime(post.createdAt)}</p>
                 </div>
-                <div className='right-heading'>
-                    <FiMoreHorizontal
-                        className='more-icon'
-                        size={24}
-                    >
-                        
-                    </FiMoreHorizontal>
-                    <div className="manage-modal">
-                        <div className="modal-item">
-                            Chỉnh sửa
-                        </div>
-                        <div className="modal-item">
-                            Xoá
-                        </div>
-                        <div className="modal-item">
-                            Ẩn
-                        </div>
+                {
+                    userInfo._id != post.userID ? (null) :
+                    <div className='right-heading'>
+                        <FiMoreHorizontal
+                            className='more-icon'
+                            size={24}
+                            onClick={()=>{
+                                setIsOpenManageModal(!isOpenManageModal);
+                            }}
+                        >
+                            
+                        </FiMoreHorizontal>
+                        {
+                            !isOpenManageModal ? (null) 
+                            :<div className="manage-modal">
+                                <div className="modal-item">
+                                    Chỉnh sửa
+                                </div>
+                                <div 
+                                    className="modal-item"
+                                    onClick={()=>{
+                                        dispatch(articleActions.deleteArticle(post._id))
+                                        setIsOpenManageModal(!isOpenManageModal);
+                                    }}
+                                >
+                                    Xoá
+                                </div>
+                                <div className="modal-item">
+                                    Ẩn
+                                </div>
+                            </div>
+                        }
                     </div>
-                </div>
+                }   
+                
                 
             </div>
             <div className='question-detail'>

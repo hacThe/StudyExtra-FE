@@ -96,6 +96,39 @@ export function article(state = initialState, action) {
             }
         }
 
+        case articleConstants.DELETE_ARTICLE_REQUEST:{
+            return {
+                ...state,
+                isLoading: true,
+            };
+        }
+        case articleConstants.DELETE_ARTICLE_FAILURE:{
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            };
+        }
+        case articleConstants.DELETE_ARTICLE_SUCCESS:{
+            const article = action.data.data;
+            console.log("action.data.data",article);
+            var oldArticleVal = state.articles;
+            console.log("before filter", oldArticleVal);
+            var newArticleVal = []; 
+            for(var i = 0; i < oldArticleVal.length; i++){
+                if(oldArticleVal[i]._id != article._id){
+                    newArticleVal.push(oldArticleVal[i]);
+                }
+            }
+            console.log("after filter", newArticleVal);
+            return {
+                ...state,
+                articles: [
+                    ...newArticleVal
+                ],
+                isLoading: false,
+            };
+        }
         default:
             return state;
     }

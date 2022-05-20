@@ -6,6 +6,7 @@ import ajaxHelper from './api';
 export const articleService = {
     getAllArticle, 
     addNewArticle,
+    deleteArticle,
     uploadArticlePicture,
 };
 
@@ -18,6 +19,12 @@ function getAllArticle() {
 function addNewArticle(data) {
     return handleResponse(
         ajaxHelper.post(config.URL_ARTICLE, data, options())
+    );
+}
+
+function deleteArticle(id) {
+    return handleResponse(
+        ajaxHelper.deleteFix(config.URL_ARTICLE, {_id: id})
     );
 }
 

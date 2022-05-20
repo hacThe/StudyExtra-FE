@@ -4,6 +4,7 @@ import { articleService } from '../services';
 export const articleActions = {
     getAllArticle,
     addNewArticle,
+    deleteArticle,
     uploadArticlePicture,
     removeSpecificPicture
 }
@@ -58,6 +59,29 @@ function addNewArticle(data){
     }
 }
 
+function deleteArticle(id){
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.deleteArticle(id).then(
+            (res)=>{
+                dispatch(success(res))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        function request() {
+            return { type: articleConstants.DELETE_ARTICLE_REQUEST };
+        }
+        function success(res) {
+            return {type: articleConstants.DELETE_ARTICLE_SUCCESS, data: res};
+        }
+        function failure(error) {
+            return { type: articleConstants.DELETE_ARTICLE_FAILURE, error };
+        }
+    }
+}
 
 function uploadArticlePicture(data){
     return (dispatch)=>{

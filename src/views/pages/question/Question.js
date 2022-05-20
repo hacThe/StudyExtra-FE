@@ -41,8 +41,9 @@ const refineComments = (comments) => {
 const refineData = (data) => {
     var res = [];
     data.forEach(item => {
-        // console.log("item to refine", item
+        // console.log("item to refine", item)
         var temp = {
+            _id: item._id,
             userID: item.userID,
             username: item.username,
             userAvatar: item.avatar,

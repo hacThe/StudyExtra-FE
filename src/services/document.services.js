@@ -12,7 +12,6 @@ export const documentService = {
     getAllDocumentType,
     addNewDocumentType,
     deleteDocumentType,
-    
 };
 
 function getAllDocument() {
@@ -65,7 +64,6 @@ function addNewDocumentType(newName) {
 }
 
 function deleteDocumentType(id) {
-    console.log("Vô được đây rồi, ID: ", id);
     return handleResponse(
         ajaxHelper.deleteFix(config.URL_TYPE_CATEGORY, {_id: id})
     );
