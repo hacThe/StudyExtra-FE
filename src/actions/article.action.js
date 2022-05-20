@@ -3,6 +3,7 @@ import { articleService } from '../services';
 
 export const articleActions = {
     getAllArticle,
+    addNewArticle,
     uploadArticlePicture,
     removeSpecificPicture
 }
@@ -31,6 +32,32 @@ function getAllArticle(){
         }
     }
 }
+
+function addNewArticle(data){
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.addNewArticle(data).then(
+            (article)=>{
+                dispatch(success(article))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.ADD_ARTICLE_REQUEST };
+        }
+        function success(article ) {
+            return {type: articleConstants.ADD_ARTICLE_SUCCESS, article };
+        }
+        function failure(error) {
+            return { type: articleConstants.ADD_ARTICLE_FAILURE, error };
+        }
+    }
+}
+
 
 function uploadArticlePicture(data){
     return (dispatch)=>{

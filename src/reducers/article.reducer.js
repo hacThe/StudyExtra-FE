@@ -1,4 +1,5 @@
 import { plPL } from "@mui/x-data-grid";
+import { act } from "@testing-library/react";
 import { articleConstants } from "../constaint";
 
 const initialState = {
@@ -68,7 +69,33 @@ export function article(state = initialState, action) {
                     ...currentArticleVal,
                     imgLink: linkList,
                 }
+        }
+        
+        case articleConstants.ADD_ARTICLE_REQUEST:
+        {
+            return {
+                ...state,
+                isLoading: true,
+            };
+        }
+        case articleConstants.ADD_ARTICLE_FAILURE:{
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            };
+        }
+        case articleConstants.ADD_ARTICLE_SUCCESS:{
+            console.log("action",action);
+            return {
+                ...state,
+                articles:[
+                    ...state.articles,
+                    action.article.data,
+                ]
             }
+        }
+
         default:
             return state;
     }

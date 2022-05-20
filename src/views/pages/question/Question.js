@@ -113,18 +113,18 @@ const Question = () => {
     const userInfo = useSelector(state => state.authentication.user);
     console.log("userInfo", userInfo);
 
-    const [imgList, setImageList] = useState([
-        // "https://c.wallhere.com/photos/87/b3/Makise_Kurisu_Steins_Gate_anime-1250421.jpg!d",
-        // "https://i.pinimg.com/474x/9f/45/28/9f4528ca270dd877228545f04200c58c.jpg",
-        // "https://static.wikia.nocookie.net/steins-gate/images/5/50/KurisuMakise_animeprofile_%280%29.jpg/revision/latest?cb=20220212065513",
-    ])
+    // const [imgList, setImageList] = useState([
+    //     // "https://c.wallhere.com/photos/87/b3/Makise_Kurisu_Steins_Gate_anime-1250421.jpg!d",
+    //     // "https://i.pinimg.com/474x/9f/45/28/9f4528ca270dd877228545f04200c58c.jpg",
+    //     // "https://static.wikia.nocookie.net/steins-gate/images/5/50/KurisuMakise_animeprofile_%280%29.jpg/revision/latest?cb=20220212065513",
+    // ])
 
-    const addNewImage = (imgLink) => {
-        setImageList([
-            ...imgList,
-            imgLink,
-        ])
-    }
+    // const addNewImage = (imgLink) => {
+    //     setImageList([
+    //         ...imgList,
+    //         imgLink,
+    //     ])
+    // }
 
     const [tempImageList, setTempImage] = useState([]);
     const addTempImage = (imgData) => {
@@ -143,7 +143,8 @@ const Question = () => {
 
 
     const pageRef = {
-        postImageRef: useRef(null)
+        postImageRef: useRef(null),
+        postContent: useRef(null),
     }
 
 
@@ -160,6 +161,16 @@ const Question = () => {
         dispatch(articleActions.removeSpecificPicture(link));
     }
 
+    const addArticle = () => {
+        const data = {
+            userID: userInfo._id,
+            content: pageRef.postContent.current.value,
+            imgUrl: imgLinkRedux,
+            comments: [],
+        }
+        dispatch(articleActions.addNewArticle(data));
+        console.log("dataToAdd",data);
+    }
     return (    
         <div className="question-page-container">
             <div className="question-container">
@@ -210,6 +221,7 @@ const Question = () => {
                                 <textarea 
                                     className='post-content-input'
                                     placeholder='Câu hỏi của bạn'
+                                    ref={pageRef.postContent}
                                 />
                                 <div className="image-displayer">
                                     {
@@ -290,7 +302,7 @@ const Question = () => {
                                 <button
                                     className='post-adding-button'
                                     onClick={ () => {
-
+                                        addArticle();   
                                     }}
                                 >
                                     Đăng bài
