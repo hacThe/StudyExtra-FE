@@ -23,6 +23,7 @@ export const usersServices = {
   getUserTransaction,
   resetPassword,
   resendVerifyEmail,
+  getCurrentUser
 };
 
 function login(username, password) {
@@ -44,6 +45,13 @@ function logout() {
 function getOne(id) {
   return handleResponse(
     ajaxHelper.get(config.URL_USERS + `/${id}`, {}, options())
+  );
+}
+
+
+function getCurrentUser(id) {
+  return handleResponse(
+    ajaxHelper.get(config.URL_USERS + `/getCurrentUser`, {}, options())
   );
 }
 

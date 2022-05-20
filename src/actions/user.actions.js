@@ -15,7 +15,8 @@ export const userActions = {
   uploadAvatar,
   toogleLockState,
   updateProfile,
-  getUserTransaction
+  getUserTransaction,
+  getCurrentUser
 };
 
 /// này là hàm login
@@ -100,6 +101,34 @@ function getOne(id, callback) {
     dispatch(request());
 
     usersServices.getOne(id).then(
+      (users) => {dispatch(success(users["data"]))
+        if (callback)
+        {
+          callback(users["data"])
+        }
+    },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.GETONE_REQUEST };
+  }
+  function success(user) {
+    return { type: userConstants.GETONE_SUCCESS, user };
+  }
+  function failure(error) {
+    return { type: userConstants.GETONE_FAILURE, error };
+  }
+}
+
+
+
+function getCurrentUser(id, callback) {
+  return (dispatch) => {
+    dispatch(request());
+
+    usersServices.getCurrentUser(id).then(
       (users) => {dispatch(success(users["data"]))
         if (callback)
         {
