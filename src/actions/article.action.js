@@ -3,6 +3,7 @@ import { articleService } from '../services';
 
 export const articleActions = {
     getAllArticle,
+    uploadArticlePicture
 }
 
 function getAllArticle(){
@@ -26,6 +27,31 @@ function getAllArticle(){
         }
         function failure(error) {
             return { type: articleConstants.GET_ARTICLE_FAILURE, error };
+        }
+    }
+}
+
+function uploadArticlePicture(data){
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.uploadArticlePicture(data).then(
+            (dataLink)=>{
+                dispatch(success(dataLink))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.UPLOAD_PICTURE_REQUEST };
+        }
+        function success(dataLink ) {
+            return {type: articleConstants.UPLOAD_PICTURE_SUCCESS, dataLink };
+        }
+        function failure(error) {
+            return { type: articleConstants.UPLOAD_PICTURE_FAILURE, error };
         }
     }
 }

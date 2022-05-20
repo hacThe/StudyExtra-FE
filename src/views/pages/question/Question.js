@@ -143,8 +143,11 @@ const Question = () => {
         postImageRef: useRef(null)
     }
 
-    const uploadPicture = () => {
-
+    const uploadPicture = async(e) => {
+        const formData = new FormData();
+        formData.append("file", e.target.files[0])
+        formData.append("upload_preset", "phiroud");
+        dispatch(articleActions.uploadArticlePicture(formData));
     }
 
     return (    
@@ -242,7 +245,7 @@ const Question = () => {
                                                     addTempImage(fr.result);
                                                 }
                                                 fr.readAsDataURL(files[0]);
-                                                uploadPicture();
+                                                uploadPicture(e);
                                             }
                                         }}
                                     />
