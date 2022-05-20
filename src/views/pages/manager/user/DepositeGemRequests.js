@@ -16,12 +16,20 @@ function DepositeGemRequests(props) {
     setFilter(e.target.value);
   };
   const dispatch = useDispatch();
-  const transactions = useSelector(state=>state.transactionReducer.transactions)
-  useEffect(()=>{
-    dispatch(transactionActions.getDepositeGemRequest())
-  }, [])
+  const transactions = useSelector(
+    (state) => state.transactionReducer.transactions
+  );
+  useEffect(() => {
+    dispatch(transactionActions.getDepositeGemRequest());
+  }, []);
 
-  
+  const handleDeleteTransaction = (transaction) => {
+    dispatch(transactionActions._delete(transaction));
+  };
+
+  const handleConfirmTransaction = (transaction) => {
+    dispatch(transactionActions.confirm(transaction));
+  };
 
   const fields = [
     // {field: , headerName: , width: }
@@ -32,12 +40,17 @@ function DepositeGemRequests(props) {
     {
       field: "time",
       headerName: "Thời gian",
-      width: 150
+      width: 150,
     },
     // valueGetter: (params) => (params.sex === 0 ? "Nữ" : "Nam"),
     { field: "bankSend", headerName: "Ngân hàng gửi", flex: 1, minWidth: 100 },
     { field: "stk", headerName: "Số tài khoản", width: 150 },
-    { field: "bankReceive", headerName: "Ngân hàng nhận", flex: 1, minWidth: 100 },
+    {
+      field: "bankReceive",
+      headerName: "Ngân hàng nhận",
+      flex: 1,
+      minWidth: 100,
+    },
     {
       field: "action",
       headerName: "Tùy chọn",
@@ -53,18 +66,29 @@ function DepositeGemRequests(props) {
         //   <AiOutlineDelete size={20} />
         // </span>
 
-        <div style={{ width: "100%", paddingRight: "12px" }} className="justify-content-between">
+        <div
+          style={{ width: "100%", paddingRight: "12px" }}
+          className="justify-content-between"
+        >
           <span
             onClick={(e) => {
               e.stopPropagation();
-              alert(JSON.stringify(params.row, null, 2));
+              handleDeleteTransaction(params.row)
             }}
             style={{ marginRight: "12px" }}
             className="se-action-btn danger"
           >
             Xóa
           </span>
-          <span onClick={(e)=>alert('Xác nhận '+ JSON.stringify(e, null, 2))} className="se-action-btn">Xác nhận</span>
+          <span
+            onClick={(e) => {
+              e.stopPropagation();
+              handleConfirmTransaction(params.row)
+            }}
+            className="se-action-btn"
+          >
+            Xác nhận
+          </span>
         </div>
       ),
     },
@@ -79,7 +103,7 @@ function DepositeGemRequests(props) {
       time: "07/08/2009",
       bankSend: "Vietcombank",
       bankReceive: "BIDV",
-      gem: 600
+      gem: 600,
     },
     {
       id: 2,
@@ -89,7 +113,7 @@ function DepositeGemRequests(props) {
       time: "07/08/2009",
       bankSend: "Vietcombank",
       bankReceive: "BIDV",
-      gem: 500
+      gem: 500,
     },
 
     {
@@ -100,7 +124,7 @@ function DepositeGemRequests(props) {
       time: "07/08/2009",
       bankSend: "Vietcombank",
       bankReceive: "BIDV",
-      gem: 500
+      gem: 500,
     },
 
     {
@@ -111,7 +135,7 @@ function DepositeGemRequests(props) {
       time: "07/08/2009",
       bankSend: "Vietcombank",
       bankReceive: "BIDV",
-      gem: 500
+      gem: 500,
     },
 
     {
@@ -122,7 +146,7 @@ function DepositeGemRequests(props) {
       time: "07/08/2009",
       bankSend: "Vietcombank",
       bankReceive: "BIDV",
-      gem: 500
+      gem: 500,
     },
 
     {
@@ -133,7 +157,7 @@ function DepositeGemRequests(props) {
       time: "07/08/2009",
       bankSend: "Vietcombank",
       bankReceive: "BIDV",
-      gem: 500
+      gem: 500,
     },
 
     {
@@ -144,7 +168,7 @@ function DepositeGemRequests(props) {
       time: "07/08/2009",
       bankSend: "Vietcombank",
       bankReceive: "BIDV",
-      gem: 500
+      gem: 500,
     },
 
     {
@@ -155,7 +179,7 @@ function DepositeGemRequests(props) {
       time: "07/08/2009",
       bankSend: "Vietcombank",
       bankReceive: "BIDV",
-      gem: 500
+      gem: 500,
     },
 
     {
@@ -166,7 +190,7 @@ function DepositeGemRequests(props) {
       time: "07/08/2009",
       bankSend: "Vietcombank",
       bankReceive: "BIDV",
-      gem: 500
+      gem: 500,
     },
 
     {
@@ -177,7 +201,7 @@ function DepositeGemRequests(props) {
       time: "07/08/2009",
       bankSend: "Vietcombank",
       bankReceive: "BIDV",
-      gem: 500
+      gem: 500,
     },
   ];
 
@@ -208,16 +232,16 @@ function DepositeGemRequests(props) {
           </div>
           <DataTableComponent
             columnDocs={fields}
-            rowDocs={transactions.map((item, index)=>{
-              item.stt = index + 1
-              item.id = item._id
-              item.bankSend = item.context?.bankSend
-              item.bankReceive = item.context?.bankReceive
-              item.time = item.createdAt
-              item.username = item.username
-              item.phone = item.userID?.phone
-              item.stk = item.context?.transactionNumber
-              return item
+            rowDocs={transactions.map((item, index) => {
+              item.stt = index + 1;
+              item.id = item._id;
+              item.bankSend = item.context?.bankSend;
+              item.bankReceive = item.context?.bankReceive;
+              item.time = item.createdAt;
+              item.username = item.username;
+              item.phone = item.userID?.phone;
+              item.stk = item.context?.transactionNumber;
+              return item;
             })}
             filter={filter}
           />

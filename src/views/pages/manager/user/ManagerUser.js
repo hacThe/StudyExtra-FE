@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import UsersTable from "./component/UsersTable";
 import DataTableComponent from "../../../components/DataTableComponent";
 import { userActions } from "../../../../actions";
+import { transactionActions } from "../../../../actions/transaction.action";
 
 
 
@@ -35,7 +36,10 @@ const ManagerUser = () => {
 
   useEffect(()=>{
     dispatch(userActions.getAll());
+    dispatch(transactionActions.getDepositeGemRequest())
   }, [])
+
+  const transactionRequest = useSelector(state=>state.transactionReducer.transactions)
 
   var [filter, setFilter] = useState('');
   var changeFilter = (e) => {
@@ -71,7 +75,7 @@ const ManagerUser = () => {
           </div>
 
           <div className="btn-group">
-            <Badge badgeContent={gemRequests.length} color="error">
+            <Badge badgeContent={transactionRequest.length} color="error">
               <Button
                 variant="contained"
                 className="gem-request"

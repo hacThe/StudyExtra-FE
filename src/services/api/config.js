@@ -51,5 +51,7 @@ export default {
   URL_GET_NOTIFICATIONS: URL_SYSTEM_V1 + "/notifications/getAllNotification",
 
   // transaction
-  URL_GET_WAITING_TRANSACTIONS: URL_SYSTEM_V1 + "/transaction/getDepositeGemRequest"
+  URL_GET_WAITING_TRANSACTIONS: URL_SYSTEM_V1 + "/transaction/getDepositeGemRequest",
+  URL_DELETE_TRANSACTION: URL_SYSTEM_V1 + "/transaction/delete",
+  URL_CONFIRM_TRANSACTION: URL_SYSTEM_V1 + "/transaction/confirm",
 };
