@@ -36,12 +36,19 @@ function ResetPasswordModal(props) {
         validateOnBlur: true,
         validateOnMount: false,
         initialValues: {
+            oldPassword: "",
             password: "",
             repassword: "",
         },
         validationSchema: Yup.object({
+            oldPassword: Yup.string()
+                .required("Vui lòng nhập mật khẩu cũ")
+                .matches(
+                    /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+                    "Mật khẩu tối thiểu 8 kí tự, bao gồm chữ cái và chữ số"
+                ),
             password: Yup.string()
-                .required("Vui lòng nhập mật khẩu")
+                .required("Vui lòng nhập mật khẩu mới")
                 .matches(
                     /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
                     "Mật khẩu tối thiểu 8 kí tự, bao gồm chữ cái và chữ số"
@@ -52,11 +59,11 @@ function ResetPasswordModal(props) {
         }),
         onSubmit: (values) => {
             console.log(values)
-            usersServices.resetPassword(values.password).then((data)=>{
+            usersServices.resetPassword(values.oldPassword, values.password).then((data) => {
                 alert("Đổi mật khẩu thành công")
                 props.setPassOpen(false);
-            },(error)=>{
-                alert(error);
+            }, (error) => {
+                alert(error.response.data);
             })
         },
     });
@@ -79,6 +86,21 @@ function ResetPasswordModal(props) {
                         <h1>Đặt lại mật khẩu</h1>
 
                         <form className="reset-password-form" onSubmit={passwordFormik.handleSubmit}>
+                            
+                            
+                            <div className="input-item">
+                                <h5>Mật khẩu cũ</h5>
+                                <input
+                                    type='password'
+                                    id="oldPassword"
+                                    value={passwordFormik.values.oldPassword}
+                                    onChange={passwordFormik.handleChange}
+                                ></input>
+                                {passwordFormik.errors.oldPassword && passwordFormik.touched.oldPassword && (
+                                    <p className="input-error-validation"> {passwordFormik.errors.oldPassword} </p>
+                                )}
+                            </div>
+
                             <div className="input-item">
                                 <h5>Mật khẩu mới</h5>
                                 <input
