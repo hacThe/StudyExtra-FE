@@ -121,9 +121,13 @@ function getUserTransaction(params = {}) {
     ajaxHelper.get(config.URL_GET_USER_TRANSACTION, params, options())
   );
 }
-function resetPassword(newPassword) {
+function resetPassword(oldPassword, newPassword) {
   return handleResponse(
-    ajaxHelper.post(config.URL_RESET_PASSWORD, { newPassword }, options())
+    ajaxHelper.post(
+      config.URL_RESET_PASSWORD,
+      { oldPassword, newPassword },
+      options()
+    )
   );
 }
 
