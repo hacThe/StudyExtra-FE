@@ -9,6 +9,9 @@ const initialState = {
     currentArticle:{
         imgLink: [],
     },
+    editArticle:{
+        imgLink: [],
+    }
 };
    
 export function article(state = initialState, action) {

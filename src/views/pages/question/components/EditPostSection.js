@@ -1,13 +1,12 @@
 import React , {useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { articleActions } from '../../../../actions/article.action';
+import '../scss/EditPostSection.scss';
 
-import '../scss/AddPostSection.scss';
-const AddPostSection = () => {
+const EditPostSection = ({postInfo}) => {
+    console.log("postInfo", postInfo);
+
     const dispatch = useDispatch();
-
-
-    
     const uploadPicture = async(e) => {
         const formData = new FormData();
         formData.append("file", e.target.files[0])
@@ -56,8 +55,8 @@ const AddPostSection = () => {
     }
 
     return (
-        <div className="add-post-concrete">
-            <div className="add-post-heading">
+        <div className="edit-post-concrete">
+            <div className="edit-post-heading">
                 <div className="user-info-container">
                     <img 
                         src={userInfo.avatar}
@@ -68,7 +67,7 @@ const AddPostSection = () => {
                     </div>
                 </div>
             </div>
-            <div className="add-post-body">
+            <div className="edit-post-body">
                 <textarea 
                     className='post-content-input'
                     placeholder='Câu hỏi của bạn'
@@ -148,20 +147,10 @@ const AddPostSection = () => {
                     >
                         Thêm ảnh
                     </label>
-                    
                 </div>
-                <button
-                    className='post-adding-button'
-                    onClick={ () => {
-                        addArticle();   
-                    }}
-                >
-                    Đăng bài
-                </button>
-                
             </div>
         </div>
     )
 }
 
-export default AddPostSection
+export default EditPostSection

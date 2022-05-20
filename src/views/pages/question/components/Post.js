@@ -8,7 +8,7 @@ import { Carousel } from 'react-responsive-carousel';
 import '../scss/Post.scss';
 import { FiMoreHorizontal } from "react-icons/fi";
 import { articleActions } from '../../../../actions/article.action';
-
+import EditPostSection from './EditPostSection';
 
 const Post = ({post}) => {
     const dispatch = useDispatch();
@@ -51,114 +51,142 @@ const Post = ({post}) => {
     }
 
     const [isOpenManageModal, setIsOpenManageModal] = useState(false);
-
+    const [isEditPost, setIsEditPost] = useState(false);
 
     return (
+        
         <div className="question-body">
-            <div className="question-header">
-                <div className='left-heading'>
-                    <img className="user-avatar"
-                        src={post.userAvatar}
-                    ></img>
-                    <p className="user-name">
-                        {post.name}
-                    </p>
-                    <p className="post-time">{calculateTime(post.createdAt)}</p>
-                </div>
-                {
-                    userInfo._id != post.userID ? (null) :
-                    <div className='right-heading'>
-                        <FiMoreHorizontal
-                            className='more-icon'
-                            size={24}
+            {
+                !isEditPost
+                ?   <div>
+                        <div className="question-header">
+                            <div className='left-heading'>
+                                <img className="user-avatar"
+                                    src={post.userAvatar}
+                                ></img>
+                                <p className="user-name">
+                                    {post.name}
+                                </p>
+                                <p className="post-time">{calculateTime(post.createdAt)}</p>
+                            </div>
+                            {
+                                userInfo._id != post.userID ? (null) :
+                                <div className='right-heading'>
+                                    <FiMoreHorizontal
+                                        className='more-icon'
+                                        size={24}
+                                        onClick={()=>{
+                                            setIsOpenManageModal(!isOpenManageModal);
+                                        }}
+                                    >
+                                        
+                                    </FiMoreHorizontal>
+                                    {
+                                        !isOpenManageModal ? (null) 
+                                        :<div className="manage-modal">
+                                            <div 
+                                                className="modal-item"
+                                                onClick={()=>{
+                                                    setIsEditPost(!isEditPost);
+                                                    setIsOpenManageModal(!isOpenManageModal);
+                                                    
+                                                }}
+                                            >
+                                                Chỉnh sửa
+                                            </div>
+                                            <div 
+                                                className="modal-item"
+                                                onClick={()=>{
+                                                    dispatch(articleActions.deleteArticle(post._id))
+                                                    setIsOpenManageModal(!isOpenManageModal);
+                                                }}
+                                            >
+                                                Xoá
+                                            </div>
+                                            <div className="modal-item">
+                                                Ẩn
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            }   
+                            
+                            
+                        </div>
+                        <div className='question-detail'>
+                            <p className="question-content">
+                                {post.contents}
+                            </p>
+                            <Carousel className='carousel-slider picture-slider' showThumbs={false} style={{borderRadius: '20px'}} axis='horizontal'>
+                                {
+                                    post.imgUrl.map((imgUrl) =>{
+                                        return (
+                                            <div className='question-picture-container'>
+                                                <img className="question-picture"
+                                                    height={500}
+                                                    style={{
+                                                        objectFit: "contain"
+                                                    }}
+                                                    src={imgUrl}
+                                                ></img>
+                                            </div>
+                                        )
+                                    })
+                                } 
+                            </Carousel>
+                            <div className="picture-pagination">
+                                <div className="tab active"></div>
+                                <div className="tab"></div>
+                                <div className="tab"></div>
+                                <div className="tab"></div>
+                            </div>
+                        </div>
+                        <div className="question-interact">
+                            <div className="interact">
+                                <div 
+                                    className="icon"
+                                    onClick={()=> interactPost()}
+                                >
+                                    <AiFillLike 
+                                        className={isLiked?'liked':'nolike'}
+                                        size={24}
+                                    />
+                                </div>
+                                <p className="amount">0</p>
+                            </div>
+                            <div className="interact">
+                                <div className="icon icon-2">
+                                    <FaCommentAlt size={20}/>
+                                </div>
+                                <p className="amount">0</p>
+                            </div>
+                        </div>
+                        
+                        <div className='divider'></div>
+                        <div className="comment-section">
+                            {
+                                post.comment.map((comment) => {
+                                    return (<CommentItem comment={comment}/>)
+                                })
+                            }
+                        </div>
+                    </div>
+                :   <div>
+                        <EditPostSection
+                            postInfo={post}
+                        />
+                        <button
+                            className="edit-confirm-button"
                             onClick={()=>{
-                                setIsOpenManageModal(!isOpenManageModal);
+                                setIsEditPost(!isEditPost);
                             }}
                         >
-                            
-                        </FiMoreHorizontal>
-                        {
-                            !isOpenManageModal ? (null) 
-                            :<div className="manage-modal">
-                                <div className="modal-item">
-                                    Chỉnh sửa
-                                </div>
-                                <div 
-                                    className="modal-item"
-                                    onClick={()=>{
-                                        dispatch(articleActions.deleteArticle(post._id))
-                                        setIsOpenManageModal(!isOpenManageModal);
-                                    }}
-                                >
-                                    Xoá
-                                </div>
-                                <div className="modal-item">
-                                    Ẩn
-                                </div>
-                            </div>
-                        }
+                            Xác nhận
+                        </button>
                     </div>
-                }   
-                
-                
-            </div>
-            <div className='question-detail'>
-                <p className="question-content">
-                    {post.contents}
-                </p>
-                <Carousel className='carousel-slider picture-slider' showThumbs={false} style={{borderRadius: '20px'}} axis='horizontal'>
-                    {
-                        post.imgUrl.map((imgUrl) =>{
-                            return (
-                                <div className='question-picture-container'>
-                                    <img className="question-picture"
-                                        height={500}
-                                        style={{
-                                            objectFit: "contain"
-                                        }}
-                                        src={imgUrl}
-                                    ></img>
-                                </div>
-                            )
-                        })
-                    } 
-                </Carousel>
-                <div className="picture-pagination">
-                    <div className="tab active"></div>
-                    <div className="tab"></div>
-                    <div className="tab"></div>
-                    <div className="tab"></div>
-                </div>
-            </div>
-            <div className="question-interact">
-                <div className="interact">
-                    <div 
-                        className="icon"
-                        onClick={()=> interactPost()}
-                    >
-                        <AiFillLike 
-                            className={isLiked?'liked':'nolike'}
-                            size={24}
-                        />
-                    </div>
-                    <p className="amount">0</p>
-                </div>
-                <div className="interact">
-                    <div className="icon icon-2">
-                        <FaCommentAlt size={20}/>
-                    </div>
-                    <p className="amount">0</p>
-                </div>
-            </div>
+            }
+           
             
-            <div className='divider'></div>
-            <div className="comment-section">
-                {
-                    post.comment.map((comment) => {
-                        return (<CommentItem comment={comment}/>)
-                    })
-                }
-            </div>
         </div>
     )
 }
