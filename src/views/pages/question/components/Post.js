@@ -13,25 +13,50 @@ const Post = ({post}) => {
     const interactPost = () => {
         setLiked(!isLiked);
     }
-
-    console.log(post);
-
+    console.log("post: ",post);
     useSelector((state) => {
         console.log({ state });
     })
+
     let user = cookiesUtil.getCurrentUserInfo();
     console.log("user", user);
 
-    
+    const calculateTime = (timeString) => {
+        // console.log("timeString", timeString);
+        const postTime = new Date(timeString);
+        // console.log("calculating time", Math.abs(new Date() - postTime));
+        var diff = Math.abs(new Date() - postTime);
+        if(diff<1000*60){
+            return ("Một phút trước");
+        }
+        else if(diff<1000*60*60){
+            return (Math.floor(diff/1000/60) +" phút trước");
+        }
+        else if(diff<1000*60*60*24){
+            return(Math.floor(diff/1000/60/60) +" giờ trước");
+        }
+        else if(diff<1000*60*60*24*30) {
+            return(Math.floor(diff/1000/60/60/24) +" ngày trước");
+        }
+        else if(diff<1000*60*60*24*365) {
+            return(Math.floor(diff/1000/60/60/24/30) +" tháng trước");
+        }
+        else{
+            return (Math.floor(diff/1000/60/60/24/365) +" năm trước")
+        }
+    }
 
+    
     return (
         <div className="question-body">
             <div className="question-header">
                 <img className="user-avatar"
                     src={post.userAvatar}
                 ></img>
-                <p className="user-name">Raiden Ei</p>
-                <p className="post-time">3 phút trước</p>
+                <p className="user-name">
+                    {post.name}
+                </p>
+                <p className="post-time">{calculateTime(post.createdAt)}</p>
             </div>
             <div className='question-detail'>
                 <p className="question-content">
