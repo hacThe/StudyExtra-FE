@@ -134,7 +134,10 @@ const Question = () => {
         ])
     }
 
-
+    const imgLinkRedux = useSelector(state =>{
+        console.log("state nè:", state);
+        return state.article.currentArticle.imgLink;
+    })
 
     const [isOpenPost, setIsOpenPost] = useState(false);
 
@@ -143,10 +146,13 @@ const Question = () => {
         postImageRef: useRef(null)
     }
 
+
     const uploadPicture = async(e) => {
         const formData = new FormData();
         formData.append("file", e.target.files[0])
         formData.append("upload_preset", "phiroud");
+        const sleep = ms => new Promise(res => setTimeout(res, ms));
+        await sleep(1000);
         dispatch(articleActions.uploadArticlePicture(formData));
     }
 
@@ -203,12 +209,21 @@ const Question = () => {
                                 />
                                 <div className="image-displayer">
                                     {
-                                        imgList.map((value, index)=> {
+                                        imgLinkRedux.map((value, index)=> {
                                             return (
-                                                <img 
-                                                    src={value}
-                                                    className='image-item'
-                                                />
+                                                <div className="image-item-container">
+                                                    
+                                                    <img 
+                                                        src={value}
+                                                        className='image-item'
+                                                    />
+                                                    <div className="overlay">
+                                                        <div className="button-delete">
+                                                            Xoá
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
                                             );
                                         })
                                     }
@@ -232,17 +247,20 @@ const Question = () => {
                                         type='file'
                                         id='post-image-input'
                                         ref={pageRef.postImageRef}
-                                        onChange={(e)=>{
+                                        onChange={ async(e) => {
                                             var tgt = e.target || window.event.srcElement;
                                             var files = tgt.files;
                                             console.log("files", files);
                                             // FileReader support
                                             if (FileReader && files && files.length) {
                                                 var fr = new FileReader();
-                                                fr.onload = function () {
+                                                const sleep = ms => new Promise(res => setTimeout(res, ms));
+                                                fr.onload = async() => {
                                                     // document.querySelector('.product-current-upload-img').src = fr.result;
                                                     console.log("fr.result", fr.result);
                                                     addTempImage(fr.result);
+                                                    await sleep(2000);
+                                                    setTempImage([]);
                                                 }
                                                 fr.readAsDataURL(files[0]);
                                                 uploadPicture(e);
