@@ -156,6 +156,10 @@ const Question = () => {
         dispatch(articleActions.uploadArticlePicture(formData));
     }
 
+    const removePicture = (link) => {
+        dispatch(articleActions.removeSpecificPicture(link));
+    }
+
     return (    
         <div className="question-page-container">
             <div className="question-container">
@@ -218,7 +222,12 @@ const Question = () => {
                                                         className='image-item'
                                                     />
                                                     <div className="overlay">
-                                                        <div className="button-delete">
+                                                        <div 
+                                                            className="button-delete"
+                                                            onClick={()=>{
+                                                                removePicture(value);
+                                                            }}
+                                                        >
                                                             Xoá
                                                         </div>
                                                     </div>

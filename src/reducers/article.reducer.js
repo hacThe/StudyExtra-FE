@@ -46,17 +46,6 @@ export function article(state = initialState, action) {
         case articleConstants.UPLOAD_PICTURE_SUCCESS:{
             console.log("action.dataLink.url", action.dataLink.url);
             var currentArticleVal = state.currentArticle;
-            var newVal = {
-                ...state,
-                currentArticle: {
-                    ...currentArticleVal,
-                    imgLink:[
-                        ...currentArticleVal.imgLink,
-                        action.dataLink.url
-                    ] 
-                }
-            };
-            console.log("newVal", newVal);
             return {
                 ...state,
                 currentArticle: {
@@ -68,6 +57,18 @@ export function article(state = initialState, action) {
                 }
             }
         }
+        case articleConstants.REMOVE_PICTURE:
+            console.log("action.link", action.link);
+            var currentArticleVal = state.currentArticle;
+            var linkList = currentArticleVal.imgLink;
+            linkList = linkList.filter(item => item !== action.link);
+            return {
+                ...state,
+                currentArticle: {
+                    ...currentArticleVal,
+                    imgLink: linkList,
+                }
+            }
         default:
             return state;
     }

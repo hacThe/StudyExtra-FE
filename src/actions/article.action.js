@@ -3,7 +3,8 @@ import { articleService } from '../services';
 
 export const articleActions = {
     getAllArticle,
-    uploadArticlePicture
+    uploadArticlePicture,
+    removeSpecificPicture
 }
 
 function getAllArticle(){
@@ -57,5 +58,10 @@ function uploadArticlePicture(data){
 }
 
 function removeSpecificPicture(link){
-
+    return (dispatch)=>{
+        dispatch(request())
+        function request() {
+            return { type: articleConstants.REMOVE_PICTURE, link};
+        }
+    }
 }
