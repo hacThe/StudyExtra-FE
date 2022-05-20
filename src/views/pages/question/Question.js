@@ -114,7 +114,7 @@ const Question = () => {
     console.log("userInfo", userInfo);
 
     const [imgList, setImageList] = useState([
-        "https://c.wallhere.com/photos/87/b3/Makise_Kurisu_Steins_Gate_anime-1250421.jpg!d",
+        // "https://c.wallhere.com/photos/87/b3/Makise_Kurisu_Steins_Gate_anime-1250421.jpg!d",
         // "https://i.pinimg.com/474x/9f/45/28/9f4528ca270dd877228545f04200c58c.jpg",
         // "https://static.wikia.nocookie.net/steins-gate/images/5/50/KurisuMakise_animeprofile_%280%29.jpg/revision/latest?cb=20220212065513",
     ])
@@ -125,6 +125,16 @@ const Question = () => {
             imgLink,
         ])
     }
+
+    const [tempImageList, setTempImage] = useState([]);
+    const addTempImage = (imgData) => {
+        setTempImage([
+            ...tempImageList,
+            imgData,
+        ])
+    }
+
+
 
     const [isOpenPost, setIsOpenPost] = useState(false);
 
@@ -199,6 +209,21 @@ const Question = () => {
                                             );
                                         })
                                     }
+                                    {
+                                        tempImageList.map((value)=>{
+                                            return (
+                                                <div className='temp-image-container'>
+                                                    <img 
+                                                        src={value}
+                                                        className='temp-image'
+                                                    >
+
+                                                    </img>
+                                                </div>
+                                                
+                                            )
+                                        })
+                                    }
                                     <input
                                         className='post-image-add-hidden'
                                         type='file'
@@ -211,10 +236,12 @@ const Question = () => {
                                             // FileReader support
                                             if (FileReader && files && files.length) {
                                                 var fr = new FileReader();
-                                                // fr.onload = function () {
-                                                //     document.querySelector('.product-current-upload-img').src = fr.result;
-                                                // }
-                                                // fr.readAsDataURL(files[0]);
+                                                fr.onload = function () {
+                                                    // document.querySelector('.product-current-upload-img').src = fr.result;
+                                                    console.log("fr.result", fr.result);
+                                                    addTempImage(fr.result);
+                                                }
+                                                fr.readAsDataURL(files[0]);
                                                 uploadPicture();
                                             }
                                         }}

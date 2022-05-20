@@ -88,6 +88,31 @@
                 .image-displayer{
                     margin-left: 1.6rem;
                     display: flex;
+                    .temp-image-container{
+                        animation: spin 10s linear infinite;
+                        border: 2.5px dashed #2afc98;
+                        border-top: 1px;
+                        border-right: 1px;
+                        border-radius: 50%;
+                    }
+                    .temp-image{
+                        width: 16rem;
+                        height: 16rem;
+                        object-fit: contain;
+                        margin-right: 0.8rem;
+                        border-radius: 50%;
+                        animation: spin2 10s linear infinite;
+                    }
+                    @keyframes spin { 
+                        100% { 
+                          transform: rotateZ(360deg);
+                        }
+                    }
+                    @keyframes spin2 { 
+                        100% { 
+                          transform: rotateZ(-360deg);
+                        }
+                    }
                     .image-item{
                         border-style: dotted;
                         border-width: 2px;
