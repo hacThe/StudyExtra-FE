@@ -7,7 +7,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import '../scss/Post.scss';
 import { cookiesUtil } from '../../../../utilities';
-
+import { FiMoreHorizontal } from "react-icons/fi";
 const Post = ({post}) => {
     const [isLiked, setLiked] = useState(false);
     const interactPost = () => {
@@ -18,8 +18,8 @@ const Post = ({post}) => {
         console.log({ state });
     })
 
-    let user = cookiesUtil.getCurrentUserInfo();
-    console.log("user", user);
+    const userInfo = useSelector(state => state.authentication.user);
+    console.log("userInfo", userInfo);
 
     const calculateTime = (timeString) => {
         // console.log("timeString", timeString);
@@ -27,7 +27,7 @@ const Post = ({post}) => {
         // console.log("calculating time", Math.abs(new Date() - postTime));
         var diff = Math.abs(new Date() - postTime);
         if(diff<1000*60){
-            return ("Một phút trước");
+            return ("0 phút trước");
         }
         else if(diff<1000*60*60){
             return (Math.floor(diff/1000/60) +" phút trước");
@@ -50,13 +50,35 @@ const Post = ({post}) => {
     return (
         <div className="question-body">
             <div className="question-header">
-                <img className="user-avatar"
-                    src={post.userAvatar}
-                ></img>
-                <p className="user-name">
-                    {post.name}
-                </p>
-                <p className="post-time">{calculateTime(post.createdAt)}</p>
+                <div className='left-heading'>
+                    <img className="user-avatar"
+                        src={post.userAvatar}
+                    ></img>
+                    <p className="user-name">
+                        {post.name}
+                    </p>
+                    <p className="post-time">{calculateTime(post.createdAt)}</p>
+                </div>
+                <div className='right-heading'>
+                    <FiMoreHorizontal
+                        className='more-icon'
+                        size={24}
+                    >
+                        
+                    </FiMoreHorizontal>
+                    <div className="manage-modal">
+                        <div className="modal-item">
+                            Chỉnh sửa
+                        </div>
+                        <div className="modal-item">
+                            Xoá
+                        </div>
+                        <div className="modal-item">
+                            Ẩn
+                        </div>
+                    </div>
+                </div>
+                
             </div>
             <div className='question-detail'>
                 <p className="question-content">
@@ -97,13 +119,13 @@ const Post = ({post}) => {
                             size={24}
                         />
                     </div>
-                    <p className="amount">26</p>
+                    <p className="amount">0</p>
                 </div>
                 <div className="interact">
                     <div className="icon icon-2">
                         <FaCommentAlt size={20}/>
                     </div>
-                    <p className="amount">62</p>
+                    <p className="amount">0</p>
                 </div>
             </div>
             
