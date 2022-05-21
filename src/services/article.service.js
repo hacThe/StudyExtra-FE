@@ -35,3 +35,4 @@ function uploadArticlePicture(data) {
 }
 
 
+

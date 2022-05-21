@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from 'react';
+import React , {useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillLike } from "react-icons/ai";
 import { FaCommentAlt } from "react-icons/fa";
@@ -53,6 +53,14 @@ const Post = ({post}) => {
     const [isOpenManageModal, setIsOpenManageModal] = useState(false);
     const [isEditPost, setIsEditPost] = useState(false);
 
+    const childRef = useRef(null);
+
+    
+    const editPost = () => {
+        console.log("childRef", childRef)
+        // childRef.editArticle();
+    }
+
     return (
         
         <div className="question-body">
@@ -70,7 +78,9 @@ const Post = ({post}) => {
                                 <p className="post-time">{calculateTime(post.createdAt)}</p>
                             </div>
                             {
-                                userInfo._id != post.userID ? (null) :
+                                typeof userInfo == 'undefined' ||
+                                (typeof userInfo != 'undefined' && userInfo._id != post.userID )
+                                ? (null) :
                                 <div className='right-heading'>
                                     <FiMoreHorizontal
                                         className='more-icon'
@@ -174,10 +184,12 @@ const Post = ({post}) => {
                 :   <div>
                         <EditPostSection
                             postInfo={post}
+                            childRef={childRef}
                         />
                         <button
                             className="edit-confirm-button"
                             onClick={()=>{
+                                editPost();
                                 setIsEditPost(!isEditPost);
                             }}
                         >

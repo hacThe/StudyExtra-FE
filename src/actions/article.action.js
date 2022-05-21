@@ -6,7 +6,10 @@ export const articleActions = {
     addNewArticle,
     deleteArticle,
     uploadArticlePicture,
-    removeSpecificPicture
+    uploadEditArticlePicture,
+    removeSpecificPicture,
+    removeSpecificEditPicture,
+    setEditPicture,
 }
 
 function getAllArticle(){
@@ -108,11 +111,55 @@ function uploadArticlePicture(data){
     }
 }
 
+function uploadEditArticlePicture(data){
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.uploadArticlePicture(data).then(
+            (dataLink)=>{
+                dispatch(success(dataLink))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.UPLOAD_PICTURE_EDIT_POST_REQUEST };
+        }
+        function success(dataLink ) {
+            return { type: articleConstants.UPLOAD_PICTURE_EDIT_POST_SUCCESS, dataLink };
+        }
+        function failure(error) {
+            return { type: articleConstants.UPLOAD_PICTURE_EDIT_POST_FAILURE, error };
+        }
+    }
+}
+
 function removeSpecificPicture(link){
     return (dispatch)=>{
         dispatch(request())
         function request() {
             return { type: articleConstants.REMOVE_PICTURE, link};
+        }
+    }
+}
+
+
+function removeSpecificEditPicture(link){
+    return (dispatch)=>{
+        dispatch(request())
+        function request() {
+            return { type: articleConstants.REMOVE_PICTURE_EDIT_POST, link};
+        }
+    }
+}
+
+function setEditPicture(data){
+    return (dispatch)=>{
+        dispatch(request())
+        function request() {
+            return { type: articleConstants.SET_PICTURE_EDIT_POST, data: data};
         }
     }
 }

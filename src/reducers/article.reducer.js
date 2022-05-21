@@ -132,6 +132,75 @@ export function article(state = initialState, action) {
                 isLoading: false,
             };
         }
+
+        case articleConstants.UPLOAD_PICTURE_EDIT_POST_REQUEST:{
+            return {
+                ...state,
+                isLoading: true,
+            };
+        }
+        case articleConstants.UPLOAD_PICTURE_EDIT_POST_FAILURE:{
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            };
+        }
+        case articleConstants.UPLOAD_PICTURE_EDIT_POST_SUCCESS:{
+            console.log("action.dataLink.url", action.dataLink.url);
+            var editArticleVal = state.editArticle;
+            return {
+                ...state,
+                editArticle: {
+                    ...editArticleVal,
+                    imgLink:[
+                        ...editArticleVal.imgLink,
+                        action.dataLink.url
+                    ] 
+                }
+            }
+        }
+
+        case articleConstants.REMOVE_PICTURE_EDIT_POST:{
+            console.log("action.link", action.link);
+            var editArticleVal = state.editArticle;
+            var linkList = editArticleVal.imgLink;
+            linkList = linkList.filter(item => item !== action.link);
+            return {
+                ...state,
+                editArticle: {
+                    ...editArticleVal,
+                    imgLink: linkList,
+                }
+            }
+        }
+
+        case articleConstants.REMOVE_PICTURE_EDIT_POST:{
+            console.log("action.link", action.link);
+            var editArticleVal = state.editArticle;
+            var linkList = editArticleVal.imgLink;
+            linkList = linkList.filter(item => item !== action.link);
+            return {
+                ...state,
+                editArticle: {
+                    ...editArticleVal,
+                    imgLink: linkList,
+                }
+            }
+        }
+
+        case articleConstants.SET_PICTURE_EDIT_POST:{
+            var linkLists = action.data;
+            console.log("linkLists: ", linkLists);
+            // return state;
+            return {
+                ...state,
+                editArticle: {
+                    imgLink: linkLists,
+                }
+            }
+        }
+
         default:
             return state;
     }

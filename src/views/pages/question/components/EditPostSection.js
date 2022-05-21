@@ -13,11 +13,11 @@ const EditPostSection = ({postInfo}) => {
         formData.append("upload_preset", "phiroud");
         const sleep = ms => new Promise(res => setTimeout(res, ms));
         await sleep(1000);
-        dispatch(articleActions.uploadArticlePicture(formData));
+        dispatch(articleActions.uploadEditArticlePicture(formData));
     }
 
     const removePicture = (link) => {
-        dispatch(articleActions.removeSpecificPicture(link));
+        dispatch(articleActions.removeSpecificEditPicture(link));
     }
 
     const pageRef = {
@@ -33,9 +33,9 @@ const EditPostSection = ({postInfo}) => {
         ])
     }
 
-    const imgLinkRedux = useSelector(state =>{
+    const imgLinkEditRedux = useSelector(state =>{
         console.log("state nè:", state);
-        return state.article.currentArticle.imgLink;
+        return state.article.editArticle.imgLink;
     })
 
     const userInfo = useSelector(state => state.authentication.user);
@@ -46,13 +46,18 @@ const EditPostSection = ({postInfo}) => {
         const data = {
             userID: userInfo._id,
             content: pageRef.postContent.current.value,
-            imgUrl: imgLinkRedux,
+            imgUrl: imgLinkEditRedux,
             comments: [],
         }
         dispatch(articleActions.addNewArticle(data));
         console.log("dataToAdd",data);
         window.location.reload();
     }
+
+    useEffect(()=>{
+        pageRef.postContent.current.value = postInfo.contents; 
+        dispatch(articleActions.setEditPicture(postInfo.imgUrl))
+    },[])
 
     return (
         <div className="edit-post-concrete">
@@ -75,7 +80,7 @@ const EditPostSection = ({postInfo}) => {
                 />
                 <div className="image-displayer">
                     {
-                        imgLinkRedux.map((value, index)=> {
+                        imgLinkEditRedux.map((value, index)=> {
                             return (
                                 <div className="image-item-container">
                                     
