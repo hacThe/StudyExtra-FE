@@ -84,113 +84,136 @@ const DetailUser = () => {
     { field: "ghichu", headerName: "Ghi chú", width: 200 },
   ];
 
-  const rowDocs = [
-    {
-      id: 1,
-      stt: 1,
-      thoigian: "12:12:00 16/04/2001",
-      thaydoi: -500,
-      sodu: 1250,
-      ghichu: "không có gì để ghi chú",
-    },
-    {
-      id: 2,
-      stt: 2,
-      thoigian: "12:12:00 16/04/2001",
-      thaydoi: 500,
-      sodu: 1250,
-      ghichu: "không có gì để ghi chú",
-    },
-    {
-      id: 3,
-      stt: 3,
-      thoigian: "12:12:00 16/04/2001",
-      thaydoi: 500,
-      sodu: 1250,
-      ghichu: "không có gì để ghi chú",
-    },
-    {
-      id: 4,
-      stt: 4,
-      thoigian: "12:12:00 16/04/2001",
-      thaydoi: 500,
-      sodu: 1250,
-      ghichu: "không có gì để ghi chú",
-    },
-    {
-      id: 5,
-      stt: 5,
-      thoigian: "12:12:00 16/04/2001",
-      thaydoi: 500,
-      sodu: 1250,
-      ghichu: "không có gì để ghi chú",
-    },
-    {
-      id: 6,
-      stt: 6,
-      thoigian: "12:12:00 16/04/2001",
-      thaydoi: 500,
-      sodu: 1250,
-      ghichu: "không có gì để ghi chú",
-    },
-    {
-      id: 7,
-      stt: 7,
-      thoigian: "12:12:00 16/04/2001",
-      thaydoi: 500,
-      sodu: 1250,
-      ghichu: "không có gì để ghi chú",
-    },
-    {
-      id: 8,
-      stt: 8,
-      thoigian: "12:12:00 16/04/2001",
-      thaydoi: 500,
-      sodu: 1250,
-      ghichu: "không có gì để ghi chú",
-    },
-    {
-      id: 9,
-      stt: 9,
-      thoigian: "12:12:00 16/04/2001",
-      thaydoi: 500,
-      sodu: 1250,
-      ghichu: "không có gì để ghi chú",
-    },
-    {
-      id: 10,
-      stt: 10,
-      thoigian: "12:12:00 16/04/2001",
-      thaydoi: 500,
-      sodu: 1250,
-      ghichu: "không có gì để ghi chú",
-    },
-    {
-      id: 11,
-      stt: 11,
-      thoigian: "12:12:00 16/04/2001",
-      thaydoi: 500,
-      sodu: 1250,
-      ghichu: "không có gì để ghi chú",
-    },
-    {
-      id: 12,
-      stt: 12,
-      thoigian: "12:12:00 16/04/2001",
-      thaydoi: 500,
-      sodu: 1250,
-      ghichu: "không có gì để ghi chú",
-    },
-    {
-      id: 13,
-      stt: 13,
-      thoigian: "12:12:00 16/04/2001",
-      thaydoi: 500,
-      sodu: 1250,
-      ghichu: "không có gì để ghi chú",
-    },
-  ];
+  // const rowDocs = [
+  //   {
+  //     id: 1,
+  //     stt: 1,
+  //     thoigian: "12:12:00 16/04/2001",
+  //     thaydoi: -500,
+  //     sodu: 1250,
+  //     ghichu: "không có gì để ghi chú",
+  //   },
+  //   {
+  //     id: 2,
+  //     stt: 2,
+  //     thoigian: "12:12:00 16/04/2001",
+  //     thaydoi: 500,
+  //     sodu: 1250,
+  //     ghichu: "không có gì để ghi chú",
+  //   },
+  //   {
+  //     id: 3,
+  //     stt: 3,
+  //     thoigian: "12:12:00 16/04/2001",
+  //     thaydoi: 500,
+  //     sodu: 1250,
+  //     ghichu: "không có gì để ghi chú",
+  //   },
+  //   {
+  //     id: 4,
+  //     stt: 4,
+  //     thoigian: "12:12:00 16/04/2001",
+  //     thaydoi: 500,
+  //     sodu: 1250,
+  //     ghichu: "không có gì để ghi chú",
+  //   },
+  //   {
+  //     id: 5,
+  //     stt: 5,
+  //     thoigian: "12:12:00 16/04/2001",
+  //     thaydoi: 500,
+  //     sodu: 1250,
+  //     ghichu: "không có gì để ghi chú",
+  //   },
+  //   {
+  //     id: 6,
+  //     stt: 6,
+  //     thoigian: "12:12:00 16/04/2001",
+  //     thaydoi: 500,
+  //     sodu: 1250,
+  //     ghichu: "không có gì để ghi chú",
+  //   },
+  //   {
+  //     id: 7,
+  //     stt: 7,
+  //     thoigian: "12:12:00 16/04/2001",
+  //     thaydoi: 500,
+  //     sodu: 1250,
+  //     ghichu: "không có gì để ghi chú",
+  //   },
+  //   {
+  //     id: 8,
+  //     stt: 8,
+  //     thoigian: "12:12:00 16/04/2001",
+  //     thaydoi: 500,
+  //     sodu: 1250,
+  //     ghichu: "không có gì để ghi chú",
+  //   },
+  //   {
+  //     id: 9,
+  //     stt: 9,
+  //     thoigian: "12:12:00 16/04/2001",
+  //     thaydoi: 500,
+  //     sodu: 1250,
+  //     ghichu: "không có gì để ghi chú",
+  //   },
+  //   {
+  //     id: 10,
+  //     stt: 10,
+  //     thoigian: "12:12:00 16/04/2001",
+  //     thaydoi: 500,
+  //     sodu: 1250,
+  //     ghichu: "không có gì để ghi chú",
+  //   },
+  //   {
+  //     id: 11,
+  //     stt: 11,
+  //     thoigian: "12:12:00 16/04/2001",
+  //     thaydoi: 500,
+  //     sodu: 1250,
+  //     ghichu: "không có gì để ghi chú",
+  //   },
+  //   {
+  //     id: 12,
+  //     stt: 12,
+  //     thoigian: "12:12:00 16/04/2001",
+  //     thaydoi: 500,
+  //     sodu: 1250,
+  //     ghichu: "không có gì để ghi chú",
+  //   },
+  //   {
+  //     id: 13,
+  //     stt: 13,
+  //     thoigian: "12:12:00 16/04/2001",
+  //     thaydoi: 500,
+  //     sodu: 1250,
+  //     ghichu: "không có gì để ghi chú",
+  //   },
+  // ];
 
+
+  console.log(userInfo)
+  const rowDocs = [];
+  userInfo.transactions?.map((value, _index) => {
+    const time = new Date(value.createdAt);
+    rowDocs.push({
+      id: _index + 1,
+      stt: _index + 1,
+      thoigian:
+        time.getDate() +
+        "-" +
+        (time.getMonth() + 1) +
+        "-" +
+        time.getFullYear() +
+        " __ " +
+        time.getHours() +
+        ":" +
+        time.getMinutes(),
+      thaydoi: value.type === "increase" ? value.amount : 0 - value.amount,
+      sodu: value.balance,
+      ghichu: value.note,
+    });
+  });
   const navigate = useNavigate();
   const handleClick = () => {
     navigate(-1);
