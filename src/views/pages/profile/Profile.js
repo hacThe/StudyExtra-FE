@@ -130,7 +130,7 @@ const Profile = () => {
         time.getHours() +
         ":" +
         time.getMinutes(),
-      thaydoi: value.type === "deposit" ? value.amount : 0 - value.amount,
+      thaydoi: value.type === "increase" ? value.amount : 0 - value.amount,
       sodu: value.balance,
       ghichu: value.note,
     });

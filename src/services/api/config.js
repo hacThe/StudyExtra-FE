@@ -36,6 +36,7 @@ export default {
   URL_VERIFY_CODE: URL_SYSTEM_V1 + '/auth/verifyCode',
   URL_SET_NEW_PASSWORD: URL_SYSTEM_V1 + '/auth/setNewPassword',
   URL_UPDATE_PROFILE: URL_SYSTEM_V1 + '/profiles/updateProfile',
+  URL_UPDATE_GEM: URL_SYSTEM_V1 + '/profiles/updateGem',
   URL_DEPOSIT_REQUEST: URL_SYSTEM_V1 + '/transaction/createDepositRequest',
   URL_GET_USER_TRANSACTION: URL_SYSTEM_V1 + '/transaction/getUserTransaction',
   URL_RESET_PASSWORD: URL_SYSTEM_V1 + '/auth/resetPassword',

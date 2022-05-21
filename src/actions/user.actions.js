@@ -16,8 +16,37 @@ export const userActions = {
   toogleLockState,
   updateProfile,
   getUserTransaction,
-  getCurrentUser
+  getCurrentUser,
+  editUserGem
 };
+
+
+
+function editUserGem(amount, userId, callback){
+  return (dispatch) => {
+      dispatch(request());
+  
+      usersServices.editUserGem(amount, userId).then(
+        (transactions) => {dispatch(success(transactions["data"]))
+          if (callback)
+          {
+            callback(transactions["data"])
+          }
+      },
+        (error) => dispatch(failure(error.toString()))
+      );
+    };
+  
+    function request() {
+      return { type: userConstants.GETONE_REQUEST };
+    }
+    function success(user) {
+      return { type: userConstants.GETONE_SUCCESS, user };
+    }
+    function failure(error) {
+      return { type: userConstants.GETONE_FAILURE, error };
+    }
+}
 
 /// này là hàm login
 function login(username, password) {

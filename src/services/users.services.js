@@ -23,7 +23,8 @@ export const usersServices = {
   getUserTransaction,
   resetPassword,
   resendVerifyEmail,
-  getCurrentUser
+  getCurrentUser,
+  editUserGem
 };
 
 function login(username, password) {
@@ -91,6 +92,13 @@ function uploadAvatar(avatarUrl) {
 function updateProfile(newInfo) {
   return handleResponse(
     ajaxHelper.post(config.URL_UPDATE_PROFILE, newInfo, options())
+  );
+}
+
+
+function editUserGem(amount, userId) {
+  return handleResponse(
+    ajaxHelper.post(config.URL_UPDATE_GEM, {amount, userId}, options())
   );
 }
 

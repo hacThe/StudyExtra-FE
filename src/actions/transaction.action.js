@@ -4,7 +4,7 @@ import { transactionServices } from "../services/transaction.services";
 export const transactionActions = {
     getDepositeGemRequest,
     _delete,
-    confirm
+    confirm,
 }
 
 function getDepositeGemRequest(callback){
@@ -32,6 +32,8 @@ function getDepositeGemRequest(callback){
         return { type: transactionConstains.GET_ALL_WAITING_DEPOSITE_GEM_FAILURE, error };
       }
 }
+
+
 
 
 
