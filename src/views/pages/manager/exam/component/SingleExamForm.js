@@ -1,26 +1,71 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Grid } from "@mui/material";
 import { AiOutlineExport, AiOutlineImport } from "react-icons/ai";
 import { IoCheckmarkSharp, IoAddCircleSharp } from "react-icons/io5";
-import { BiHide } from "react-icons/bi";
 import "./SingleExamForm.scss";
 import LeadingIconButton from "../../../../components/LeadingIconButton";
 import SaveOrExitButton from "../../component/SaveOrExitButton";
 import { useNavigate } from "react-router-dom";
+import handleStringDocsToMultipleChoice from '../../../../../utilities/ConvertDocsToMultipleChoice.util'
+import Docxtemplater from "docxtemplater";
+import PizZip from 'pizzip';
+import { setNameExam, setTimeExam, setQuestionsExam, setPointExam, setTypeCategory } from '../../../../../actions/newExam.action'
+import { useDispatch, useSelector } from "react-redux"
 
 
-function SingleExamForm({ exam }) {
+function SingleExamForm({ exam, handleAdd }) {
   const navigator = useNavigate();
-
-  function AddNewQuestionOnClick(){
+  const dispatch = useDispatch()
+  const newExam = useSelector((state) => state.newExam) || {}
+  function AddNewQuestionOnClick() {
     navigator(`/quan-ly/thi-thu/cau-hoi/tao-moi`)
   }
 
-  function EditQuestionOnClick(id){
+  function EditQuestionOnClick(id) {
     navigator(`/quan-ly/thi-thu/cau-hoi/chinh-sua/${id}`)
+  }
 
+  const inputRef = useRef()
+  const [questions, setQuestions] = useState([]);
+  const showFile = (e) => {
+    e.preventDefault();
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const content = e.target.result;
+      var doc = new Docxtemplater(new PizZip(content), { delimiters: { start: '12op1j2po1j2poj1po', end: 'op21j4po21jp4oj1op24j' } });
+      var text = doc.getFullText();
+      var list = handleStringDocsToMultipleChoice(text)
+      if (list) {
+        setQuestions(list)
+        dispatch(setQuestionsExam(list))
+      }
+    };
+    reader.readAsBinaryString(e.target.files[0]);
+  }
+
+  const handleBlurNameExam = (e) => {
+    dispatch(setNameExam(e.target.value))
+  }
+  const handleBlurTimeExam = (e) => {
+    dispatch(setTimeExam(e.target.value))
+  }
+  const handleBlurPointExam = (e) => {
+    dispatch(setPointExam(e.target.value))
+  }
+  const handleBlurTypeCategory = (e) => {
+    dispatch(setTypeCategory(e.target.value))
+  }
+
+  const handleChangeNameExam = (e) => {
+    dispatch(setNameExam(e.target.value))
+  }
+  const handleChangeTimeExam = (e) => {
+    dispatch(setTimeExam(e.target.value))
+  }
+  const handleChangePointExam = (e) => {
+    dispatch(setPointExam(e.target.value))
   }
 
 
@@ -45,118 +90,6 @@ function SingleExamForm({ exam }) {
       alert(JSON.stringify(values, null, 2));
     },
   });
-  const initialQuestions = [
-    {
-      id: 12,
-      questions: "Đây là câu hỏi nè, vd như cách nào để hiểu con gái",
-      answers: [
-        "Đây là đáp án A",
-        "Đây là đáp án B",
-        "Đây là đáp án C",
-        "Đây là đáp án S",
-      ],
-      rightAnswer: 0,
-    },
-    {
-      id: 12,
-      questions: "Đây là câu hỏi nè, vd như cách nào để hiểu con gái",
-      answers: [
-        "Đây là đáp án A",
-        "Đây là đáp án B",
-        "Đây là đáp án C",
-        "Đây là đáp án S",
-      ],
-      rightAnswer: 0,
-    },
-    {
-      id: 12,
-      questions: "Đây là câu hỏi nè, vd như cách nào để hiểu con gái",
-      answers: [
-        "Đây là đáp án A",
-        "Đây là đáp án B",
-        "Đây là đáp án C",
-        "Đây là đáp án S",
-      ],
-      rightAnswer: 0,
-    },
-    {
-      id: 12,
-      questions: "Đây là câu hỏi nè, vd như cách nào để hiểu con gái",
-      answers: [
-        "Đây là đáp án A",
-        "Đây là đáp án B",
-        "Đây là đáp án C",
-        "Đây là đáp án S",
-      ],
-      rightAnswer: 0,
-    },
-    {
-      id: 12,
-      questions: "Đây là câu hỏi nè, vd như cách nào để hiểu con gái",
-      answers: [
-        "Đây là đáp án A",
-        "Đây là đáp án B",
-        "Đây là đáp án C",
-        "Đây là đáp án S",
-      ],
-      rightAnswer: 0,
-    },
-    {
-      id: 12,
-      questions: "Đây là câu hỏi nè, vd như cách nào để hiểu con gái",
-      answers: [
-        "Đây là đáp án A",
-        "Đây là đáp án B",
-        "Đây là đáp án C",
-        "Đây là đáp án S",
-      ],
-      rightAnswer: 0,
-    },
-    {
-      id: 12,
-      questions: "Đây là câu hỏi nè, vd như cách nào để hiểu con gái",
-      answers: [
-        "Đây là đáp án A",
-        "Đây là đáp án B",
-        "Đây là đáp án C",
-        "Đây là đáp án S",
-      ],
-      rightAnswer: 0,
-    },
-    {
-      id: 12,
-      questions: "Đây là câu hỏi nè, vd như cách nào để hiểu con gái",
-      answers: [
-        "Đây là đáp án A",
-        "Đây là đáp án B",
-        "Đây là đáp án C",
-        "Đây là đáp án S",
-      ],
-      rightAnswer: 0,
-    },
-    {
-      id: 12,
-      questions: "Đây là câu hỏi nè, vd như cách nào để hiểu con gái",
-      answers: [
-        "Đây là đáp án A",
-        "Đây là đáp án B",
-        "Đây là đáp án C",
-        "Đây là đáp án S",
-      ],
-      rightAnswer: 0,
-    },
-    {
-      id: 12,
-      questions: "Đây là câu hỏi nè, vd như cách nào để hiểu con gái",
-      answers: [
-        "Đây là đáp án A",
-        "Đây là đáp án B",
-        "Đây là đáp án C",
-        "Đây là đáp án S",
-      ],
-      rightAnswer: 0,
-    },
-  ];
 
   const Answer = [
     "A",
@@ -187,56 +120,32 @@ function SingleExamForm({ exam }) {
     "Z",
   ];
 
-  const Category = [
-    {
-      key: "Lớp 10",
-      values: 0,
-    },
-
-    {
-      key: "Lớp 11",
-      values: 1,
-    },
-
-    {
-      key: "Lớp 12",
-      values: 2,
-    },
-
-    {
-      key: "Khác",
-      values: 3,
-    },
-  ];
-  const [questions, setQuestions] = useState(initialQuestions);
-
   function QuestionTile({ question, index }) {
-    console.log(question, index);
+
     return (
       <div className="question-tile">
         <div className="justify-content-between">
           <p>
             <strong>{`Câu ${index + 1}: `}</strong>
-            {question.questions}
+            {question.nameQuestion}
           </p>
 
-          <span onClick={()=>EditQuestionOnClick(question.id)}>Chỉnh sửa</span>
+          <span onClick={() => EditQuestionOnClick(index)}>Chỉnh sửa</span>
         </div>
         <div className="answer-list">
           <div className="answer-tile">
-            {question.answers.map((answer, idx) => {
-              console.log(answer);
+            {question.listAnswers.map((answer, idx) => {
               return idx === question.rightAnswer ? (
                 <p className="answer-tile right-answer">
                   <strong>{Answer[idx] + ". "}</strong>
-                  {question.answers[idx]}
+                  {answer}
                   <IoCheckmarkSharp />
                 </p>
               ) : (
                 <p className="answer-tile left-answer">
                   {" "}
                   <strong>{Answer[idx] + ". "}</strong>
-                  {question.answers[idx]}
+                  {answer}
                 </p>
               );
             })}
@@ -257,8 +166,9 @@ function SingleExamForm({ exam }) {
                 type="text"
                 id="name"
                 name="name"
-                value={formik.values.name}
-                onChange={formik.handleChange}
+                onChange={handleChangeNameExam}
+                value={newExam.nameExam}
+                onBlur={handleBlurNameExam}
               />
               {formik.errors.name && (
                 <p className="input-error-validation"> {formik.errors.name} </p>
@@ -271,8 +181,10 @@ function SingleExamForm({ exam }) {
                 type="number"
                 id="time"
                 name="time"
-                value={formik.values.time}
-                onChange={formik.handleChange}
+                //value={formik.values.time}
+                onBlur={handleBlurTimeExam}
+                value={newExam.time}
+                onChange={handleChangeTimeExam}
               />
               {formik.errors.time && (
                 <p className="input-error-validation"> {formik.errors.time} </p>
@@ -285,8 +197,9 @@ function SingleExamForm({ exam }) {
                 type="number"
                 id="scoreUnit"
                 name="scoreUnit"
-                value={formik.values.scoreUnit}
-                onChange={formik.handleChange}
+                onBlur={handleBlurPointExam}
+                onChange={handleChangePointExam}
+                value={newExam.questionPoint}
               />
               {formik.errors.scoreUnit && (
                 <p className="input-error-validation">
@@ -299,52 +212,29 @@ function SingleExamForm({ exam }) {
             <div className="mb-3">
               <label htmlFor="name">Thể loại</label>
               <div className="category">
-                <span className="manage-category">Quản lý thể loại</span>
-
                 <select
                   name="category"
-                  value={formik.category}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
+                  onChange={handleBlurTypeCategory}
                   style={{ display: "block" }}
+                  value={newExam.typeCategory}
                 >
-                  <option value={1} label="Lớp 10">
-                    Lớp 19
+                  <option value={''} label="--Chọn--">
+                    --Chọn--
                   </option>
-                  <option value={2} label="Lớp 11">
+                  <option value={'Lớp 10'} label="Lớp 10">
+                    Lớp 10
+                  </option>
+                  <option value={'Lớp 11'} label="Lớp 11">
                     Lớp 11
                   </option>
-                  <option value={3} label="Lớp 12">
+                  <option value={'Lớp 12'} label="Lớp 12">
                     Lớp 12
+                  </option>
+                  <option value={'Khác'} label="Khác">
+                    Khác
                   </option>
                 </select>
               </div>
-            </div>
-
-            <div className="mb-3">
-              <label htmlFor="name">Đối tượng</label>
-              <select
-                name="category"
-                value={formik.category}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                style={{ display: "block" }}
-              >
-                {Category.map((item, index) => (
-                  <option value={item.values} key={`category-${index}`}>
-                    {item.key}
-                  </option>
-                ))}
-                {/* <option value={0} label="Khóa học 10">
-                  Toàn bộ
-                </option>
-                <option value={1} label="Khóa học 11">
-                  Khóa học 1
-                </option>
-                <option value={2} label="Khóa học 12">
-                  Khóa học 2
-                </option> */}
-              </select>
             </div>
           </div>
         </Grid>
@@ -360,7 +250,9 @@ function SingleExamForm({ exam }) {
             <LeadingIconButton
               icon={<AiOutlineImport />}
               content="Nhập câu hỏi"
+              onClick={() => { inputRef.current.click() }}
             />
+            <input style={{ display: 'none' }} ref={inputRef} type="file" id="fileInput" onChange={(e) => showFile(e)} />
             <LeadingIconButton
               icon={<AiOutlineExport />}
               content="Xuất câu hỏi"
@@ -368,7 +260,7 @@ function SingleExamForm({ exam }) {
           </Grid>
 
           <div className="question-list">
-            {questions.map((question, index) => (
+            {newExam.listQuestion.map((question, index) => (
               <QuestionTile question={question} index={index} />
             ))}
           </div>
@@ -377,11 +269,6 @@ function SingleExamForm({ exam }) {
             <IoAddCircleSharp />
             Thêm câu hỏi
           </span>
-
-          <SaveOrExitButton
-            CancelOnClick={() => console.log("Cancel")}
-            SaveOnClick={() => formik.handleSubmit()}
-          />
         </Grid>
       </Grid>
     </form>
