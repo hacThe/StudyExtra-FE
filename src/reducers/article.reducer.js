@@ -11,6 +11,9 @@ const initialState = {
     },
     editArticle:{
         imgLink: [],
+    },
+    bigComment:{
+        imgLink: "",
     }
 };
    
@@ -216,21 +219,42 @@ export function article(state = initialState, action) {
             };
         }
         case articleConstants.EDIT_ARTICLE_SUCCESS:{
-            console.log("action.article.data",action.article.data);
-            var article = state.articles;
-            console.log("old", article);
-            for(var i = 0; i< article.length; i++){
-                if(article[i]._id == action.article.data._id){
-                    article[i] = action.article.data;
-                    console.log("Đổi được rồi");
-                }  
-            }
-            console.log("new", article);
             return {
                 ...state,
                 articles:[
                     ...article,
                 ]
+            }
+        }
+
+        case articleConstants.UPLOAD_BIG_COMMENT_IMAGE_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.UPLOAD_BIG_COMMENT_IMAGE_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.UPLOAD_BIG_COMMENT_IMAGE_SUCCESS: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    bigComment:{
+                        imgLink: action.dataLink.url,
+                    }
+                };
             }
         }
 

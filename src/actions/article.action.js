@@ -11,6 +11,7 @@ export const articleActions = {
     removeSpecificPicture,
     removeSpecificEditPicture,
     setEditPicture,
+    uploadBigCommentArticlePicture,
 }
 
 function getAllArticle(){
@@ -186,6 +187,31 @@ function setEditPicture(data){
         dispatch(request())
         function request() {
             return { type: articleConstants.SET_PICTURE_EDIT_POST, data: data};
+        }
+    }
+}
+
+function uploadBigCommentArticlePicture(data){
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.uploadArticlePicture(data).then(
+            (dataLink)=>{
+                dispatch(success(dataLink))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.UPLOAD_BIG_COMMENT_IMAGE_REQUEST };
+        }
+        function success(dataLink ) {
+            return { type: articleConstants.UPLOAD_BIG_COMMENT_IMAGE_SUCCESS, dataLink };
+        }
+        function failure(error) {
+            return { type: articleConstants.UPLOAD_BIG_COMMENT_IMAGE_FAILURE, error };
         }
     }
 }

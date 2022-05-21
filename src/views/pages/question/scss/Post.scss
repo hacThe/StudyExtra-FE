@@ -232,12 +232,29 @@
                 display: none;
             }
             .big-comment-img-display-temp-container{
+                margin-top: 0.8rem;
+                margin-left: 4.4rem;
+                animation: spin 10s linear infinite;
+                border: 2px dashed #2afc98;
+                border-radius: 50%;
+                width: 16rem;
+                height: 16rem;
                 .big-comment-img-display-temp{
-                    margin-top: 0.8rem;
-                    margin-left: 4.4rem;
                     width: 16rem;
                     height: 16rem;
                     object-fit: cover;
+                    animation: spin2 10s linear infinite;
+                    border-radius: 50%;
+                }
+            }
+            @keyframes spin { 
+                100% { 
+                  transform: rotateZ(360deg);
+                }
+            }
+            @keyframes spin2 { 
+                100% { 
+                  transform: rotateZ(-360deg);
                 }
             }
             .big-comment-img-display{

@@ -104,7 +104,17 @@ const Post = ({post}) => {
 
     const [currentCommnentImg, setCurrentCommnentImg] = useState("");
 
+    const uploadPicture = async(e) => {
+        const formData = new FormData();
+        formData.append("file", e.target.files[0])
+        formData.append("upload_preset", "phiroud");
+        const sleep = ms => new Promise(res => setTimeout(res, ms));
+        await sleep(1000);
+        dispatch(articleActions.uploadBigCommentArticlePicture(formData));
+    }
 
+    const bigCommentLink = useSelector(state => state.article.bigComment.imgLink);
+    console.log("bigCommentLink: ", bigCommentLink)
     return (
         
         <div className="question-body">
@@ -271,12 +281,12 @@ const Post = ({post}) => {
                                                         // document.querySelector('.big-comment-img-display').src = fr.result;
                                                         console.log("fr.result", fr.result);
                                                         // addTempImage(fr.result);
-                                                        // await sleep(2000);
-                                                        // setTempImage([]);
                                                         setCurrentCommnentImg(fr.result);
+                                                        await sleep(2000);
+                                                        setCurrentCommnentImg("");
                                                     }
                                                     fr.readAsDataURL(files[0]);
-                                                    // uploadPicture(e);
+                                                    uploadPicture(e);
                                                 }
                                             }}
                                         />
@@ -290,16 +300,14 @@ const Post = ({post}) => {
                                                     </img>
                                                 </div>
                                             : (null)
+                                        }   
+                                        {
+                                            bigCommentLink=="" ? (null) :
+                                            <img 
+                                                src={bigCommentLink}
+                                                className="big-comment-img-display">  
+                                            </img>
                                         }
-                                        {/* <label
-                                            className='post-image-add'
-                                            for='post-image-input'
-                                            // onClick={()=>{
-                                            //     console.log("pageRef.postImageRef", pageRef.postImageRef);
-                                            // }}
-                                        >
-                                            Thêm ảnh
-                                        </label> */}
                                     </div>
                                 </div>   
                             } 
