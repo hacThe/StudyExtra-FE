@@ -9,6 +9,8 @@ import '../scss/Post.scss';
 import { FiMoreHorizontal } from "react-icons/fi";
 import { articleActions } from '../../../../actions/article.action';
 import EditPostSection from './EditPostSection';
+import { IoImageOutline , IoSend} from "react-icons/io5";
+
 
 const Post = ({post}) => {
     const dispatch = useDispatch();
@@ -59,7 +61,9 @@ const Post = ({post}) => {
         console.log("childRef", childRef);
         childRef.current.editArticle();    
     }
+    
 
+    // Count comment
     const countReplyComment = (replyComment) =>{
         var res = 0;
         for(var i = 0; i < replyComment.length; i++){
@@ -77,6 +81,29 @@ const Post = ({post}) => {
         console.log("total", res);
         return res;
     }
+
+    // Add big comment
+    const [userReplyDisplay, setUserReplyDisplay] = useState(false);
+    const changeUserReplyDisplay = () => {
+        setUserReplyDisplay(!userReplyDisplay);
+    }
+
+    const commentRef = useRef(null);
+    const addBigComment = () => {
+        console.log("commentRef.current.value", commentRef.current.value);
+        const data = {
+            userID: userInfo._id,
+            postID: post._id,
+            content: commentRef.current.value,
+            userTagID: "",
+            imgUrl: "",
+            type: "1",
+            replyComment: [],
+        }
+    }
+
+    const [currentCommnentImg, setCurrentCommnentImg] = useState("");
+
 
     return (
         
@@ -183,7 +210,12 @@ const Post = ({post}) => {
                             </div>
                             <div className="interact">
                                 <div className="icon icon-2">
-                                    <FaCommentAlt size={20}/>
+                                    <FaCommentAlt 
+                                        size={20}
+                                        onClick={()=>{
+                                            setUserReplyDisplay(!userReplyDisplay);
+                                        }}
+                                    />
                                 </div>
                                 <p className="amount">
                                     {commentCount(post.comment)}
@@ -193,6 +225,84 @@ const Post = ({post}) => {
                         
                         <div className='divider'></div>
                         <div className="comment-section">
+                            {
+                                userReplyDisplay == false || !userInfo ? (null) :
+                                <div className="user-reply-comment">
+                                    <div className='user-reply-heading'>
+                                        <img 
+                                            src={userInfo.avatar}
+                                            className='current-user-avatar'
+                                        ></img>
+                                        <input 
+                                            type="text" 
+                                            className="comment-box"
+                                            ref={commentRef}
+                                        >
+                                        </input>
+                                        <label
+                                            className="add-img-label"
+                                            for="big-comment-image-input"
+                                        >
+                                            <IoImageOutline size={28} className='add-image-icon'/>
+                                        </label>
+                                        <IoSend 
+                                            size={28} 
+                                            className='send-comment'
+                                            onClick={(e)=> {
+                                                addBigComment();
+                                            }}
+                                        ></IoSend>
+                                    </div>
+                                    <div className='big-comment-image'>
+                                        <input
+                                            className='big-comment-image-add-hidden'
+                                            type='file'
+                                            id='big-comment-image-input'
+                                            // ref={pageRef.postImageRef}
+                                            onChange={ async(e) => {
+                                                var tgt = e.target || window.event.srcElement;
+                                                var files = tgt.files;
+                                                console.log("files", files);
+                                                // FileReader support
+                                                if (FileReader && files && files.length) {
+                                                    var fr = new FileReader();
+                                                    const sleep = ms => new Promise(res => setTimeout(res, ms));
+                                                    fr.onload = async() => {
+                                                        // document.querySelector('.big-comment-img-display').src = fr.result;
+                                                        console.log("fr.result", fr.result);
+                                                        // addTempImage(fr.result);
+                                                        // await sleep(2000);
+                                                        // setTempImage([]);
+                                                        setCurrentCommnentImg(fr.result);
+                                                    }
+                                                    fr.readAsDataURL(files[0]);
+                                                    // uploadPicture(e);
+                                                }
+                                            }}
+                                        />
+                                        {
+                                            currentCommnentImg!="" 
+                                            ?
+                                                <div className="big-comment-img-display-temp-container">
+                                                    <img 
+                                                        src={currentCommnentImg}
+                                                        className="big-comment-img-display-temp">  
+                                                    </img>
+                                                </div>
+                                            : (null)
+                                        }
+                                        {/* <label
+                                            className='post-image-add'
+                                            for='post-image-input'
+                                            // onClick={()=>{
+                                            //     console.log("pageRef.postImageRef", pageRef.postImageRef);
+                                            // }}
+                                        >
+                                            Thêm ảnh
+                                        </label> */}
+                                    </div>
+                                </div>   
+                            } 
                             {
                                 post.comment.map((comment) => {
                                     return (<CommentItem comment={comment}/>)

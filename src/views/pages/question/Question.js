@@ -9,9 +9,10 @@ import AddPostSection from './components/AddPostSection';
 
 const refineComments = (comments) => {
     var res = [];
-    
+    console.log("comments", comments);
     try{
         comments.forEach(cmt => {
+            console.log("cmt", cmt);
             var tempt = {
                 commentID: cmt.commentID,
                 userID: cmt.userID,
@@ -23,15 +24,15 @@ const refineComments = (comments) => {
                 imgUrl: cmt.imgUrl,
                 isHide: false,
             }
-            if(cmt.replyComment || cmt.replyComment.length > 0)
+            if(cmt.replyComment && cmt.replyComment.length > 0)
                 tempt.replyComment =  refineComments(cmt.replyComment);
             else tempt.replyComment = [];
             res.push(tempt);
         });
     }
     catch(e){
-        // console.log("error", e);
-        // console.log("comments", comments);
+        console.log("error", e);
+        console.log("comments", comments);
     }
     
     // var tempt ={};

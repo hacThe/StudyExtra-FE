@@ -1,10 +1,9 @@
 import React , {useState, useEffect} from 'react'
 import '../scss/CommentItem.scss';
 import { BsTriangleFill } from "react-icons/bs";
-import { IoImageOutline } from "react-icons/io5";
+import { IoImageOutline , IoSend} from "react-icons/io5";
 import { HiDotsHorizontal} from "react-icons/hi";
 import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
-import { IoSend } from "react-icons/io5";
 
 import Consts from '../ConstKey.js';
 
