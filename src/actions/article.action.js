@@ -12,6 +12,8 @@ export const articleActions = {
     removeSpecificEditPicture,
     setEditPicture,
     uploadBigCommentArticlePicture,
+    addBigComment,
+    removeBigCommentPicture,
 }
 
 function getAllArticle(){
@@ -212,6 +214,40 @@ function uploadBigCommentArticlePicture(data){
         }
         function failure(error) {
             return { type: articleConstants.UPLOAD_BIG_COMMENT_IMAGE_FAILURE, error };
+        }
+    }
+}
+
+function addBigComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.addBigCommentToArticle(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.ADD_BIG_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.ADD_BIG_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.ADD_BIG_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+function removeBigCommentPicture(){
+    return (dispatch)=>{
+        dispatch(request())
+        function request() {
+            return { type: articleConstants.REMOVE_BIG_COMMENT_PICTURE};
         }
     }
 }

@@ -96,10 +96,14 @@ const Post = ({post}) => {
             postID: post._id,
             content: commentRef.current.value,
             userTagID: "",
-            imgUrl: "",
+            imgUrl: bigCommentLink,
             type: "1",
             replyComment: [],
         }
+        commentRef.current.value="";
+        dispatch(articleActions.addBigComment(data));
+        setUserReplyDisplay(!userReplyDisplay);
+        dispatch(articleActions.removeBigCommentPicture())
     }
 
     const [currentCommnentImg, setCurrentCommnentImg] = useState("");
@@ -114,7 +118,8 @@ const Post = ({post}) => {
     }
 
     const bigCommentLink = useSelector(state => state.article.bigComment.imgLink);
-    console.log("bigCommentLink: ", bigCommentLink)
+    // console.log("bigCommentLink: ", bigCommentLink)
+
     return (
         
         <div className="question-body">
@@ -270,6 +275,7 @@ const Post = ({post}) => {
                                             id='big-comment-image-input'
                                             // ref={pageRef.postImageRef}
                                             onChange={ async(e) => {
+                                                dispatch(articleActions.removeBigCommentPicture())  
                                                 var tgt = e.target || window.event.srcElement;
                                                 var files = tgt.files;
                                                 console.log("files", files);
@@ -303,10 +309,20 @@ const Post = ({post}) => {
                                         }   
                                         {
                                             bigCommentLink=="" ? (null) :
-                                            <img 
-                                                src={bigCommentLink}
-                                                className="big-comment-img-display">  
-                                            </img>
+                                            <div>
+                                                <img 
+                                                    src={bigCommentLink}
+                                                    className="big-comment-img-display">  
+                                                </img>
+                                                <div
+                                                    onClick={()=> {
+                                                        dispatch(articleActions.removeBigCommentPicture())
+                                                    }}
+                                                >
+                                                    Close
+                                                </div>
+                                            </div>
+                                            
                                         }
                                     </div>
                                 </div>   

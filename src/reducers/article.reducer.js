@@ -1,5 +1,3 @@
-import { plPL } from "@mui/x-data-grid";
-import { act } from "@testing-library/react";
 import { articleConstants } from "../constaint";
 
 const initialState = {
@@ -248,6 +246,7 @@ export function article(state = initialState, action) {
 
         case articleConstants.UPLOAD_BIG_COMMENT_IMAGE_SUCCESS: {
             {
+
                 return {
                     ...state,
                     isLoading: false,
@@ -258,7 +257,48 @@ export function article(state = initialState, action) {
             }
         }
 
+        case articleConstants.ADD_BIG_COMMENT_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.ADD_BIG_COMMENT_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.ADD_BIG_COMMENT_SUCCESS: {
+            {
+                console.log("action", action);
+                var newArticles = action.articles.data;
+                return {
+                    ...state,
+                    isLoading: false,
+                    articles: newArticles,
+                };
+            }
+        }
+
+        case articleConstants.REMOVE_BIG_COMMENT_PICTURE: {
+            return{
+                ...state,
+                bigComment:{
+                    imgLink: "",
+                }
+            }
+        }
+
         default:
+            
             return state;
     }
 }

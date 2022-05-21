@@ -14,12 +14,12 @@ const refineComments = (comments) => {
         comments.forEach(cmt => {
             console.log("cmt", cmt);
             var tempt = {
-                commentID: cmt.commentID,
+                commentID: cmt.commentID || cmt._id,
                 userID: cmt.userID,
                 username: "Yae Miko Real",
                 userAvatar: "https://img-9gag-fun.9cache.com/photo/axBB4pW_460s.jpg",
                 content: cmt.content,
-                userTagID: cmt.userTagID,
+                userTagID: cmt.userTagID || "",
                 userTagName: 'Raiden Ei',
                 imgUrl: cmt.imgUrl,
                 isHide: false,

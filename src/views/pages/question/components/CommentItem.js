@@ -52,8 +52,8 @@ const CommentItem = ({comment}) => {
         }
     }, []);   
 
-    console.log("comment", comment);
-    console.log("comment.replyComment", comment.replyComment);
+    // console.log("comment", comment);
+    // console.log("comment.replyComment", comment.replyComment);
 
     const hideThisComment = () => {
         // Ở đây mình gọi redux các kiểu
