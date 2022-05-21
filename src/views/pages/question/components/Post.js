@@ -54,11 +54,9 @@ const Post = ({post}) => {
     const [isEditPost, setIsEditPost] = useState(false);
 
     const childRef = useRef(null);
-
-    
     const editPost = () => {
-        console.log("childRef", childRef)
-        // childRef.editArticle();
+        console.log("childRef", childRef);
+        childRef.current.editArticle();    
     }
 
     return (
@@ -184,7 +182,7 @@ const Post = ({post}) => {
                 :   <div>
                         <EditPostSection
                             postInfo={post}
-                            childRef={childRef}
+                            ref={childRef}
                         />
                         <button
                             className="edit-confirm-button"
@@ -197,8 +195,6 @@ const Post = ({post}) => {
                         </button>
                     </div>
             }
-           
-            
         </div>
     )
 }

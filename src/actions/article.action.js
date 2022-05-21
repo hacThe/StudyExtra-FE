@@ -4,6 +4,7 @@ import { articleService } from '../services';
 export const articleActions = {
     getAllArticle,
     addNewArticle,
+    editArticle,
     deleteArticle,
     uploadArticlePicture,
     uploadEditArticlePicture,
@@ -58,6 +59,31 @@ function addNewArticle(data){
         }
         function failure(error) {
             return { type: articleConstants.ADD_ARTICLE_FAILURE, error };
+        }
+    }
+}
+
+function editArticle(data){
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.editArticle(data).then(
+            (article)=>{
+                dispatch(success(article))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.EDIT_ARTICLE_REQUEST };
+        }
+        function success(article ) {
+            return {type: articleConstants.EDIT_ARTICLE_SUCCESS, article };
+        }
+        function failure(error) {
+            return { type: articleConstants.EDIT_ARTICLE_FAILURE, error };
         }
     }
 }

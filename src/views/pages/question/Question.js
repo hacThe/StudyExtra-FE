@@ -40,7 +40,7 @@ const refineComments = (comments) => {
 
 const refineData = (data) => {
     var res = [];
-    data.forEach(item => {
+    data.slice().reverse().forEach(item => {
         // console.log("item to refine", item)
         var temp = {
             _id: item._id,
@@ -110,7 +110,7 @@ const Question = () => {
     const articles =
         useSelector((state) => {
             // console.log("state", state);
-            return state.article.articles.reverse();
+            return state.article.articles;
         }) || [];
     // console.log("articles", articles)
 

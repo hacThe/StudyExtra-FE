@@ -1,9 +1,9 @@
-import React , {useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import React , {useEffect, useRef, useState, forwardRef, useImperativeHandle} from 'react';
+import { useDispatch, useSelector } from "react-redux"; 
 import { articleActions } from '../../../../actions/article.action';
 import '../scss/EditPostSection.scss';
 
-const EditPostSection = ({postInfo}) => {
+const EditPostSection = ({postInfo}, ref) => {
     console.log("postInfo", postInfo);
 
     const dispatch = useDispatch();
@@ -41,18 +41,18 @@ const EditPostSection = ({postInfo}) => {
     const userInfo = useSelector(state => state.authentication.user);
     console.log("userInfo", userInfo);
 
-
-    const addArticle = () => {
-        const data = {
-            userID: userInfo._id,
-            content: pageRef.postContent.current.value,
-            imgUrl: imgLinkEditRedux,
-            comments: [],
-        }
-        dispatch(articleActions.addNewArticle(data));
-        console.log("dataToAdd",data);
-        window.location.reload();
-    }
+    useImperativeHandle(ref, () => ({
+        editArticle : () => {
+            const data = {
+                _id: postInfo._id,
+                content: pageRef.postContent.current.value,
+                imgUrl: imgLinkEditRedux,
+            }
+            dispatch(articleActions.editArticle(data));
+            console.log("dataToEdit: ",data);
+            // window.location.reload();
+        },
+    }));
 
     useEffect(()=>{
         pageRef.postContent.current.value = postInfo.contents; 
@@ -158,4 +158,4 @@ const EditPostSection = ({postInfo}) => {
     )
 }
 
-export default EditPostSection
+export default forwardRef(EditPostSection)
