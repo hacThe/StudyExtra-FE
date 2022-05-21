@@ -4,13 +4,14 @@ import { BsFillCaretRightFill } from 'react-icons/bs'
 import '../Announcement.scss'
 import axios from 'axios'
 import { Link } from "react-router-dom";
+import URL from '../../../../services/api/config'
 
 function GeneralNotion(props) {
     const [listAnnouncement, setListAnnouncement] = useState([])
     const [page, setPage] = useState(1);
     useEffect(() => {
         const fetApi = async () => {
-            await axios.get('http://localhost:5000/api/announcement/getAllAnnouncement')
+            await axios.get(URL.URL_GET_ALL_ANNOUNCEMENT)
                 .then(res => {
                     console.log(res.data)
                     setListAnnouncement(res.data.data)
@@ -46,7 +47,7 @@ function GeneralNotion(props) {
             <Divider></Divider>
             <div style={{ marginTop: '15px', marginBottom: '15px' }}>
                 {
-                    listAnnouncement.map((item, index) => {
+                    listAnnouncement.length !== 0 ? listAnnouncement.map((item, index) => {
                         if (index < page * 8 && index >= (page - 1) * 8) {
                             return (
                                 <div style={{ marginLeft: '10px', marginRight: '15px', marginBottom: '15px' }}>
@@ -54,15 +55,17 @@ function GeneralNotion(props) {
                                         <p style={{ lineHeight: '20px' }}>
                                             <BsFillCaretRightFill style={{ fontSize: '10px', lineHeight: '16px' }}></BsFillCaretRightFill>
                                             {item.title}
-                                            <span className='notification-time' style={{ lineHeight: '16px', marginLeft: '5px' }}> {renderTime(item.createAt)}</span>
+                                            <span className='notification-time' style={{ lineHeight: '16px', marginLeft: '5px' }}> {renderTime(item.updatedAt)}</span>
                                         </p>
                                     </Link>
                                 </div>
                             )
                         }
-                    })
+                    }) : (
+                        <h1 style={{ margin: '50px', width: '100%', textAlign: 'center' }}>Không có kết quả tìm kiếm</h1>
+                    )
                 }
-               
+
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Pagination onChange={(event, page) => choosePage(event, page)} size='small' count={renderNumberOfPage()} color="primary" />

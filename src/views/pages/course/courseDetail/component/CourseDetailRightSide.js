@@ -3,7 +3,7 @@ import { dividerClasses, Grid } from "@mui/material";
 import "../CourseDetail.scss";
 import {AiFillPlayCircle} from "react-icons/ai";
 import {RiMoneyDollarCircleFill} from "react-icons/ri";
-const CourseDetailRightSide = ({course, toogle}) => {
+const CourseDetailRightSide = ({course, toogle, buyCourse}) => {
 
 
 
@@ -19,7 +19,7 @@ const CourseDetailRightSide = ({course, toogle}) => {
         <RiMoneyDollarCircleFill className="coin"/>
       </div>
 
-      <div className="se-btn">Đăng ký</div>
+      <div onClick={() => buyCourse()} className="se-btn">Đăng ký</div>
       <p className="se-slogan">Tri thức ở đâu chúng tôi vươn cao tới đó</p>
 
     

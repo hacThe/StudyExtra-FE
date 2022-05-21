@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './AddAnnouncement.scss'
 import { BsArrow90DegLeft } from 'react-icons/bs'
 import { AiFillFileAdd } from 'react-icons/ai'
@@ -7,13 +7,46 @@ import { useNavigate } from "react-router-dom";
 import SunEditor, { buttonList } from 'suneditor-react'
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import axios from 'axios'
-import  URL from '../../../../../services/api/config'
+import URL from '../../../../../services/api/config'
+import { useParams } from 'react-router-dom'
+import { AiFillDelete, AiFillSave } from 'react-icons/ai'
 
-function AddAnnouncement(props) {
+function EditAnnouncement(props) {
+    const { slug } = useParams()
     const navigate = useNavigate();
     const [content, setContent] = React.useState('');
     const [title, setTitle] = React.useState('');
     const [review, setReview] = React.useState('');
+
+    useEffect(() => {
+        const fetApi = async () => {
+            await axios.get(URL.URL_GET_ANNOUNCEMENT + slug)
+                .then(res => {
+                    if (res.status == 200) {
+                        console.log(res.data.data.content)
+                        setContent(res.data.data.content)
+                        setTitle(res.data.data.title)
+                        setReview(`
+                            <p><span style="font-size: 20px;color: #B94A48;"><strong>
+                                ${res.data.data.title !== 0 ? res.data.data.title : "Không có"}
+                            </strong></span></p>
+                            <p><span style="font-size: 14px;"><em>
+                                ${renderTime()}
+                            </em></span></p>
+                            ${res.data.data.content}
+                        `)
+                    } else {
+                        console.log("Thất bại")
+                    }
+
+                })
+                .catch(err => {
+                    console.log("Thành công")
+                })
+        }
+        fetApi()
+    }, [])
+
     const renderTime = () => {
         let a = new Date()
         let day
@@ -56,15 +89,13 @@ function AddAnnouncement(props) {
         </em></span></p>
         ${content}
         `)
-        console.log(e.target.value)
     }
 
     const handleChange = (newContent) => {
-        console.log(newContent)
         setContent(newContent)
         setReview(`
         <p><span style="font-size: 20px;color: #B94A48;"><strong>
-            ${title.length !== 0 ? title : "Không có"}
+            ${title }
         </strong></span></p>
         <p><span style="font-size: 14px;"><em>
             ${renderTime()}
@@ -73,40 +104,58 @@ function AddAnnouncement(props) {
         `)
     }
 
-    const handleAddAnnouncemnt = async () => {
-        await axios.post(URL.URL_ADD_ANNOUNCEMENT, {
-            title,
-            content
-        }).then(res => {
-            console.log(res)
-            navigate(-1)
-        }).catch(err => {
-            console.log(err)
-        })
-        console.log({
-            title,
+    const handleUpdateAnnouncement = async () => {
+        await axios.post(URL.URL_UPDATE_ANNOUNCEMENT, {
+            slug,
             content,
+            title
+        }).then(res => {
+            if (res.data.status == 200) {
+                navigate('/quan-ly/thong-bao-chung')
+            }
+            console.log('Thành công update')
+        }).catch(err => {
+            console.log('Thất bại update')
+        })
+    }
+
+    const handleDeleteAnnouncement = async () => {
+        await axios.post(URL.URL_DELETE_ANNOUNCEMENT, {
+            slug,
+        }).then(res => {
+            if (res.data.status == 200) {
+                navigate('/quan-ly/thong-bao-chung')
+            }
+            console.log('Thành công delete')
+        }).catch(err => {
+            console.log('Thất bại delete')
         })
     }
 
     return (
         <div className='add-announcement'>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <div onClick={() => { navigate(-1) }} style={{ display: 'flex', color: ' #747474', cursor: 'pointer' }} >
+                <div onClick={() => { navigate('/quan-ly/thong-bao-chung') }} style={{ display: 'flex', color: ' #747474', cursor: 'pointer' }} >
                     <BsArrow90DegLeft fontSize={20} style={{ marginRight: '10px' }}></BsArrow90DegLeft>
                     <p style={{ lineHeight: '17px', fontSize: '14px' }}>Danh sách thông báo</p>
                 </div>
-                <div className='btn-add' onClick={handleAddAnnouncemnt} style={{ display: 'flex', cursor: 'pointer' }} >
-                    <AiFillFileAdd fontSize={20} style={{ marginRight: '10px' }}></AiFillFileAdd>
-                    <p style={{ lineHeight: '17px', fontSize: '16px', fontWeight: '700' }}>Thêm</p>
+                <div style={{ display: 'flex' }}>
+                    <div className='btn-add' onClick={handleDeleteAnnouncement} style={{ display: 'flex', cursor: 'pointer' }} >
+                        <AiFillDelete fontSize={20} style={{ marginRight: '10px' }}></AiFillDelete>
+                        <p style={{ lineHeight: '17px', fontSize: '16px', fontWeight: '700' }}>Xóa thông báo</p>
+                    </div>
+                    <div className='btn-add' onClick={handleUpdateAnnouncement} style={{ display: 'flex', cursor: 'pointer' }} >
+                        <AiFillSave fontSize={20} style={{ marginRight: '10px' }}></AiFillSave>
+                        <p style={{ lineHeight: '17px', fontSize: '16px', fontWeight: '700' }}>Lưu thay đổi</p>
+                    </div>
                 </div>
             </div>
             <Grid style={{ marginTop: '20px', height: '90%', overflow: 'hidden' }} container spacing={2}>
-                <Grid style={{paddingLeft: '20px'}} sm={6}>
+                <Grid style={{ paddingLeft: '20px' }} sm={6}>
                     <div className='name'>
                         Tên thông báo
                     </div>
-                    <input onChange={handleChangeTitle} style={{fontSize:'14px'}} type='text'></input>
+                    <input onChange={handleChangeTitle} defaultValue={title} style={{ fontSize: '14px' }} type='text'></input>
                     <div className='name'>
                         Nội dung thông báo
                     </div>
@@ -122,9 +171,8 @@ function AddAnnouncement(props) {
                                         ['align', 'horizontalRule', 'list', 'lineHeight'],
                                     ]
                                 }}
-                                placeholder="Please type here..."
-                                defaultValue
                                 autoFocus={true}
+                                setContents={content}
                                 onChange={handleChange}
                             ></SunEditor>
                         </div>
@@ -148,4 +196,4 @@ function AddAnnouncement(props) {
     );
 }
 
-export default AddAnnouncement;
+export default EditAnnouncement;

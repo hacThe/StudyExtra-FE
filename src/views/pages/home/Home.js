@@ -11,9 +11,9 @@ import { courseAction } from "../../../actions/course.action";
 import { postAction } from "../../../actions/post.action";
 import { appActions } from "../../../actions";
 
+
 const Login = () => {
   const dispatch = useDispatch();
-
   const courses = useSelector((state) => state.course.courses) || [];
   const posts = useSelector((state) => state.post.posts) || [];
 

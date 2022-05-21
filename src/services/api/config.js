@@ -16,6 +16,7 @@ export default {
   URL_ADD_LESSON: URL_SYSTEM_V1 + "/courses/addNewLesson",
   URL_EDIT_LESSON: URL_SYSTEM_V1 + "/courses/lesson",
   URL_DELETE_LESSON: URL_SYSTEM_V1 + "/courses/lesson/delete",
+  URL_BUY_COURSE: URL_SYSTEM_V1 + '/profiles/userBuyCourse',
 
   // exam
   URL_GET_QUESTIONS: URL_SYSTEM_V1 + "/exam/getQuestions",
@@ -51,6 +52,12 @@ export default {
   URL_GET_POSTS: URL_SYSTEM_V1 + "/posts/getAllPosts",
   URL_GET_NOTIFICATIONS: URL_SYSTEM_V1 + "/notifications/getAllNotification",
 
+  // Announcement
+  URL_ADD_ANNOUNCEMENT: URL_SYSTEM_V1 + '/announcement/add-new-announcement',
+  URL_GET_ALL_ANNOUNCEMENT: URL_SYSTEM_V1 + '/announcement/getAllAnnouncement',
+  URL_GET_ANNOUNCEMENT: URL_SYSTEM_V1 + '/announcement/', //+ slug
+  URL_DELETE_ANNOUNCEMENT: URL_SYSTEM_V1 +'/announcement/delete-announcement',
+  URL_UPDATE_ANNOUNCEMENT: URL_SYSTEM_V1 +'/announcement/update-announcement',
   // transaction
   URL_GET_WAITING_TRANSACTIONS: URL_SYSTEM_V1 + "/transaction/getDepositeGemRequest",
   URL_DELETE_TRANSACTION: URL_SYSTEM_V1 + "/transaction/delete",

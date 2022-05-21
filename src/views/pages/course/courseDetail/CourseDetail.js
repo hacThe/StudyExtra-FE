@@ -7,11 +7,14 @@ import CourseDetailRightSide from "./component/CourseDetailRightSide";
 import { useDispatch, useSelector } from "react-redux";
 import { courseAction } from "../../../../actions/course.action";
 import { useParams } from "react-router-dom";
-const CourseDetail = (props) => {
+import axios from 'axios'
+import  URL from '../../../../services/api/config'
 
+const CourseDetail = (props) => {
 
   const [modalVisible, setModalVisible] = useState(false)
   const course = useSelector(state=>state.course.course)
+  const infoUser = useSelector(state => state.authentication.user)
   const dispatch = useDispatch();
   const { id } = useParams();
   useEffect(()=>{
@@ -20,6 +23,16 @@ const CourseDetail = (props) => {
   },[])
   console.log("Course nè", course)
 
+  const buyCourse = async () => {
+    console.log('Buy')
+    await axios.post(URL.URL_BUY_COURSE, {id, username: infoUser.username})
+    .then(res => {
+      console.log('hello')
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
 
   return (
     <div className="course-detail-wrapper">
@@ -28,7 +41,7 @@ const CourseDetail = (props) => {
           <CourseDetailLeftSide course={course}></CourseDetailLeftSide>
         </Grid>
         <Grid item xs={4}>
-          <CourseDetailRightSide course={course} toogle={()=>{setModalVisible(!modalVisible)}}/>
+          <CourseDetailRightSide buyCourse={buyCourse} course={course} toogle={()=>{setModalVisible(!modalVisible)}}/>
         </Grid>
       </Grid>
 

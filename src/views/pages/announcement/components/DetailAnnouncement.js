@@ -3,13 +3,14 @@ import {  Card } from '@mui/material'
 import '../Announcement.scss'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
+import URL from '../../../../services/api/config'
 function DetailAnnouncement(props) {
     const { slug } = useParams()
     const refContent = useRef()
     const [announcement, setAnnouncement] = useState({})
     useEffect(() => {
         const fetApi = async () => {
-            await axios.get(`http://localhost:5000/api/announcement/${slug}`)
+            await axios.get(URL.URL_GET_ANNOUNCEMENT+slug)
                 .then(res => {
                     setAnnouncement(res.data.data)
                     refContent.current.innerHTML = res.data.data.content
@@ -59,11 +60,10 @@ function DetailAnnouncement(props) {
                 {announcement.title ? announcement.title : "Không có"}
             </div>
             <div style={{ fontFamily: "'Montserrat', san-serif", fontStyle: 'italic', color: '#666', fontSize: '12px', margin: '10px 0' }}>
-                {announcement.createAt ? renderTime(announcement.createAt) : "Lỗi"}
+                {announcement.updatedAt ? renderTime(announcement.updatedAt) : "Lỗi"}
             </div>
             <div ref={refContent} className='content'>
-                <p>etxxt1</p>
-
+                
             </div>
         </Card>
     );
