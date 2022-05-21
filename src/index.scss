@@ -27,6 +27,24 @@ code {
   }
 }
 
+.se-action-btn{
+  font-family: 'Montserrat';
+  font-size: 1.4rem;
+  text-align: center;
+  line-height: 37px;
+  padding: 0 12px;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  color: white;
+  &:hover{
+    cursor: pointer;
+    filter: brightness(.8);
+  }
+}
+
+.se-action-btn.danger{
+  background-color: var(--danger-color);
+}
 .outline-btn {
   background-color: transparent;
   border: 1px solid var(--primary-color);
@@ -130,11 +148,13 @@ button {
 }
 
 .leading-icon-button {
+  margin-left: 18px;
   padding: 4px;
   border-radius: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: 400;
 
   svg {
     font-size: 2.4rem;
@@ -148,7 +168,7 @@ button {
   .content {
     margin-left: 8px;
     font-size: 1.6rem;
-    font-weight: bold;
+    font-weight: 500;
   }
 }
 

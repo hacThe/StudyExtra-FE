@@ -46,14 +46,52 @@ export function authentication(state = initialState, action) {
           error: true,
         };
     case userConstants.UPLOAD_AVATAR_SUCCESS:
-      window.location.reload(true);
       return {
         waiting: false,
         isLoggedIn: true,
         error: false,
         user: action.user
       };
+
+      case userConstants.UPDATE_PROFILE_REQUEST:
+        return {
+          ...state,
+          waiting: true,
+          isLoggedIn: true,
+          error: false,
+        };
+        case userConstants.UPDATE_PROFILE_FAILURE:
+          return {
+            ...state,
+            waiting: false,
+            isLoggedIn: true,
+            error: true,
+          };
+      case userConstants.UPDATE_PROFILE_SUCCESS:
+        return {
+          waiting: false,
+          isLoggedIn: true,
+          error: false,
+          user: action.user
+        };
+        /* case userConstants.VERIFY_EMAIL_SUCCESS:
+    
+        return {
+          ...state,
+          waiting: false,
+          error: false,
+          user: { ...user, emailVerified: true}
+        };
+        case userConstants.VERIFY_EMAIL_FAILURE:
+    
+          return {
+            ...state,
+            waiting: false,
+            error: false,
+            user: { ...user, emailVerified: false}
+          }; */
     default:
       return state
   }
 }
+

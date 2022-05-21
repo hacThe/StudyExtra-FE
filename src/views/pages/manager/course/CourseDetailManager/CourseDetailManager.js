@@ -18,6 +18,7 @@ import DataTableComponent from "../../../../components/DataTableComponent";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { courseAction } from "../../../../../actions/course.action";
+import { appActions } from "../../../../../actions/app.action";
 function CourseDetailManager(props) {
   const navigate = useNavigate();
   const fields = [
@@ -156,8 +157,8 @@ function CourseDetailManager(props) {
   const changeFilter = (e) => {
     setFilter(e.target.value);
   };
-  const dispatch = useDispatch()
-  const course = useSelector(state=>state.course.course)
+  const dispatch = useDispatch();
+  const course = useSelector((state) => state.course.course);
 
   const { id } = useParams();
   useEffect(() => {
@@ -174,14 +175,20 @@ function CourseDetailManager(props) {
     navigate(`/quan-ly/khoa-hoc/chinh-sua-noi-dung/${id}`);
   };
 
-  
   const handleToogleIsHideClick = () => {
-    dispatch(courseAction.update(id, {isHide: !course.isHide}))
-  }
+    dispatch(courseAction.update(id, { isHide: !course.isHide }));
+  };
 
   const handleDeleteCourse = () => {
-    dispatch(courseAction._delete(course._id, navigate))
-  }
+    dispatch(
+      appActions.openConfirmDialog(
+        "Bạn có thực sự muốn xóa khóa học này?",
+        () => {
+          dispatch(courseAction._delete(course._id, navigate));
+        }
+      )
+    );
+  };
 
   const style = {
     position: "absolute",
@@ -244,8 +251,16 @@ function CourseDetailManager(props) {
             icon={<AiOutlineEdit />}
             content="Chỉnh sửa"
           />
-          <LeadingIconButton onClick={handleToogleIsHideClick} icon={<BiHide />} content={course.isHide ? "Hủy ẩn" : "Ẩn"} />
-          <LeadingIconButton onClick={handleDeleteCourse} icon={<AiOutlineDelete />} content="Xóa" />
+          <LeadingIconButton
+            onClick={handleToogleIsHideClick}
+            icon={<BiHide />}
+            content={course.isHide ? "Hủy ẩn" : "Ẩn"}
+          />
+          <LeadingIconButton
+            onClick={handleDeleteCourse}
+            icon={<AiOutlineDelete />}
+            content="Xóa"
+          />
         </div>
       </div>
       <CourseDetailLeftSide course={course} />

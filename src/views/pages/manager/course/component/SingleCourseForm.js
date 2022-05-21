@@ -17,6 +17,9 @@ function youtube_parser(url) {
 }
 
 function SingleCourseForm({ course, onSubmit }) {
+  console.log({
+    course
+  }, "is editting")
   const formik = useFormik({
     validateOnChange: true,
     validateOnBlur: true,
@@ -141,19 +144,18 @@ function SingleCourseForm({ course, onSubmit }) {
               <label htmlFor="introVideoUrl">Link intro: </label>
               <input
                 type="text"
-                id="introVideoUrlBackup"
-                name="introVideoUrlBackup"
-                onChange={(e)=>{
-                  formik.setFieldValue("introVideoUrl", youtube_parser(e.target.value))
-                }}
+                id="introVideoUrl"
+                name="introVideoUrl"
+                value={formik.values.introVideoUrl}
+                onChange={formik.handleChange}
               />
             </div>
             <div className="aspect-ratio">
               {
-                formik.values.introVideoUrl ? (<iframe
+                youtube_parser(formik.values.introVideoUrl) ? (<iframe
                   width="560"
                   height="315"
-                  src={`https://www.youtube.com/embed/${formik.values.introVideoUrl}` }
+                  src={`https://www.youtube.com/embed/${youtube_parser(formik.values.introVideoUrl)}` }
                   title="YouTube video player"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

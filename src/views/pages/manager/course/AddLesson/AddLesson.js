@@ -8,8 +8,17 @@ function AddLesson(props) {
       <div className="justify-content-between top-action-bar">
         <BackToPageButton content="Trở lại trang trước" />
       </div>
-      <h1 style={{fontSize: "2rem", textAlign: "center"}}>Thêm bài học</h1>
-      <p style={{fontSize: "1.4rem", textAlign: "center", marginTop: "12px", marginBottom: "36px"}}>Khóa học: Tên khóa học</p>
+      <h1 style={{ fontSize: "2rem", textAlign: "center" }}>Thêm bài học</h1>
+      <p
+        style={{
+          fontSize: "1.4rem",
+          textAlign: "center",
+          marginTop: "12px",
+          marginBottom: "36px",
+        }}
+      >
+        Khóa học: Tên khóa học
+      </p>
 
       <SingleLessonForm />
     </div>

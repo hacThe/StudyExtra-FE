@@ -18,6 +18,11 @@ function ConfirmActionModal(props) {
     });
   };
 
+  const handleAction = () =>{
+    confirmActionModal.action();
+    setTimeout(()=>{handleClose()}, 0)
+  }
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -44,7 +49,7 @@ function ConfirmActionModal(props) {
           <p>{confirmActionModal.content}</p>
           <div className="action-btn">
             <span onClick={handleClose} className="se-btn hover-blur">HỦY</span>
-            <span onClick={confirmActionModal.action} className="se-btn">ĐỒNG Ý</span>
+            <span onClick={handleAction} className="se-btn">ĐỒNG Ý</span>
           </div>
         </div>
       </Box>

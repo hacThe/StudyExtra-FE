@@ -24,10 +24,11 @@ export function handleResponse(response) {
       return text.data;
     },
     error => {
-      if (error.response.status === 401) {
+      /* if (error.response.status === 401) {
         return Promise.reject("Tài khoản hoặc mật khẩu không đúng!")
-      }
-      return Promise.reject(error);
+      } */
+      if(typeof error.response === 'undefined' || typeof error.response.data.message === 'undefined') return Promise.reject(error)
+      else return Promise.reject(error.response.data.message);
     }
   );
 }

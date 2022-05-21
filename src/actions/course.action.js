@@ -9,7 +9,11 @@ export const courseAction = {
   update,
   _delete,
   addChapter,
-  editChapter
+  editChapter,
+  deleteChapter,
+  addLesson,
+  editLesson,
+  deleteLesson
 };
 
 function getOne(courseId) {
@@ -198,6 +202,123 @@ function editChapter(chapter, callback){
   }
 }
 
+function deleteChapter(chapter, callback){
+  return (dispatch)=>{
+    dispatch(request())
+    courseService.deleteChapter(chapter).then(
+      (course) => {
+        console.log(course);
+        dispatch(success(course.data));
+        if (callback)
+          {
+              callback()
+          }
+      },
+      (error) => {
+        dispatch(failure(error.toString()));
+        console.log({ error });
+      }
+    );
+    function request() {
+      return { type: courseConstants.CREATE_CHAPTER_REQUEST };
+    }
+    function success(course) {
+      return { type: courseConstants.CREATE_CHAPTER_SUCCESS, course };
+    }
+    function failure(error) {
+      return { type: courseConstants.CREATE_CHAPTER_FAILURE, error };
+    }
+  }
+}
+
+
+function addLesson(lesson, callback){
+  return (dispatch)=>{
+    dispatch(request())
+    courseService.addLesson(lesson).then(
+      (course) => {
+        console.log(course);
+        dispatch(success(course.data));
+        if (callback)
+          {
+              callback()
+          }
+      },
+      (error) => {
+        dispatch(failure(error.toString()));
+        console.log({ error });
+      }
+    );
+    function request() {
+      return { type: courseConstants.CREATE_CHAPTER_REQUEST };
+    }
+    function success(course) {
+      return { type: courseConstants.CREATE_CHAPTER_SUCCESS, course };
+    }
+    function failure(error) {
+      return { type: courseConstants.CREATE_CHAPTER_FAILURE, error };
+    }
+  }
+}
+
+
+function editLesson(lesson, callback){
+  return (dispatch)=>{
+    dispatch(request())
+    courseService.editLesson(lesson).then(
+      (course) => {
+        console.log(course);
+        dispatch(success(course.data));
+        if (callback)
+          {
+              callback()
+          }
+      },
+      (error) => {
+        dispatch(failure(error.toString()));
+        console.log({ error });
+      }
+    );
+    function request() {
+      return { type: courseConstants.CREATE_CHAPTER_REQUEST };
+    }
+    function success(course) {
+      return { type: courseConstants.CREATE_CHAPTER_SUCCESS, course };
+    }
+    function failure(error) {
+      return { type: courseConstants.CREATE_CHAPTER_FAILURE, error };
+    }
+  }
+}
+
+function deleteLesson(chapter, callback){
+  return (dispatch)=>{
+    dispatch(request())
+    courseService.deleteLesson(chapter).then(
+      (course) => {
+        console.log(course);
+        dispatch(success(course.data));
+        if (callback)
+          {
+              callback()
+          }
+      },
+      (error) => {
+        dispatch(failure(error.toString()));
+        console.log({ error });
+      }
+    );
+    function request() {
+      return { type: courseConstants.CREATE_CHAPTER_REQUEST };
+    }
+    function success(course) {
+      return { type: courseConstants.CREATE_CHAPTER_SUCCESS, course };
+    }
+    function failure(error) {
+      return { type: courseConstants.CREATE_CHAPTER_FAILURE, error };
+    }
+  }
+}
 
 function _delete(id, navigate) {
     return (dispatch) => {

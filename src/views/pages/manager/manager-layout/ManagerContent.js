@@ -4,11 +4,13 @@ import ManagerHeader from "./ManagerHeader";
 import ManagerSideBar from "./ManagerSideBar";
 import "./Manager.scss";
 import { Container } from "@mui/material";
+import ConfirmActionModal from "../../../layout-components/ConfirmActionModal";
 
 function ManagerContent(props) {
   return (
     <div className="manager-wrapper">
       <ManagerSideBar />
+      <ConfirmActionModal/>
       <div className="manager-content-wrapper">
         <ManagerHeader />
         <Container maxWidth="xl">
