@@ -54,9 +54,28 @@ const Post = ({post}) => {
     const [isEditPost, setIsEditPost] = useState(false);
 
     const childRef = useRef(null);
+
     const editPost = () => {
         console.log("childRef", childRef);
         childRef.current.editArticle();    
+    }
+
+    const countReplyComment = (replyComment) =>{
+        var res = 0;
+        for(var i = 0; i < replyComment.length; i++){
+            res += countReplyComment(replyComment[i].replyComment) + 1;
+        }        
+        return res;
+    }
+
+    const commentCount = (comments) => {
+        console.log("comments", comments)
+        var res = 0;
+        for(var i = 0; i < comments.length; i++){
+            res += countReplyComment(comments[i].replyComment) + 1;
+        }        
+        console.log("total", res);
+        return res;
     }
 
     return (
@@ -166,7 +185,9 @@ const Post = ({post}) => {
                                 <div className="icon icon-2">
                                     <FaCommentAlt size={20}/>
                                 </div>
-                                <p className="amount">0</p>
+                                <p className="amount">
+                                    {commentCount(post.comment)}
+                                </p>
                             </div>
                         </div>
                         
