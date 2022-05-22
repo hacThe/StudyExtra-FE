@@ -11,7 +11,8 @@ export const articleService = {
     uploadArticlePicture,
     addBigCommentToArticle,
     deleteBigCommentOfArticle,
-    hideBigCommentOfArticle
+    hideBigCommentOfArticle,
+    showBigCommentOfArticle,
 };
 
 function getAllArticle() {
@@ -61,3 +62,9 @@ function hideBigCommentOfArticle(data) {
         ajaxHelper.post(config.URL_ARTICLE + '/comment/hide', data, {})
     );
 }   
+
+function showBigCommentOfArticle(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_ARTICLE + '/comment/show', data, {})
+    );
+}  

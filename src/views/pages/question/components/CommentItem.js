@@ -67,7 +67,7 @@ const CommentItem = ({comment}) => {
             postID: comment.postID,
             commentID: comment.commentID,
         }
-        console.log("dataToDelete: ", data);
+        // console.log("dataToDelete: ", data);
         dispatch(articleActions.deleteBigComment(data));
         setIsOpenManageModal(!isOpenManageModal);   
     }
@@ -78,7 +78,7 @@ const CommentItem = ({comment}) => {
             postID: comment.postID,
             commentID: comment.commentID,
         }
-        console.log("dataToHide: ", data);  
+        // console.log("dataToHide: ", data);  
         dispatch(articleActions.hideBigComment(data));
         setIsOpenManageModal(!isOpenManageModal);   
 
@@ -87,7 +87,17 @@ const CommentItem = ({comment}) => {
 
     const [isOpenManageModal, setIsOpenManageModal] = useState(false);
 
-    
+    const showThisComment = () => {
+        var data = {
+            postID: comment.postID,
+            commentID: comment.commentID,
+        }
+        console.log("dataToShow: ", data);
+        dispatch(articleActions.showBigComment(data));
+        setIsOpenManageModal(!isOpenManageModal);   
+
+    }
+
     return (
         <>
         {
@@ -132,7 +142,7 @@ const CommentItem = ({comment}) => {
                                                 : 
                                                 <div 
                                                     className="modal-item"
-                                                    onClick={()=>hideThisComment()}
+                                                    onClick={()=>showThisComment()}
                                                 >
                                                     Hiện   
                                                 </div>
