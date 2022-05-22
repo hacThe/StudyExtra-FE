@@ -13,6 +13,7 @@ export const articleService = {
     deleteBigCommentOfArticle,
     hideBigCommentOfArticle,
     showBigCommentOfArticle,
+    likeArticle,
 };
 
 function getAllArticle() {
@@ -66,5 +67,11 @@ function hideBigCommentOfArticle(data) {
 function showBigCommentOfArticle(data) {
     return handleResponse(
         ajaxHelper.post(config.URL_ARTICLE + '/comment/show', data, {})
+    );
+}  
+
+function likeArticle(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_ARTICLE + '/interaction', data, {})
     );
 }  

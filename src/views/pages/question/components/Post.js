@@ -120,6 +120,15 @@ const Post = ({post}) => {
     const bigCommentLink = useSelector(state => state.article.bigComment.imgLink);
     // console.log("bigCommentLink: ", bigCommentLink)
 
+    const likePost = () => {
+        var likePostData = {
+            postID: post._id,
+            userID: userInfo._id,
+        }
+        console.log("likePostData", likePostData);
+        dispatch(articleActions.likeArticle(likePostData));
+    }
+
     return (
         
         <div className="question-body">
@@ -216,10 +225,23 @@ const Post = ({post}) => {
                                     className="icon"
                                     onClick={()=> interactPost()}
                                 >
-                                    <AiFillLike 
-                                        className={post.reactions.includes(userInfo._id)?'liked':'nolike'}
-                                        size={24}
-                                    />
+                                    {
+                                        post.reactions.includes(userInfo._id) 
+                                        ?
+                                            <AiFillLike 
+                                                className={'liked'}
+                                                size={24}
+                                            />
+                                        :
+                                            <AiFillLike 
+                                                className={'nolike'}
+                                                size={24}
+                                                onClick={()=> {
+                                                    likePost();
+                                                }}
+                                            />
+                                    }
+                                    
                                 </div>
                                 <p className="amount">
                                     {post.reactions.length}

@@ -16,7 +16,8 @@ export const articleActions = {
     removeBigCommentPicture,
     deleteBigComment,
     hideBigComment,
-    showBigComment
+    showBigComment,
+    likeArticle
 }
 
 function getAllArticle(){
@@ -327,6 +328,31 @@ function showBigComment(data) {
         }
         function failure(error) {
             return { type: articleConstants.SHOW_BIG_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+function likeArticle(data){
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.likeArticle(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.LIKE_POST_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.LIKE_POST_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.LIKE_POST_FAILURE, error };
         }
     }
 }
