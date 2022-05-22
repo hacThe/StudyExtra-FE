@@ -66,6 +66,7 @@ const CommentItem = ({comment}) => {
         console.log("comment", comment.isHidden);
         
     }
+    const userInfo = useSelector(state => state.authentication.user);
 
     const deleteComment = () => {
         var data = {
@@ -77,138 +78,145 @@ const CommentItem = ({comment}) => {
     }
 
     return (
-        <div className="comment-item">
-            <div className="comment-heading">
-                <img 
-                    className= {comment.isHidden ? "user-avatar gray-scale" : "user-avatar"}
-                    src={comment.userAvatar}
-                ></img>
-                <div 
-                    className= {comment.isHidden ? "comment-container gray-scale" : "comment-container"}
-                >
-                    <p className="user-name">{comment.name}</p>
-                    <div className="comment-content">
-                        {comment.content}
+        <>
+        {
+            (comment.isHidden && 
+                (!userInfo||userInfo._id != comment.userID)) ?(null):
+            <div className="comment-item">
+                <div className="comment-heading">
+                    <img 
+                        className= {comment.isHidden ? "user-avatar gray-scale" : "user-avatar"}
+                        src={comment.userAvatar}
+                    ></img>
+                    <div 
+                        className= {comment.isHidden ? "comment-container gray-scale" : "comment-container"}
+                    >
+                        <p className="user-name">{comment.name}</p>
+                        <div className="comment-content">
+                            {comment.content}
+                        </div>
                     </div>
-                </div>
-                <div className="comment-manage">
-                    <HiDotsHorizontal size={14}/>
-                    <div className="bridge">
+                    <div className="comment-manage">
+                        <HiDotsHorizontal size={14}/>
+                        <div className="bridge">
 
+                        </div>
+                        <div className="comment-modal">
+                            {
+                                !comment.isHidden ?
+                                <div 
+                                    className="modal-item"
+                                    onClick={()=>hideThisComment()}
+                                >
+                                    Ẩn    
+                                </div>
+                                : 
+                                <div 
+                                    className="modal-item"
+                                    onClick={()=>hideThisComment()}
+                                >
+                                    Hiện   
+                                </div>
+                            }
+                            
+                            <div 
+                                className="modal-item"
+                                onClick={()=>{
+                                    // Check cấp độ hiện tại của cái cmt này trước, 
+                                    // sẽ thêm vào cái hàm refine comment
+                                    // console.log("comment", comment);
+                                    deleteComment();
+                                }}
+                            >
+                                Xoá
+                            </div>
+                            <div className="modal-item">
+                                Báo cáo
+                            </div>
+                            <div className="modal-item">
+                                Chỉnh sửa
+                            </div>
+                        </div> 
                     </div>
-                    <div className="comment-modal">
-                        {
-                            !comment.isHidden ?
-                            <div 
-                                className="modal-item"
-                                onClick={()=>hideThisComment()}
-                            >
-                                Ẩn    
-                            </div>
-                            : 
-                            <div 
-                                className="modal-item"
-                                onClick={()=>hideThisComment()}
-                            >
-                                Hiện   
-                            </div>
-                        }
-                        
-                        <div 
-                            className="modal-item"
-                            onClick={()=>{
-                                // Check cấp độ hiện tại của cái cmt này trước, 
-                                // sẽ thêm vào cái hàm refine comment
-                                // console.log("comment", comment);
-                                deleteComment();
-                            }}
-                        >
-                            Xoá
-                        </div>
-                        <div className="modal-item">
-                            Báo cáo
-                        </div>
-                        <div className="modal-item">
-                            Chỉnh sửa
-                        </div>
-                    </div> 
+                    
                 </div>
                 
-            </div>
-            
-            <div className="comment-interact">
-                <p 
-                    className={isLiked ?"interact-item like active" : "interact-item like"}s
-                    onClick={(e) => changeLiked()}
-                >
-                    Thích
-                </p>
-                <p 
-                    className="interact-item rep" 
-                    onClick = {(e) => changeUserReplyDisplay() }
-                >Phản hồi</p>
-                <p className="interact-time">2 phút</p>
-            </div>
-            {
-                !comment.imgUrl ? (null) :
-                <img className="comment-image"
-                    src={comment.imgUrl}
-                ></img>
-            }
-            {
-                !comment.replyComment || comment.replyComment.length == 0 ? (null) : 
-                <div className='reply'>
-                    {
-                        replyDisplay 
-                        ? 
-                            <div className="hide-answer">
-                                <p 
-                                    className='title'
-                                    onClick = {() => changeReplyDisplay()}
-                                >
-                                    Ẩn câu trả lời
-                                </p> 
-                                <VscTriangleUp className="icon" size={10}/>
-                            </div>
-                        : 
-                            <div className="hide-answer">
-                                <p 
-                                    className='title'
-                                    onClick = {() => changeReplyDisplay()}
-                                >
-                                    Hiện câu trả lời
-                                </p> 
-                                <VscTriangleDown className="icon" size={10}/>
-                            </div>
-
-                    }
-                    {
-                        !replyDisplay || comment.replyComment.length == 0? (null) :
-                            comment.replyComment.map((commentItem)=>{
-                                return (<CommentItem comment={commentItem}/>)
-                            })
-                    }
+                <div className="comment-interact">
+                    <p 
+                        className={isLiked ?"interact-item like active" : "interact-item like"}s
+                        onClick={(e) => changeLiked()}
+                    >
+                        Thích
+                    </p>
+                    <p 
+                        className="interact-item rep" 
+                        onClick = {(e) => changeUserReplyDisplay() }
+                    >Phản hồi</p>
+                    <p className="interact-time">2 phút</p>
                 </div>
-            }
-            {
-                userReplyDisplay == false ? (null) :
-                <div className="user-reply-comment">
-                    <img 
-                        src="https://i.pinimg.com/originals/33/c2/20/33c220ed89693515fb07aecd51a26eda.jpg"
-                        className='current-user-avatar'
+                {
+                    !comment.imgUrl ? (null) :
+                    <img className="comment-image"
+                        src={comment.imgUrl}
                     ></img>
-                    <input type="text" className="comment-box"></input>
-                    <IoImageOutline size={28} className='add-image-icon'/>
-                    <IoSend 
-                        size={28} 
-                        className='send-comment'
-                        onClick={(e)=> {
-                            console.log("e.target.parentNode", e.target.parentNode);
-                        }}
-                    ></IoSend>
-                </div>   
-            } 
-        </div>
+                }
+                {
+                    !comment.replyComment || comment.replyComment.length == 0 ? (null) : 
+                    <div className='reply'>
+                        {
+                            replyDisplay 
+                            ? 
+                                <div className="hide-answer">
+                                    <p 
+                                        className='title'
+                                        onClick = {() => changeReplyDisplay()}
+                                    >
+                                        Ẩn câu trả lời
+                                    </p> 
+                                    <VscTriangleUp className="icon" size={10}/>
+                                </div>
+                            : 
+                                <div className="hide-answer">
+                                    <p 
+                                        className='title'
+                                        onClick = {() => changeReplyDisplay()}
+                                    >
+                                        Hiện câu trả lời
+                                    </p> 
+                                    <VscTriangleDown className="icon" size={10}/>
+                                </div>
+
+                        }
+                        {
+                            !replyDisplay || comment.replyComment.length == 0? (null) :
+                                comment.replyComment.map((commentItem)=>{
+                                    return (<CommentItem comment={commentItem}/>)
+                                })
+                        }
+                    </div>
+                }
+                {
+                    userReplyDisplay == false ? (null) :
+                    <div className="user-reply-comment">
+                        <img 
+                            src="https://i.pinimg.com/originals/33/c2/20/33c220ed89693515fb07aecd51a26eda.jpg"
+                            className='current-user-avatar'
+                        ></img>
+                        <input type="text" className="comment-box"></input>
+                        <IoImageOutline size={28} className='add-image-icon'/>
+                        <IoSend 
+                            size={28} 
+                            className='send-comment'
+                            onClick={(e)=> {
+                                console.log("e.target.parentNode", e.target.parentNode);
+                            }}
+                        ></IoSend>
+                    </div>   
+                } 
+            </div>
+        }
+        </>
+        
     )
 }
 

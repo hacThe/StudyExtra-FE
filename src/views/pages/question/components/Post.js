@@ -25,7 +25,7 @@ const Post = ({post}) => {
     })
 
     const userInfo = useSelector(state => state.authentication.user);
-    console.log("userInfo", userInfo);
+    // console.log("userInfo", userInfo);
 
     const calculateTime = (timeString) => {
         // console.log("timeString", timeString);
