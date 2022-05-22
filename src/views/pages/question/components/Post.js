@@ -217,11 +217,13 @@ const Post = ({post}) => {
                                     onClick={()=> interactPost()}
                                 >
                                     <AiFillLike 
-                                        className={isLiked?'liked':'nolike'}
+                                        className={post.reactions.includes(userInfo._id)?'liked':'nolike'}
                                         size={24}
                                     />
                                 </div>
-                                <p className="amount">0</p>
+                                <p className="amount">
+                                    {post.reactions.length}
+                                </p>
                             </div>
                             <div className="interact">
                                 <div className="icon icon-2">

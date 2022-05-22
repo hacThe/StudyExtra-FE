@@ -55,7 +55,7 @@ const refineData = (data) => {
             imgUrl: item.imgUrl,
             name: item.name,
             createdAt: item.createdAt,
-            
+            reactions: item.reactions
         }
         var tempComment = refineComments(item.comments,item._id );
         temp.comment = tempComment;
