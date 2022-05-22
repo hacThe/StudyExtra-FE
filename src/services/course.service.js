@@ -14,7 +14,8 @@ export const courseService = {
   addLesson,
   editLesson,
   deleteChapter,
-  deleteLesson
+  deleteLesson,
+  getLesson
 };
 
 function getAll() {
@@ -37,9 +38,16 @@ function _delete(id){
   )
 }
 
-function getOne(courseId) {
+function getOne(courseId, userId) {
   return handleResponse(
-    ajaxHelper.get(config.URL_GET_COURSE + `/${courseId}`, {}, options())
+    ajaxHelper.get(config.URL_GET_COURSE + `/${courseId}`, {userId}, options())
+  );
+}
+
+
+function getLesson(lessonId, userId) {
+  return handleResponse(
+    ajaxHelper.get(config.URL_GET_LESSON + `/${lessonId}`, {userId}, options())
   );
 }
 

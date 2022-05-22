@@ -13,6 +13,7 @@ export default {
   URL_ADD_CHAPTER: URL_SYSTEM_V1 + "/courses/addNewChapter",
   URL_EDIT_CHAPTER: URL_SYSTEM_V1 + "/courses/chapter",
   URL_DELETE_CHAPTER: URL_SYSTEM_V1 + "/courses/chapter/delete",
+  URL_GET_LESSON: URL_SYSTEM_V1 + "/courses/lesson",
   URL_ADD_LESSON: URL_SYSTEM_V1 + "/courses/addNewLesson",
   URL_EDIT_LESSON: URL_SYSTEM_V1 + "/courses/lesson",
   URL_DELETE_LESSON: URL_SYSTEM_V1 + "/courses/lesson/delete",

@@ -15,6 +15,7 @@ const initialState = {
   },
   isLoading: false,
   error: "",
+  lesson: {}
 };
 
 export function course(state = initialState, action) {

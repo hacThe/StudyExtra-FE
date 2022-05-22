@@ -7,8 +7,19 @@ import LessonOverall from './component/LessonOverall';
 import useWindowDimensions from './functions/useWindowDimensions';
 import ChapterItem from './component/ChaperItem.js';
 import Notion from './component/Notion';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { courseAction } from '../../../actions/course.action';
 
 const Lesson = () => {
+    const dispatch = useDispatch()
+    const {id} = useParams()
+
+    useEffect(()=>{
+        // dispatch(courseAction.getLesson(id))
+    }, [])
+
+
     const { height, width } = useWindowDimensions();
     const [panel, setPanel] = React.useState(1);
     const changePanel = (event, newValue) => {

@@ -19,7 +19,7 @@ import {
   ListItemIcon,
   ListItemText,
   Grid,
-  Button
+  Button,
 } from "@mui/material";
 
 import { BsBarChartFill, BsQuestionCircleFill } from "react-icons/bs";
@@ -29,9 +29,9 @@ import { BiSearch } from "react-icons/bi";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoNotificationsSharp, IoHome } from "react-icons/io5";
 import "./TheHeader.scss";
-import { searchAction } from '../../actions/search.action';
+import { searchAction } from "../../actions/search.action";
 import { userActions } from "../../actions/user.actions";
-import { ResetPasswordModal } from '../pages/profile/component/ResetPasswordModal';
+import { ResetPasswordModal } from "../pages/profile/component/ResetPasswordModal";
 
 function TheHeader() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -41,10 +41,11 @@ function TheHeader() {
   const isMenuOpen = Boolean(anchorEl);
   const isNotificationMenuOpen = Boolean(anchorNt);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const UserInfo = useSelector(state => state.authentication.user); /* console.log("user: ", typeof UserInfo === "undefined"); */
+  const UserInfo = useSelector(
+    (state) => state.authentication.user
+  ); /* console.log("user: ", typeof UserInfo === "undefined"); */
 
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   //----------------
   const handleProfileMenuOpen = (event) => {
@@ -58,23 +59,23 @@ function TheHeader() {
   const [passwordModal, setPasswordModal] = useState(false);
 
   //-----------Search
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
 
   const handleChangeSearch = (event) => {
-    setSearch(event.target.value)
-  }
+    setSearch(event.target.value);
+  };
 
   const handleClickSearch = (event) => {
-    dispatch(searchAction.getSearch(search))
-  }
+    dispatch(searchAction.getSearch(search));
+  };
 
   const handleKeyPressSearch = (event) => {
-    if (event.key === 'Enter') {
-      let elenmentLinkToSearch = document.querySelector('.link-to-search');
-      dispatch(searchAction.getSearch(search))
-      elenmentLinkToSearch.click()
+    if (event.key === "Enter") {
+      let elenmentLinkToSearch = document.querySelector(".link-to-search");
+      dispatch(searchAction.getSearch(search));
+      elenmentLinkToSearch.click();
     }
-  }
+  };
 
   //---------------
   const handleNotificationMenuOpen = (event) => {
@@ -93,17 +94,23 @@ function TheHeader() {
   };
 
   //const [notifications, setNotification] = useState([]);
-  console.log("state: ", useSelector(state => state))/////////
-  const notifications = useSelector(state => state.userNotifications.notifications.data) || []
+  console.log(
+    "state: ",
+    useSelector((state) => state)
+  ); /////////
+  const notifications =
+    useSelector((state) => state.userNotifications.notifications.data) || [];
   useEffect(async () => {
-    if (typeof UserInfo !== "undefined")
+    if (typeof UserInfo !== "undefined") {
       dispatch(userActions.getUserNotifications());
+      dispatch(userActions.getCurrentUser());
+    }
   }, []);
 
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
   const profileMenuId = "primary-search-account-menu";
   function handleLogout() {
-    dispatch(userActions.logout())
+    dispatch(userActions.logout());
   }
   const renderMenu = (
     <Menu
@@ -127,19 +134,37 @@ function TheHeader() {
           <Avatar
             className="avatar"
             alt="Remy Sharp"
-            src={typeof UserInfo === "undefined" ? "default-avatar.png" : UserInfo.avatar}
+            src={
+              typeof UserInfo === "undefined"
+                ? "default-avatar.png"
+                : UserInfo.avatar
+            }
           />
         </Grid>
         <Grid item xs={8}>
-          <h6>{typeof UserInfo === "undefined" ? "Username" : UserInfo.username}</h6>
+          <h6>
+            {typeof UserInfo === "undefined" ? "Username" : UserInfo.username}
+          </h6>
           <p>{typeof UserInfo === "undefined" ? "0" : UserInfo.gem} GEM</p>
         </Grid>
       </MenuItem>
       <Link to="/thong-tin-tai-khoan">
         <MenuItem onClick={handleMenuClose}>Thông tin tài khoản</MenuItem>
       </Link>
-      <MenuItem onClick={() => { setPasswordModal(true); handleMenuClose() }}>Đổi mật khẩu</MenuItem>
-      {passwordModal && <ResetPasswordModal isOpen={passwordModal} setPassOpen={setPasswordModal} />}
+      <MenuItem
+        onClick={() => {
+          setPasswordModal(true);
+          handleMenuClose();
+        }}
+      >
+        Đổi mật khẩu
+      </MenuItem>
+      {passwordModal && (
+        <ResetPasswordModal
+          isOpen={passwordModal}
+          setPassOpen={setPasswordModal}
+        />
+      )}
       <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
     </Menu>
   );
@@ -253,7 +278,9 @@ function TheHeader() {
       onKeyDown={toggleDrawer(anchor, false)}
       className="mobile-navbar"
     >
-      {typeof UserInfo === "undefined" ? <></> :
+      {typeof UserInfo === "undefined" ? (
+        <></>
+      ) : (
         <>
           <Link to={"/thong-tin-tai-khoan"}>
             <MenuItem>
@@ -261,16 +288,27 @@ function TheHeader() {
                 <Avatar
                   className="avatar"
                   alt="Remy Sharp"
-                  src={typeof UserInfo === "undefined" ? "/default-avatar.png" : UserInfo.avatar}
+                  src={
+                    typeof UserInfo === "undefined"
+                      ? "/default-avatar.png"
+                      : UserInfo.avatar
+                  }
                 />
               </Grid>
               <Grid item xs={8}>
-                <h6>{typeof UserInfo === "undefined" ? "Username" : UserInfo.username}</h6>
-                <p>{typeof UserInfo === "undefined" ? "0" : UserInfo.gem} GEM</p>
+                <h6>
+                  {typeof UserInfo === "undefined"
+                    ? "Username"
+                    : UserInfo.username}
+                </h6>
+                <p>
+                  {typeof UserInfo === "undefined" ? "0" : UserInfo.gem} GEM
+                </p>
               </Grid>
             </MenuItem>
           </Link>
-        </>}
+        </>
+      )}
 
       <Divider />
       <List>
@@ -283,11 +321,16 @@ function TheHeader() {
           </NavLink>
         ))}
       </List>
-      {typeof UserInfo === "undefined" ? <div style={{ display: "flex", justifyContent: "center" }}>{LoginBtn}</div> : <></>}
+      {typeof UserInfo === "undefined" ? (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          {LoginBtn}
+        </div>
+      ) : (
+        <></>
+      )}
     </Box>
   );
   //-----------------------------------------------------------Notification-Avatar_GROUP--------------------------------------------//
-
 
   const NotificationAvatarGroup = (
     <Grid item md={4} xs={3} className="avatar-notification_group">
@@ -318,23 +361,35 @@ function TheHeader() {
           <Avatar
             className="avatar"
             alt="Remy Sharp"
-            src={typeof UserInfo === "undefined" ? "/default-avatar.png" : UserInfo.avatar}
+            src={
+              typeof UserInfo === "undefined"
+                ? "/default-avatar.png"
+                : UserInfo.avatar
+            }
           />
         </IconButton>
       </Box>
     </Grid>
-  )
+  );
   const navigate = useNavigate();
   const LoginBtn = (
     <Grid item md={4} xs={3} className="avatar-notification_group">
-      <Button variant="contained"
-        style={{ background: "#7B68EE", textTransform: "none", fontFamily: "Montserrat", fontSize: "1.4rem" }}
-        onClick={() => {
-          return navigate("./dang-nhap")
+      <Button
+        variant="contained"
+        style={{
+          background: "#7B68EE",
+          textTransform: "none",
+          fontFamily: "Montserrat",
+          fontSize: "1.4rem",
         }}
-      >Đăng nhập</Button>
+        onClick={() => {
+          return navigate("./dang-nhap");
+        }}
+      >
+        Đăng nhập
+      </Button>
     </Grid>
-  )
+  );
 
   //---------------------------------------------------------------------------------------------------------------------//
   return (
@@ -392,8 +447,11 @@ function TheHeader() {
 
             <Grid item md={4} xs={6} className="search-box">
               <Box className="search-group">
-                <NavLink className={'link-to-search'} to={'tim-kiem'} >
-                  <BiSearch onClick={(e) => handleClickSearch(e)} className="search-icon" />
+                <NavLink className={"link-to-search"} to={"tim-kiem"}>
+                  <BiSearch
+                    onClick={(e) => handleClickSearch(e)}
+                    className="search-icon"
+                  />
                 </NavLink>
                 <InputBase
                   placeholder="Tìm kiếm khóa học, tài liệu,..."
@@ -404,7 +462,9 @@ function TheHeader() {
                 ></InputBase>
               </Box>
             </Grid>
-            {typeof UserInfo === "undefined" ? LoginBtn : NotificationAvatarGroup}
+            {typeof UserInfo === "undefined"
+              ? LoginBtn
+              : NotificationAvatarGroup}
           </Grid>
         </AppBar>
         {typeof UserInfo === "undefined" ? <></> : renderMenu}

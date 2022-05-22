@@ -16,12 +16,12 @@ export const courseAction = {
   deleteLesson
 };
 
-function getOne(courseId) {
+function getOne(courseId, userId) {
   return (dispatch) => {
     dispatch(request());
     console.log("Course Action get all has called");
 
-    courseService.getOne(courseId).then(
+    courseService.getOne(courseId, userId).then(
       (courses) => {
         console.log(courses.data);
         dispatch(success(courses.data));
