@@ -327,6 +327,38 @@ export function article(state = initialState, action) {
                 };
             }
         }
+
+        case articleConstants.HIDE_BIG_COMMENT_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.HIDE_BIG_COMMENT_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.HIDE_BIG_COMMENT_SUCCESS: {
+            {
+                console.log("action", action);
+                var newArticles = action.articles.data;
+                return {
+                    ...state,
+                    isLoading: false,
+                    articles: newArticles,
+                };
+            }
+        }
+
         default:
             
             return state;

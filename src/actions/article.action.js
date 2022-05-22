@@ -15,6 +15,7 @@ export const articleActions = {
     addBigComment,
     removeBigCommentPicture,
     deleteBigComment,
+    hideBigComment,
 }
 
 function getAllArticle(){
@@ -277,3 +278,32 @@ function deleteBigComment(data) {
         }
     }
 }
+
+
+function hideBigComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.hideBigCommentOfArticle(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.HIDE_BIG_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.HIDE_BIG_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.HIDE_BIG_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+
+

@@ -59,13 +59,7 @@ const CommentItem = ({comment}) => {
     // console.log("comment", comment);
     // console.log("comment.replyComment", comment.replyComment);
 
-    const hideThisComment = () => {
-        // Ở đây mình gọi redux các kiểu
-        // console.log('hide this comment');
-        // console.log('comment.isHide', comment.isHide)
-        console.log("comment", comment.isHidden);
-        
-    }
+    
     const userInfo = useSelector(state => state.authentication.user);
 
     const deleteComment = () => {
@@ -75,8 +69,25 @@ const CommentItem = ({comment}) => {
         }
         console.log("dataToDelete: ", data);
         dispatch(articleActions.deleteBigComment(data));
+        setIsOpenManageModal(!isOpenManageModal);   
     }
 
+
+    const hideThisComment = () => {
+        var data = {
+            postID: comment.postID,
+            commentID: comment.commentID,
+        }
+        console.log("dataToHide: ", data);  
+        dispatch(articleActions.hideBigComment(data));
+        setIsOpenManageModal(!isOpenManageModal);   
+
+        // console.log("comment", comment.isHidden);s
+    }
+
+    const [isOpenManageModal, setIsOpenManageModal] = useState(false);
+
+    
     return (
         <>
         {
@@ -96,48 +107,60 @@ const CommentItem = ({comment}) => {
                             {comment.content}
                         </div>
                     </div>
-                    <div className="comment-manage">
-                        <HiDotsHorizontal size={14}/>
-                        <div className="bridge">
-
-                        </div>
-                        <div className="comment-modal">
-                            {
-                                !comment.isHidden ?
-                                <div 
-                                    className="modal-item"
-                                    onClick={()=>hideThisComment()}
-                                >
-                                    Ẩn    
-                                </div>
-                                : 
-                                <div 
-                                    className="modal-item"
-                                    onClick={()=>hideThisComment()}
-                                >
-                                    Hiện   
-                                </div>
-                            }
-                            
-                            <div 
-                                className="modal-item"
-                                onClick={()=>{
-                                    // Check cấp độ hiện tại của cái cmt này trước, 
-                                    // sẽ thêm vào cái hàm refine comment
-                                    // console.log("comment", comment);
-                                    deleteComment();
-                                }}
-                            >
-                                Xoá
+                    {
+                        (!userInfo||userInfo._id != comment.userID) ? (null) : 
+                            <div className="comment-manage">
+                                <HiDotsHorizontal 
+                                    size={14}
+                                    className="open-modal"
+                                    onClick={()=>{
+                                        console.log("ACV");
+                                        setIsOpenManageModal(!isOpenManageModal);   
+                                    }}
+                                /> 
+                                {
+                                    !isOpenManageModal ? (null) : 
+                                        <div className="comment-modal">
+                                            {
+                                                !comment.isHidden ?
+                                                <div 
+                                                    className="modal-item"
+                                                    onClick={()=>hideThisComment()}
+                                                >
+                                                    Ẩn    
+                                                </div>
+                                                : 
+                                                <div 
+                                                    className="modal-item"
+                                                    onClick={()=>hideThisComment()}
+                                                >
+                                                    Hiện   
+                                                </div>
+                                            }
+                                            
+                                            <div 
+                                                className="modal-item"
+                                                onClick={()=>{
+                                                    // Check cấp độ hiện tại của cái cmt này trước, 
+                                                    // sẽ thêm vào cái hàm refine comment
+                                                    // console.log("comment", comment);
+                                                    deleteComment();
+                                                }}
+                                            >
+                                                Xoá
+                                            </div>
+                                            <div className="modal-item">
+                                                Báo cáo
+                                            </div>
+                                            <div className="modal-item">
+                                                Chỉnh sửa
+                                            </div>
+                                        </div> 
+                                }
+                                
                             </div>
-                            <div className="modal-item">
-                                Báo cáo
-                            </div>
-                            <div className="modal-item">
-                                Chỉnh sửa
-                            </div>
-                        </div> 
-                    </div>
+                    }
+                    
                     
                 </div>
                 
