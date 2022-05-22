@@ -12,6 +12,9 @@
                 border-radius: 100%;
                 margin-right: 0.8rem;
             }
+            .gray-scale{
+                filter: grayscale(100%);
+            }
             .comment-container{
                 background-color: #F4F4F4;
                 display: inline-block;
@@ -25,7 +28,10 @@
                 }
                 .comment-content{
                     font-size: 1.4rem;
-                }
+                }   
+            }
+            .gray-scale{
+                background-color: #d3d1d1;
             }
             .comment-manage{
                 width: 2.4rem;

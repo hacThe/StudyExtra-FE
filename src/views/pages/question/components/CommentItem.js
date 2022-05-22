@@ -61,8 +61,10 @@ const CommentItem = ({comment}) => {
 
     const hideThisComment = () => {
         // Ở đây mình gọi redux các kiểu
-        console.log('hide this comment');
-        console.log('comment.isHide', comment.isHide)
+        // console.log('hide this comment');
+        // console.log('comment.isHide', comment.isHide)
+        console.log("comment", comment.isHidden);
+        
     }
 
     const deleteComment = () => {
@@ -77,12 +79,14 @@ const CommentItem = ({comment}) => {
     return (
         <div className="comment-item">
             <div className="comment-heading">
-
-                <img className="user-avatar"
+                <img 
+                    className= {comment.isHidden ? "user-avatar gray-scale" : "user-avatar"}
                     src={comment.userAvatar}
                 ></img>
-                <div className="comment-container">
-                    <p className="user-name">{comment.username}</p>
+                <div 
+                    className= {comment.isHidden ? "comment-container gray-scale" : "comment-container"}
+                >
+                    <p className="user-name">{comment.name}</p>
                     <div className="comment-content">
                         {comment.content}
                     </div>
@@ -93,13 +97,23 @@ const CommentItem = ({comment}) => {
 
                     </div>
                     <div className="comment-modal">
-                        <div 
-                            className="modal-item"
-                            onClick={()=>hideThisComment()}
-                        >
-                            Ẩn
-
-                        </div>
+                        {
+                            !comment.isHidden ?
+                            <div 
+                                className="modal-item"
+                                onClick={()=>hideThisComment()}
+                            >
+                                Ẩn    
+                            </div>
+                            : 
+                            <div 
+                                className="modal-item"
+                                onClick={()=>hideThisComment()}
+                            >
+                                Hiện   
+                            </div>
+                        }
+                        
                         <div 
                             className="modal-item"
                             onClick={()=>{
@@ -141,7 +155,6 @@ const CommentItem = ({comment}) => {
                     src={comment.imgUrl}
                 ></img>
             }
-            
             {
                 !comment.replyComment || comment.replyComment.length == 0 ? (null) : 
                 <div className='reply'>
@@ -169,7 +182,6 @@ const CommentItem = ({comment}) => {
                             </div>
 
                     }
-                    
                     {
                         !replyDisplay || comment.replyComment.length == 0? (null) :
                             comment.replyComment.map((commentItem)=>{

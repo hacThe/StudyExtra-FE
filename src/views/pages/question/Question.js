@@ -6,6 +6,7 @@ import Post from './components/Post.js';
 import { articleActions } from '../../../actions/article.action';
 import { FaCommentsDollar } from 'react-icons/fa';
 import AddPostSection from './components/AddPostSection';
+import { IoTerminal } from 'react-icons/io5';
 
 const refineComments = (comments, postID) => {
     var res = [];
@@ -17,13 +18,14 @@ const refineComments = (comments, postID) => {
                 postID: postID,
                 commentID: cmt.commentID || cmt._id,
                 userID: cmt.userID,
-                username: "Yae Miko Real",
-                userAvatar: "https://img-9gag-fun.9cache.com/photo/axBB4pW_460s.jpg",
+                username: cmt.username,
+                name: cmt.name,
+                userAvatar: cmt.userAvatar,
                 content: cmt.content,
                 userTagID: cmt.userTagID || "",
                 userTagName: 'Raiden Ei',
                 imgUrl: cmt.imgUrl,
-                isHide: false,
+                isHidden: cmt.isHidden,
             }
             if(cmt.replyComment && cmt.replyComment.length > 0)
                 tempt.replyComment =  refineComments(cmt.replyComment, postID);
@@ -53,6 +55,7 @@ const refineData = (data) => {
             imgUrl: item.imgUrl,
             name: item.name,
             createdAt: item.createdAt,
+            
         }
         var tempComment = refineComments(item.comments,item._id );
         temp.comment = tempComment;
