@@ -17,7 +17,8 @@ export const articleActions = {
     deleteBigComment,
     hideBigComment,
     showBigComment,
-    likeArticle
+    likeArticle,
+    unLikeArticle
 }
 
 function getAllArticle(){
@@ -346,6 +347,31 @@ function likeArticle(data){
         )
         
         function request() {
+            return { type: articleConstants.UNLIKE_POST_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.UNLIKE_POST_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.UNLIKE_POST_FAILURE, error };
+        }
+    }
+}
+
+function unLikeArticle(data){
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.unLikeArticle(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
             return { type: articleConstants.LIKE_POST_REQUEST };
         }
         function success(articles ) {
@@ -356,6 +382,7 @@ function likeArticle(data){
         }
     }
 }
+
 
 
 

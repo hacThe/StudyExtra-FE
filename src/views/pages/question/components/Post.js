@@ -125,8 +125,17 @@ const Post = ({post}) => {
             postID: post._id,
             userID: userInfo._id,
         }
-        console.log("likePostData", likePostData);
+        // console.log("likePostData", likePostData);
         dispatch(articleActions.likeArticle(likePostData));
+    }
+
+    const unLikePost = () => {
+        var unlikePostData = {
+            postID: post._id,
+            userID: userInfo._id,
+        }
+        // console.log("unlikePostData", unlikePostData);
+        dispatch(articleActions.unLikeArticle(unlikePostData));
     }
 
     return (
@@ -231,6 +240,9 @@ const Post = ({post}) => {
                                             <AiFillLike 
                                                 className={'liked'}
                                                 size={24}
+                                                onClick={()=> {
+                                                    unLikePost();
+                                                }}
                                             />
                                         :
                                             <AiFillLike 
