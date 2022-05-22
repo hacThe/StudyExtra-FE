@@ -14,6 +14,7 @@ export const articleActions = {
     uploadBigCommentArticlePicture,
     addBigComment,
     removeBigCommentPicture,
+    deleteBigComment,
 }
 
 function getAllArticle(){
@@ -248,6 +249,31 @@ function removeBigCommentPicture(){
         dispatch(request())
         function request() {
             return { type: articleConstants.REMOVE_BIG_COMMENT_PICTURE};
+        }
+    }
+}
+
+function deleteBigComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.deleteBigCommentOfArticle(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.DELETE_BIG_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.DELETE_BIG_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.DELETE_BIG_COMMENT_FAILURE, error };
         }
     }
 }

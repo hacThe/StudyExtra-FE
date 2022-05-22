@@ -1,13 +1,17 @@
 import React , {useState, useEffect} from 'react'
 import '../scss/CommentItem.scss';
+import { useDispatch, useSelector } from "react-redux";
 import { BsTriangleFill } from "react-icons/bs";
 import { IoImageOutline , IoSend} from "react-icons/io5";
 import { HiDotsHorizontal} from "react-icons/hi";
 import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
 
 import Consts from '../ConstKey.js';
+import { articleActions } from '../../../../actions/article.action';
 
 const CommentItem = ({comment}) => {
+    // console.log("comment", comment);
+    const dispatch = useDispatch();
     const [replyDisplay, setReplyDisplay] = useState(false);
     const changeReplyDisplay = () => {
         setReplyDisplay(!replyDisplay);
@@ -61,7 +65,14 @@ const CommentItem = ({comment}) => {
         console.log('comment.isHide', comment.isHide)
     }
 
-    
+    const deleteComment = () => {
+        var data = {
+            postID: comment.postID,
+            commentID: comment.commentID,
+        }
+        console.log("dataToDelete: ", data);
+        dispatch(articleActions.deleteBigComment(data));
+    }
 
     return (
         <div className="comment-item">
@@ -89,7 +100,15 @@ const CommentItem = ({comment}) => {
                             Ẩn
 
                         </div>
-                        <div className="modal-item">
+                        <div 
+                            className="modal-item"
+                            onClick={()=>{
+                                // Check cấp độ hiện tại của cái cmt này trước, 
+                                // sẽ thêm vào cái hàm refine comment
+                                // console.log("comment", comment);
+                                deleteComment();
+                            }}
+                        >
                             Xoá
                         </div>
                         <div className="modal-item">

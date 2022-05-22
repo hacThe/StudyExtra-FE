@@ -7,13 +7,14 @@ import { articleActions } from '../../../actions/article.action';
 import { FaCommentsDollar } from 'react-icons/fa';
 import AddPostSection from './components/AddPostSection';
 
-const refineComments = (comments) => {
+const refineComments = (comments, postID) => {
     var res = [];
     console.log("comments", comments);
     try{
         comments.forEach(cmt => {
             console.log("cmt", cmt);
             var tempt = {
+                postID: postID,
                 commentID: cmt.commentID || cmt._id,
                 userID: cmt.userID,
                 username: "Yae Miko Real",
@@ -25,7 +26,7 @@ const refineComments = (comments) => {
                 isHide: false,
             }
             if(cmt.replyComment && cmt.replyComment.length > 0)
-                tempt.replyComment =  refineComments(cmt.replyComment);
+                tempt.replyComment =  refineComments(cmt.replyComment, postID);
             else tempt.replyComment = [];
             res.push(tempt);
         });
@@ -53,7 +54,7 @@ const refineData = (data) => {
             name: item.name,
             createdAt: item.createdAt,
         }
-        var tempComment = refineComments(item.comments);
+        var tempComment = refineComments(item.comments,item._id );
         temp.comment = tempComment;
         res.push(temp);
     });

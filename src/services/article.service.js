@@ -10,6 +10,7 @@ export const articleService = {
     deleteArticle,
     uploadArticlePicture,
     addBigCommentToArticle,
+    deleteBigCommentOfArticle,
 };
 
 function getAllArticle() {
@@ -44,7 +45,13 @@ function uploadArticlePicture(data) {
 
 function addBigCommentToArticle(data) {
     return handleResponse(
-        ajaxHelper.post(config.URL_ARTICLE + '/add-comment', data, {})
+        ajaxHelper.post(config.URL_ARTICLE + '/comment', data, {})
+    );
+}
+
+function deleteBigCommentOfArticle(data) {
+    return handleResponse(
+        ajaxHelper.deleteFix(config.URL_ARTICLE + '/comment', data, {})
     );
 }
 

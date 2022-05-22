@@ -322,7 +322,6 @@ const Post = ({post}) => {
                                                     Close
                                                 </div>
                                             </div>
-                                            
                                         }
                                     </div>
                                 </div>   
