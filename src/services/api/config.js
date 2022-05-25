@@ -19,7 +19,7 @@ export default {
   URL_DELETE_LESSON: URL_SYSTEM_V1 + "/courses/lesson/delete",
 
   // exam
-  URL_GET_QUESTIONS: URL_SYSTEM_V1 + "/exam/getQuestions",
+  URL_GET_EXAM: URL_SYSTEM_V1 + "/exam/getExam/",
   URL_POST_RESULT_EXAM: URL_SYSTEM_V1 + "/exam/getResultExam",
   URL_ADD_NEW_EXAM: URL_SYSTEM_V1 + '/exam/addNewExam',
   URL_GET_ALL_TEST_EXAM: URL_SYSTEM_V1 + '/exam/getAllTestExam',

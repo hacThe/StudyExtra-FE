@@ -4,7 +4,7 @@ import axios from "axios";
 import { Container } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import { examAction } from "../../../../actions/exam.actions";
-import './ExamDetail.scss'
+import './ExamResult.scss'
 
 const ExamResult = () => {
     const Result  = useSelector(state => state.resultExam.resultExam) || {};

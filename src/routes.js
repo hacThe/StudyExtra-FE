@@ -85,7 +85,7 @@ const ExamDetail = React.lazy(() =>
   import("./views/pages/exam/examDetail/ExamDetail")
 );
 const ExamResult = React.lazy(() =>
-  import("./views/pages/exam/examDetail/ExamResult")
+  import("./views/pages/exam/examResult/ExamResult")
 );
 
 const DocumentManage = React.lazy(() =>

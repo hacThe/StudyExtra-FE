@@ -101,6 +101,9 @@ function ManagerHeader(props) {
             <Link to="/thong-tin-tai-khoan">
                 <MenuItem onClick={handleMenuClose}>Thông tin tài khoản</MenuItem>
             </Link>
+            <Link to="/">
+                <MenuItem onClick={handleMenuClose}>Người dùng</MenuItem>
+            </Link>
             <MenuItem onClick={handleMenuClose}>Đổi mật khẩu</MenuItem>
             <MenuItem onClick={handleMenuClose}>Đăng xuất</MenuItem>
         </Menu>

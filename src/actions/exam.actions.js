@@ -2,33 +2,56 @@ import { examConstants } from "../constaint/exam.constants";
 import { examServices } from "../services/exam.services";
 
 export const examAction = {
-    getQuestions,
+    getAll,
+    getOne,
     postResultExam
 };
 
-function getQuestions(questionsID) {
+function getAll() {
     return (dispatch) => {
-        dispatch(request())
-        examServices.getQuestions(questionsID).then(
-            questions => {
-                console.log("data:", questions.data)
-                dispatch(success(questions.data))
+        dispatch(request());
+        examServices.getExams().then(
+            (exams)=>{
+                dispatch(success(exams.data));
             },
-            err => {
-                dispatch(failure(err.toSring()))
-                console.log('Lỗi' + err.toSring())
+            (err)=>{
+                dispatch(failure(err))
             }
         )
     }
 
     function request() {
-        return { type: examConstants.GET_QUESTIONS_REQUEST };
+        return { type: examConstants.GET_EXAMS_REQUEST };
     }
-    function success(questions) {
-        return { type: examConstants.GET_QUESTIONS_SUCCESS, questions: questions };
+    function success(exams) {
+        return { type: examConstants.GET_EXAMS_SUCCESS, exams}
     }
-    function failure(error) {
-        return { type: examConstants.GET_QUESTIONS_FAILURE, error };
+    function failure(err) {
+        return { type: examConstants.GET_EXAMS_FAILURE, err}
+    }
+}
+
+function getOne(id) {
+    return (dispatch) => {
+        dispatch(request());
+        examServices.getExam(id).then(
+            (exam)=>{
+                dispatch(success(exam.data));
+            },
+            (err)=>{
+                dispatch(failure(err))
+            }
+        )
+    }
+
+    function request() {
+        return { type: examConstants.GET_EXAM_REQUEST };
+    }
+    function success(exam) {
+        return { type: examConstants.GET_EXAM_SUCCESS, exam}
+    }
+    function failure(err) {
+        return { type: examConstants.GET_EXAM_FAILURE, err}
     }
 }
 

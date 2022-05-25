@@ -138,6 +138,13 @@ function TheHeader() {
       <Link to="/thong-tin-tai-khoan">
         <MenuItem onClick={handleMenuClose}>Thông tin tài khoản</MenuItem>
       </Link>
+
+      {typeof UserInfo === "undefined" ? <></> : UserInfo.role === 'admin' &&
+        <a href="/quan-ly">
+          <MenuItem onClick={handleMenuClose}>Quản lí</MenuItem>
+        </a>
+      }
+
       <MenuItem onClick={() => { setPasswordModal(true); handleMenuClose() }}>Đổi mật khẩu</MenuItem>
       {passwordModal && <ResetPasswordModal isOpen={passwordModal} setPassOpen={setPasswordModal} />}
       <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>

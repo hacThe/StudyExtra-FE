@@ -1,29 +1,44 @@
 import { examConstants } from "../constaint/exam.constants";
 
 const initialState = {
-    questions: [{
-        title: "",
-        answer: []
-    }],
+    exams: [],
+    exam: {},
     isLoading: false,
     error: ""
 }
-
-
 export const exam = (state = initialState, action) => {
-    switch(action.type) {
-        case examConstants.GET_QUESTIONS_REQUEST:
+    switch (action.type) {
+        case examConstants.GET_EXAMS_REQUEST:
             return {
                 ...state,
                 isLoading: true
             }
 
-        case examConstants.GET_QUESTIONS_SUCCESS:
-            return{
+        case examConstants.GET_EXAMS_SUCCESS:
+            return {
                 ...state,
-                questions: action.questions,
+                isLoading: false,
+                exams: action.exams,
             }
-        case examConstants.GET_QUESTIONS_FAILURE:
+        case examConstants.GET_EXAMS_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            }
+        case examConstants.GET_EXAM_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            }
+
+        case examConstants.GET_EXAM_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                exam: action.exam,
+            }
+        case examConstants.GET_EXAM_FAILURE:
             return {
                 ...state,
                 isLoading: false,
@@ -31,8 +46,10 @@ export const exam = (state = initialState, action) => {
             }
         default:
             return state
-    } 
-} 
+    }
+}
+
+
 
 const initialStateResultExam = {
     resultExam: {},
@@ -40,7 +57,7 @@ const initialStateResultExam = {
     error: ""
 }
 export const resultExam = (state = initialStateResultExam, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case examConstants.POST_RESULT_REQUEST:
             return {
                 ...state,
@@ -48,7 +65,7 @@ export const resultExam = (state = initialStateResultExam, action) => {
             }
 
         case examConstants.POST_RESULT_SUCCESS:
-            return{
+            return {
                 ...state,
                 resultExam: action.resultExam,
             }
@@ -60,5 +77,5 @@ export const resultExam = (state = initialStateResultExam, action) => {
             }
         default:
             return state
-    } 
+    }
 } 
