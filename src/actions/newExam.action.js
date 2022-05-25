@@ -11,6 +11,15 @@ export const editQuestion = (oldIndex, question, newIndex) => {
     }
 }
 
+export const setDescription = (description) => {
+    return (dispatch) => {
+        dispatch({
+            type: examConstants.SET_DESCRIPTION_EXAM,
+            description
+        })
+    }
+}
+
 export const setEditExam = (data) => {
     return (dispatch) => {
         dispatch({
@@ -20,11 +29,11 @@ export const setEditExam = (data) => {
     }
 }
 
-export function setNameExam(nameExam) {
+export function setNameExam(name) {
     return (dispatch) => {
         dispatch({
             type: examConstants.SET_NAME_EXAM,
-            nameExam
+            name
         })
     }
 };

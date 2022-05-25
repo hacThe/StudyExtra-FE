@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Grid } from "@mui/material";
-import { AiOutlineExport, AiOutlineImport } from "react-icons/ai";
+import { AiOutlineExport, AiOutlineImport, AiFillDelete } from "react-icons/ai";
 import { IoCheckmarkSharp, IoAddCircleSharp } from "react-icons/io5";
 import "./SingleExamForm.scss";
 import LeadingIconButton from "../../../../components/LeadingIconButton";
@@ -11,10 +11,10 @@ import { useNavigate } from "react-router-dom";
 import handleStringDocsToMultipleChoice from '../../../../../utilities/ConvertDocsToMultipleChoice.util'
 import Docxtemplater from "docxtemplater";
 import PizZip from 'pizzip';
-import { setNameExam, setTimeExam, setQuestionsExam, setPointExam, setTypeCategory } from '../../../../../actions/newExam.action'
+import { setNameExam, setTimeExam, setQuestionsExam, setPointExam, setTypeCategory, setDescription } from '../../../../../actions/newExam.action'
 import { useDispatch, useSelector } from "react-redux"
-
-
+import { IoMdAdd } from 'react-icons/io'
+import Fab from '@mui/material/Fab';
 function SingleExamForm({ exam, handleAdd }) {
   const navigator = useNavigate();
   const dispatch = useDispatch()
@@ -27,6 +27,7 @@ function SingleExamForm({ exam, handleAdd }) {
     navigator(`/quan-ly/thi-thu/cau-hoi/chinh-sua/${id}`)
   }
 
+  const [listRequire, setListRequire] = useState(['YÊu cầu toeic 700', 'Yêu cầu lớp 10'])
   const inputRef = useRef()
   const [questions, setQuestions] = useState([]);
   const showFile = (e) => {
@@ -68,6 +69,13 @@ function SingleExamForm({ exam, handleAdd }) {
     dispatch(setPointExam(e.target.value))
   }
 
+  const handleChangeDescription = (e) => {
+    dispatch(setDescription(e.target.value))
+  }
+
+  const handleDeleteRequire = (require) => {
+    console.log(require)
+  }
 
 
   const formik = useFormik({
@@ -167,7 +175,7 @@ function SingleExamForm({ exam, handleAdd }) {
                 id="name"
                 name="name"
                 onChange={handleChangeNameExam}
-                value={newExam.nameExam}
+                value={newExam.name}
                 onBlur={handleBlurNameExam}
               />
               {formik.errors.name && (
@@ -190,7 +198,28 @@ function SingleExamForm({ exam, handleAdd }) {
                 <p className="input-error-validation"> {formik.errors.time} </p>
               )}
             </div>
+            <div className="mb-3">
+              <label htmlFor="description">Mô tả</label>
+              <textarea
+                style={{ width: '90%' }}
+                id="description"
+                rows="4"
+                cols="50"
+                onChange={handleChangeDescription}
+                value={newExam.description}
+              >
 
+              </textarea>
+              {/* <input
+                type="text"
+                id="time"
+                name="time"
+                //value={formik.values.time}
+                onBlur={handleBlurTimeExam}
+                value={newExam.time}
+                onChange={handleChangeTimeExam}
+              /> */}
+            </div>
             <div className="mb-3">
               <label htmlFor="scoreUnit">Số điểm mỗi câu</label>
               <input
@@ -236,6 +265,28 @@ function SingleExamForm({ exam, handleAdd }) {
                 </select>
               </div>
             </div>
+
+            <div className="mb-3">
+              <label htmlFor="name">Bắt buộc</label>
+              <div style={{ borderRadius: '4px', border: '1px solid #D5D5D5', width: '90%', padding: '20px 10px' }}>
+                {
+                  listRequire.map(value => {
+                    return (
+                      <div style={{ fontSize: '13px', backgroundColor: '#ebebeb', display: 'inline-block', padding: '5px', borderRadius: '16px', margin: '5px' }}>
+                        {value}
+                        <AiFillDelete onClick={() => { handleDeleteRequire(value) }} className="btn-delete" style={{ transform: 'translateY(+10%)', cursor: 'pointer' }}></AiFillDelete>
+                      </div>
+                    )
+                  })
+                }
+                <div style={{display:'flex'}}>
+                  <input style={{paddingRight:'10px'}} type='text'></input>
+                  <Fab style={{width: '50px'}} size="small" color="primary" aria-label="add">
+                    <IoMdAdd />
+                  </Fab>
+                </div>
+              </div>
+            </div>
           </div>
         </Grid>
         <Grid item xs={12} md={8}>
@@ -265,7 +316,7 @@ function SingleExamForm({ exam, handleAdd }) {
             ))}
           </div>
 
-          <span onClick={AddNewQuestionOnClick} className="se-btn">
+          <span onClick={() => AddNewQuestionOnClick(123)} className="se-btn">
             <IoAddCircleSharp />
             Thêm câu hỏi
           </span>

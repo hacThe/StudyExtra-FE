@@ -2,15 +2,21 @@ import { examConstants } from "../constaint/exam.constants";
 
 const initialState = {
     id: null,
-    nameExam: '',
+    name: '',
     time: 0,
     questionPoint: 0,
     listQuestion: [],
-    typeCategory: ''
+    typeCategory: '',
+    description: '',
 };
 
 export const newExam = (state = initialState, action) => {
     switch (action.type) {
+        case examConstants.SET_DESCRIPTION_EXAM:
+            return {
+                ...state,
+                description: action.description,
+            }
         case examConstants.EDIT_QUESTION:
             if (Number(action.newIndex) <= 0) {
                 state.listQuestion.shift()
@@ -25,20 +31,22 @@ export const newExam = (state = initialState, action) => {
         case examConstants.SET_EDIT_EXAM:
             return {
                 id: action.data._id,
-                nameExam: action.data.nameExam,
+                name: action.data.name,
                 time: action.data.time,
                 questionPoint: action.data.questionPoint,
                 listQuestion: action.data.listQuestion,
                 typeCategory: action.data.typeCategory,
+                description: action.data.description
             }
         case examConstants.RESET_EXAM:
             return {
                 id: null,
-                nameExam: '',
+                name: '',
                 time: 0,
                 questionPoint: 0,
                 listQuestion: [],
-                typeCategory: ''
+                typeCategory: '',
+                description: '',
             }
         case examConstants.SET_TYPE_CATEGORY_EXAM:
             return {
@@ -48,7 +56,7 @@ export const newExam = (state = initialState, action) => {
         case examConstants.SET_NAME_EXAM:
             return {
                 ...state,
-                nameExam: action.nameExam,
+                name: action.name,
             };
         case examConstants.SET_POINT_EXAM:
             return {

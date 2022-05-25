@@ -23,7 +23,7 @@ function AddExam(props) {
     const navigate = useNavigate()
     const newExam = useSelector(state => state.newExam)
     const handleAdd = () => {
-        if (newExam.nameExam.length !== 0 && newExam.time > 0 && newExam.questionPoint && newExam.listQuestion.length > 1 && newExam.typeCategory !== '') {
+        if (newExam.name.length !== 0 && newExam.time > 0 && newExam.questionPoint && newExam.listQuestion.length > 1 && newExam.typeCategory !== '') {
             axios.post(URL.URL_ADD_NEW_EXAM, {
                 ...newExam
             })

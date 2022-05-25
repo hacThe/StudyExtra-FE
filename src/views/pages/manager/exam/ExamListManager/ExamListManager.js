@@ -9,7 +9,7 @@ import axios from 'axios'
 import URL from '../../../../../services/api/config'
 const columnDocs = [
   { field: "stt", headerName: "STT" },
-  { field: "nameExam", headerName: "Tên bài thi", flex: 3 },
+  { field: "name", headerName: "Tên bài thi", flex: 3 },
   { field: "typeCategory", headerName: "Phân loại", flex: 1 },
   { field: "quantity", headerName: 'Số câu', flex: 1 },
   { field: "time", headerName: "Thời gian", flex: 1 },

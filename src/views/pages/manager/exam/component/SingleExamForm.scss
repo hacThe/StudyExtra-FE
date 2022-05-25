@@ -1,5 +1,13 @@
 .single-exam-form-wrapper{
 
+  .btn-delete{
+    margin-left: 5px;
+  }
+
+  .btn-delete:hover{
+    opacity: .6;
+  }
+
   .list-input-form{
     position: sticky;
     top: 136px;
