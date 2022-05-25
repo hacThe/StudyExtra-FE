@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import handleStringDocsToMultipleChoice from '../../../../../utilities/ConvertDocsToMultipleChoice.util'
 import Docxtemplater from "docxtemplater";
 import PizZip from 'pizzip';
-import { setNameExam, setTimeExam, setQuestionsExam, setPointExam, setTypeCategory, setDescription } from '../../../../../actions/newExam.action'
+import { setRequirement, deleteRequirement ,setNameExam, setTimeExam, setQuestionsExam, setPointExam, setTypeCategory, setDescription } from '../../../../../actions/newExam.action'
 import { useDispatch, useSelector } from "react-redux"
 import { IoMdAdd } from 'react-icons/io'
 import Fab from '@mui/material/Fab';
@@ -27,7 +27,8 @@ function SingleExamForm({ exam, handleAdd }) {
     navigator(`/quan-ly/thi-thu/cau-hoi/chinh-sua/${id}`)
   }
 
-  const [listRequire, setListRequire] = useState(['YÊu cầu toeic 700', 'Yêu cầu lớp 10'])
+  const [require, setRequire] = useState('')
+
   const inputRef = useRef()
   const [questions, setQuestions] = useState([]);
   const showFile = (e) => {
@@ -73,8 +74,18 @@ function SingleExamForm({ exam, handleAdd }) {
     dispatch(setDescription(e.target.value))
   }
 
+
+  const handleChangeRequire = (e) => {
+    setRequire(e.target.value)
+  }
+
+  const handleClickAddRequire = (e) => {
+    dispatch(setRequirement(require))
+    setRequire('');
+  }
+
   const handleDeleteRequire = (require) => {
-    console.log(require)
+    dispatch(deleteRequirement(require))
   }
 
 
@@ -270,7 +281,7 @@ function SingleExamForm({ exam, handleAdd }) {
               <label htmlFor="name">Bắt buộc</label>
               <div style={{ borderRadius: '4px', border: '1px solid #D5D5D5', width: '90%', padding: '20px 10px' }}>
                 {
-                  listRequire.map(value => {
+                  newExam.requirement.map(value => {
                     return (
                       <div style={{ fontSize: '13px', backgroundColor: '#ebebeb', display: 'inline-block', padding: '5px', borderRadius: '16px', margin: '5px' }}>
                         {value}
@@ -279,11 +290,9 @@ function SingleExamForm({ exam, handleAdd }) {
                     )
                   })
                 }
-                <div style={{display:'flex'}}>
-                  <input style={{paddingRight:'10px'}} type='text'></input>
-                  <Fab style={{width: '50px'}} size="small" color="primary" aria-label="add">
-                    <IoMdAdd />
-                  </Fab>
+                <div style={{ display: 'flex', marginTop: '10px' }}>
+                  <input onChange={handleChangeRequire} value={require} style={{ paddingRight: '10px' }} type='text'></input>
+                  <div onClick={handleClickAddRequire} style={{ cursor: 'pointer', color: 'white', backgroundColor: 'var(--primary-color)', borderRadius: '10px', fontSize: '16px', textAlign: 'center', padding: '10px', marginLeft: '10px' }}>Thêm</div>
                 </div>
               </div>
             </div>

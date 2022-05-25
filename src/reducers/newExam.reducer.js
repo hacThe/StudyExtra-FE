@@ -8,10 +8,19 @@ const initialState = {
     listQuestion: [],
     typeCategory: '',
     description: '',
+    requirement: ['Bắt buộc lớp 10', 'Bắt buộc lớp 11'],
 };
 
 export const newExam = (state = initialState, action) => {
     switch (action.type) {
+        case examConstants.SET_REQUIREMENT:
+            state.requirement.push(action.require)
+            return state
+        case examConstants.DELETE_REQUIREMENT:
+            return {
+                ...state,
+                requirement: state.requirement.filter(value => value != action.require)
+            }
         case examConstants.SET_DESCRIPTION_EXAM:
             return {
                 ...state,
@@ -36,7 +45,8 @@ export const newExam = (state = initialState, action) => {
                 questionPoint: action.data.questionPoint,
                 listQuestion: action.data.listQuestion,
                 typeCategory: action.data.typeCategory,
-                description: action.data.description
+                description: action.data.description,
+                requirement: action.data.requirement
             }
         case examConstants.RESET_EXAM:
             return {
@@ -47,6 +57,7 @@ export const newExam = (state = initialState, action) => {
                 listQuestion: [],
                 typeCategory: '',
                 description: '',
+                requirement: [],
             }
         case examConstants.SET_TYPE_CATEGORY_EXAM:
             return {

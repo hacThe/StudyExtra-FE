@@ -7,13 +7,16 @@ import { useNavigate } from "react-router-dom";
 import SunEditor, { buttonList } from 'suneditor-react'
 import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import axios from 'axios'
-import  URL from '../../../../../services/api/config'
+import URL from '../../../../../services/api/config'
+import { useSelector, useDispatch } from 'react-redux'
 
 function AddAnnouncement(props) {
     const navigate = useNavigate();
+    const idUser = useSelector(state => state.authentication.user._id)
     const [content, setContent] = React.useState('');
     const [title, setTitle] = React.useState('');
     const [review, setReview] = React.useState('');
+    
     const renderTime = () => {
         let a = new Date()
         let day
@@ -76,7 +79,8 @@ function AddAnnouncement(props) {
     const handleAddAnnouncemnt = async () => {
         await axios.post(URL.URL_ADD_ANNOUNCEMENT, {
             title,
-            content
+            content,
+            idUser,
         }).then(res => {
             console.log(res)
             navigate(-1)
@@ -102,11 +106,11 @@ function AddAnnouncement(props) {
                 </div>
             </div>
             <Grid style={{ marginTop: '20px', height: '90%', overflow: 'hidden' }} container spacing={2}>
-                <Grid style={{paddingLeft: '20px'}} sm={6}>
+                <Grid style={{ paddingLeft: '20px' }} sm={6}>
                     <div className='name'>
                         Tên thông báo
                     </div>
-                    <input onChange={handleChangeTitle} style={{fontSize:'14px'}} type='text'></input>
+                    <input onChange={handleChangeTitle} style={{ fontSize: '14px' }} type='text'></input>
                     <div className='name'>
                         Nội dung thông báo
                     </div>

@@ -11,6 +11,25 @@ export const editQuestion = (oldIndex, question, newIndex) => {
     }
 }
 
+export const setRequirement = (require) => {
+    return (dispatch) => {
+        dispatch({
+            type: examConstants.SET_REQUIREMENT,
+            require
+        })
+    }
+}
+
+export const deleteRequirement = (require) => {
+    console.log('delete action')
+    return (dispatch) => {
+        dispatch({
+            type: examConstants.DELETE_REQUIREMENT,
+            require
+        })
+    }
+}
+
 export const setDescription = (description) => {
     return (dispatch) => {
         dispatch({
