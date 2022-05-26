@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import handleStringDocsToMultipleChoice from '../../../../../utilities/ConvertDocsToMultipleChoice.util'
 import Docxtemplater from "docxtemplater";
 import PizZip from 'pizzip';
-import { setRequirement, deleteRequirement ,setNameExam, setTimeExam, setQuestionsExam, setPointExam, setTypeCategory, setDescription } from '../../../../../actions/newExam.action'
+import { editDetail, editTestCount, setRequirement, deleteRequirement, setNameExam, setTimeExam, setQuestionsExam, setPointExam, setTypeCategory, setDescription } from '../../../../../actions/newExam.action'
 import { useDispatch, useSelector } from "react-redux"
 import { IoMdAdd } from 'react-icons/io'
 import Fab from '@mui/material/Fab';
@@ -74,6 +74,20 @@ function SingleExamForm({ exam, handleAdd }) {
     dispatch(setDescription(e.target.value))
   }
 
+  const handleChangeDetail = (e) => {
+    dispatch(editDetail(e.target.value))
+  }
+  const handleBlurDetail = (e) => {
+    dispatch(editDetail(e.target.value))
+  }
+
+  const handleChangeTestCount = (e) => {
+    dispatch(editTestCount(e.target.value))
+  }
+
+  const handleBlurTestCount = (e) => {
+    dispatch(editTestCount(e.target.value))
+  }
 
   const handleChangeRequire = (e) => {
     setRequire(e.target.value)
@@ -193,7 +207,20 @@ function SingleExamForm({ exam, handleAdd }) {
                 <p className="input-error-validation"> {formik.errors.name} </p>
               )}
             </div>
-
+            <div className="mb-3">
+              <label htmlFor="name">Chi tiết</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                onChange={handleChangeDetail}
+                value={newExam.detail}
+                onBlur={handleBlurDetail}
+              />
+              {formik.errors.name && (
+                <p className="input-error-validation"> {formik.errors.name} </p>
+              )}
+            </div>
             <div className="mb-3">
               <label htmlFor="time">Thời gian</label>
               <input
@@ -210,6 +237,21 @@ function SingleExamForm({ exam, handleAdd }) {
               )}
             </div>
             <div className="mb-3">
+              <label htmlFor="time">Số lần tham gia</label>
+              <input
+                type="number"
+                id="time"
+                name="time"
+                //value={formik.values.time}
+                onBlur={handleBlurTestCount}
+                value={newExam.testCount}
+                onChange={handleChangeTestCount}
+              />
+              {formik.errors.time && (
+                <p className="input-error-validation"> {formik.errors.time} </p>
+              )}
+            </div>
+            <div className="mb-3">
               <label htmlFor="description">Mô tả</label>
               <textarea
                 style={{ width: '90%' }}
@@ -219,7 +261,6 @@ function SingleExamForm({ exam, handleAdd }) {
                 onChange={handleChangeDescription}
                 value={newExam.description}
               >
-
               </textarea>
               {/* <input
                 type="text"
