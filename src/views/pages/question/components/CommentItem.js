@@ -131,6 +131,7 @@ const CommentItem = ({comment}) => {
             userID: userInfo._id,
         }
         console.log("data", data);
+        dispatch(articleActions.likeBigComment(data));
     }
 
 
@@ -224,7 +225,7 @@ const CommentItem = ({comment}) => {
                 
                 <div className="comment-interact">
                     {
-                        isLiked ? 
+                        comment.reactions && comment.reactions.includes(userInfo._id) ? 
                             <p 
                                 className="interact-item like active"
                                 onClick={
@@ -233,7 +234,7 @@ const CommentItem = ({comment}) => {
                                     }
                                 }
                             >
-                                Thích
+                                Bỏ thích
                             </p>
                         :
                             <p 

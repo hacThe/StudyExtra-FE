@@ -18,7 +18,8 @@ export const articleActions = {
     hideBigComment,
     showBigComment,
     likeArticle,
-    unLikeArticle
+    unLikeArticle,
+    likeBigComment,
 }
 
 function getAllArticle(){
@@ -383,6 +384,30 @@ function unLikeArticle(data){
     }
 }
 
+function likeBigComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.likeBigComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.LIKE_BIG_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.LIKE_BIG_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.LIKE_BIG_COMMENT_FAILURE, error };
+        }
+    }
+}
 
 
 

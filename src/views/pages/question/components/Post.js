@@ -139,8 +139,10 @@ const Post = ({post}) => {
         dispatch(articleActions.unLikeArticle(unlikePostData));
     }
 
-
+    console.log("post", post);
     
+    console.log("userInfo", userInfo);
+
     return (
         
         <div className="question-body">
@@ -158,7 +160,7 @@ const Post = ({post}) => {
                                 <p className="post-time">{calculateTime(post.createdAt)}</p>
                             </div>
                             {
-                                typeof userInfo == 'undefined' ||
+                                typeof userInfo == 'undefined' || userInfo == null ||
                                 (typeof userInfo != 'undefined' && userInfo._id != post.userID )
                                 ? (null) :
                                 <div className='right-heading'>
