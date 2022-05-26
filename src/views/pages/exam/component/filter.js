@@ -24,7 +24,6 @@ function Filter() {
                     <div className='sorting-label'>Sắp xếp theo</div>
                     <select
                         id="demo-simple-select"
-                        label="Age"
                         className='sorting-control'
                     >
                         <option className="sorting-item">Mới nhất</option>

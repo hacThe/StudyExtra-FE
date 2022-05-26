@@ -6,7 +6,7 @@ import { cookiesUtil } from "../utilities";
 export const userActions = {
   login,
   logout,
- // register,
+  // register,
   getAll,
   getOne,
   delete: _delete,
@@ -22,54 +22,46 @@ export const userActions = {
 
 
 
-function editUserGem(amount, userId, callback){
+function editUserGem(amount, userId, callback) {
   return (dispatch) => {
-      dispatch(request());
-  
-      usersServices.editUserGem(amount, userId).then(
-        (transactions) => {dispatch(success(transactions["data"]))
-          if (callback)
-          {
-            callback(transactions["data"])
-          }
+    dispatch(request());
+
+    usersServices.editUserGem(amount, userId).then(
+      (transactions) => {
+        dispatch(success(transactions["data"]))
+        if (callback) {
+          callback(transactions["data"])
+        }
       },
-        (error) => dispatch(failure(error.toString()))
-      );
-    };
-  
-    function request() {
-      return { type: userConstants.GETONE_REQUEST };
-    }
-    function success(user) {
-      return { type: userConstants.GETONE_SUCCESS, user };
-    }
-    function failure(error) {
-      return { type: userConstants.GETONE_FAILURE, error };
-    }
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.GETONE_REQUEST };
+  }
+  function success(user) {
+    return { type: userConstants.GETONE_SUCCESS, user };
+  }
+  function failure(error) {
+    return { type: userConstants.GETONE_FAILURE, error };
+  }
 }
 
 /// này là hàm login
 function login(username, password) {
   return (dispatch) => {
-
     dispatch(request());
-    // dispatch(success());
-
     usersServices.login(username, password).then(
       (user) => {
-
         alert("login successfully", user)
         cookiesUtil.setAccessToken(user.token)
-        cookiesUtil.setCurrentUserInfo(user.user)
+        //   cookiesUtil.setCurrentUserInfo(user.user)
         dispatch(success());
       },
       (error) => {
-
         alert(error);
         dispatch(failure(error.toString()))
-
-        // dispatch(failure(error.toString()));
-        // dispatch(alertActions.error(error.toString()));
       }
     );
   };
@@ -88,6 +80,7 @@ function login(username, password) {
 function logout() {
   return (dispatch) => {
     usersServices.logout();
+    // window.location.reload(true);
     dispatch(success());
    // window.location.reload(true);
   };
@@ -130,12 +123,12 @@ function getOne(id, callback) {
     dispatch(request());
 
     usersServices.getOne(id).then(
-      (users) => {dispatch(success(users["data"]))
-        if (callback)
-        {
+      (users) => {
+        dispatch(success(users["data"]))
+        if (callback) {
           callback(users["data"])
         }
-    },
+      },
       (error) => dispatch(failure(error.toString()))
     );
   };
@@ -158,12 +151,12 @@ function getCurrentUser(id, callback) {
     dispatch(request());
 
     usersServices.getCurrentUser(id).then(
-      (users) => {dispatch(success(users["data"]))
-        if (callback)
-        {
+      (users) => {
+        dispatch(success(users["data"]))
+        if (callback) {
           callback(users["data"])
         }
-    },
+      },
       (error) => dispatch(failure(error.toString()))
     );
   };
@@ -185,12 +178,12 @@ function toogleLockState(id, callback) {
     dispatch(request());
 
     usersServices.toogleLockState(id).then(
-      (users) => {dispatch(success(users["data"]))
-        if (callback)
-        {
+      (users) => {
+        dispatch(success(users["data"]))
+        if (callback) {
           callback(users["data"])
         }
-    },
+      },
       (error) => dispatch(failure(error.toString()))
     );
   };
@@ -235,10 +228,12 @@ function _delete(id, callback) {
     dispatch(request(id));
 
     usersServices._delete(id).then(
-      () => {dispatch(success(id))
-      if (callback){
-        callback(id)
-      }},
+      () => {
+        dispatch(success(id))
+        if (callback) {
+          callback(id)
+        }
+      },
       (error) => dispatch(failure(id, error.toString()))
     );
   };
@@ -266,10 +261,10 @@ function getUserCourses() {
   };
 
   function request() {
-    return { type: userConstants.GET_USER_COURSES_REQUEST};
+    return { type: userConstants.GET_USER_COURSES_REQUEST };
   }
   function success(userCourses) {
-    return { type: userConstants.GET_USER_COURSES_SUCCESS, userCourses};
+    return { type: userConstants.GET_USER_COURSES_SUCCESS, userCourses };
   }
   function failure(error) {
     return { type: userConstants.GET_USER_COURSES_FAILURE, error };
@@ -286,10 +281,10 @@ function getUserNotifications() {
   };
 
   function request() {
-    return { type: userConstants.GET_USER_NOTIFICATION_REQUEST};
+    return { type: userConstants.GET_USER_NOTIFICATION_REQUEST };
   }
   function success(userNotifications) {
-    return { type: userConstants.GET_USER_NOTIFICATION_SUCCESS, userNotifications};
+    return { type: userConstants.GET_USER_NOTIFICATION_SUCCESS, userNotifications };
   }
   function failure(error) {
     return { type: userConstants.GET_USER_NOTIFICATION_FAILURE, error };
@@ -310,10 +305,10 @@ function uploadAvatar(avatarUrl) {
   };
 
   function request() {
-    return { type: userConstants.UPLOAD_AVATAR_REQUEST};
+    return { type: userConstants.UPLOAD_AVATAR_REQUEST };
   }
   function success(user) {
-    return { type: userConstants.UPLOAD_AVATAR_SUCCESS, user};
+    return { type: userConstants.UPLOAD_AVATAR_SUCCESS, user };
   }
   function failure(error) {
     return { type: userConstants.UPLOAD_AVATAR_FAILURE, error };
@@ -346,7 +341,7 @@ function uploadAvatar(avatarUrl) {
   }
 } */
 
-  
+
 function updateProfile(newInfo) {
   return (dispatch) => {
     dispatch(request());
@@ -361,10 +356,10 @@ function updateProfile(newInfo) {
   };
 
   function request() {
-    return { type: userConstants.UPDATE_PROFILE_REQUEST};
+    return { type: userConstants.UPDATE_PROFILE_REQUEST };
   }
   function success(user) {
-    return { type: userConstants.UPDATE_PROFILE_SUCCESS, user};
+    return { type: userConstants.UPDATE_PROFILE_SUCCESS, user };
   }
   function failure(error) {
     return { type: userConstants.UPDATE_PROFILE_FAILURE, error };
@@ -383,10 +378,10 @@ function getUserTransaction() {
   };
 
   function request() {
-    return { type: userConstants.GET_USER_TRANSACTION_REQUEST};
+    return { type: userConstants.GET_USER_TRANSACTION_REQUEST };
   }
   function success(userTransaction) {
-    return { type: userConstants.GET_USER_TRANSACTION_SUCCESS, userTransaction};
+    return { type: userConstants.GET_USER_TRANSACTION_SUCCESS, userTransaction };
   }
   function failure(error) {
     return { type: userConstants.GET_USER_TRANSACTION_FAILURE, error };

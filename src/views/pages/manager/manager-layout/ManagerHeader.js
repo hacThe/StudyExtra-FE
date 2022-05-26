@@ -18,7 +18,7 @@ import {
 import { BiSearch } from "react-icons/bi";
 import { IoNotificationsSharp } from "react-icons/io5";
 import "./ManagerHeader.scss";
-import { userActions } from "../../../../actions";
+import { userActions } from "../../../../actions/user.actions";
 
 function ManagerHeader(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -28,14 +28,13 @@ function ManagerHeader(props) {
   const isMenuOpen = Boolean(anchorEl);
   const isNotificationMenuOpen = Boolean(anchorNt);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const UserInfo = useSelector((state) => state.user.currentUser);
-  console.log({ currentUser: UserInfo });
+  const UserInfo = useSelector(
+    (state) => state.user.currentUser
+  ); /* console.log("user: ", typeof UserInfo === "undefined"); */
 
   const dispatch = useDispatch();
 
   //----------------
-
-  const navigate = useNavigate()
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -43,12 +42,6 @@ function ManagerHeader(props) {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-
-  function handleLogout() {
-    dispatch(userActions.logout());
-    navigate("/dang-nhap");
-  }
-  
 
   //---------------
   const handleNotificationMenuOpen = (event) => {
@@ -66,18 +59,17 @@ function ManagerHeader(props) {
     setMobileMoreAnchorEl(null);
   };
 
-  console.log(
-    "state: ",
-    useSelector((state) => state)
-  ); /////////
-  const notifications =
-    useSelector((state) => state.userNotifications.notifications.data) || [];
+  //const [notifications, setNotification] = useState([]);
+  /* console.log("state: ", useSelector(state => state))/////////
+    const notifications = useSelector(state => state.userNotifications.notifications.data) || []*/
+
   useEffect(async () => {
-    if (!UserInfo) {
-      dispatch(userActions.getUserNotifications());
-      dispatch(userActions.getCurrentUser());
-    }
+    dispatch(userActions.getCurrentUser());
+    /*  if(typeof UserInfo !== "undefined")
+      dispatch(userActions.getUserNotifications()); */
   }, []);
+  const notifications = []; ///////////////
+
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
   const profileMenuId = "primary-search-account-menu";
   const renderMenu = (
@@ -119,26 +111,13 @@ function ManagerHeader(props) {
       <Link to="/thong-tin-tai-khoan">
         <MenuItem onClick={handleMenuClose}>Thông tin tài khoản</MenuItem>
       </Link>
-
-      {UserInfo?.role == "admin" && (
-        <a href="/quan-ly/dashboard">
-          <MenuItem
-            onClick={() => {
-              handleMenuClose();
-              setTimeout(() => {
-                window.location.reload();
-                console.log("reloaded");
-              }, 200);
-            }}
-          >
-            Quản lý Study Extra
-          </MenuItem>
-        </a>
-      )}
-      <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
+      <Link to="/">
+        <MenuItem onClick={handleMenuClose}>Người dùng</MenuItem>
+      </Link>
+      <MenuItem onClick={handleMenuClose}>Đổi mật khẩu</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Đăng xuất</MenuItem>
     </Menu>
   );
-  //--------------------------------------------------------------NOTIFICATION-MENU-------------------------------------------------------//
   const notificationMenuId = "primary-search-notification-menu";
 
   const NotificationContent = (props) => {

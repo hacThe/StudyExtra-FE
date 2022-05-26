@@ -4,15 +4,30 @@ import { cookiesUtil } from '../utilities';
 import ajaxHelper from './api';
 
 export const examServices = {
-  getQuestions, 
-  postResultExam
+  getExams,
+  getExam,
+  CheckExamRequirement,
+  postResultExam,
+  getResultExam
 };
 
-function getQuestions(questionsID) {
-  return handleResponse(ajaxHelper.post(config.URL_GET_QUESTIONS, {questionsID}, options()));
+function getExams(params = {}) {
+  return handleResponse(ajaxHelper.get(config.URL_GET_ALL_TEST_EXAM, params, options()));
+}
+function getExam(id) {
+  return handleResponse(ajaxHelper.get(config.URL_GET_EXAM + id, options()));
+}
+function CheckExamRequirement(id) {
+  return handleResponse(ajaxHelper.post(config.URL_CHECK_EXAM_REQUIREMENT, {id}, options()));
 }
 
-function postResultExam(questionsID, examID, userAnswer) {
-  return handleResponse(ajaxHelper.post(config.URL_POST_RESULT_EXAM, {questionsID, examID, userAnswer}, options()));
+function postResultExam(examID, userAnswer) {
+  return handleResponse(ajaxHelper.post(config.URL_POST_RESULT_EXAM, {examID, userAnswer}, options()));
 }
+function getResultExam(examID) {
+  return handleResponse(ajaxHelper.get(config.URL_GET_RESULT_EXAM + examID, options()));
+}
+
+
+
 

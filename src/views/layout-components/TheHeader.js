@@ -41,8 +41,9 @@ function TheHeader() {
   const isMenuOpen = Boolean(anchorEl);
   const isNotificationMenuOpen = Boolean(anchorNt);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const isLoggedIn = useSelector((state) => state.authentication.isLoggedIn);
   const UserInfo = useSelector((state) => state.user.currentUser);
-  console.log("user: ", UserInfo);
+  console.log({UserInfo})
 
   const dispatch = useDispatch();
 
@@ -96,10 +97,9 @@ function TheHeader() {
     useSelector((state) => state.userNotifications.notifications.data) || [];
 
   useEffect(async () => {
-    if (!UserInfo) {
-      dispatch(userActions.getUserNotifications());
-      dispatch(userActions.getCurrentUser());
-    }
+    dispatch(userActions.getCurrentUser());
+    /* if (typeof UserInfo !== "undefined")
+      dispatch(userActions.getUserNotifications()); */
   }, []);
 
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
@@ -130,37 +130,22 @@ function TheHeader() {
           <Avatar
             className="avatar"
             alt="Remy Sharp"
-            src={
-              typeof UserInfo === "undefined"
-                ? "default-avatar.png"
-                : UserInfo.avatar
-            }
+            /* src={typeof UserInfo === "undefined" ? "default-avatar.png" : UserInfo.avatar} */
+            src={isLoggedIn && UserInfo?.avatar}
           />
         </Grid>
         <Grid item xs={8}>
-          <h6>
-            {typeof UserInfo === "undefined" ? "Username" : UserInfo.username}
-          </h6>
-          <p>{typeof UserInfo === "undefined" ? "0" : UserInfo.gem} GEM</p>
+          <h6>{isLoggedIn && UserInfo?.username}</h6>
+          <p>{isLoggedIn && UserInfo?.gem}</p>
         </Grid>
       </MenuItem>
       <Link to="/thong-tin-tai-khoan">
         <MenuItem onClick={handleMenuClose}>Thông tin tài khoản</MenuItem>
       </Link>
 
-      {UserInfo?.role == "admin" && (
-        <a href="/quan-ly/dashboard">
-          <MenuItem
-            onClick={() => {
-              handleMenuClose();
-              // setTimeout(() => {
-              //   window.location.reload();
-              //   console.log("reloaded");
-              // }, 200);
-            }}
-          >
-            Quản lý Study Extra
-          </MenuItem>
+      {isLoggedIn && UserInfo?.role === "admin" && (
+        <a href="/quan-ly">
+          <MenuItem onClick={handleMenuClose}>Quản lí</MenuItem>
         </a>
       )}
 
@@ -291,9 +276,7 @@ function TheHeader() {
       onKeyDown={toggleDrawer(anchor, false)}
       className="mobile-navbar"
     >
-      {typeof UserInfo === "undefined" ? (
-        <></>
-      ) : (
+      {isLoggedIn && (
         <>
           <Link to={"/thong-tin-tai-khoan"}>
             <MenuItem>
@@ -301,22 +284,12 @@ function TheHeader() {
                 <Avatar
                   className="avatar"
                   alt="Remy Sharp"
-                  src={
-                    typeof UserInfo === "undefined"
-                      ? "/default-avatar.png"
-                      : UserInfo.avatar
-                  }
+                  src={isLoggedIn && UserInfo?.avatar}
                 />
               </Grid>
               <Grid item xs={8}>
-                <h6>
-                  {typeof UserInfo === "undefined"
-                    ? "Username"
-                    : UserInfo.username}
-                </h6>
-                <p>
-                  {typeof UserInfo === "undefined" ? "0" : UserInfo.gem} GEM
-                </p>
+                <h6>{isLoggedIn && UserInfo?.username}</h6>
+                <p>{isLoggedIn && UserInfo?.gem} GEM</p>
               </Grid>
             </MenuItem>
           </Link>
@@ -334,12 +307,10 @@ function TheHeader() {
           </NavLink>
         ))}
       </List>
-      {typeof UserInfo === "undefined" ? (
+      {!isLoggedIn && (
         <div style={{ display: "flex", justifyContent: "center" }}>
           {LoginBtn}
         </div>
-      ) : (
-        <></>
       )}
     </Box>
   );
@@ -374,11 +345,7 @@ function TheHeader() {
           <Avatar
             className="avatar"
             alt="Remy Sharp"
-            src={
-              typeof UserInfo === "undefined"
-                ? "/default-avatar.png"
-                : UserInfo.avatar
-            }
+            src={isLoggedIn && UserInfo?.avatar}
           />
         </IconButton>
       </Box>
@@ -475,11 +442,13 @@ function TheHeader() {
                 ></InputBase>
               </Box>
             </Grid>
-            {UserInfo ? NotificationAvatarGroup : LoginBtn}
+            {!isLoggedIn ? LoginBtn : NotificationAvatarGroup}
           </Grid>
           {UserInfo && renderMenu}
           {UserInfo && renderNotificationMenu}
         </AppBar>
+        {isLoggedIn && renderMenu}
+        {isLoggedIn && renderNotificationMenu}
       </Box>
     </>
   );

@@ -1,8 +1,8 @@
 import { userConstants } from '../constaint';
 import { cookiesUtil } from '../utilities';
 
-let user = cookiesUtil.getCurrentUserInfo();
-const initialState = user ? { waiting: false, isLoggedIn: true, user } : { waiting: false, isLoggedIn: false };
+let user = cookiesUtil.getAccessToken();
+const initialState = user ? { waiting: false, isLoggedIn: true } : { waiting: false, isLoggedIn: false };
 
 console.log({ initialState })
 export function authentication(state = initialState, action) {
@@ -49,7 +49,6 @@ export function authentication(state = initialState, action) {
         waiting: false,
         isLoggedIn: true,
         error: false,
-        user: action.user
       };
 
       case userConstants.UPDATE_PROFILE_REQUEST:
@@ -71,24 +70,7 @@ export function authentication(state = initialState, action) {
           waiting: false,
           isLoggedIn: true,
           error: false,
-          user: action.user
         };
-        /* case userConstants.VERIFY_EMAIL_SUCCESS:
-    
-        return {
-          ...state,
-          waiting: false,
-          error: false,
-          user: { ...user, emailVerified: true}
-        };
-        case userConstants.VERIFY_EMAIL_FAILURE:
-    
-          return {
-            ...state,
-            waiting: false,
-            error: false,
-            user: { ...user, emailVerified: false}
-          }; */
     default:
       return state
   }

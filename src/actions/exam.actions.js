@@ -2,47 +2,95 @@ import { examConstants } from "../constaint/exam.constants";
 import { examServices } from "../services/exam.services";
 
 export const examAction = {
-    getQuestions,
-    postResultExam
+    getAll,
+    getOne,
+    CheckExamRequirement,
+    postResultExam,
+    getResultExam
 };
 
-function getQuestions(questionsID) {
+function getAll() {
     return (dispatch) => {
-        dispatch(request())
-        examServices.getQuestions(questionsID).then(
-            questions => {
-                console.log("data:", questions.data)
-                dispatch(success(questions.data))
+        dispatch(request());
+        examServices.getExams().then(
+            (exams)=>{
+                dispatch(success(exams.data));
             },
-            err => {
-                dispatch(failure(err.toSring()))
-                console.log('Lỗi' + err.toSring())
+            (error)=>{
+                dispatch(failure(error))
             }
         )
     }
 
     function request() {
-        return { type: examConstants.GET_QUESTIONS_REQUEST };
+        return { type: examConstants.GET_EXAMS_REQUEST };
     }
-    function success(questions) {
-        return { type: examConstants.GET_QUESTIONS_SUCCESS, questions: questions };
+    function success(exams) {
+        return { type: examConstants.GET_EXAMS_SUCCESS, exams}
     }
     function failure(error) {
-        return { type: examConstants.GET_QUESTIONS_FAILURE, error };
+        return { type: examConstants.GET_EXAMS_FAILURE, error}
     }
 }
 
-function postResultExam(questionsID, examID, userAnswer) {
+function getOne(id) {
+    return (dispatch) => {
+        dispatch(request());
+        examServices.getExam(id).then(
+            (exam)=>{
+                dispatch(success(exam.data));
+            },
+            (error)=>{
+                dispatch(failure(error))
+            }
+        )
+    }
+
+    function request() {
+        return { type: examConstants.GET_EXAM_REQUEST };
+    }
+    function success(exam) {
+        return { type: examConstants.GET_EXAM_SUCCESS, exam}
+    }
+    function failure(error) {
+        return { type: examConstants.GET_EXAM_FAILURE, error}
+    }
+}
+
+
+function CheckExamRequirement(id) {
+    return (dispatch) => {
+        dispatch(request());
+        examServices.CheckExamRequirement(id).then(
+            (result)=>{
+                dispatch(success());
+            },
+            (error)=>{
+                dispatch(failure(error))
+            }
+        )
+    }
+
+    function request() {
+        return { type: examConstants.CHECK_EXAM_REQUIREMENT_REQUEST };
+    }
+    function success() {
+        return { type: examConstants.CHECK_EXAM_REQUIREMENT_SUCCESS}
+    }
+    function failure(error) {
+        return { type: examConstants.CHECK_EXAM_REQUIREMENT_FAILURE, error}
+    }
+}
+
+function postResultExam(examID, userAnswer) {
     return (dispatch) => {
         dispatch(request())
-        examServices.postResultExam(questionsID, examID, userAnswer).then(
-            resultExam => {
-                console.log("dataaaa result exam:", resultExam)
-                dispatch(success(resultExam))
+        examServices.postResultExam( examID, userAnswer).then(
+            () => {
+                dispatch(success())
             },
-            err => {
-                dispatch(failure(err.toSring()))
-                console.log('Lỗi' + err.toSring())
+            error => {
+                dispatch(failure(error))
             }
         )
     }
@@ -50,10 +98,35 @@ function postResultExam(questionsID, examID, userAnswer) {
     function request() {
         return { type: examConstants.POST_RESULT_REQUEST };
     }
-    function success(resultExam) {
-        return { type: examConstants.POST_RESULT_SUCCESS, resultExam: resultExam };
+    function success() {
+        return { type: examConstants.POST_RESULT_SUCCESS };
     }
     function failure(error) {
         return { type: examConstants.POST_RESULT_FAILURE, error };
+    }
+}
+
+function getResultExam(examID) {
+    return (dispatch) => {
+        dispatch(request())
+        examServices.getResultExam(examID).then(
+            (result) => {
+                dispatch(success(result.data))
+                console.log("tttttttttttt: ",result);
+            },
+            error => {
+                dispatch(failure(error))
+            }
+        )
+    }
+
+    function request() {
+        return { type: examConstants.GET_RESULT_REQUEST };
+    }
+    function success(result) {
+        return { type: examConstants.GET_RESULT_SUCCESS, result };
+    }
+    function failure(error) {
+        return { type: examConstants.GET_RESULT_FAILURE, error };
     }
 }
