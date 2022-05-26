@@ -4,6 +4,8 @@ import './scss/Question.scss';
 import Post from './components/Post.js';
 import { articleActions } from '../../../actions/article.action';
 import AddPostSection from './components/AddPostSection';
+import { appActions } from "../../../actions";
+import { cookiesUtil } from '../../../utilities';
 
 const refineComments = (comments, postID) => {
     var res = [];
@@ -115,13 +117,13 @@ const Question = () => {
         }) || [];
     // console.log("articles", articles)
 
-
-    const userInfo = useSelector(state => state.authentication.user);
+    
+    const userInfo = useSelector((state) => state.user.currentUser);
     // console.log("userInfo", userInfo);
 
     const [isOpenPost, setIsOpenPost] = useState(false);
 
-    
+
     return (    
         <div className="question-page-container">
             <div className="question-container">
@@ -168,6 +170,19 @@ const Question = () => {
                     }
                 </div>
             </div>
+            {/* Đây là confirm modal */}
+            {/* <span
+                onClick={() => {
+                    dispatch(
+                        appActions.openConfirmDialog("THis is content", () => {
+                            console.log("haha");
+                        })
+                    );
+                }}
+                className="se-btn"
+            >
+                Click me
+            </span> */}
         </div>
     )
 }

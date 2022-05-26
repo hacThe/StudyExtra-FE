@@ -39,7 +39,7 @@ const AddPostSection = () => {
         return state.article.currentArticle.imgLink;
     })
 
-    const userInfo = useSelector(state => state.authentication.user);
+    const userInfo = useSelector((state) => state.user.currentUser);
     console.log("userInfo", userInfo);
 
 

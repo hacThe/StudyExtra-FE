@@ -16,11 +16,8 @@ const CommentItem = ({comment}) => {
     const changeReplyDisplay = () => {
         setReplyDisplay(!replyDisplay);
     } 
+    
 
-    const [isLiked, setIsLiked] = useState(false);
-    const changeLiked = () => {
-        setIsLiked(!isLiked);
-    } 
 
     const [userReplyDisplay, setUserReplyDisplay] = useState(false);
     const changeUserReplyDisplay = () => {
@@ -54,8 +51,9 @@ const CommentItem = ({comment}) => {
             document.removeEventListener('keydown', onKeyDown);
             document.removeEventListener('keyup', onKeyUp);
         }
-    }, []);   
-    const userInfo = useSelector(state => state.authentication.user);
+    }, []);
+
+    const userInfo = useSelector((state) => state.user.currentUser);
 
     const deleteComment = () => {
         var data = {
@@ -93,7 +91,7 @@ const CommentItem = ({comment}) => {
 
     }
 
-    console.log("comment", comment)
+    
 
     const calculateTime = (timeString) => {
         // console.log("timeString", timeString);
@@ -119,6 +117,27 @@ const CommentItem = ({comment}) => {
             return (Math.floor(diff/1000/60/60/24/365) +" năm trước")
         }
     }
+
+
+    // console.log("comment", comment)
+    // console.log("userInfo", userInfo);
+    // Like bigcomment
+    const likeBigComment = () => {
+        console.log("comment", comment)
+        console.log("userInfo", userInfo);
+        var data = {
+            postID: comment.postID,
+            commentID: comment.commentID,
+            userID: userInfo._id,
+        }
+        console.log("data", data);
+    }
+
+
+    const [isLiked, setIsLiked] = useState(false);
+    const changeLiked = () => {
+        setIsLiked(!isLiked);
+    } 
 
     return (
         <>
@@ -155,7 +174,7 @@ const CommentItem = ({comment}) => {
                                     size={14}
                                     className="open-modal"
                                     onClick={()=>{
-                                        console.log("ACV");
+                                        // console.log("ACV");
                                         setIsOpenManageModal(!isOpenManageModal);   
                                     }}
                                 /> 
@@ -204,12 +223,31 @@ const CommentItem = ({comment}) => {
                 </div>
                 
                 <div className="comment-interact">
-                    <p 
-                        className={isLiked ?"interact-item like active" : "interact-item like"}s
-                        onClick={(e) => changeLiked()}
-                    >
-                        Thích
-                    </p>
+                    {
+                        isLiked ? 
+                            <p 
+                                className="interact-item like active"
+                                onClick={
+                                    (e) => {
+                                        // likeBigComment()
+                                    }
+                                }
+                            >
+                                Thích
+                            </p>
+                        :
+                            <p 
+                                className="interact-item like"
+                                onClick={
+                                    (e) => {
+                                        likeBigComment()
+                                    }
+                                }
+                            >
+                                Thích
+                            </p>
+                    }
+                    
                     <p 
                         className="interact-item rep" 
                         onClick = {(e) => changeUserReplyDisplay() }

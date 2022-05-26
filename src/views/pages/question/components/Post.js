@@ -24,7 +24,7 @@ const Post = ({post}) => {
         console.log({ state });
     })
 
-    const userInfo = useSelector(state => state.authentication.user);
+    const userInfo = useSelector((state) => state.user.currentUser);
     // console.log("userInfo", userInfo);
 
     const calculateTime = (timeString) => {
@@ -139,6 +139,8 @@ const Post = ({post}) => {
         dispatch(articleActions.unLikeArticle(unlikePostData));
     }
 
+
+    
     return (
         
         <div className="question-body">
