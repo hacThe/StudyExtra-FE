@@ -7,7 +7,8 @@ export const examServices = {
   getExams,
   getExam,
   CheckExamRequirement,
-  postResultExam
+  postResultExam,
+  getResultExam
 };
 
 function getExams(params = {}) {
@@ -23,6 +24,10 @@ function CheckExamRequirement(id) {
 function postResultExam(examID, userAnswer) {
   return handleResponse(ajaxHelper.post(config.URL_POST_RESULT_EXAM, {examID, userAnswer}, options()));
 }
+function getResultExam(examID) {
+  return handleResponse(ajaxHelper.get(config.URL_GET_RESULT_EXAM + examID, options()));
+}
+
 
 
 

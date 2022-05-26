@@ -11,7 +11,6 @@ const ExamDetail = () => {
     const navigate = useNavigate();
 
     const takeExam = useSelector(state => state.takeExam);
-    if (takeExam.isTaking !== "taking") navigate(-1)
 
     const param = useParams();
     const innitQuestion = [{
@@ -47,17 +46,22 @@ const ExamDetail = () => {
     useEffect(() => {
         dispatch(examAction.getOne(param.id));
     }, [])
-/*     if (takeExam.submited) {
-        alert("Result saved: ", takeExam.error);
-        localStorage.clear();
-    } */
+    useEffect(() => {
+        if (takeExam.submited) {
+            alert("Result saved");
+            navigate('/luyen-de/' + param.id + '/ket-qua')
+            localStorage.clear();
+        }
+        else
+            if (takeExam.isTaking !== "taking" && !takeExam.submited && !takeExam.isLoading) navigate(-1)
+    }, [takeExam])
+
     const handleSubmit = () => {
         console.log("answer: ", result.current);
         localStorage.removeItem("userAnswers");
         localStorage.removeItem("timeLeft");
 
         dispatch(examAction.postResultExam(exam._id, result.current));
-        navigate('/luyen-de/id:1/ket-qua')
     }
 
     //------------------------------------------------------------return-----------------------------------------//

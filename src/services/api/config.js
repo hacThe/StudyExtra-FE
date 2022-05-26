@@ -21,6 +21,7 @@ export default {
   // exam
   URL_GET_EXAM: URL_SYSTEM_V1 + "/exam/getExam/",
   URL_POST_RESULT_EXAM: URL_SYSTEM_V1 + "/exam/postResultExam",
+  URL_GET_RESULT_EXAM: URL_SYSTEM_V1 + "/exam/getResultExam/",
   URL_ADD_NEW_EXAM: URL_SYSTEM_V1 + '/exam/addNewExam',
   URL_GET_ALL_TEST_EXAM: URL_SYSTEM_V1 + '/exam/getAllTestExam',
   URL_EDIT_TEST_EXAM: URL_SYSTEM_V1 + '/exam/edit/',

@@ -5,7 +5,8 @@ export const examAction = {
     getAll,
     getOne,
     CheckExamRequirement,
-    postResultExam
+    postResultExam,
+    getResultExam
 };
 
 function getAll() {
@@ -102,5 +103,30 @@ function postResultExam(examID, userAnswer) {
     }
     function failure(error) {
         return { type: examConstants.POST_RESULT_FAILURE, error };
+    }
+}
+
+function getResultExam(examID) {
+    return (dispatch) => {
+        dispatch(request())
+        examServices.getResultExam(examID).then(
+            (result) => {
+                dispatch(success(result.data))
+                console.log("tttttttttttt: ",result);
+            },
+            error => {
+                dispatch(failure(error))
+            }
+        )
+    }
+
+    function request() {
+        return { type: examConstants.GET_RESULT_REQUEST };
+    }
+    function success(result) {
+        return { type: examConstants.GET_RESULT_SUCCESS, result };
+    }
+    function failure(error) {
+        return { type: examConstants.GET_RESULT_FAILURE, error };
     }
 }

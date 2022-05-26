@@ -18,6 +18,7 @@ import {
 import { BiSearch } from "react-icons/bi";
 import { IoNotificationsSharp } from "react-icons/io5";
 import "./ManagerHeader.scss";
+import { userActions } from "../../../../actions/user.actions";
 
 function ManagerHeader(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -27,7 +28,7 @@ function ManagerHeader(props) {
     const isMenuOpen = Boolean(anchorEl);
     const isNotificationMenuOpen = Boolean(anchorNt);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-    const UserInfo = useSelector(state => state.authentication.user); /* console.log("user: ", typeof UserInfo === "undefined"); */
+    const UserInfo = useSelector(state => state.user.user); /* console.log("user: ", typeof UserInfo === "undefined"); */
 
 
     const dispatch = useDispatch()
@@ -59,11 +60,13 @@ function ManagerHeader(props) {
 
     //const [notifications, setNotification] = useState([]);
     /* console.log("state: ", useSelector(state => state))/////////
-    const notifications = useSelector(state => state.userNotifications.notifications.data) || []
+    const notifications = useSelector(state => state.userNotifications.notifications.data) || []*/
+
     useEffect(async () => {
-      if(typeof UserInfo !== "undefined")
-      dispatch(userActions.getUserNotifications());
-    }, []); */
+        dispatch(userActions.getCurrentUser());
+     /*  if(typeof UserInfo !== "undefined")
+      dispatch(userActions.getUserNotifications()); */
+    }, []); 
     const notifications = [];///////////////
 
     //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//

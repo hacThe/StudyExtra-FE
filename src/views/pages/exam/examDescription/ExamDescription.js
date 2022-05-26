@@ -13,11 +13,25 @@ const ExamDescription = () => {
     const dispatch = useDispatch();
     const param = useParams();
     const exam = useSelector(state => state.exam.exam) || {}
-
+    const takeExam = useSelector(state => state.takeExam);
 
     useEffect(() => {
-        dispatch(examAction.getOne(param.id));
+        dispatch(examAction.getOne(param.id)); 
     }, [])
+
+    
+    useEffect(()=>{
+        if (!takeExam.isLoading && takeExam.isTaking === 'taking') {
+            navigate('/luyen-de/' + exam._id + '/vao-thi');
+            localStorage.clear();
+        }
+        else
+            if (!takeExam.isLoading && takeExam.isTaking === 'notAccept') {
+                takeExam.isTaking = 'innit';
+                alert(takeExam.error);
+            }
+    }, [takeExam])
+   
 
     const LeaderCard = () => {
         return (
@@ -33,16 +47,7 @@ const ExamDescription = () => {
             </div>
         )
     }
-    const takeExam = useSelector(state => state.takeExam);
 
-    if (!takeExam.isLoading && takeExam.isTaking === 'taking') {
-        navigate('/luyen-de/' + exam._id + '/vao-thi');
-    }
-    else
-        if (!takeExam.isLoading && takeExam.isTaking === 'notAccept') {
-            takeExam.isTaking = 'innit';
-            alert(takeExam.error);
-        }
 
     const takeExamHandleClick = () => {
         dispatch(examAction.CheckExamRequirement(exam._id));
@@ -63,11 +68,12 @@ const ExamDescription = () => {
                     </div>
                     <div className="exam-require">
                         <h5>Yêu cầu trình độ</h5>
-                        {exam !== {} ? <></> : exam.requirement.map((item, index) => (
+                        {typeof exam.requirement === 'undefined' ? <></> : exam.requirement.map((item, index) => (
                             <div key={index} className="require-group">
                                 <p><BsCheckCircleFill></BsCheckCircleFill> {item}</p>
                             </div>
                         ))}
+
                     </div>
                 </Grid>
                 <Grid item xs={12} md={5} lg={4} className="leader-board_column">

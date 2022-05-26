@@ -64,6 +64,7 @@ export const takeExam = (state = initialStateTakeExam, action) => {
             return {
                 ...state,
                 isTaking: "init",
+                submited: false,
                 isLoading: true,
                 error: ""
             }
@@ -90,13 +91,14 @@ export const takeExam = (state = initialStateTakeExam, action) => {
         case examConstants.POST_RESULT_SUCCESS:
             return {
                 ...state,
+                submited: true,
                 isLoading: false,
             }
         case examConstants.POST_RESULT_FAILURE:
             return {
                 ...state,
                 isLoading: false,
-                submited: true,
+                submited: false,
                 error: action.error
             }
         case examConstants.GET_RESULT_REQUEST:
@@ -106,9 +108,9 @@ export const takeExam = (state = initialStateTakeExam, action) => {
             }
         case examConstants.GET_RESULT_SUCCESS:
             return {
+                ...state,
                 isLoading: false,
                 resultExam: action.result,
-                ...state,
             }
         case examConstants.GET_RESULT_FAILURE:
             return {
