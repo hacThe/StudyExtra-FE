@@ -119,26 +119,29 @@ const CommentItem = ({comment}) => {
     }
 
 
-    // console.log("comment", comment)
-    // console.log("userInfo", userInfo);
     // Like bigcomment
     const likeBigComment = () => {
-        console.log("comment", comment)
-        console.log("userInfo", userInfo);
+        // console.log("comment", comment)
+        // console.log("userInfo", userInfo);
         var data = {
             postID: comment.postID,
             commentID: comment.commentID,
             userID: userInfo._id,
         }
-        console.log("data", data);
+        // console.log("data to like", data)''
         dispatch(articleActions.likeBigComment(data));
     }
 
-
-    const [isLiked, setIsLiked] = useState(false);
-    const changeLiked = () => {
-        setIsLiked(!isLiked);
-    } 
+    // unlike bigcomment
+    const unlikeBigComment = () => {
+        var data = {
+            postID: comment.postID,
+            commentID: comment.commentID,
+            userID: userInfo._id,
+        }
+        console.log("data to unlike", data);
+        dispatch(articleActions.unlikeBigComment(data));
+    }
 
     return (
         <>
@@ -230,7 +233,7 @@ const CommentItem = ({comment}) => {
                                 className="interact-item like active"
                                 onClick={
                                     (e) => {
-                                        // likeBigComment()
+                                        unlikeBigComment();
                                     }
                                 }
                             >

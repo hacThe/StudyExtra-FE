@@ -15,7 +15,8 @@ export const articleService = {
     showBigCommentOfArticle,
     likeArticle,
     unLikeArticle,
-    likeBigComment
+    likeBigComment,
+    unlikeBigComment
 };
 
 function getAllArticle() {
@@ -87,5 +88,12 @@ function unLikeArticle(data) {
 function likeBigComment(data) {
     return handleResponse(
         ajaxHelper.post(config.URL_ARTICLE + '/comment/interaction', data, {})
+    );
+}
+
+
+function unlikeBigComment(data) {
+    return handleResponse(
+        ajaxHelper.deleteFix(config.URL_ARTICLE + '/comment/interaction', data, {})
     );
 }
