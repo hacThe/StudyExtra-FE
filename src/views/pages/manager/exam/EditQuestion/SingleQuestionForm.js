@@ -2,11 +2,11 @@ import React from "react";
 import { AiFillDelete } from "react-icons/ai";
 import * as Yup from "yup";
 import { Formik, Field, Form, ErrorMessage, FieldArray } from "formik";
-import "./SingleQuestionForm.scss";
+import "../component/SingleQuestionForm.scss"
 import { useNavigate } from 'react-router-dom'
 import SaveOrExitButton from "../../../manager/component/SaveOrExitButton";
 import { useDispatch } from 'react-redux'
-import { addNewQuestion } from '../../../../../actions/newExam.action'
+import { addNewQuestion, editQuestion } from '../../../../../actions/newExam.action'
 
 Yup.addMethod(Yup.array, "unique", function (message, mapper = (a) => a) {
   return this.test("unique", message, function (list) {
@@ -14,15 +14,14 @@ Yup.addMethod(Yup.array, "unique", function (message, mapper = (a) => a) {
   });
 });
 
-function SingleQuestionForm({ maxQuestion, question }) {
+function SingleQuestionForm({ maxQuestion, question, index }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const initialValues = {
-    index: 1,
-    question: "",
-    answers: [""],
-    correctAnswer: undefined,
-    ...question,
+    index: index,
+    question: question.nameQuestion,
+    answers: question.listAnswers,
+    correctAnswer: question.rightAnswer,
   };
 
 
@@ -52,15 +51,16 @@ function SingleQuestionForm({ maxQuestion, question }) {
         validationSchema={validationSchema}
         onSubmit={async (values) => {
           console.log(values)
-          let index = values.index
+          let newIndex = values.index
+          let oldIndex = index
           let question = {
             listAnswers: values.answers,
             nameQuestion: values.question,
-            rightAnswer:  Number(values.correctAnswer),
+            rightAnswer: Number(values.correctAnswer),
           }
           console.log(index)
           console.log(question)
-          dispatch(addNewQuestion(index, question))
+          dispatch(editQuestion(oldIndex, question, newIndex))
           navigate(-1)
         }}
       >

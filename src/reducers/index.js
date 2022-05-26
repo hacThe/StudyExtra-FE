@@ -9,10 +9,11 @@ import { search } from "./search.reducer";
 import { post } from "./post.reducer";
 import { userData } from "./account.reducer";
 import { userNotifications } from "./notification.reducer";
-import {user} from "./user.reducer";
-import {article} from "./article.reducer";
+import { user } from "./user.reducer";
+import { article } from "./article.reducer";
 import { searchAnnouncement } from './searchAnnouncement.reducer'
 import { transactionReducer } from './transaction.reducer'
+import { newExam } from "./newExam.reducer";
 const rootReducer = combineReducers({
   app, // appReducer
   course, // course
@@ -23,12 +24,13 @@ const rootReducer = combineReducers({
   search,
   post,
   document,
-  userData, 
+  userData,
   userNotifications,
   article,
   searchAnnouncement,
   transactionReducer,
-  user
+  user,
+  newExam
 });
 
 export default rootReducer;

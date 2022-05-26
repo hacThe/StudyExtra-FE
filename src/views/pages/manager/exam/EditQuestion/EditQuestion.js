@@ -1,19 +1,18 @@
 import React from "react";
-import SingleQuestionForm from "../component/SingleQuestionForm";
+import SingleQuestionForm from "./SingleQuestionForm";
 import "./EditQuestion.scss"
-
+import { useParams } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 function EditQuestion(props) {
-  const mockQuestion = {
-    index: 5,
-    question: "Đây là câu hỏi",
-    answers: ["Đây là câu trả lời 1", "Đây là câu trả lời 2", "Đây là câu trả lời 2", "Đây là câu trả lời 2"],
-    correctAnswer: 0,
-  };
+  const { id } = useParams()
+  const questionEdit = useSelector(state => state.newExam.listQuestion[Number(id)])
+  console.log(questionEdit)
+ 
   return (
     <div className="manager-fa-ke-modal edit-question-wrapper">
       <h1>Chỉnh sửa câu hỏi</h1>
 
-      <SingleQuestionForm question={mockQuestion} />
+      <SingleQuestionForm index={Number(id) + 1} question={questionEdit} />
     </div>
   );
 }

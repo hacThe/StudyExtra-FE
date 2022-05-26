@@ -17,10 +17,12 @@ function SearchAnnouncement(props) {
                 TÌM KIẾM
             </div>
             <Divider></Divider>
-            <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '15px', paddingBottom: '15px' }}>
-                <div style={{ boxShadow: 'rgb(0 0 0 / 16%) 0px 1px 4px', display: 'flex', justifyContent: 'center', alignItems: 'center', border: '1px solid #00000024', borderRadius: '16px', padding: '10px 20px' }}>
-                    <input value={searchAnnouncement} onChange={handleChangeInput} style={{ outline: 'none', border: 'none', marginRight: '5px' }} type={'text'} placeholder='Tìm kiếm thông báo...'></input>
-                    <BsSearch style={{ fontSize: '18px', cursor: 'pointer' }}></BsSearch>
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '20px 20px' }}>
+                <div style={{ boxShadow: 'rgb(0 0 0 / 16%) 0px 1px 4px', display: 'flex', justifyContent: 'center', alignItems: 'center', border: '1px solid #00000024', borderRadius: '16px', padding: '5px 10px', width: '100%' }}>
+                    <input value={searchAnnouncement} onChange={handleChangeInput} style={{ outline: 'none', border: 'none', marginRight: '5px', width: '60%' }} type={'text'} placeholder='Tìm kiếm thông báo...'></input>
+                    <div style={{ width: '18px' }}>
+                        <BsSearch style={{ fontSize: '18px', cursor: 'pointer', width: '18px' }}></BsSearch>
+                    </div>
                 </div>
             </div>
         </Card>

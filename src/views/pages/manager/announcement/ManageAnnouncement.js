@@ -68,7 +68,7 @@ function ManageAnnouncement(props) {
                                 id:index,
                                 slug: announcement.slug,
                                 title: announcement.title,
-                                userCreate: 'Lương Thiện Phước',
+                                userCreate: announcement.user.name,
                                 content: announcement.content,
                                 timeCreate: renderTime(announcement.updatedAt)
                             })

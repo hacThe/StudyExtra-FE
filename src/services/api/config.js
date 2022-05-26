@@ -22,15 +22,34 @@ export default {
   // exam
   URL_GET_QUESTIONS: URL_SYSTEM_V1 + "/exam/getQuestions",
   URL_POST_RESULT_EXAM: URL_SYSTEM_V1 + "/exam/getResultExam",
-  URL_LOGIN: URL_SYSTEM_V1 + "/auth/login",
-  URL_REGISTER: URL_SYSTEM_V1 + "/auth/register",
-  URL_GET_COURSES: URL_SYSTEM_V1 + "/courses/getAllCourses",
-  URL_GET_POSTS: URL_SYSTEM_V1 + "/posts/getAllPosts",
+  URL_ADD_NEW_EXAM: URL_SYSTEM_V1 + '/exam/addNewExam',
+  URL_GET_ALL_TEST_EXAM: URL_SYSTEM_V1 + '/exam/getAllTestExam',
+  URL_EDIT_TEST_EXAM: URL_SYSTEM_V1 + '/exam/edit/',
+  URL_SAVE_TEST_EXAM: URL_SYSTEM_V1 + '/exam/save-test-exam',
+  URL_DELETE_TEST_EXAM: URL_SYSTEM_V1 + '/exam/delete-test-exam',
+
 
   //account
   URL_GET_USER_COURSES: URL_SYSTEM_V1 + '/profiles/getUserCourses',
   URL_GET_USER_NOTIFICATIONS: URL_SYSTEM_V1 + '/notification/getUserNotification',
   URL_UPLOAD_AVATAR: URL_SYSTEM_V1 + '/profiles/uploadAvatar',
+
+  // document
+  URL_GET_DOCUMENTS: URL_SYSTEM_V1 + '/document/',
+  // article
+  URL_ARTICLE: URL_SYSTEM_V1 + '/article/',
+  // type category
+  URL_TYPE_CATEGORY: URL_SYSTEM_V1 + '/type-category/',
+  URL_GET_POSTS: URL_SYSTEM_V1 + '/posts/getAllPosts',
+  URL_GET_NOTIFICATIONS: URL_SYSTEM_V1 + '/notifications/getAllNotification',
+
+  // Announcement
+  URL_ADD_ANNOUNCEMENT: URL_SYSTEM_V1 + '/announcement/add-new-announcement',
+  URL_GET_ALL_ANNOUNCEMENT: URL_SYSTEM_V1 + '/announcement/getAllAnnouncement',
+  URL_GET_ANNOUNCEMENT: URL_SYSTEM_V1 + '/announcement/', //+ slug
+  URL_DELETE_ANNOUNCEMENT: URL_SYSTEM_V1 + '/announcement/delete-announcement',
+  URL_UPDATE_ANNOUNCEMENT: URL_SYSTEM_V1 + '/announcement/update-announcement',
+
   URL_USERS: URL_SYSTEM_V1 + "/users",
   URL_USER_TOOGLE_BLOCK: URL_SYSTEM_V1 + "/users/lock",
   URL_VERIFY_EMAIL: URL_SYSTEM_V1 + '/auth/',
@@ -44,14 +63,6 @@ export default {
   URL_RESET_PASSWORD: URL_SYSTEM_V1 + '/auth/resetPassword',
   URL_RESEND_VERIFYEMAIL: URL_SYSTEM_V1 + '/auth/resendVerifyEmail',
 
-  // document
-  URL_GET_DOCUMENTS: URL_SYSTEM_V1 + "/document/",
-  // article
-  URL_ARTICLE: URL_SYSTEM_V1 + "/article/",
-  // type category
-  URL_TYPE_CATEGORY: URL_SYSTEM_V1 + "/type-category/",
-  URL_GET_POSTS: URL_SYSTEM_V1 + "/posts/getAllPosts",
-  URL_GET_NOTIFICATIONS: URL_SYSTEM_V1 + "/notifications/getAllNotification",
 
   // Announcement
   URL_ADD_ANNOUNCEMENT: URL_SYSTEM_V1 + '/announcement/add-new-announcement',

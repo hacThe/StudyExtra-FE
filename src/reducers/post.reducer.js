@@ -8,7 +8,7 @@ const initialState = {
 
 
 export const post = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case postConstants.GET_POST_REQUEST:
             return {
                 ...state,
@@ -16,8 +16,8 @@ export const post = (state = initialState, action) => {
             }
 
         case postConstants.GET_POST_SUCCESS:
-            
-            return{
+
+            return {
                 ...state,
                 posts: action.posts,
             }
@@ -29,5 +29,5 @@ export const post = (state = initialState, action) => {
             }
         default:
             return state
-    } 
+    }
 } 
