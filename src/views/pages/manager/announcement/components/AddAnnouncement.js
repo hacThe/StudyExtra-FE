@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 function AddAnnouncement(props) {
     const navigate = useNavigate();
-    const idUser = useSelector(state => state.authentication.user._id)
+    const idUser = useSelector(state => state.authentication.user?._id)
     const [content, setContent] = React.useState('');
     const [title, setTitle] = React.useState('');
     const [review, setReview] = React.useState('');

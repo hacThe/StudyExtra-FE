@@ -42,7 +42,7 @@ const Routers = () => {
           name="Quên mật khẩu"
           element={<ForgotPassword />}
         />
-        <Route path="/404" name="Page 404" element={<Page404 />} />
+        
         <Route
           path="/cap-nhat-thong-tin"
           name="Cập nhật thông tin người dùng"
@@ -67,7 +67,7 @@ const Routers = () => {
         </Route>
         <Route path="/" name="Trang chủ" element={<TheContent />}>
           <Route index name="Trang chủ" element={<Navigate to="trang-chu" />} />
-
+          <Route path="/404" name="Page 404" element={<Page404 />} />
           {!authentication.isLoggedIn &&
             routes.publicRoute.map((route, idx) => {
               return (
