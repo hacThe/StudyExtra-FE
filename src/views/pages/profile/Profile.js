@@ -16,10 +16,10 @@ import { usersServices } from "../../../services";
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const UserInfo = useSelector((state) => state.user.user);
-  const courses = useSelector((state) => state.userData.courses.data) || [];
+  const UserInfo = useSelector((state) => state.user.currentUser);
+  const courses = useSelector((state) => state.user.currentUser.courseID) || [];
   const transaction =
-    useSelector((state) => state.userData.transaction.data) || [];
+    useSelector((state) => state.user.currentUser.transactions) || [];
   console.log("transaction: ", transaction); //////////
   //const [avatar, setAvatar] = useState(UserInfo.avatar);
 
@@ -30,8 +30,6 @@ const Profile = () => {
   console.log("user: ", UserInfo);
 
   useEffect(() => {
-    dispatch(userActions.getUserCourses());
-    dispatch(userActions.getUserTransaction());
     dispatch(userActions.getCurrentUser());
   }, []);
 
@@ -152,7 +150,11 @@ const Profile = () => {
 
   return (
     <>
-      <Container className="profile" maxWidth="xl">
+      <Container style={{
+        backgroundColor: "white",
+        marginTop: "24px",
+        borderRadius: "10px"
+      }} className="profile" maxWidth="xl">
         <div className="title-profile">
           <h1>Hồ sơ học viên</h1>
           <button variant="outlined" onClick={() => setOpen(true)}>

@@ -2,7 +2,7 @@ import { userConstants } from "../constaint";
 
 const initialState = {
   user: {},
-  currentUser: {},
+  currentUser: undefined,
   users: [],
   isLoading: false,
   error: "",
@@ -23,6 +23,21 @@ export function user(state = initialState, action) {
       return { ...state, isLoading: false, user: action.user };
     case userConstants.GETONE_FAILURE:
       return { ...state, isLoading: false, error: action.error };
+
+    case userConstants.GET_CURRENT_USER_REQUEST:
+      return { ...state, isLoading: true };
+    case userConstants.GET_CURRENT_USER_SUCCESS:
+      console.log({currentUser: action.user})
+      return { ...state, isLoading: false, currentUser: action.user };
+    case userConstants.GET_CURRENT_USER_FAILURE:
+      return { ...state, isLoading: false, error: action.error };
+
+
+      case userConstants.LOGOUT:
+        return {
+          ...initialState
+        };
+
 
     case userConstants.DELETE_REQUEST:
       return { ...state, isLoading: true };

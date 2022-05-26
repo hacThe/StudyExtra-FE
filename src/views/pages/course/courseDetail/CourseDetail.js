@@ -34,7 +34,7 @@ const CourseDetail = (props) => {
     } else {
       console.log("Buy");
       await axios
-        .post(URL.URL_BUY_COURSE, { id, username: infoUser.username })
+        .post(URL.URL_BUY_COURSE, { courseId: course._id, username: infoUser.username })
         .then((res) => {
           console.log("hello");
           navigate(`/bai-hoc/:id`);

@@ -41,9 +41,8 @@ function TheHeader() {
   const isMenuOpen = Boolean(anchorEl);
   const isNotificationMenuOpen = Boolean(anchorNt);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const UserInfo = useSelector(
-    (state) => state.authentication.user
-  ); /* console.log("user: ", typeof UserInfo === "undefined"); */
+  const UserInfo = useSelector((state) => state.user.currentUser);
+  console.log("user: ", UserInfo);
 
   const dispatch = useDispatch();
 
@@ -96,10 +95,8 @@ function TheHeader() {
   const notifications =
     useSelector((state) => state.userNotifications.notifications.data) || [];
 
-
-    
   useEffect(async () => {
-    if (typeof UserInfo !== "undefined") {
+    if (!UserInfo) {
       dispatch(userActions.getUserNotifications());
       dispatch(userActions.getCurrentUser());
     }
@@ -109,6 +106,7 @@ function TheHeader() {
   const profileMenuId = "primary-search-account-menu";
   function handleLogout() {
     dispatch(userActions.logout());
+    navigate("/dang-nhap");
   }
   const renderMenu = (
     <Menu
@@ -149,6 +147,23 @@ function TheHeader() {
       <Link to="/thong-tin-tai-khoan">
         <MenuItem onClick={handleMenuClose}>Thông tin tài khoản</MenuItem>
       </Link>
+
+      {UserInfo?.role == "admin" && (
+        <a href="/quan-ly/dashboard">
+          <MenuItem
+            onClick={() => {
+              handleMenuClose();
+              // setTimeout(() => {
+              //   window.location.reload();
+              //   console.log("reloaded");
+              // }, 200);
+            }}
+          >
+            Quản lý Study Extra
+          </MenuItem>
+        </a>
+      )}
+
       <MenuItem
         onClick={() => {
           setPasswordModal(true);
@@ -460,13 +475,11 @@ function TheHeader() {
                 ></InputBase>
               </Box>
             </Grid>
-            {typeof UserInfo === "undefined"
-              ? LoginBtn
-              : NotificationAvatarGroup}
+            {UserInfo ? NotificationAvatarGroup : LoginBtn}
           </Grid>
+          {UserInfo && renderMenu}
+          {UserInfo && renderNotificationMenu}
         </AppBar>
-        {typeof UserInfo === "undefined" ? <></> : renderMenu}
-        {typeof UserInfo === "undefined" ? <></> : renderNotificationMenu}
       </Box>
     </>
   );

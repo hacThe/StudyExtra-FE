@@ -23,7 +23,6 @@ export function authentication(state = initialState, action) {
         user
       };
     case userConstants.LOGOUT:
-      window.location.reload(true);
       return {};
     case userConstants.LOGIN_FAILURE:
       return {

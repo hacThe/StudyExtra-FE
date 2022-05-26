@@ -88,8 +88,8 @@ function login(username, password) {
 function logout() {
   return (dispatch) => {
     usersServices.logout();
-   // window.location.reload(true);
     dispatch(success());
+   // window.location.reload(true);
   };
   function success() {
     return { type: userConstants.LOGOUT };
@@ -169,13 +169,13 @@ function getCurrentUser(id, callback) {
   };
 
   function request() {
-    return { type: userConstants.GETONE_REQUEST };
+    return { type: userConstants.GET_CURRENT_USER_REQUEST };
   }
   function success(user) {
-    return { type: userConstants.GETONE_SUCCESS, user };
+    return { type: userConstants.GET_CURRENT_USER_SUCCESS, user };
   }
   function failure(error) {
-    return { type: userConstants.GETONE_FAILURE, error };
+    return { type: userConstants.GET_CURRENT_USER_FAILURE, error };
   }
 }
 

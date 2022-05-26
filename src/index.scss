@@ -246,3 +246,24 @@ button {
   left: 0;
   top: 0;
 }
+
+
+
+::-webkit-scrollbar {
+  width: 7px;
+  display: none;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0,0,0,0.4);
+  border-radius: 10rem;
+  border: 1px solid #fff;
+}
+
+
+::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+}
+
+::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+}
