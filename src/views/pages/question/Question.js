@@ -24,6 +24,7 @@ const refineComments = (comments, postID) => {
                 imgUrl: cmt.imgUrl,
                 isHidden: cmt.isHidden,
                 time: cmt.time,
+                reactions: cmt.reactions,
             }
             if(cmt.replyComment && cmt.replyComment.length > 0)
                 tempt.replyComment =  refineComments(cmt.replyComment, postID);

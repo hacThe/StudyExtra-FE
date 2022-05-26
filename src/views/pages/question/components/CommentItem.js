@@ -8,6 +8,7 @@ import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
 
 import Consts from '../ConstKey.js';
 import { articleActions } from '../../../../actions/article.action';
+import { AiFillLike } from "react-icons/ai";
 
 const CommentItem = ({comment}) => {
     const dispatch = useDispatch();
@@ -137,6 +138,15 @@ const CommentItem = ({comment}) => {
                         <div className="comment-content">
                             {comment.content}
                         </div>
+                        {
+                            comment.reactions && comment.reactions.length!=0 ?
+                                <div className="comment-interaction">
+                                    <AiFillLike  size={20} className='interact-icon'/>
+                                    <p className='like-count'>{comment.reactions.length}</p>
+                                </div>
+                            : (null)
+                        }
+                        
                     </div>
                     {
                         (!userInfo||userInfo._id != comment.userID) ? (null) : 
@@ -191,8 +201,6 @@ const CommentItem = ({comment}) => {
                                 
                             </div>
                     }
-                    
-                    
                 </div>
                 
                 <div className="comment-interact">
@@ -205,7 +213,9 @@ const CommentItem = ({comment}) => {
                     <p 
                         className="interact-item rep" 
                         onClick = {(e) => changeUserReplyDisplay() }
-                    >Phản hồi</p>
+                    >
+                        Phản hồi
+                    </p>
                     <p className="interact-time">{calculateTime(comment.time)}</p>
                 </div>
                 {

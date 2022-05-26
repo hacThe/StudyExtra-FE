@@ -20,6 +20,7 @@
                 display: inline-block;
                 padding: 1.2rem;
                 border-radius: 1rem;
+                position: relative;
                 .user-name{
                     font-weight: 600;
                     font-family: 'Montserrat';
@@ -28,7 +29,24 @@
                 }
                 .comment-content{
                     font-size: 1.4rem;
-                }   
+                } 
+                .comment-interaction{
+                    position: absolute;
+                    display: flex;
+                    background-color: #fff;
+                    box-shadow: 1px 1px rgba(0, 0, 0, 0.25);
+                    padding: 0.2rem;
+                    border-radius: 4px;
+                    right: 0;
+                    .interact-icon{
+                        color: #7b68ee;
+                    }
+                    .like-count{
+                        font-size: 1.4rem;
+                        line-height: 2rem;
+                        margin-left: 4px;
+                    }
+                } 
             }
             .gray-scale{
                 background-color: #d3d1d1;
