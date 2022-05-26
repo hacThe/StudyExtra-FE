@@ -10,6 +10,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import URL from "../../../../services/api/config";
 import youtube_parser from "../../../../utilities/ConvertDocsToMultipleChoice.util copy";
+import { user } from "../../../../reducers/user.reducer";
 
 const CourseDetail = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -32,16 +33,24 @@ const CourseDetail = (props) => {
       console.log("registed")
       navigate(`/bai-hoc/:id`);
     } else {
-      console.log("Buy");
-      await axios
-        .post(URL.URL_BUY_COURSE, { courseId: course._id, username: infoUser.username })
-        .then((res) => {
-          console.log("hello");
-          navigate(`/bai-hoc/:id`);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+
+      if (infoUser.gem < course.price)
+      {
+        alert("Tài khoản không đủ để thực hiện giao dịch")
+      }
+      else{
+        console.log("Buy");
+        await axios
+          .post(URL.URL_BUY_COURSE, { courseId: course._id, username: infoUser.username })
+          .then((res) => {
+            console.log(res);
+            navigate(`/bai-hoc/:id`);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
+      }
     }
   };
 
