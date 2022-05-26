@@ -7,10 +7,10 @@ import AddPostSection from './components/AddPostSection';
 
 const refineComments = (comments, postID) => {
     var res = [];
-    console.log("comments", comments);
+    // console.log("comments", comments);
     try{
         comments.forEach(cmt => {
-            console.log("cmt", cmt);
+            // console.log("cmt", cmt);
             var tempt = {
                 postID: postID,
                 commentID: cmt.commentID || cmt._id,
@@ -23,6 +23,7 @@ const refineComments = (comments, postID) => {
                 userTagName: 'Raiden Ei',
                 imgUrl: cmt.imgUrl,
                 isHidden: cmt.isHidden,
+                time: cmt.time,
             }
             if(cmt.replyComment && cmt.replyComment.length > 0)
                 tempt.replyComment =  refineComments(cmt.replyComment, postID);
@@ -124,28 +125,33 @@ const Question = () => {
         <div className="question-page-container">
             <div className="question-container">
                 <div className="add-post-section">
-                    <div className="add-post-overall">
-                        <div className="add-post-header">
-                            <img 
-                                src="https://firebasestorage.googleapis.com/v0/b/se-img.appspot.com/o/file281556402_7443940532345703_1970040466900861195_n.jpg?alt=media&token=bbbcb3d0-6916-4d53-bed4-84c82bfde6c4"
-                                className='user-avatar'
-                            />
-                            <div
-                                className='user-question'
-                            >
-                                Nguyễn Công Phi ơi, bạn có câu hỏi hay thắc mắc gì không?
+                    {
+                        userInfo ?
+                            <div className="add-post-overall">
+                                <div className="add-post-header">
+                                    <img 
+                                        src={userInfo.avatar}
+                                        className='user-avatar'
+                                    />
+                                    <div
+                                        className='user-question'
+                                    >
+                                        {userInfo.name} ơi, bạn có câu hỏi hay thắc mắc gì không?
+                                    </div>
+                                    
+                                </div>                        
+                                <button 
+                                    className = "button-add-post"
+                                    onClick = {()=> {
+                                        setIsOpenPost(!isOpenPost)
+                                    }}
+                                >
+                                    {!isOpenPost ? <>Thêm bài đăng</> : <>Huỷ</>}
+                                </button>
                             </div>
-                            
-                        </div>                        
-                        <button 
-                            className = "button-add-post"
-                            onClick = {()=> {
-                                setIsOpenPost(!isOpenPost)
-                            }}
-                        >
-                            {!isOpenPost ? <>Thêm bài đăng</> : <>Huỷ</>}
-                        </button>
-                    </div>
+                        : (null)
+                    }
+                    
                     {
                         !isOpenPost ? (null) :
                         <AddPostSection/>

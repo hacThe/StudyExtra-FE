@@ -92,6 +92,33 @@ const CommentItem = ({comment}) => {
 
     }
 
+    console.log("comment", comment)
+
+    const calculateTime = (timeString) => {
+        // console.log("timeString", timeString);
+        const postTime = new Date(timeString);
+        // console.log("calculating time", Math.abs(new Date() - postTime));
+        var diff = Math.abs(new Date() - postTime);
+        if(diff<1000*60){
+            return ("0 phút trước");
+        }
+        else if(diff<1000*60*60){
+            return (Math.floor(diff/1000/60) +" phút trước");
+        }
+        else if(diff<1000*60*60*24){
+            return(Math.floor(diff/1000/60/60) +" giờ trước");
+        }
+        else if(diff<1000*60*60*24*30) {
+            return(Math.floor(diff/1000/60/60/24) +" ngày trước");
+        }
+        else if(diff<1000*60*60*24*365) {
+            return(Math.floor(diff/1000/60/60/24/30) +" tháng trước");
+        }
+        else{
+            return (Math.floor(diff/1000/60/60/24/365) +" năm trước")
+        }
+    }
+
     return (
         <>
         {
@@ -179,7 +206,7 @@ const CommentItem = ({comment}) => {
                         className="interact-item rep" 
                         onClick = {(e) => changeUserReplyDisplay() }
                     >Phản hồi</p>
-                    <p className="interact-time">2 phút</p>
+                    <p className="interact-time">{calculateTime(comment.time)}</p>
                 </div>
                 {
                     !comment.imgUrl ? (null) :

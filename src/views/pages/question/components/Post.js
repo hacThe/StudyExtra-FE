@@ -99,6 +99,7 @@ const Post = ({post}) => {
             imgUrl: bigCommentLink,
             type: "1",
             replyComment: [],
+            time: new Date(),
         }
         commentRef.current.value="";
         dispatch(articleActions.addBigComment(data));
