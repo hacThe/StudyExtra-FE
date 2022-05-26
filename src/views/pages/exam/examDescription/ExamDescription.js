@@ -14,6 +14,7 @@ const ExamDescription = () => {
     const param = useParams();
     const exam = useSelector(state => state.exam.exam) || {}
 
+
     useEffect(() => {
         dispatch(examAction.getOne(param.id));
     }, [])
@@ -32,6 +33,21 @@ const ExamDescription = () => {
             </div>
         )
     }
+    const takeExam = useSelector(state => state.takeExam);
+
+    if (!takeExam.isLoading && takeExam.isTaking === 'taking') {
+        navigate('/luyen-de/' + exam._id + '/vao-thi');
+    }
+    else
+        if (!takeExam.isLoading && takeExam.isTaking === 'notAccept') {
+            takeExam.isTaking = 'innit';
+            alert(takeExam.error);
+        }
+
+    const takeExamHandleClick = () => {
+        dispatch(examAction.CheckExamRequirement(exam._id));
+    }
+
 
     return (
         <Container className="exam-detail" maxWidth="xl">
@@ -55,7 +71,7 @@ const ExamDescription = () => {
                     </div>
                 </Grid>
                 <Grid item xs={12} md={5} lg={4} className="leader-board_column">
-                    <Button variant="contained" className="btn-contained" onClick={() => {navigate('/luyen-de/' + exam._id + '/vao-thi'); localStorage.clear()}}>Vào thi</Button>
+                    <Button variant="contained" className="btn-contained" onClick={() => takeExamHandleClick()}>Vào thi</Button>
                     <div className="leader-board_group">
                         <h5><GiQueenCrown></GiQueenCrown> Leaderboard</h5>
 

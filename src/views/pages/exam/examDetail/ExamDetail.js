@@ -1,13 +1,18 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
-import { Container, Grid, Button, Modal, RadioGroup, FormControl, FormLabel, ButtonGroup, Box, Typography } from '@mui/material';
+import { Container, Modal } from '@mui/material';
 import { useDispatch, useSelector } from "react-redux";
 import { examAction } from "../../../../actions/exam.actions";
 import { TimerComponent } from "../component/TimerComponent";
 import { ExamGrid } from "./ExamGrid";
-import './ExamDetail.scss'
+import './ExamDetail.scss';
 
 const ExamDetail = () => {
+    const navigate = useNavigate();
+
+    const takeExam = useSelector(state => state.takeExam);
+    if (takeExam.isTaking !== "taking") navigate(-1)
+
     const param = useParams();
     const innitQuestion = [{
         nameQuestion: "",
@@ -15,25 +20,24 @@ const ExamDetail = () => {
     }];
 
     const dispatch = useDispatch()
-    const navigate = useNavigate();
     const exam = useSelector(state => state.exam.exam) || {};
     const Questions = exam.listQuestion || innitQuestion;
     const result = useRef();
     const timeLeft = useRef();
 
-    if(localStorage.getItem("timeLeft") === null){
+    if (localStorage.getItem("timeLeft") === null) {
         localStorage.setItem("timeLeft", exam.time * 60);
         timeLeft.current = exam.time * 60;
     }
-    else{
+    else {
         timeLeft.current = localStorage.getItem("timeLeft");
     }
 
     if (localStorage.getItem("userAnswers") === null) {
         var arr = Array(Questions.length).fill(0);
-        localStorage.clear();   
+        localStorage.clear();
         localStorage.setItem("userAnswers", JSON.stringify(arr));
-    }   
+    }
     else {
         result.current = JSON.parse(localStorage.getItem("userAnswers"))
         console.log("result current: ", result.current);
@@ -43,12 +47,18 @@ const ExamDetail = () => {
     useEffect(() => {
         dispatch(examAction.getOne(param.id));
     }, [])
+/*     if (takeExam.submited) {
+        alert("Result saved: ", takeExam.error);
+        localStorage.clear();
+    } */
     const handleSubmit = () => {
         console.log("answer: ", result.current);
-        // dispatch(examAction.postResultExam(exam._id, userAnswer));
-        //  navigate('/luyen-de/id:1/ket-qua')
-    }
+        localStorage.removeItem("userAnswers");
+        localStorage.removeItem("timeLeft");
 
+        dispatch(examAction.postResultExam(exam._id, result.current));
+        navigate('/luyen-de/id:1/ket-qua')
+    }
 
     //------------------------------------------------------------return-----------------------------------------//
     return (

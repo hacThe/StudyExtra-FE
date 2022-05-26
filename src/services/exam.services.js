@@ -6,6 +6,7 @@ import ajaxHelper from './api';
 export const examServices = {
   getExams,
   getExam,
+  CheckExamRequirement,
   postResultExam
 };
 
@@ -15,7 +16,13 @@ function getExams(params = {}) {
 function getExam(id) {
   return handleResponse(ajaxHelper.get(config.URL_GET_EXAM + id, options()));
 }
-function postResultExam(questionsID, examID, userAnswer) {
-  return handleResponse(ajaxHelper.post(config.URL_POST_RESULT_EXAM, {questionsID, examID, userAnswer}, options()));
+function CheckExamRequirement(id) {
+  return handleResponse(ajaxHelper.post(config.URL_CHECK_EXAM_REQUIREMENT, {id}, options()));
 }
+
+function postResultExam(examID, userAnswer) {
+  return handleResponse(ajaxHelper.post(config.URL_POST_RESULT_EXAM, {examID, userAnswer}, options()));
+}
+
+
 

@@ -39,7 +39,7 @@ function register(user) {
 
 function logout() {
   cookiesUtil.remove("_jwt");
-  cookiesUtil.remove("_user");
+ // cookiesUtil.remove("_user");
   return true;
 }
 

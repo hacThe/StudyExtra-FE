@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import { course } from "./course.reducer";
 import { app } from "./app.reducer";
 import { authentication } from "./authentication.reducer";
-import { exam, resultExam } from "./exam.reducer";
+import { exam, takeExam } from "./exam.reducer";
 import { document } from "./document.reducer";
 import { ranking } from "./ranking.reducer";
 import { search } from "./search.reducer";
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   course, // course
   authentication,
   exam,
-  resultExam,
+  takeExam,
   ranking, // ranking
   search,
   post,

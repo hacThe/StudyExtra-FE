@@ -4,6 +4,7 @@ import { examServices } from "../services/exam.services";
 export const examAction = {
     getAll,
     getOne,
+    CheckExamRequirement,
     postResultExam
 };
 
@@ -14,8 +15,8 @@ function getAll() {
             (exams)=>{
                 dispatch(success(exams.data));
             },
-            (err)=>{
-                dispatch(failure(err))
+            (error)=>{
+                dispatch(failure(error))
             }
         )
     }
@@ -26,8 +27,8 @@ function getAll() {
     function success(exams) {
         return { type: examConstants.GET_EXAMS_SUCCESS, exams}
     }
-    function failure(err) {
-        return { type: examConstants.GET_EXAMS_FAILURE, err}
+    function failure(error) {
+        return { type: examConstants.GET_EXAMS_FAILURE, error}
     }
 }
 
@@ -38,8 +39,8 @@ function getOne(id) {
             (exam)=>{
                 dispatch(success(exam.data));
             },
-            (err)=>{
-                dispatch(failure(err))
+            (error)=>{
+                dispatch(failure(error))
             }
         )
     }
@@ -50,22 +51,45 @@ function getOne(id) {
     function success(exam) {
         return { type: examConstants.GET_EXAM_SUCCESS, exam}
     }
-    function failure(err) {
-        return { type: examConstants.GET_EXAM_FAILURE, err}
+    function failure(error) {
+        return { type: examConstants.GET_EXAM_FAILURE, error}
     }
 }
 
-function postResultExam(questionsID, examID, userAnswer) {
+
+function CheckExamRequirement(id) {
+    return (dispatch) => {
+        dispatch(request());
+        examServices.CheckExamRequirement(id).then(
+            (result)=>{
+                dispatch(success());
+            },
+            (error)=>{
+                dispatch(failure(error))
+            }
+        )
+    }
+
+    function request() {
+        return { type: examConstants.CHECK_EXAM_REQUIREMENT_REQUEST };
+    }
+    function success() {
+        return { type: examConstants.CHECK_EXAM_REQUIREMENT_SUCCESS}
+    }
+    function failure(error) {
+        return { type: examConstants.CHECK_EXAM_REQUIREMENT_FAILURE, error}
+    }
+}
+
+function postResultExam(examID, userAnswer) {
     return (dispatch) => {
         dispatch(request())
-        examServices.postResultExam(questionsID, examID, userAnswer).then(
-            resultExam => {
-                console.log("dataaaa result exam:", resultExam)
-                dispatch(success(resultExam))
+        examServices.postResultExam( examID, userAnswer).then(
+            () => {
+                dispatch(success())
             },
-            err => {
-                dispatch(failure(err.toSring()))
-                console.log('Lỗi' + err.toSring())
+            error => {
+                dispatch(failure(error))
             }
         )
     }
@@ -73,8 +97,8 @@ function postResultExam(questionsID, examID, userAnswer) {
     function request() {
         return { type: examConstants.POST_RESULT_REQUEST };
     }
-    function success(resultExam) {
-        return { type: examConstants.POST_RESULT_SUCCESS, resultExam: resultExam };
+    function success() {
+        return { type: examConstants.POST_RESULT_SUCCESS };
     }
     function failure(error) {
         return { type: examConstants.POST_RESULT_FAILURE, error };

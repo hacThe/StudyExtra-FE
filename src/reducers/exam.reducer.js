@@ -51,25 +51,66 @@ export const exam = (state = initialState, action) => {
 
 
 
-const initialStateResultExam = {
+const initialStateTakeExam = {
     resultExam: {},
+    isTaking: "init",// trạng thái có đang làm bài hay không
     isLoading: false,
+    submited: false,
     error: ""
 }
-export const resultExam = (state = initialStateResultExam, action) => {
+export const takeExam = (state = initialStateTakeExam, action) => {
     switch (action.type) {
+        case examConstants.CHECK_EXAM_REQUIREMENT_REQUEST:
+            return {
+                ...state,
+                isTaking: "init",
+                isLoading: true,
+                error: ""
+            }
+        case examConstants.CHECK_EXAM_REQUIREMENT_SUCCESS:
+            return {
+                ...state,
+                isTaking: "taking",
+                isLoading: false,
+            }
+        case examConstants.CHECK_EXAM_REQUIREMENT_FAILURE:
+            return {
+                ...state,
+                isTaking: "notAccept",
+                isLoading: false,
+                error: action.error
+            }
         case examConstants.POST_RESULT_REQUEST:
+            return {
+                ...state,
+                submited: false,
+                isTaking: false,
+                isLoading: true
+            }
+        case examConstants.POST_RESULT_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+            }
+        case examConstants.POST_RESULT_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                submited: true,
+                error: action.error
+            }
+        case examConstants.GET_RESULT_REQUEST:
             return {
                 ...state,
                 isLoading: true
             }
-
-        case examConstants.POST_RESULT_SUCCESS:
+        case examConstants.GET_RESULT_SUCCESS:
             return {
+                isLoading: false,
+                resultExam: action.result,
                 ...state,
-                resultExam: action.resultExam,
             }
-        case examConstants.POST_RESULT_FAILURE:
+        case examConstants.GET_RESULT_FAILURE:
             return {
                 ...state,
                 isLoading: false,

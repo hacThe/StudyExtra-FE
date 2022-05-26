@@ -1,9 +1,11 @@
 import React from "react";
 import { Stack } from "@mui/material";
 import { BsGoogle, BsFacebook } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { AiOutlineHome } from "react-icons/ai"
+import { Link, useNavigate } from "react-router-dom";
 
 function ListOfLoginMethodModal(props) {
+  const navigate = useNavigate();
   return (
     <div className="list-of-login-method-modal">
       <Stack
@@ -17,7 +19,7 @@ function ListOfLoginMethodModal(props) {
           borderRadius: "10px",
         }}
       >
-        <div className="app-logo" />
+        <div className="app-logo" onClick={()=>navigate('/trang-chu')}><AiOutlineHome /></div>
         <h1 className="modal-title">Đăng nhập vào SE</h1>
 
         <Stack

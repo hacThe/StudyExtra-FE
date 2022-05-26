@@ -20,13 +20,13 @@ export default {
 
   // exam
   URL_GET_EXAM: URL_SYSTEM_V1 + "/exam/getExam/",
-  URL_POST_RESULT_EXAM: URL_SYSTEM_V1 + "/exam/getResultExam",
+  URL_POST_RESULT_EXAM: URL_SYSTEM_V1 + "/exam/postResultExam",
   URL_ADD_NEW_EXAM: URL_SYSTEM_V1 + '/exam/addNewExam',
   URL_GET_ALL_TEST_EXAM: URL_SYSTEM_V1 + '/exam/getAllTestExam',
   URL_EDIT_TEST_EXAM: URL_SYSTEM_V1 + '/exam/edit/',
   URL_SAVE_TEST_EXAM: URL_SYSTEM_V1 + '/exam/save-test-exam',
   URL_DELETE_TEST_EXAM: URL_SYSTEM_V1 + '/exam/delete-test-exam',
-
+  URL_CHECK_EXAM_REQUIREMENT: URL_SYSTEM_V1 + '/exam/checkExamRequirement',
 
   //account
   URL_GET_USER_COURSES: URL_SYSTEM_V1 + '/profiles/getUserCourses',

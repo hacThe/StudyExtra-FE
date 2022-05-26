@@ -133,12 +133,7 @@ const commonRoute = [
     name: "Nội dung đề thi",
     element: <ExamDescription />,
   },
-  { path: "/luyen-de/:id/vao-thi", name: "Bài làm", element: <ExamDetail /> },
-  {
-    path: "/luyen-de/:id/ket-qua",
-    name: "Kết quả thi",
-    element: <ExamResult />,
-  },
+
   { path: "/trang-chu", name: "Trang chủ", element: <Homepage /> },
   {
     path: "/chi-tiet-khoa-hoc/:id",
@@ -165,6 +160,12 @@ const commonRoute = [
 // rout khi đã đăng nhập
 const protectedRoute = [
   { path: "/dat-lai-mat-khau", name: "Trang chủ", element: <Homepage /> },
+  { path: "/luyen-de/:id/vao-thi", name: "Bài làm", element: <ExamDetail /> },
+  {
+    path: "/luyen-de/:id/ket-qua",
+    name: "Kết quả thi",
+    element: <ExamResult />,
+  },
   {
     path: "/thong-tin-tai-khoan",
     name: "Thông tin tài khoản",
