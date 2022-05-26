@@ -2,6 +2,7 @@ import { userConstants } from "../constaint";
 
 const initialState = {
   user: {},
+  currentUser: {},
   users: [],
   isLoading: false,
   error: "",

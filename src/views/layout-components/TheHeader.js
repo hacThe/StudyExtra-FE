@@ -93,13 +93,11 @@ function TheHeader() {
     setMobileMoreAnchorEl(null);
   };
 
-  //const [notifications, setNotification] = useState([]);
-  console.log(
-    "state: ",
-    useSelector((state) => state)
-  ); /////////
   const notifications =
     useSelector((state) => state.userNotifications.notifications.data) || [];
+
+
+    
   useEffect(async () => {
     if (typeof UserInfo !== "undefined") {
       dispatch(userActions.getUserNotifications());
