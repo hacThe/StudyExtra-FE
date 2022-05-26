@@ -1,12 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-
 import './scss/Question.scss';
 import Post from './components/Post.js';
 import { articleActions } from '../../../actions/article.action';
-import { FaCommentsDollar } from 'react-icons/fa';
 import AddPostSection from './components/AddPostSection';
-import { IoTerminal } from 'react-icons/io5';
 
 const refineComments = (comments, postID) => {
     var res = [];
@@ -103,9 +100,6 @@ const posts = [
     }
 ]
 const Question = () => {
-
-
-
     // Get real data
     const dispatch = useDispatch();
     React.useEffect(async () => {

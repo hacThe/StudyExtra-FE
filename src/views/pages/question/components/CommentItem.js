@@ -10,7 +10,6 @@ import Consts from '../ConstKey.js';
 import { articleActions } from '../../../../actions/article.action';
 
 const CommentItem = ({comment}) => {
-    // console.log("comment", comment);
     const dispatch = useDispatch();
     const [replyDisplay, setReplyDisplay] = useState(false);
     const changeReplyDisplay = () => {
@@ -55,11 +54,6 @@ const CommentItem = ({comment}) => {
             document.removeEventListener('keyup', onKeyUp);
         }
     }, []);   
-
-    // console.log("comment", comment);
-    // console.log("comment.replyComment", comment.replyComment);
-
-    
     const userInfo = useSelector(state => state.authentication.user);
 
     const deleteComment = () => {

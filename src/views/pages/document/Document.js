@@ -66,7 +66,6 @@ function Document(){
 
     const documentTypes =
         useSelector((state) => {
-            // console.log("state.document.documentType", state.document.documentType);
             return [
                 {
                     _id: 'abc',

@@ -235,7 +235,7 @@ const Post = ({post}) => {
                                     onClick={()=> interactPost()}
                                 >
                                     {
-                                        post.reactions.includes(userInfo._id) 
+                                        userInfo && post.reactions.includes(userInfo._id) 
                                         ?
                                             <AiFillLike 
                                                 className={'liked'}
