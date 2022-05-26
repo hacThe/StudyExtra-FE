@@ -3,13 +3,11 @@ import { NavLink } from "react-router-dom";
 import {Button, Grid} from '@mui/material';
 import './scss/AddDocument.scss';
 import { IoReturnUpBack } from "react-icons/io5";
-import { BiHide } from "react-icons/bi";
+import { BiHide, BiShow } from "react-icons/bi";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import DocumentTypeModal from './DocumentTypeModal.js';
 import {documentActions} from '../../../../actions/document.actions.js'
-
-
 
 function AddDocument(props) {
     const dispatch = useDispatch();
@@ -108,9 +106,9 @@ function AddDocument(props) {
     }
 
     const changeLink = (e) => {
-        if(e.target.value.indexOf("https://") == -1){
-            return;
-        }
+        // if(e.target.value.indexOf("https://") == -1){
+        //     return;
+        // }
         document.querySelector('#iframe-document').setAttribute('src',e.target.value)
     }
 
@@ -121,12 +119,13 @@ function AddDocument(props) {
             author: document.querySelector('#document-author').value,
             views: 0,
             link: document.querySelector('#document-link').value,
+            isHidden: isHidden
         }
-        console.log("data", data);
         dispatch(documentActions.addNewDocument(data));
         document.querySelector('.back-to-manage').click();
     }
-
+    
+    const [isHidden, setIsHidden] = useState(false);
     return (
         <div>
             <div className="manager-fa-ke-modal add-document-wrapper">
@@ -204,15 +203,26 @@ function AddDocument(props) {
                         <div className='document-manage'>
                             <div className="manage-item">
                                 <div className="icon">
-                                    <BiHide size={24}/>
+                                    {isHidden ? <BiShow size={24}/> :<BiHide size={24}/>}
                                 </div>
-                                <div className='label'>Ẩn tài liệu</div>
+                                <div 
+                                    className={isHidden ? 'label' : 'label hidden'}
+                                    onClick={()=>{
+                                        setIsHidden(!isHidden);
+                                    }}
+                                >
+                                    {isHidden ? <>Hiện tài liệu</> :<>Ẩn tài liệu</>}
+                                </div>
                             </div>
                             <div className="manage-item">
                                 <div className="icon">
                                     <MdOutlineDeleteOutline size={24}/>
                                 </div>
-                                <div className='label'>Xoá tài liệu</div>
+                                <div 
+                                    className='label'
+                                >
+                                    Xoá tài liệu
+                                </div>
                             </div>
                         </div>
                         <div className='iframe-container'>

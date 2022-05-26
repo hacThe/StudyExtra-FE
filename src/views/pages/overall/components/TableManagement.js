@@ -91,8 +91,6 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
         return newValue;
     }
     const onCellClick = (params, event) => {
-        // console.log("click on cell");
-        console.log("params",params);
         changeidSelect(params.id);
     }
 

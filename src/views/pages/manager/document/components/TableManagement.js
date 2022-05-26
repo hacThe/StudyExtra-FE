@@ -3,7 +3,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import '../scss/TableManagement.scss';
 import {documentActions} from '../../../../../actions/document.actions.js'
 import { useDispatch, useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
+import { stringUtils } from '../../../../../utilities';
 const datagridSx = {
     borderRadius: 2,
         "& .MuiDataGrid-main": { borderRadius: 2 },
@@ -35,14 +36,12 @@ const datagridSx = {
 };
 
 const TableManageMent = ({rowDocs,columnDocs, filter}) => {
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const addManageDocument = () => {
         if(document.querySelector('.MuiDataGrid-selectedRowCount') != null){
             const element = document.querySelector('.MuiDataGrid-selectedRowCount');
-            console.log(element);
         }
-        console.log("idSelect",idSelect);
     }
 
 
@@ -53,7 +52,6 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
 
     const [idSelect, setidSelect] = useState([]);
     const changeidSelect = (value) => {
-        console.log("value", value)
         var newValue = idSelect;
         var isFind = false;
         for( var i = 0; i < newValue.length; i++){                           
@@ -76,10 +74,33 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
         dispatch(documentActions.deleteMultiDocuments({data: {...idSelect}}));
         if(deleteButton.parentNode!=null)
             deleteButton.parentNode.removeChild(deleteButton);
+        if(editButton.parentNode!=null)
+            editButton.parentNode.removeChild(editButton);
+        setidSelect([]);
     }
 
-    const editDocument = ()  => {
-        console.log("edit Doc");
+    const getCurrentName = (id) => {
+        console.log("rowDocs",rowDocs);
+        for(var i = 0; i < rowDocs.length; i++){
+            if(rowDocs[i].id == id) return rowDocs[i].name;
+        }
+        return 'abc';
+    }
+    const editDocument = async()  => {
+        console.log("edit Doc", idSelect[0]);
+        
+        await dispatch(documentActions.getDocumentByID(idSelect[0]));
+        // await dispatch(documentActions.getDocumentByID(idSelect[0]));
+
+        navigate(`/quan-ly/tai-lieu/chinh-sua/${stringUtils.replaceSpaceWithDash(
+            stringUtils.removeVietnameseTones(getCurrentName(idSelect[0]))
+          ).toLowerCase()}`);
+
+        setidSelect([]);
+        if(editButton.parentNode!=null)
+            editButton.parentNode.removeChild(editButton);
+        if(deleteButton.parentNode!=null)
+            deleteButton.parentNode.removeChild(deleteButton);
     }
 
     const editButton = document.createElement('button');
@@ -87,6 +108,7 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
     editButton.textContent = "SỬA";
     editButton.onclick = (e) => {
         editDocument();
+        
     }
 
     const deleteButton = document.createElement('button');
@@ -103,7 +125,6 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
             ele.insertBefore(divContainer, ele.children[0]);
             isLoaded = true;
         }
-        console.log("params",params);
         changeidSelect(params.id);
         addManageDocument();
         const element = divContainer;
@@ -135,7 +156,6 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
     }
 
     const getShowingData = (filter) => {
-        console.log("filter", filter);
         if(filter=="") return rowDocs;
         
         var res = []; 
@@ -154,11 +174,14 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
         return res;
     }
 
-
+    const currentEditingDoc = useSelector((state) => {
+        // console.log("state", state);
+        return state.document.currentEditingDoc;
+    }) || {};
     
     return (
         <div 
-            style={{ height: 750, width: '100%' }}
+            style={{ height: 500, width: '100%' }}
             className = "datagrid-container"
         >
             <DataGrid

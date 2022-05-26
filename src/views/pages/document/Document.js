@@ -19,26 +19,38 @@ function Document(){
         setCurrentType(newValue);
     };
 
-    const filters = ["Mới nhất", "Cũ nhất", "Xem nhiều nhất", "Xem ít nhất"];
+    const filters = ["Cũ nhất", "Mới nhất", "Xem nhiều nhất", "Xem ít nhất"];
+    const [currentFilterIndex, changeCurrentFilterIndex] = useState(0);
+
+
 
     React.useEffect(async () => {
         await dispatch(documentActions.getAllDocument());
         console.log("documents.length", documents.length);
     }, []);
     
+    
+    var documentWithFilter = [];
     const documents =
         useSelector((state) => {
-            // console.log({ state });
-            var doc = [];
-            doc.push(...state.document.documents);
-            doc.push(...state.document.documents);
-            return doc;
+            documentWithFilter = state.document.documents;
+            // documentWithFilter.sort( 
+                
+            //     function(a, b){
+            //         console.log("gọi lần n");
+            //         return new Date(b.createdAt) - new Date(a.createdAt);
+            //     }
+            // )
+            return state.document.documents;
         }) || [];
+    // console.log("documentWithFilter", documentWithFilter);
 
-    console.log("documents vip", documents, documents.length);
-    useSelector((state) => {
-        console.log("all state", { state });
-    })
+    
+
+    // console.log("documents vip", documents, documents.length);
+    // useSelector((state) => {
+    //     console.log("all state", { state });
+    // })
 
 
     var maxItem = 10;
@@ -50,19 +62,37 @@ function Document(){
     const setCurrentPage = (num) => {
         setPage(num)
     }
+
+
+    const documentTypes =
+        useSelector((state) => {
+            return [
+                {
+                    _id: 'abc',
+                    name: "Tất cả",
+                },
+                ...state.document.documentType,
+            ];
+        }) || [];
+
+    React.useEffect(async () => {
+        await dispatch(documentActions.getAllDocumentType());
+    }, []);
+
+
     return (
         <div className="document-page-container">
             <div className="document-container">
                 <div className="document-body">
                     <div className='document-option-container'>
                         {
-                            types.map((type, index) => (
+                            documentTypes.map((type, index) => (
                                 <Button 
                                     className= {currentTypeSelect == index ? 'button-option active':'button-option'}
                                     style={{textTransform: 'none'}}
                                     onClick={(e)=> changeType(e,index)}
                                 >
-                                    {type}
+                                    {type.name}
                                 </Button>
                             ))
                         }
@@ -74,6 +104,50 @@ function Document(){
                             id="demo-simple-select"
                             label="Age"
                             className='sorting-control'
+                            onChange={(e)=>{
+                                console.log("a",e.target.value);
+                                switch (e.target.value) {
+                                    case "Mới nhất":
+                                        console.log("documentWithFilter before sort", documentWithFilter);
+                                        documentWithFilter.sort( 
+                                            function(a, b){
+                                                return new Date(b.createdAt) - new Date(a.createdAt);
+                                            }
+                                        )
+                                        console.log("documentWithFilter after sort", documentWithFilter);
+                                        break;
+                                    case "Cũ nhất":
+                                        console.log("documentWithFilter before sort", documentWithFilter);
+                                        documentWithFilter.sort( 
+                                            function(a, b){
+                                                // console.log('date', new Date(b.createdAt) - new Date(a.createdAt))
+                                                return new Date(a.createdAt) - new Date(b.createdAt);
+                                            }
+                                        )
+                                        console.log("documentWithFilter after sort", documentWithFilter);
+                                        break;  
+                                    case "Xem nhiều nhất": 
+                                        documentWithFilter.sort( 
+                                            function(a, b){
+                                                // console.log('date', new Date(b.createdAt) - new Date(a.createdAt))
+                                                return new Date(b.views) - new Date(a.views);
+                                            }
+                                        )
+                                        break;
+                                    case "Xem ít nhất":
+                                        documentWithFilter.sort( 
+                                            function(a, b){
+                                                // console.log('date', new Date(b.createdAt) - new Date(a.createdAt))
+                                                return new Date(a.views) - new Date(b.views);
+                                            }
+                                        )
+                                        break;      
+                                    default:
+                                        break;
+                                }
+                                changeCurrentFilterIndex(filters.indexOf(e.target.value));
+                                
+                            }}
                         >
                             {
                                 filters.map((filter, index)=>(
@@ -86,9 +160,18 @@ function Document(){
                     {   
                         documents.length === 0 ? (null) : 
                             documents.map((val,index) => (
-                                (index < page * maxItem && index >= (page-1) * maxItem) ? (
-                                    <DocumentCard name={val.name} views={val.views}/>
-                                ) : (null)
+                                (index < page * maxItem && index >= (page-1) * maxItem)
+                                ?
+                                    val.isHidden ? (null) :
+                                    (typeof documentTypes[currentTypeSelect]!='undefined')&&documentTypes[currentTypeSelect]._id=='abc' ?
+                                        (<DocumentCard name={val.name} views={val.views}/>)  
+                                    :
+                                        (val.typeID.includes(documentTypes[currentTypeSelect]._id) 
+                                            ?(<DocumentCard name={val.name} views={val.views}/>)
+                                            :(null)
+                                        )
+                                :
+                                    (null)
                             ))
                     }
                     </div>

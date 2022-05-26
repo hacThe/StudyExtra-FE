@@ -40,6 +40,9 @@ export default {
   URL_ARTICLE: URL_SYSTEM_V1 + '/article/',
   // type category
   URL_TYPE_CATEGORY: URL_SYSTEM_V1 + '/type-category/',
+  // article picture
+  URL_ARTICLE_PICTURE: "https://api.cloudinary.com/v1_1/phiroud321/image/upload",
+
   URL_GET_POSTS: URL_SYSTEM_V1 + '/posts/getAllPosts',
   URL_GET_NOTIFICATIONS: URL_SYSTEM_V1 + '/notifications/getAllNotification',
 

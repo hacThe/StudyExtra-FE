@@ -5,12 +5,13 @@ import ajaxHelper from './api';
 
 export const documentService = {
     getAllDocument,
+    getDocumentbyID,
     addNewDocument,
+    editDocument,
     deleteDocuments,
     getAllDocumentType,
     addNewDocumentType,
     deleteDocumentType,
-
 };
 
 function getAllDocument() {
@@ -25,11 +26,28 @@ function addNewDocument(data) {
     );
 }
 
+function getDocumentbyID(id) {
+    return handleResponse(
+        ajaxHelper.get(config.URL_GET_DOCUMENTS, {id: id}, options())
+    );
+}
+
+function editDocument(data){
+    return handleResponse(
+        ajaxHelper.put(config.URL_GET_DOCUMENTS, {...data})
+    );
+}
+
 function deleteDocuments(data) {
     return handleResponse(
         ajaxHelper.deleteFix(config.URL_GET_DOCUMENTS, {...data})
     );
 }
+
+
+
+
+
 
 function getAllDocumentType() {
     return handleResponse(
@@ -46,8 +64,8 @@ function addNewDocumentType(newName) {
 }
 
 function deleteDocumentType(id) {
-    console.log("Vô được đây rồi, ID: ", id);
     return handleResponse(
         ajaxHelper.deleteFix(config.URL_TYPE_CATEGORY, {_id: id})
     );
 }
+
