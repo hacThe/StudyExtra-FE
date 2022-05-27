@@ -258,12 +258,35 @@
                   transform: rotateZ(-360deg);
                 }
             }
-            .big-comment-img-display{
-                margin-top: 0.8rem;
-                margin-left: 4.4rem;
+            .comment-link-container{
+                position: relative;
                 width: 16rem;
                 height: 16rem;
-                object-fit: cover;
+                .big-comment-img-display{
+                    margin-top: 0.8rem;
+                    margin-left: 4.4rem;
+                    width: 16rem;
+                    height: 16rem;
+                    object-fit: cover;
+                }
+                &:hover{
+                    filter: grayscale(30%);
+                    .delete-reply-img-link{
+                        display: block;
+                    }
+                }
+                .delete-reply-img-link{
+                    display: none;
+                    position: absolute;
+                    left: 9rem;
+                    top: 50%;
+                    background-color: #fff;
+                    padding: 4px 10px;
+                    font-size: 1.2rem;
+                    &:hover{
+                        cursor: pointer;
+                    }
+                }
             }
         }
         

@@ -350,17 +350,18 @@ const Post = ({post}) => {
                                         }   
                                         {
                                             bigCommentLink=="" ? (null) :
-                                            <div>
+                                            <div className='comment-link-container'>
                                                 <img 
                                                     src={bigCommentLink}
                                                     className="big-comment-img-display">  
                                                 </img>
                                                 <div
+                                                    className='delete-reply-img-link'
                                                     onClick={()=> {
                                                         dispatch(articleActions.removeBigCommentPicture())
                                                     }}
                                                 >
-                                                    Close
+                                                    Xoá ảnh
                                                 </div>
                                             </div>
                                         }
