@@ -68,7 +68,6 @@ function Courses(props) {
     //Export
 
     const [mockDataExportDocs, isMock] = React.useState([
-
         {
             id: 1,
             name: 'Phuoc',
@@ -127,8 +126,8 @@ function Courses(props) {
                     coursesCurrent={coursesCurrent}
                 ></WholeCourses>
                 <PaginationOutlined setCurrentPage={setCurrentPage} index={coursesCurrent.length}></PaginationOutlined>
-                <input type="file" id="fileInput" onChange={(e) => showFile(e)} />
-                <div style={{ border: '1px solid black', padding: '10px', display: 'flex', borderRadius: '8px', width: 'fit-content', cursor: 'pointer' }} onClick={() => handleExport(mockDataExportDocs, 'user', 'MANAGE USER')}>Export excel</div>
+                {/* <input type="file" id="fileInput" onChange={(e) => showFile(e)} /> */}
+                {/* <div style={{ border: '1px solid black', padding: '10px', display: 'flex', borderRadius: '8px', width: 'fit-content', cursor: 'pointer' }} onClick={() => handleExport(mockDataExportDocs, 'user', 'MANAGE USER')}>Export excel</div> */}
             </div>
         </Container>
 
