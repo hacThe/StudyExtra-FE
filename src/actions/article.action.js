@@ -53,8 +53,8 @@ function addNewArticle(data){
     return (dispatch)=>{
         dispatch(request())
         articleService.addNewArticle(data).then(
-            (article)=>{
-                dispatch(success(article))
+            (articles)=>{
+                dispatch(success(articles))
             },
             (error)=>{
                 dispatch(failure(error.toString()))
@@ -65,8 +65,8 @@ function addNewArticle(data){
         function request() {
             return { type: articleConstants.ADD_ARTICLE_REQUEST };
         }
-        function success(article ) {
-            return {type: articleConstants.ADD_ARTICLE_SUCCESS, article };
+        function success(articles ) {
+            return {type: articleConstants.ADD_ARTICLE_SUCCESS, articles };
         }
         function failure(error) {
             return { type: articleConstants.ADD_ARTICLE_FAILURE, error };
@@ -78,8 +78,8 @@ function editArticle(data){
     return (dispatch)=>{
         dispatch(request())
         articleService.editArticle(data).then(
-            (article)=>{
-                dispatch(success(article))
+            (articles)=>{
+                dispatch(success(articles))
             },
             (error)=>{
                 dispatch(failure(error.toString()))
@@ -90,8 +90,8 @@ function editArticle(data){
         function request() {
             return { type: articleConstants.EDIT_ARTICLE_REQUEST };
         }
-        function success(article ) {
-            return {type: articleConstants.EDIT_ARTICLE_SUCCESS, article };
+        function success(articles) {
+            return {type: articleConstants.EDIT_ARTICLE_SUCCESS, articles };
         }
         function failure(error) {
             return { type: articleConstants.EDIT_ARTICLE_FAILURE, error };

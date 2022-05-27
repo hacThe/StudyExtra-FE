@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState,useImperativeHandle, forwardRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import './scss/Question.scss';
 import Post from './components/Post.js';
@@ -122,7 +122,14 @@ const Question = () => {
     // console.log("userInfo", userInfo);
 
     const [isOpenPost, setIsOpenPost] = useState(false);
-
+    
+    const ref = useRef(this);
+    useImperativeHandle(ref, () => ({
+        closeAddPost : () => {
+            setIsOpenPost(false);
+        },
+    }));
+    console.log("question ref", ref);
 
     return (    
         <div className="question-page-container">
@@ -157,7 +164,7 @@ const Question = () => {
                     
                     {
                         !isOpenPost ? (null) :
-                        <AddPostSection/>
+                        <AddPostSection ref={ref}/>
                     }
                     {
                         refineData(articles).map((item)=>{

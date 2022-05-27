@@ -90,14 +90,15 @@ export function article(state = initialState, action) {
             };
         }
         case articleConstants.ADD_ARTICLE_SUCCESS:{
-            console.log("action",action);
+            var newArticles = action.articles.data;
             return {
                 ...state,
-                articles:[
-                    ...state.articles,
-                    action.article.data,
-                ]
-            }
+                isLoading: false,
+                articles: newArticles,
+                currentArticle:{
+                    imgLink: [],
+                },
+            };
         }
 
         case articleConstants.DELETE_ARTICLE_REQUEST:{
@@ -217,12 +218,12 @@ export function article(state = initialState, action) {
             };
         }
         case articleConstants.EDIT_ARTICLE_SUCCESS:{
+            var newArticles = action.articles.data;
             return {
                 ...state,
-                articles:[
-                    ...article,
-                ]
-            }
+                isLoading: false,
+                articles: newArticles,
+            };
         }
 
         case articleConstants.UPLOAD_BIG_COMMENT_IMAGE_REQUEST: {
