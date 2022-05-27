@@ -9,6 +9,8 @@ import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
 import Consts from '../ConstKey.js';
 import { articleActions } from '../../../../actions/article.action';
 import { AiFillLike } from "react-icons/ai";
+import AjaxHelper from '../../../../services/api';
+import config from '../../../../services/api/config';
 
 const CommentItem = ({comment}) => {
     const dispatch = useDispatch();
@@ -156,7 +158,7 @@ const CommentItem = ({comment}) => {
             parrentComment: [...comment.parrentComment, comment.commentID],
             content: commentItem.replyText.current.value,
             userTagID: "",
-            imgUrl: "",
+            imgUrl: replyCommentLink,
             type: "1",
             replyComment: [],
             time: new Date(),
@@ -166,6 +168,22 @@ const CommentItem = ({comment}) => {
         // reset cái nội dung hiện tại
         commentItem.replyText.current.value = "";
         changeUserReplyDisplay();
+        setReplyCommentLink('');
+    }
+    const [replyCommentLink, setReplyCommentLink] = useState('');
+
+    const [currentCommnentImg, setCurrentCommnentImg] = useState(''); 
+
+    const uploadPicture = async(e) => {
+        const formData = new FormData();
+        formData.append("file", e.target.files[0])
+        formData.append("upload_preset", "phiroud");
+        const sleep = ms => new Promise(res => setTimeout(res, ms));
+        await sleep(1000);
+        const data = await AjaxHelper.post(config.URL_ARTICLE_PICTURE, formData, {});
+        // console.log(data.data.url);
+        setReplyCommentLink(data.data.url)
+        // dispatch(articleActions.uploadBigCommentArticlePicture(formData));
     }
 
     return (
@@ -289,6 +307,93 @@ const CommentItem = ({comment}) => {
                     ></img>
                 }
                 {
+                    userReplyDisplay == false ? (null) :
+                    <div className="user-reply-comment">
+                        <div className='user-reply-heading'>
+                            <img 
+                                src={userInfo.avatar}
+                                className='current-user-avatar'
+                            ></img>
+                            <input 
+                                type="text" 
+                                className="comment-box"
+                                ref={commentItem.replyText}
+                            >
+                            </input>
+                            <label
+                                className="add-img-label"
+                                for="big-comment-image-input"
+                            >
+                                <IoImageOutline size={28} className='add-image-icon'/>
+                            </label>
+                            <IoSend 
+                                size={28} 
+                                className='send-comment'
+                                onClick={(e)=> {
+                                    sendReplyComment();
+                                }}
+                            ></IoSend>
+                        </div>
+                        <div className='big-comment-image'>
+                            <input
+                                className='big-comment-image-add-hidden'
+                                type='file'
+                                id='big-comment-image-input'
+                                // ref={pageRef.postImageRef}
+                                onChange={ async(e) => {
+                                    dispatch(articleActions.removeBigCommentPicture())  
+                                    var tgt = e.target || window.event.srcElement;
+                                    var files = tgt.files;
+                                    console.log("files", files);
+                                    // FileReader support
+                                    if (FileReader && files && files.length) {
+                                        var fr = new FileReader();
+                                        const sleep = ms => new Promise(res => setTimeout(res, ms));
+                                        fr.onload = async() => {
+                                            // document.querySelector('.big-comment-img-display').src = fr.result;
+                                            // console.log("fr.result", fr.result);
+                                            // addTempImage(fr.result);
+                                            setCurrentCommnentImg(fr.result);
+                                            await sleep(2000);
+                                            setCurrentCommnentImg("");
+                                        }
+                                        fr.readAsDataURL(files[0]);
+                                        uploadPicture(e);
+                                    }
+                                }}
+                            />
+                            {
+                                currentCommnentImg!="" 
+                                ?
+                                    <div className="big-comment-img-display-temp-container">
+                                        <img 
+                                            src={currentCommnentImg}
+                                            className="big-comment-img-display-temp">  
+                                        </img>
+                                    </div>
+                                : (null)
+                            }   
+                            {
+                                replyCommentLink=="" ? (null) :
+                                <div className='comment-link-container'>
+                                    <img 
+                                        src={replyCommentLink}
+                                        className="big-comment-img-display">  
+                                    </img>
+                                    <div
+                                        className='delete-reply-img-link'
+                                        onClick={()=> {
+                                            setReplyCommentLink('');
+                                        }}
+                                    >
+                                        Xoá ảnh
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>  
+                } 
+                {
                     !comment.replyComment || comment.replyComment.length == 0 ? (null) : 
                     <div className='reply'>
                         {
@@ -323,25 +428,7 @@ const CommentItem = ({comment}) => {
                         }
                     </div>
                 }
-                {
-                    userReplyDisplay == false ? (null) :
-                    <div className="user-reply-comment">
-                        <img 
-                            src={userInfo.avatar}
-                            className='current-user-avatar'
-                        ></img>
-                        <input type="text" className="comment-box" ref={commentItem.replyText}></input>
-                        <IoImageOutline size={28} className='add-image-icon'/>
-                        <IoSend 
-                            size={28} 
-                            className='send-comment'
-                            onClick={(e)=> {
-                                // console.log("e.target.parentNode", e.target.parentNode);
-                                sendReplyComment();
-                            }}
-                        ></IoSend>
-                    </div>   
-                } 
+                
             </div>
         }
         </>
