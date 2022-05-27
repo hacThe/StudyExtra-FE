@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from 'react'
+import React , {useState, useEffect, useRef} from 'react'
 import '../scss/CommentItem.scss';
 import { useDispatch, useSelector } from "react-redux";
 import { BsTriangleFill } from "react-icons/bs";
@@ -121,8 +121,6 @@ const CommentItem = ({comment}) => {
 
     // Like bigcomment
     const likeBigComment = () => {
-        // console.log("comment", comment)
-        // console.log("userInfo", userInfo);
         var data = {
             postID: comment.postID,
             commentID: comment.commentID,
@@ -141,6 +139,33 @@ const CommentItem = ({comment}) => {
         }
         console.log("data to unlike", data);
         dispatch(articleActions.unlikeBigComment(data));
+    }
+
+    // reply comment
+    var commentItem = {
+        replyText: useRef(null)
+    }
+
+
+    const sendReplyComment = () => {
+        // console.log("Comment input",commentItem.replyText.current.value);
+        console.log("comment", comment);
+        var dataToSend = {
+            postID: comment.postID,
+            userID: userInfo._id,
+            parrentComment: [...comment.parrentComment, comment.commentID],
+            content: commentItem.replyText.current.value,
+            userTagID: "",
+            imgUrl: "",
+            type: "1",
+            replyComment: [],
+            time: new Date(),
+        }
+        console.log("data to send", dataToSend);
+        dispatch(articleActions.addReplyComment(dataToSend));
+        // reset cái nội dung hiện tại
+        commentItem.replyText.current.value = "";
+        changeUserReplyDisplay();
     }
 
     return (
@@ -205,9 +230,6 @@ const CommentItem = ({comment}) => {
                                             <div 
                                                 className="modal-item"
                                                 onClick={()=>{
-                                                    // Check cấp độ hiện tại của cái cmt này trước, 
-                                                    // sẽ thêm vào cái hàm refine comment
-                                                    // console.log("comment", comment);
                                                     deleteComment();
                                                 }}
                                             >
@@ -305,16 +327,17 @@ const CommentItem = ({comment}) => {
                     userReplyDisplay == false ? (null) :
                     <div className="user-reply-comment">
                         <img 
-                            src="https://i.pinimg.com/originals/33/c2/20/33c220ed89693515fb07aecd51a26eda.jpg"
+                            src={userInfo.avatar}
                             className='current-user-avatar'
                         ></img>
-                        <input type="text" className="comment-box"></input>
+                        <input type="text" className="comment-box" ref={commentItem.replyText}></input>
                         <IoImageOutline size={28} className='add-image-icon'/>
                         <IoSend 
                             size={28} 
                             className='send-comment'
                             onClick={(e)=> {
-                                console.log("e.target.parentNode", e.target.parentNode);
+                                // console.log("e.target.parentNode", e.target.parentNode);
+                                sendReplyComment();
                             }}
                         ></IoSend>
                     </div>   

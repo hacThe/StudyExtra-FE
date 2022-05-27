@@ -4,10 +4,9 @@ import './scss/Question.scss';
 import Post from './components/Post.js';
 import { articleActions } from '../../../actions/article.action';
 import AddPostSection from './components/AddPostSection';
-import { appActions } from "../../../actions";
-import { cookiesUtil } from '../../../utilities';
+// import { appActions } from "../../../actions";
 
-const refineComments = (comments, postID) => {
+const refineComments = (comments, postID, parrentComment) => {
     var res = [];
     // console.log("comments", comments);
     try{
@@ -26,10 +25,11 @@ const refineComments = (comments, postID) => {
                 imgUrl: cmt.imgUrl,
                 isHidden: cmt.isHidden,
                 time: cmt.time,
-                reactions: cmt.reactions,
+                reactions: cmt.reactions || [],
+                parrentComment: parrentComment,
             }
             if(cmt.replyComment && cmt.replyComment.length > 0)
-                tempt.replyComment =  refineComments(cmt.replyComment, postID);
+                tempt.replyComment =  refineComments(cmt.replyComment, postID, [...parrentComment, cmt.commentID]);
             else tempt.replyComment = [];
             res.push(tempt);
         });
@@ -58,7 +58,7 @@ const refineData = (data) => {
             createdAt: item.createdAt,
             reactions: item.reactions
         }
-        var tempComment = refineComments(item.comments,item._id );
+        var tempComment = refineComments(item.comments,item._id, []);
         temp.comment = tempComment;
         res.push(temp);
     });

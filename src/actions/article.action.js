@@ -21,6 +21,7 @@ export const articleActions = {
     unLikeArticle,
     likeBigComment,
     unlikeBigComment,
+    addReplyComment
 }
 
 function getAllArticle(){
@@ -435,3 +436,27 @@ function unlikeBigComment(data) {
     }
 }
 
+function addReplyComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.addReplyComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.ADD_REPLY_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.ADD_REPLY_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.ADD_REPLY_COMMENT_FAILURE, error };
+        }
+    }
+}
