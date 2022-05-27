@@ -56,13 +56,13 @@ function DetailAnnouncement(props) {
 
     return (
         <Card style={{ borderRadius: '8px', backgroundColor: '#fdfdfd', padding: '20px' }}>
-            <div style={{ fontFamily: "'Montserrat', san-serif", fontSize: '19px', color: '#B94A48', fontWeight: '500', lineHeight: '23px' }}>
+            <div style={{ fontFamily: "'Montserrat', san-serif", fontSize: '22px', color: 'black', fontWeight: '600', lineHeight: '23px' }}>
                 {announcement.title ? announcement.title : "Không có"}
             </div>
-            <div style={{ fontFamily: "'Montserrat', san-serif", fontStyle: 'italic', color: '#666', fontSize: '12px', margin: '10px 0' }}>
+            <div style={{ fontFamily: "'Montserrat', san-serif", fontStyle: 'italic', color: '#666', fontSize: '14px', margin: '10px 0' }}>
                 {announcement.updatedAt ? renderTime(announcement.updatedAt) : "Lỗi"}
             </div>
-            <div ref={refContent} className='content'>
+            <div ref={refContent} style={{fontSize: '14px'}} className='content'>
                 
             </div>
         </Card>

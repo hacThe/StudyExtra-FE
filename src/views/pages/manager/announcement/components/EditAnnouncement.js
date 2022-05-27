@@ -10,9 +10,11 @@ import axios from 'axios'
 import URL from '../../../../../services/api/config'
 import { useParams } from 'react-router-dom'
 import { AiFillDelete, AiFillSave } from 'react-icons/ai'
-
+import { showToast, hideToast } from '../../../../../actions/toast.action'
+import {useDispatch} from 'react-redux'
 function EditAnnouncement(props) {
     const { slug } = useParams()
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const [content, setContent] = React.useState('');
     const [title, setTitle] = React.useState('');
@@ -111,11 +113,11 @@ function EditAnnouncement(props) {
             title
         }).then(res => {
             if (res.data.status == 200) {
+                dispatch('success', 'Chỉnh sửa thông báo thành công!')
                 navigate('/quan-ly/thong-bao-chung')
             }
-            console.log('Thành công update')
         }).catch(err => {
-            console.log('Thất bại update')
+            dispatch('fail', 'Chỉnh sửa thông báo thất bại!')
         })
     }
 
@@ -124,11 +126,12 @@ function EditAnnouncement(props) {
             slug,
         }).then(res => {
             if (res.data.status == 200) {
+                dispatch('success', 'Xóa thông báo thành công!')
                 navigate('/quan-ly/thong-bao-chung')
             }
-            console.log('Thành công delete')
         }).catch(err => {
-            console.log('Thất bại delete')
+            dispatch('fail', 'Xóa thông báo thất bại!')
+
         })
     }
 

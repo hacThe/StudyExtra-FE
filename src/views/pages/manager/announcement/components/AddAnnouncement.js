@@ -9,10 +9,13 @@ import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import axios from 'axios'
 import URL from '../../../../../services/api/config'
 import { useSelector, useDispatch } from 'react-redux'
+import { showToast, hideToast } from '../../../../../actions/toast.action'
 
 function AddAnnouncement(props) {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
     const idUser = useSelector(state => state.authentication.user?._id)
+    const user = useSelector(state => state.authentication)
     const [content, setContent] = React.useState('');
     const [title, setTitle] = React.useState('');
     const [review, setReview] = React.useState('');
@@ -77,19 +80,18 @@ function AddAnnouncement(props) {
     }
 
     const handleAddAnnouncemnt = async () => {
+        console.log(idUser)
         await axios.post(URL.URL_ADD_ANNOUNCEMENT, {
             title,
             content,
             idUser,
         }).then(res => {
+            dispatch(showToast('success', 'Thêm thông báo thành công!'))
             console.log(res)
             navigate(-1)
         }).catch(err => {
+            dispatch(showToast('fail', 'Thêm thông báo thất bại!'))
             console.log(err)
-        })
-        console.log({
-            title,
-            content,
         })
     }
 
