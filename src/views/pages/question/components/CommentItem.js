@@ -232,6 +232,22 @@ const CommentItem = ({comment}) => {
         }
         // console.log("dataToHideReply", dataToHideReply);
         dispatch(articleActions.hideReplyComment(dataToHideReply));
+        setIsOpenManageModal(!isOpenManageModal);   
+
+    }
+
+    const showReplyComment = () => {
+        // console.log("comment", comment);
+        const dataToShowReply = {
+            postID: comment.postID,
+            parrentComment: comment.parrentComment,
+            commentID: comment.commentID,
+            userID: userInfo._id,
+        }
+        // console.log("dataToHideReply", dataToHideReply);
+        dispatch(articleActions.showReplyComment(dataToShowReply));
+        setIsOpenManageModal(!isOpenManageModal);   
+
     }
 
     return (
@@ -294,7 +310,14 @@ const CommentItem = ({comment}) => {
                                                 : 
                                                 <div 
                                                     className="modal-item"
-                                                    onClick={()=>showThisComment()}
+                                                    onClick={()=>{
+                                                        if(comment.parrentComment.length==0){
+                                                            showThisComment();
+                                                        }
+                                                        else {
+                                                            showReplyComment();
+                                                        }
+                                                    }}
                                                 >
                                                     Hiện   
                                                 </div>
