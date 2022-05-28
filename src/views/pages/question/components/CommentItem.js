@@ -250,104 +250,266 @@ const CommentItem = ({comment}) => {
 
     }
 
+    // Phần của chỉnh sửa post
+    const [isEditting, setEditting] = useState(false);
+    const editRef = useRef(null);
+
+    const [currentEditImage, setCurrentEditImage] = useState("");
+    const [editImageLink, setEditImageLink] = useState("");
+
+    const uploadEditPicture = async(e) => {
+        const formData = new FormData();
+        formData.append("file", e.target.files[0])
+        formData.append("upload_preset", "phiroud");
+        const sleep = ms => new Promise(res => setTimeout(res, ms));
+        await sleep(1000);
+        const data = await AjaxHelper.post(config.URL_ARTICLE_PICTURE, formData, {});
+        // console.log(data.data.url);
+        setEditImageLink(data.data.url);
+    }
+
+
+    const editBigComment = () => {
+        var dataToEdit = {
+            content: editRef.current.value
+        }
+        console.log("dataToEdit", dataToEdit);
+        
+
+        // Reset lại dữ liệu sau khi sửa
+        // setEditting(!isEditting);
+        // editRef.current.value='';
+        // setEditImageLink('');
+    }
+
+
+    const editReplyComment = () => {
+        console.log("editRef", editRef.current.value);
+        editRef.current.value = "";
+        var dataToEditReply = {
+            content: editRef.current.value
+        }
+        console.log("dataToEditReply", dataToEditReply);
+
+        // Reset lại dữ liệu sau khi sửa
+        // setEditting(!isEditting);
+        // editRef.current.value='';
+        // setEditImageLink('');
+    }
+
     return (
         <>
         {
             (comment.isHidden && 
                 (!userInfo||userInfo._id != comment.userID)) ?(null):
             <div className="comment-item">
-                <div className="comment-heading">
-                    <img 
-                        className= {comment.isHidden ? "user-avatar gray-scale" : "user-avatar"}
-                        src={comment.userAvatar}
-                    ></img>
-                    <div 
-                        className= {comment.isHidden ? "comment-container gray-scale" : "comment-container"}
-                    >
-                        <p className="user-name">{comment.name}</p>
-                        <div className="comment-content">
-                            {comment.content}
-                        </div>
-                        {
-                            comment.reactions && comment.reactions.length!=0 ?
-                                <div className="comment-interaction">
-                                    <AiFillLike  size={20} className='interact-icon'/>
-                                    <p className='like-count'>{comment.reactions.length}</p>
+                {
+                    !isEditting   
+                    ?   // Hiển thị comment bình thường 
+                        <div className="comment-heading">
+                            <img 
+                                className= {comment.isHidden ? "user-avatar gray-scale" : "user-avatar"}
+                                src={comment.userAvatar}
+                            ></img>
+                            <div 
+                                className= {comment.isHidden ? "comment-container gray-scale" : "comment-container"}
+                            >
+                                <p className="user-name">{comment.name}</p>
+                                <div className="comment-content">
+                                    {comment.content}
                                 </div>
-                            : (null)
-                        }
-                        
-                    </div>
-                    {
-                        (!userInfo||userInfo._id != comment.userID) ? (null) : 
-                            <div className="comment-manage">
-                                <HiDotsHorizontal 
-                                    size={14}
-                                    className="open-modal"
-                                    onClick={()=>{
-                                        // console.log("ACV");
-                                        setIsOpenManageModal(!isOpenManageModal);   
-                                    }}
-                                /> 
                                 {
-                                    !isOpenManageModal ? (null) : 
-                                        <div className="comment-modal">
-                                            {
-                                                !comment.isHidden ?
-                                                <div 
-                                                    className="modal-item"
-                                                    onClick={()=>{
-                                                        if(comment.parrentComment.length==0){
-                                                            hideThisComment();
-                                                        }
-                                                        else {
-                                                            hideReplyComment();
-                                                        }
-                                                    }}
-                                                >
-                                                    Ẩn    
-                                                </div>
-                                                : 
-                                                <div 
-                                                    className="modal-item"
-                                                    onClick={()=>{
-                                                        if(comment.parrentComment.length==0){
-                                                            showThisComment();
-                                                        }
-                                                        else {
-                                                            showReplyComment();
-                                                        }
-                                                    }}
-                                                >
-                                                    Hiện   
-                                                </div>
-                                            }
-                                            <div 
-                                                className="modal-item"
-                                                onClick={()=>{
-                                                    // console.log("comment", comment);
-                                                    // // 
-                                                    if(comment.parrentComment.length==0){
-                                                        deleteComment();
-                                                    }
-                                                    else deleteReplyComment();
-                                                    
-                                                }}
-                                            >
-                                                Xoá
-                                            </div>
-                                            <div className="modal-item">
-                                                Báo cáo
-                                            </div>
-                                            <div className="modal-item">
-                                                Chỉnh sửa
-                                            </div>
-                                        </div> 
+                                    comment.reactions && comment.reactions.length!=0 ?
+                                        <div className="comment-interaction">
+                                            <AiFillLike  size={20} className='interact-icon'/>
+                                            <p className='like-count'>{comment.reactions.length}</p>
+                                        </div>
+                                    : (null)
                                 }
                                 
                             </div>
-                    }
-                </div>
+                            {
+                                (!userInfo||userInfo._id != comment.userID) ? (null) : 
+                                    <div className="comment-manage">
+                                        <HiDotsHorizontal 
+                                            size={14}
+                                            className="open-modal"
+                                            onClick={()=>{
+                                                // console.log("ACV");
+                                                setIsOpenManageModal(!isOpenManageModal);   
+                                            }}
+                                        /> 
+                                        {
+                                            !isOpenManageModal ? (null) : 
+                                                <div className="comment-modal">
+                                                    {
+                                                        !comment.isHidden ?
+                                                        <div 
+                                                            className="modal-item"
+                                                            onClick={()=>{
+                                                                if(comment.parrentComment.length==0){
+                                                                    hideThisComment();
+                                                                }
+                                                                else {
+                                                                    hideReplyComment();
+                                                                }
+                                                            }}
+                                                        >
+                                                            Ẩn    
+                                                        </div>
+                                                        : 
+                                                        <div 
+                                                            className="modal-item"
+                                                            onClick={()=>{
+                                                                if(comment.parrentComment.length==0){
+                                                                    showThisComment();
+                                                                }
+                                                                else {
+                                                                    showReplyComment();
+                                                                }
+                                                            }}
+                                                        >
+                                                            Hiện   
+                                                        </div>
+                                                    }
+                                                    <div 
+                                                        className="modal-item"
+                                                        onClick={()=>{
+                                                            // console.log("comment", comment);
+                                                            // // 
+                                                            if(comment.parrentComment.length==0){
+                                                                deleteComment();
+                                                            }
+                                                            else deleteReplyComment();
+                                                            
+                                                        }}
+                                                    >
+                                                        Xoá
+                                                    </div>
+                                                    <div className="modal-item">
+                                                        Báo cáo
+                                                    </div>
+                                                    <div 
+                                                        className="modal-item"
+                                                        onClick = {() => {  
+                                                            setEditting(!isEditting);
+                                                            setIsOpenManageModal(false);
+                                                        }}
+                                                    >
+                                                        Chỉnh sửa
+                                                    </div>
+                                                </div> 
+                                        }
+                                        
+                                    </div>
+                            }
+                        </div>
+                    :   
+                        // Đây là phần chỉnh sửa comment
+                        <div className="comment-editting">
+                            <div className='comment-editting-heading'>
+                                <img 
+                                    src={userInfo.avatar}
+                                    className='current-user-avatar'
+                                ></img>
+
+                                <input 
+                                    type="text" 
+                                    className="comment-box"
+                                    ref={editRef}
+                                    defaultValue={comment.content}
+                                >
+                                </input>
+
+                                <label
+                                    className="add-img-label"
+                                    for="editting-image-input"
+                                >
+                                    <IoImageOutline size={28} className='add-image-icon'/>
+                                </label>
+
+                                <button
+                                    className="button-edit-cancel"
+                                    onClick={() => {
+                                       setEditting(!isEditting);
+                                       editRef.current.value='';
+                                       setEditImageLink('');
+                                    }}
+                                >
+                                    Huỷ
+                                </button>
+                                <button
+                                    className="button-edit-confirm"
+                                    onClick={() => {
+                                        if(comment.parrentComment.length==0){
+                                            editBigComment();
+                                        }
+                                        else {
+                                            editReplyComment();
+                                        }
+                                    }}
+                                >
+                                    Lưu
+                                </button>
+                            </div>
+
+                            <div className='big-comment-image'>
+                                <input
+                                    className='big-comment-image-add-hidden'
+                                    type='file'
+                                    id='editting-image-input'
+                                    // ref={pageRef.postImageRef}
+                                    onChange={ async(e) => {
+                                        dispatch(articleActions.removeBigCommentPicture())  
+                                        var tgt = e.target || window.event.srcElement;
+                                        var files = tgt.files;
+                                        // console.log("files", files);
+                                        // FileReader support
+                                        if (FileReader && files && files.length) {
+                                            var fr = new FileReader();
+                                            const sleep = ms => new Promise(res => setTimeout(res, ms));
+                                            fr.onload = async() => {
+                                                setCurrentEditImage(fr.result);
+                                                await sleep(2000);
+                                                setCurrentEditImage("");
+                                            }
+                                            fr.readAsDataURL(files[0]);
+                                            uploadEditPicture(e);
+                                        }
+                                    }}
+                                />
+                                {
+                                    currentEditImage!="" 
+                                    ?
+                                        <div className="big-comment-img-display-temp-container">
+                                            <img 
+                                                src={currentEditImage}
+                                                className="big-comment-img-display-temp">  
+                                            </img>
+                                        </div>
+                                    : (null)
+                                }   
+                                {
+                                    editImageLink=="" ? (null) :
+                                    <div className='comment-link-container'>
+                                        <img 
+                                            src={editImageLink}
+                                            className="big-comment-img-display">  
+                                        </img>
+                                        <div
+                                            className='delete-reply-img-link'
+                                            onClick={()=> {
+                                                setEditImageLink("");
+                                            }}
+                                        >
+                                            Xoá ảnh
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>  
+                }
+                
                 
                 <div className="comment-interact">
                     {
