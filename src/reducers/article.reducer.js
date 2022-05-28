@@ -732,6 +732,37 @@ export function article(state = initialState, action) {
             }
         }
 
+        case articleConstants.EDIT_REPLY_COMMENT_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.EDIT_REPLY_COMMENT_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.EDIT_REPLY_COMMENT_SUCCESS: {
+            {
+                // console.log("action", action);
+                var newArticles = action.articles.data;
+                return {
+                    ...state,
+                    isLoading: false,
+                    articles: newArticles,
+                };
+            }
+        }
+
         default:
             
             return state;

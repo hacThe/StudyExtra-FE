@@ -286,17 +286,19 @@ const CommentItem = ({comment}) => {
 
 
     const editReplyComment = () => {
-        console.log("editRef", editRef.current.value);
-        editRef.current.value = "";
         var dataToEditReply = {
-            content: editRef.current.value
+            content: editRef.current.value,
+            imgUrl: editImageLink,
+            commentID: comment.commentID,
+            postID: comment.postID,
+            parrentComment: comment.parrentComment
         }
-        console.log("dataToEditReply", dataToEditReply);
-
+        // console.log("dataToEditReply", dataToEditReply);
+        dispatch(articleActions.editReplyComment(dataToEditReply));
         // Reset lại dữ liệu sau khi sửa
-        // setEditting(!isEditting);
-        // editRef.current.value='';
-        // setEditImageLink('');
+        setEditting(!isEditting);
+        editRef.current.value='';
+        setEditImageLink('');
     }
 
     return (

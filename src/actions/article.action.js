@@ -27,7 +27,8 @@ export const articleActions = {
     unlikeReplyComment,
     hideReplyComment,
     showReplyComment,
-    editBigComment
+    editBigComment,
+    editReplyComment
 }
 
 function getAllArticle(){
@@ -614,6 +615,32 @@ function editBigComment(data) {
         }
         function failure(error) {
             return { type: articleConstants.EDIT_BIG_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+
+function editReplyComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.editReplyComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.EDIT_REPLY_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.EDIT_REPLY_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.EDIT_REPLY_COMMENT_FAILURE, error };
         }
     }
 }
