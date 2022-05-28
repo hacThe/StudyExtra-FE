@@ -129,7 +129,11 @@ const Question = () => {
             setIsOpenPost(false);
         },
     }));
-    console.log("question ref", ref);
+    // console.log("question ref", ref);
+
+    useSelector((state) => {
+        console.log({ state });
+    })
 
     return (    
         <div className="question-page-container">

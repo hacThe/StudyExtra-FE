@@ -19,10 +19,8 @@ const Post = ({post}) => {
     const interactPost = () => {
         setLiked(!isLiked);
     }
-    console.log("post: ",post);
-    useSelector((state) => {
-        console.log({ state });
-    })
+    // console.log("post: ",post);
+
 
     const userInfo = useSelector((state) => state.user.currentUser);
     // console.log("userInfo", userInfo);
@@ -58,7 +56,7 @@ const Post = ({post}) => {
     const childRef = useRef(null);
 
     const editPost = () => {
-        console.log("childRef", childRef);
+        // console.log("childRef", childRef);
         childRef.current.editArticle();    
     }
     
@@ -73,12 +71,12 @@ const Post = ({post}) => {
     }
 
     const commentCount = (comments) => {
-        console.log("comments", comments)
+        // console.log("comments", comments)
         var res = 0;
         for(var i = 0; i < comments.length; i++){
             res += countReplyComment(comments[i].replyComment) + 1;
         }        
-        console.log("total", res);
+        // console.log("total", res);
         return res;
     }
 
@@ -90,7 +88,7 @@ const Post = ({post}) => {
 
     const commentRef = useRef(null);
     const addBigComment = () => {
-        console.log("commentRef.current.value", commentRef.current.value);
+        // console.log("commentRef.current.value", commentRef.current.value);
         const data = {
             userID: userInfo._id,
             postID: post._id,
@@ -139,9 +137,9 @@ const Post = ({post}) => {
         dispatch(articleActions.unLikeArticle(unlikePostData));
     }
 
-    console.log("post", post);
+    // console.log("post", post);
     
-    console.log("userInfo", userInfo);
+    // console.log("userInfo", userInfo);
 
     return (
         
@@ -319,14 +317,14 @@ const Post = ({post}) => {
                                                 dispatch(articleActions.removeBigCommentPicture())  
                                                 var tgt = e.target || window.event.srcElement;
                                                 var files = tgt.files;
-                                                console.log("files", files);
+                                                // console.log("files", files);
                                                 // FileReader support
                                                 if (FileReader && files && files.length) {
                                                     var fr = new FileReader();
                                                     const sleep = ms => new Promise(res => setTimeout(res, ms));
                                                     fr.onload = async() => {
                                                         // document.querySelector('.big-comment-img-display').src = fr.result;
-                                                        console.log("fr.result", fr.result);
+                                                        // console.log("fr.result", fr.result);
                                                         // addTempImage(fr.result);
                                                         setCurrentCommnentImg(fr.result);
                                                         await sleep(2000);

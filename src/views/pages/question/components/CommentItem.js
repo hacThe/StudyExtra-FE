@@ -34,7 +34,7 @@ const CommentItem = ({comment}) => {
                 setPressedKeys(previousPressedKeys => [...previousPressedKeys, key]);
                 const currentActive = document.activeElement;
                 if(currentActive.classList.contains('comment-box')){
-                    console.log("Thêm comment vào cái list");
+                    // console.log("Thêm comment vào cái list");
                     // Viết hàm thêm, tác động redux là ok
                 }
             }
@@ -186,6 +186,18 @@ const CommentItem = ({comment}) => {
         // dispatch(articleActions.uploadBigCommentArticlePicture(formData));
     }
 
+    // Delete reply comment
+    const deleteReplyComment = () => {
+        var dataToDeleteReply = {
+            postID: comment.postID,
+            parrentComment: comment.parrentComment,
+            commentID: comment.commentID
+        }
+        console.log("dataToDeleteReply", dataToDeleteReply);
+        dispatch(articleActions.deleteReplyComment(dataToDeleteReply));
+        setIsOpenManageModal(false);
+    }
+
     return (
         <>
         {
@@ -248,7 +260,13 @@ const CommentItem = ({comment}) => {
                                             <div 
                                                 className="modal-item"
                                                 onClick={()=>{
-                                                    deleteComment();
+                                                    // console.log("comment", comment);
+                                                    // // 
+                                                    if(comment.parrentComment.length==0){
+                                                        deleteComment();
+                                                    }
+                                                    else deleteReplyComment();
+                                                    
                                                 }}
                                             >
                                                 Xoá
@@ -344,7 +362,7 @@ const CommentItem = ({comment}) => {
                                     dispatch(articleActions.removeBigCommentPicture())  
                                     var tgt = e.target || window.event.srcElement;
                                     var files = tgt.files;
-                                    console.log("files", files);
+                                    // console.log("files", files);
                                     // FileReader support
                                     if (FileReader && files && files.length) {
                                         var fr = new FileReader();
