@@ -22,7 +22,8 @@ export const articleActions = {
     likeBigComment,
     unlikeBigComment,
     addReplyComment,
-    deleteReplyComment
+    deleteReplyComment,
+    likeReplyComment
 }
 
 function getAllArticle(){
@@ -483,6 +484,31 @@ function deleteReplyComment(data) {
         }
         function failure(error) {
             return { type: articleConstants.DELETE_REPLY_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+function likeReplyComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.likeReplyComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.LIKE_REPLY_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.LIKE_REPLY_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.LIKE_REPLY_COMMENT_FAILURE, error };
         }
     }
 }

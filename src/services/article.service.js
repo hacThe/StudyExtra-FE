@@ -19,6 +19,7 @@ export const articleService = {
     unlikeBigComment,
     addReplyComment,
     deleteReplyComment,
+    likeReplyComment,
 };
 
 function getAllArticle() {
@@ -109,5 +110,11 @@ function addReplyComment(data) {
 function deleteReplyComment(data) {
     return handleResponse(
         ajaxHelper.deleteFix(config.URL_ARTICLE + '/comment/reply', data, {})
+    );
+}
+
+function likeReplyComment(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_ARTICLE + '/comment/reply/interaction', data, {})
     );
 }

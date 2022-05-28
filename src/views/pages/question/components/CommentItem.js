@@ -93,8 +93,6 @@ const CommentItem = ({comment}) => {
 
     }
 
-    
-
     const calculateTime = (timeString) => {
         // console.log("timeString", timeString);
         const postTime = new Date(timeString);
@@ -198,6 +196,19 @@ const CommentItem = ({comment}) => {
         setIsOpenManageModal(false);
     }
 
+    // Like reply comment
+    const likeReplyComment = () => {
+        console.log("comment", comment);
+        const dataToLikeReply = {
+            postID: comment.postID,
+            parrentComment: comment.parrentComment,
+            commentID: comment.commentID,
+            userID: userInfo._id,
+        }
+        console.log("dataToLikeReply", dataToLikeReply);
+        dispatch(articleActions.likeReplyComment(dataToLikeReply));
+    }
+
     return (
         <>
         {
@@ -256,7 +267,6 @@ const CommentItem = ({comment}) => {
                                                     Hiện   
                                                 </div>
                                             }
-                                            
                                             <div 
                                                 className="modal-item"
                                                 onClick={()=>{
@@ -277,6 +287,14 @@ const CommentItem = ({comment}) => {
                                             <div className="modal-item">
                                                 Chỉnh sửa
                                             </div>
+                                            {/* <div 
+                                                className='modal-item'
+                                                onClick={() => {
+                                                    console.log("comment", comment);
+                                                }}
+                                            >
+                                                Xem thông tin
+                                            </div> */}
                                         </div> 
                                 }
                                 
@@ -301,8 +319,13 @@ const CommentItem = ({comment}) => {
                             <p 
                                 className="interact-item like"
                                 onClick={
-                                    (e) => {
-                                        likeBigComment()
+                                    (e) => { 
+                                        if(comment.parrentComment.length==0){
+                                            likeBigComment()
+                                        }
+                                        else {
+                                            likeReplyComment();
+                                        }
                                     }
                                 }
                             >
