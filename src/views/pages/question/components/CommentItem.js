@@ -271,15 +271,17 @@ const CommentItem = ({comment}) => {
 
     const editBigComment = () => {
         var dataToEdit = {
-            content: editRef.current.value
+            content: editRef.current.value,
+            imgUrl: editImageLink,
+            commentID: comment.commentID,
+            postID: comment.postID,
         }
         console.log("dataToEdit", dataToEdit);
-        
-
+        dispatch(articleActions.editBigComment(dataToEdit));
         // Reset lại dữ liệu sau khi sửa
-        // setEditting(!isEditting);
-        // editRef.current.value='';
-        // setEditImageLink('');
+        setEditting(!isEditting);
+        editRef.current.value='';
+        setEditImageLink('');
     }
 
 
@@ -394,6 +396,7 @@ const CommentItem = ({comment}) => {
                                                         onClick = {() => {  
                                                             setEditting(!isEditting);
                                                             setIsOpenManageModal(false);
+                                                            setEditImageLink(comment.imgUrl)
                                                         }}
                                                     >
                                                         Chỉnh sửa
@@ -460,7 +463,7 @@ const CommentItem = ({comment}) => {
                                     id='editting-image-input'
                                     // ref={pageRef.postImageRef}
                                     onChange={ async(e) => {
-                                        dispatch(articleActions.removeBigCommentPicture())  
+                                        setEditImageLink("");
                                         var tgt = e.target || window.event.srcElement;
                                         var files = tgt.files;
                                         // console.log("files", files);
@@ -557,7 +560,7 @@ const CommentItem = ({comment}) => {
                     <p className="interact-time">{calculateTime(comment.time)}</p>
                 </div>
                 {
-                    !comment.imgUrl ? (null) :
+                    isEditting || !comment.imgUrl ? (null) :
                     <img className="comment-image"
                         src={comment.imgUrl}
                     ></img>

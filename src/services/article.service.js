@@ -22,7 +22,8 @@ export const articleService = {
     likeReplyComment,
     unlikeReplyComment,
     hideReplyComment,
-    showReplyComment
+    showReplyComment,
+    editBigComment,
 };
 
 function getAllArticle() {
@@ -138,5 +139,11 @@ function hideReplyComment(data) {
 function showReplyComment(data) {
     return handleResponse(
         ajaxHelper.post(config.URL_ARTICLE + '/comment/reply/show', data, {})
+    );
+}
+
+function editBigComment(data) {
+    return handleResponse(
+        ajaxHelper.put(config.URL_ARTICLE + '/comment', data, {})
     );
 }
