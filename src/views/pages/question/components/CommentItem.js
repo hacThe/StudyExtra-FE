@@ -209,6 +209,19 @@ const CommentItem = ({comment}) => {
         dispatch(articleActions.likeReplyComment(dataToLikeReply));
     }
 
+    const unlikeReplyComment = () => {
+        console.log("comment", comment);
+        const dataToUnLikeReply = {
+            postID: comment.postID,
+            parrentComment: comment.parrentComment,
+            commentID: comment.commentID,
+            userID: userInfo._id,
+        }
+        console.log("dataToUnLikeReply", dataToUnLikeReply);
+        // dispatch(articleActions.likeReplyComment(dataToUnLikeReply));
+        dispatch(articleActions.unlikeReplyComment(dataToUnLikeReply));
+    }
+
     return (
         <>
         {
@@ -287,14 +300,6 @@ const CommentItem = ({comment}) => {
                                             <div className="modal-item">
                                                 Chỉnh sửa
                                             </div>
-                                            {/* <div 
-                                                className='modal-item'
-                                                onClick={() => {
-                                                    console.log("comment", comment);
-                                                }}
-                                            >
-                                                Xem thông tin
-                                            </div> */}
                                         </div> 
                                 }
                                 
@@ -309,7 +314,13 @@ const CommentItem = ({comment}) => {
                                 className="interact-item like active"
                                 onClick={
                                     (e) => {
-                                        unlikeBigComment();
+                                        
+                                        if(comment.parrentComment.length==0){
+                                            unlikeBigComment();
+                                        }
+                                        else {
+                                            unlikeReplyComment();
+                                        }
                                     }
                                 }
                             >
