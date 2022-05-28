@@ -222,6 +222,18 @@ const CommentItem = ({comment}) => {
         dispatch(articleActions.unlikeReplyComment(dataToUnLikeReply));
     }
 
+    const hideReplyComment = () => {
+        // console.log("comment", comment);
+        const dataToHideReply = {
+            postID: comment.postID,
+            parrentComment: comment.parrentComment,
+            commentID: comment.commentID,
+            userID: userInfo._id,
+        }
+        // console.log("dataToHideReply", dataToHideReply);
+        dispatch(articleActions.hideReplyComment(dataToHideReply));
+    }
+
     return (
         <>
         {
@@ -268,7 +280,14 @@ const CommentItem = ({comment}) => {
                                                 !comment.isHidden ?
                                                 <div 
                                                     className="modal-item"
-                                                    onClick={()=>hideThisComment()}
+                                                    onClick={()=>{
+                                                        if(comment.parrentComment.length==0){
+                                                            hideThisComment();
+                                                        }
+                                                        else {
+                                                            hideReplyComment();
+                                                        }
+                                                    }}
                                                 >
                                                     Ẩn    
                                                 </div>

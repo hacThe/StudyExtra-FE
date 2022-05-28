@@ -20,7 +20,8 @@ export const articleService = {
     addReplyComment,
     deleteReplyComment,
     likeReplyComment,
-    unlikeReplyComment
+    unlikeReplyComment,
+    hideReplyComment,
 };
 
 function getAllArticle() {
@@ -123,5 +124,12 @@ function likeReplyComment(data) {
 function unlikeReplyComment(data) {
     return handleResponse(
         ajaxHelper.deleteFix(config.URL_ARTICLE + '/comment/reply/interaction', data, {})
+    );
+}
+
+
+function hideReplyComment(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_ARTICLE + '/comment/reply/hide', data, {})
     );
 }

@@ -24,7 +24,8 @@ export const articleActions = {
     addReplyComment,
     deleteReplyComment,
     likeReplyComment,
-    unlikeReplyComment
+    unlikeReplyComment,
+    hideReplyComment
 }
 
 function getAllArticle(){
@@ -535,6 +536,31 @@ function unlikeReplyComment(data) {
         }
         function failure(error) {
             return { type: articleConstants.UNLIKE_REPLY_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+function hideReplyComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.hideReplyComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.HIDE_REPLY_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.HIDE_REPLY_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.HIDE_REPLY_COMMENT_FAILURE, error };
         }
     }
 }
