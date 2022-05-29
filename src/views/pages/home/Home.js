@@ -10,18 +10,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { courseAction } from "../../../actions/course.action";
 import { postAction } from "../../../actions/post.action";
 import { appActions } from "../../../actions";
-
+import { articleActions } from '../../../actions/article.action';
 
 const Login = () => {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.course.courses) || [];
   const posts = useSelector((state) => state.post.posts) || [];
+  const articles = useSelector((state) => state.article.articles) || [];
 
   useEffect(() => {
     dispatch(courseAction.getAllCourse());
     dispatch(postAction.getAllPost());
+    dispatch(articleActions.getAllArticle());
   }, [dispatch]);
 
+  // console.log("articles", articles)
   return (
     <>
       <Container
@@ -38,7 +41,7 @@ const Login = () => {
           <Notification></Notification>
           <YourCourses courses={courses}></YourCourses>
           <FeaturedCourse courses={courses}></FeaturedCourse>
-          <QAndA posts={posts}></QAndA>
+          <QAndA posts={posts} articles={articles}></QAndA>
 
           <span
             onClick={() => {

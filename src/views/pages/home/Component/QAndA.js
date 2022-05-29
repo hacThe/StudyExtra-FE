@@ -19,9 +19,9 @@ function QAndA(props) {
                             <FiChevronsRight style={{ paddingLeft: '5px', fontSize: '20px', transform: 'translateY(-10%)' }}></FiChevronsRight>
                         </a>
                     </Grid>
-                    {props.posts.map((post, key) => (
+                    {props.articles.map((article, key) => (
                         <Grid key={key} md={6} sm={12}>
-                            <QuestionComponent post={post}></QuestionComponent>
+                            <QuestionComponent post={props.posts[key]} article={article}></QuestionComponent>
                         </Grid>
                     ))}
                 </Grid>
