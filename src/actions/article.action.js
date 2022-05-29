@@ -28,7 +28,9 @@ export const articleActions = {
     hideReplyComment,
     showReplyComment,
     editBigComment,
-    editReplyComment
+    editReplyComment,
+    openShowUserModal,
+    closeShowUserModal
 }
 
 function getAllArticle(){
@@ -641,6 +643,26 @@ function editReplyComment(data) {
         }
         function failure(error) {
             return { type: articleConstants.EDIT_REPLY_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+function openShowUserModal() {
+    return (dispatch) => {
+        dispatch(request())
+        
+        function request() {
+            return { type: articleConstants.OPEN_MODAL_SHOW_USER};
+        }
+    }
+}
+
+function closeShowUserModal() {
+    return (dispatch) => {
+        dispatch(request())
+        
+        function request() {
+            return { type: articleConstants.CLOSE_MODAL_SHOW_USER};
         }
     }
 }

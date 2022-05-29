@@ -4,6 +4,7 @@ import './scss/Question.scss';
 import Post from './components/Post.js';
 import { articleActions } from '../../../actions/article.action';
 import AddPostSection from './components/AddPostSection';
+import ShowUserModal from './components/ShowUserModal';
 // import { appActions } from "../../../actions";
 
 const refineComments = (comments, postID, parrentComment) => {
@@ -135,9 +136,29 @@ const Question = () => {
         console.log({ state });
     })
 
+    const isShowUserModal = useSelector((state) => {
+        return state.article.isShowModalUser;
+    }) || false;
+
     return (    
         <div className="question-page-container">
+            {
+                isShowUserModal 
+                    ? <ShowUserModal/>
+                    : (null)
+            }
             <div className="question-container">
+                <button
+                    onClick={() => {
+                        if(!isShowUserModal)
+                            dispatch(articleActions.openShowUserModal());
+                        else 
+                            dispatch(articleActions.closeShowUserModal());
+                    }}
+                >
+                    Control Modal
+                </button>
+                
                 <div className="add-post-section">
                     {
                         userInfo ?
@@ -194,6 +215,9 @@ const Question = () => {
             >
                 Click me
             </span> */}
+
+            {/* Đây là modal hiển thị danh sách user đã like */}
+            
         </div>
     )
 }

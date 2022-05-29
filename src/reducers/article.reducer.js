@@ -12,7 +12,9 @@ const initialState = {
     },
     bigComment:{
         imgLink: "",
-    }
+    },
+    isShowModalUser: false,
+
 };
    
 export function article(state = initialState, action) {
@@ -763,6 +765,19 @@ export function article(state = initialState, action) {
             }
         }
 
+        case articleConstants.OPEN_MODAL_SHOW_USER: {
+            return {
+                ...state,
+                isShowModalUser: true,
+            }
+        }
+
+        case articleConstants.CLOSE_MODAL_SHOW_USER: {
+            return {
+                ...state,
+                isShowModalUser: false,
+            }
+        }
         default:
             
             return state;
