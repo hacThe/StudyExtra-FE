@@ -165,6 +165,6 @@ function getPostInteractionList(data) {
 
 function getCommentInteractionList(data) {
     return handleResponse(
-        ajaxHelper.post(config.URL_ARTICLE + '/interaction-list', data, {})
+        ajaxHelper.post(config.URL_ARTICLE + '/comment/interaction-list', data, {})
     );
 }
