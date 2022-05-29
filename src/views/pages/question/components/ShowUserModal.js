@@ -45,7 +45,7 @@ const ShowUserModal = () => {
                 <div className='divider'></div>
                 <div className='show-user-list'>
                     {
-                        userList.map((val, index)=>{
+                        userList.length != 0 ? userList.map((val, index)=>{
                             return (
                                 <div className="user-row">
                                     <img 
@@ -58,6 +58,10 @@ const ShowUserModal = () => {
                                 </div>
                             )
                         })
+                        :
+                        <div className='no-user'>
+                            Chưa có người dùng nào thích nội dung
+                        </div>
                     }
                 </div>
 

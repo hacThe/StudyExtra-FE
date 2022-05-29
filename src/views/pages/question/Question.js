@@ -148,7 +148,7 @@ const Question = () => {
                     : (null)
             }
             <div className="question-container">
-                <button
+                {/* <button
                     onClick={() => {
                         if(!isShowUserModal)
                             dispatch(articleActions.openShowUserModal());
@@ -157,7 +157,7 @@ const Question = () => {
                     }}
                 >
                     Control Modal
-                </button>
+                </button> */}
                 
                 <div className="add-post-section">
                     {

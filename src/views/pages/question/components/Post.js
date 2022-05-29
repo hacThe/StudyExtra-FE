@@ -200,9 +200,9 @@ const Post = ({post}) => {
                                             >
                                                 Xoá
                                             </div>
-                                            <div className="modal-item">
+                                            {/* <div className="modal-item">
                                                 Ẩn
-                                            </div>
+                                            </div> */}
                                         </div>
                                     }
                                 </div>
