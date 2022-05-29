@@ -9,8 +9,7 @@ const ShowUserModal = () => {
     const userList = useSelector((state)=>{
         return state.article.userList;
     })
-
-
+    
     return (
         <div
             className='overlay-modal'

@@ -301,6 +301,17 @@ const CommentItem = ({comment}) => {
         setEditImageLink('');
     }
 
+    const showInteractComment = () => {
+        dispatch(articleActions.openShowUserModal());
+        var dataToSend = {
+            postID: comment.postID,
+            commentID: comment.commentID,
+            parrentComment: comment.parrentComment
+        }
+        // console.log("dataToSend", dataToSend);
+        dispatch(articleActions.getCommentInteractionList(dataToSend)) 
+    }
+
     return (
         <>
         {
@@ -324,7 +335,12 @@ const CommentItem = ({comment}) => {
                                 </div>
                                 {
                                     comment.reactions && comment.reactions.length!=0 ?
-                                        <div className="comment-interaction">
+                                        <div 
+                                            className="comment-interaction"
+                                            onClick={()=> {
+                                                showInteractComment();
+                                            }}
+                                        >
                                             <AiFillLike  size={20} className='interact-icon'/>
                                             <p className='like-count'>{comment.reactions.length}</p>
                                         </div>

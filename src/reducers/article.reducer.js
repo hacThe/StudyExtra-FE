@@ -809,6 +809,36 @@ export function article(state = initialState, action) {
             }
         }
 
+        case articleConstants.GET_COMMENT_INTERACTION_LIST_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.GET_COMMENT_INTERACTION_LIST_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.GET_COMMENT_INTERACTION_LIST_SUCCESS: {
+            {
+                var userList = action.userList.result;
+                return {
+                    ...state,
+                    isLoading: false,
+                    userList: userList,
+                };
+            }
+        }
+
         default:
             
             return state;

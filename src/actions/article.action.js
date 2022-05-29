@@ -31,7 +31,8 @@ export const articleActions = {
     editReplyComment,
     openShowUserModal,
     closeShowUserModal,
-    getPostInteractionList
+    getPostInteractionList,
+    getCommentInteractionList
 }
 
 function getAllArticle(){
@@ -689,6 +690,31 @@ function getPostInteractionList(data) {
         }
         function failure(error) {
             return { type: articleConstants.GET_POST_INTERACTION_LIST_FAILURE, error };
+        }
+    }
+}
+
+function getCommentInteractionList(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.getCommentInteractionList(data).then(
+            (userList)=>{
+                dispatch(success(userList))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.GET_COMMENT_INTERACTION_LIST_REQUEST };
+        }
+        function success(userList ) {
+            return {type: articleConstants.GET_COMMENT_INTERACTION_LIST_SUCCESS, userList };
+        }
+        function failure(error) {
+            return { type: articleConstants.GET_COMMENT_INTERACTION_LIST_FAILURE, error };
         }
     }
 }

@@ -25,7 +25,8 @@ export const articleService = {
     showReplyComment,
     editBigComment,
     editReplyComment,
-    getPostInteractionList
+    getPostInteractionList,
+    getCommentInteractionList
 };
 
 function getAllArticle() {
@@ -157,6 +158,12 @@ function editReplyComment(data) {
 }
 
 function getPostInteractionList(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_ARTICLE + '/interaction-list', data, {})
+    );
+}
+
+function getCommentInteractionList(data) {
     return handleResponse(
         ajaxHelper.post(config.URL_ARTICLE + '/interaction-list', data, {})
     );
