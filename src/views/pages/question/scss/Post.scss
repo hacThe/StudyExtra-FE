@@ -165,6 +165,10 @@
                 font-weight: 600;
                 line-height: 2.4rem;
                 color: #6E6E6E;
+                &:hover{
+                    cursor: pointer;
+                    opacity: 0.7;
+                }
             } 
         }
     }

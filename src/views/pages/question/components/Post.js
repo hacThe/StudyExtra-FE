@@ -141,6 +141,13 @@ const Post = ({post}) => {
     
     // console.log("userInfo", userInfo);
 
+
+    const showInteractionUserList = () => {
+        dispatch(articleActions.openShowUserModal());
+        dispatch(articleActions.getPostInteractionList({
+            postID: post._id
+        }))
+    }
     return (
         
         <div className="question-body">
@@ -258,7 +265,12 @@ const Post = ({post}) => {
                                     }
                                     
                                 </div>
-                                <p className="amount">
+                                <p 
+                                    className="amount"
+                                    onClick={()=>{
+                                        showInteractionUserList();
+                                    }}
+                                >
                                     {post.reactions.length}
                                 </p>
                             </div>

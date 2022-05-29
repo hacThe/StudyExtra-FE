@@ -381,7 +381,7 @@ const CommentItem = ({comment}) => {
                                                         onClick={()=>{
                                                             // console.log("comment", comment);
                                                             // // 
-                                                            if(comment.parrentComment.length==0){
+                                                            if(comment.parrentC.lengthomment.length==0){
                                                                 deleteComment();
                                                             }
                                                             else deleteReplyComment();

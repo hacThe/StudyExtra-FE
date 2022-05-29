@@ -12,8 +12,8 @@
         height: 100%;
     }
     .show-user-container{
-        position: absolute;
-        top: 18rem;
+        position: fixed;
+        top: 22rem;
         left: calc(50% - 20rem);
         width: 40rem;
         background-color: #fff;

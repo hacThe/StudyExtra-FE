@@ -14,7 +14,7 @@ const initialState = {
         imgLink: "",
     },
     isShowModalUser: false,
-
+    userList: [],
 };
    
 export function article(state = initialState, action) {
@@ -778,6 +778,37 @@ export function article(state = initialState, action) {
                 isShowModalUser: false,
             }
         }
+
+        case articleConstants.GET_POST_INTERACTION_LIST_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.GET_POST_INTERACTION_LIST_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.GET_POST_INTERACTION_LIST_SUCCESS: {
+            {
+                var userList = action.userList.result;
+                return {
+                    ...state,
+                    isLoading: false,
+                    userList: userList,
+                };
+            }
+        }
+
         default:
             
             return state;

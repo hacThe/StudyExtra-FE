@@ -6,16 +6,10 @@ import '../scss/ShowUserModal.scss';
 const ShowUserModal = () => {
     const dispatch = useDispatch();
 
-    const userList = [
-        {
-            avatar: "https://i.pinimg.com/564x/d2/9b/57/d29b571273fb1a88a8b65d1d4b868e26.jpg",
-            name: "Nguyễn Công Phi",
-        },
-        {
-            avatar: "https://i.pinimg.com/564x/d2/9b/57/d29b571273fb1a88a8b65d1d4b868e26.jpg",
-            name: "Nguyễn Công Phi",
-        },
-    ]
+    const userList = useSelector((state)=>{
+        return state.article.userList;
+    })
+
 
     return (
         <div
@@ -36,7 +30,7 @@ const ShowUserModal = () => {
                     className="show-user-heading"
                 >
                     <p className="title">
-                        Người dùng đã thích bài viết
+                        Người dùng đã thích
                     </p>
                     
                     <p className='like-count'>
@@ -45,7 +39,7 @@ const ShowUserModal = () => {
                             size={20}
                         />    
                         <p className='like-concrete'>
-                            3
+                            {userList.length}
                         </p>
                     </p>
                 </div>
