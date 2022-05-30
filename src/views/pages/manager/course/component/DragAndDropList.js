@@ -41,22 +41,24 @@ const getListStyle = (isDraggingOver) => ({
 class DragAndDropList extends Component {
   constructor(props) {
     super(props);
-    console.log({props}, "props nè")
+    console.log({ props }, "props nè");
     this.state = {
       items: props.items,
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
-
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps === this.props) return
-    this.setState(
-      {items: this.props.items}
-    )
+    if (prevProps === this.props) return;
+    this.setState({ items: this.props.items });
   }
 
-  
+  deleteTile(index) {
+    const res = Array.from(this.state.items);
+    res.splice(index, 1);
+    this.setState({ items: res });
+    this.props.setValues(res);
+  }
 
   onDragEnd(result) {
     // dropped outside the list
@@ -74,7 +76,7 @@ class DragAndDropList extends Component {
       items,
     });
 
-    this.props.setValues([...items])
+    this.props.setValues([...items]);
   }
 
   // Normally you would want to split things out into separate components.
@@ -105,10 +107,15 @@ class DragAndDropList extends Component {
                       <div className="justify-content-between">
                         {` ${index + 1}. ${item}`}
                         <div className="align-center">
-                          <div className="action-wrapper">
+                          {/* <div className="action-wrapper">
                             <AiOutlineEdit />
-                          </div>
-                          <div className="action-wrapper">
+                          </div> */}
+                          <div
+                            onClick={() => {
+                              this.deleteTile(index);
+                            }}
+                            className="action-wrapper"
+                          >
                             <AiOutlineDelete />
                           </div>
                         </div>
