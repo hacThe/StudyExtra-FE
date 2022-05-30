@@ -12,7 +12,9 @@ const initialState = {
     },
     bigComment:{
         imgLink: "",
-    }
+    },
+    isShowModalUser: false,
+    userList: [],
 };
    
 export function article(state = initialState, action) {
@@ -90,14 +92,15 @@ export function article(state = initialState, action) {
             };
         }
         case articleConstants.ADD_ARTICLE_SUCCESS:{
-            console.log("action",action);
+            var newArticles = action.articles.data;
             return {
                 ...state,
-                articles:[
-                    ...state.articles,
-                    action.article.data,
-                ]
-            }
+                isLoading: false,
+                articles: newArticles,
+                currentArticle:{
+                    imgLink: [],
+                },
+            };
         }
 
         case articleConstants.DELETE_ARTICLE_REQUEST:{
@@ -217,12 +220,12 @@ export function article(state = initialState, action) {
             };
         }
         case articleConstants.EDIT_ARTICLE_SUCCESS:{
+            var newArticles = action.articles.data;
             return {
                 ...state,
-                articles:[
-                    ...article,
-                ]
-            }
+                isLoading: false,
+                articles: newArticles,
+            };
         }
 
         case articleConstants.UPLOAD_BIG_COMMENT_IMAGE_REQUEST: {
@@ -448,6 +451,390 @@ export function article(state = initialState, action) {
                     ...state,
                     isLoading: false,
                     articles: newArticles,
+                };
+            }
+        }
+
+        case articleConstants.LIKE_BIG_COMMENT_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.LIKE_BIG_COMMENT_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.LIKE_BIG_COMMENT_SUCCESS: {
+            {
+                // console.log("action", action);
+                var newArticles = action.articles.data;
+                return {
+                    ...state,
+                    isLoading: false,
+                    articles: newArticles,
+                };
+            }
+        }
+
+        case articleConstants.UNLIKE_BIG_COMMENT_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.UNLIKE_BIG_COMMENT_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.UNLIKE_BIG_COMMENT_SUCCESS: {
+            {
+                // console.log("action", action);
+                var newArticles = action.articles.data;
+                return {
+                    ...state,
+                    isLoading: false,
+                    articles: newArticles,
+                };
+            }
+        }
+
+        case articleConstants.ADD_REPLY_COMMENT_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.ADD_REPLY_COMMENT_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.ADD_REPLY_COMMENT_SUCCESS: {
+            {
+                // console.log("action", action);
+                var newArticles = action.articles.data;
+                return {
+                    ...state,
+                    isLoading: false,
+                    articles: newArticles,
+                };
+            }
+        }
+
+
+        case articleConstants.DELETE_REPLY_COMMENT_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.DELETE_REPLY_COMMENT_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.DELETE_REPLY_COMMENT_SUCCESS: {
+            {
+                // console.log("action", action);
+                var newArticles = action.articles.data;
+                return {
+                    ...state,
+                    isLoading: false,
+                    articles: newArticles,
+                };
+            }
+        }
+
+        case articleConstants.LIKE_REPLY_COMMENT_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.LIKE_REPLY_COMMENT_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.LIKE_REPLY_COMMENT_SUCCESS: {
+            {
+                // console.log("action", action);
+                var newArticles = action.articles.data;
+                return {
+                    ...state,
+                    isLoading: false,
+                    articles: newArticles,
+                };
+            }
+        }
+
+        case articleConstants.UNLIKE_REPLY_COMMENT_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.UNLIKE_REPLY_COMMENT_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.UNLIKE_REPLY_COMMENT_SUCCESS: {
+            {
+                // console.log("action", action);
+                var newArticles = action.articles.data;
+                return {
+                    ...state,
+                    isLoading: false,
+                    articles: newArticles,
+                };
+            }
+        }
+        case articleConstants.HIDE_REPLY_COMMENT_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.HIDE_REPLY_COMMENT_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.HIDE_REPLY_COMMENT_SUCCESS: {
+            {
+                // console.log("action", action);
+                var newArticles = action.articles.data;
+                return {
+                    ...state,
+                    isLoading: false,
+                    articles: newArticles,
+                };
+            }
+        }
+
+        case articleConstants.SHOW_REPLY_COMMENT_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.SHOW_REPLY_COMMENT_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.SHOW_REPLY_COMMENT_SUCCESS: {
+            {
+                // console.log("action", action);
+                var newArticles = action.articles.data;
+                return {
+                    ...state,
+                    isLoading: false,
+                    articles: newArticles,
+                };
+            }
+        }
+
+        case articleConstants.EDIT_BIG_COMMENT_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.EDIT_BIG_COMMENT_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.EDIT_BIG_COMMENT_SUCCESS: {
+            {
+                // console.log("action", action);
+                var newArticles = action.articles.data;
+                return {
+                    ...state,
+                    isLoading: false,
+                    articles: newArticles,
+                };
+            }
+        }
+
+        case articleConstants.EDIT_REPLY_COMMENT_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.EDIT_REPLY_COMMENT_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.EDIT_REPLY_COMMENT_SUCCESS: {
+            {
+                // console.log("action", action);
+                var newArticles = action.articles.data;
+                return {
+                    ...state,
+                    isLoading: false,
+                    articles: newArticles,
+                };
+            }
+        }
+
+        case articleConstants.OPEN_MODAL_SHOW_USER: {
+            return {
+                ...state,
+                isShowModalUser: true,
+            }
+        }
+
+        case articleConstants.CLOSE_MODAL_SHOW_USER: {
+            return {
+                ...state,
+                isShowModalUser: false,
+            }
+        }
+
+        case articleConstants.GET_POST_INTERACTION_LIST_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.GET_POST_INTERACTION_LIST_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.GET_POST_INTERACTION_LIST_SUCCESS: {
+            {
+                var userList = action.userList.result;
+                return {
+                    ...state,
+                    isLoading: false,
+                    userList: userList,
+                };
+            }
+        }
+
+        case articleConstants.GET_COMMENT_INTERACTION_LIST_REQUEST: {
+            {
+                return {
+                    ...state,
+                    isLoading: true,
+                };
+            }
+        }
+
+        case articleConstants.GET_COMMENT_INTERACTION_LIST_FAILURE: {
+            {
+                return {
+                    ...state,
+                    isLoading: false,
+                    error: action.error
+                };
+            }
+        }
+
+        case articleConstants.GET_COMMENT_INTERACTION_LIST_SUCCESS: {
+            {
+                var userList = action.userList.result;
+                return {
+                    ...state,
+                    isLoading: false,
+                    userList: userList,
                 };
             }
         }

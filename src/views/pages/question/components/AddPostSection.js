@@ -1,11 +1,11 @@
-import React , {useEffect, useRef, useState } from 'react';
+import React , {useEffect, useRef, useState, useImperativeHandle, forwardRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { articleActions } from '../../../../actions/article.action';
 
 import '../scss/AddPostSection.scss';
-const AddPostSection = () => {
+const AddPostSection = forwardRef((props, ref) => {
     const dispatch = useDispatch();
-
+    
 
     
     const uploadPicture = async(e) => {
@@ -39,7 +39,7 @@ const AddPostSection = () => {
         return state.article.currentArticle.imgLink;
     })
 
-    const userInfo = useSelector(state => state.authentication.user);
+    const userInfo = useSelector((state) => state.user.currentUser);
     console.log("userInfo", userInfo);
 
 
@@ -51,8 +51,10 @@ const AddPostSection = () => {
             comments: [],
         }
         dispatch(articleActions.addNewArticle(data));
-        console.log("dataToAdd",data);
-        window.location.reload();
+        pageRef.postContent.current.value="";
+        // console.log("props", props);
+        // console.log("ref", ref) 
+        ref.current.closeAddPost();  
     }
 
     return (
@@ -162,6 +164,6 @@ const AddPostSection = () => {
             </div>
         </div>
     )
-}
+})
 
 export default AddPostSection

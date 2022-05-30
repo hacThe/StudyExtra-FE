@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from 'react'
+import React , {useState, useEffect, useRef} from 'react'
 import '../scss/CommentItem.scss';
 import { useDispatch, useSelector } from "react-redux";
 import { BsTriangleFill } from "react-icons/bs";
@@ -9,6 +9,8 @@ import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
 import Consts from '../ConstKey.js';
 import { articleActions } from '../../../../actions/article.action';
 import { AiFillLike } from "react-icons/ai";
+import AjaxHelper from '../../../../services/api';
+import config from '../../../../services/api/config';
 
 const CommentItem = ({comment}) => {
     const dispatch = useDispatch();
@@ -16,11 +18,8 @@ const CommentItem = ({comment}) => {
     const changeReplyDisplay = () => {
         setReplyDisplay(!replyDisplay);
     } 
+    
 
-    const [isLiked, setIsLiked] = useState(false);
-    const changeLiked = () => {
-        setIsLiked(!isLiked);
-    } 
 
     const [userReplyDisplay, setUserReplyDisplay] = useState(false);
     const changeUserReplyDisplay = () => {
@@ -35,7 +34,7 @@ const CommentItem = ({comment}) => {
                 setPressedKeys(previousPressedKeys => [...previousPressedKeys, key]);
                 const currentActive = document.activeElement;
                 if(currentActive.classList.contains('comment-box')){
-                    console.log("Thêm comment vào cái list");
+                    // console.log("Thêm comment vào cái list");
                     // Viết hàm thêm, tác động redux là ok
                 }
             }
@@ -54,8 +53,9 @@ const CommentItem = ({comment}) => {
             document.removeEventListener('keydown', onKeyDown);
             document.removeEventListener('keyup', onKeyUp);
         }
-    }, []);   
-    const userInfo = useSelector(state => state.authentication.user);
+    }, []);
+
+    const userInfo = useSelector((state) => state.user.currentUser);
 
     const deleteComment = () => {
         var data = {
@@ -93,8 +93,6 @@ const CommentItem = ({comment}) => {
 
     }
 
-    console.log("comment", comment)
-
     const calculateTime = (timeString) => {
         // console.log("timeString", timeString);
         const postTime = new Date(timeString);
@@ -120,96 +118,457 @@ const CommentItem = ({comment}) => {
         }
     }
 
+
+    // Like bigcomment
+    const likeBigComment = () => {
+        var data = {
+            postID: comment.postID,
+            commentID: comment.commentID,
+            userID: userInfo._id,
+        }
+        // console.log("data to like", data)''
+        dispatch(articleActions.likeBigComment(data));
+    }
+
+    // unlike bigcomment
+    const unlikeBigComment = () => {
+        var data = {
+            postID: comment.postID,
+            commentID: comment.commentID,
+            userID: userInfo._id,
+        }
+        console.log("data to unlike", data);
+        dispatch(articleActions.unlikeBigComment(data));
+    }
+
+    // reply comment
+    var commentItem = {
+        replyText: useRef(null)
+    }
+
+
+    const sendReplyComment = () => {
+        // console.log("Comment input",commentItem.replyText.current.value);
+        console.log("comment", comment);
+        var dataToSend = {
+            postID: comment.postID,
+            userID: userInfo._id,
+            parrentComment: [...comment.parrentComment, comment.commentID],
+            content: commentItem.replyText.current.value,
+            userTagID: "",
+            imgUrl: replyCommentLink,
+            type: "1",
+            replyComment: [],
+            time: new Date(),
+        }
+        console.log("data to send", dataToSend);
+        dispatch(articleActions.addReplyComment(dataToSend));
+        // reset cái nội dung hiện tại
+        commentItem.replyText.current.value = "";
+        changeUserReplyDisplay();
+        setReplyCommentLink('');
+    }
+    const [replyCommentLink, setReplyCommentLink] = useState('');
+
+    const [currentCommnentImg, setCurrentCommnentImg] = useState(''); 
+
+    const uploadPicture = async(e) => {
+        const formData = new FormData();
+        formData.append("file", e.target.files[0])
+        formData.append("upload_preset", "phiroud");
+        const sleep = ms => new Promise(res => setTimeout(res, ms));
+        await sleep(1000);
+        const data = await AjaxHelper.post(config.URL_ARTICLE_PICTURE, formData, {});
+        // console.log(data.data.url);
+        setReplyCommentLink(data.data.url)
+        // dispatch(articleActions.uploadBigCommentArticlePicture(formData));
+    }
+
+    // Delete reply comment
+    const deleteReplyComment = () => {
+        var dataToDeleteReply = {
+            postID: comment.postID,
+            parrentComment: comment.parrentComment,
+            commentID: comment.commentID
+        }
+        console.log("dataToDeleteReply", dataToDeleteReply);
+        dispatch(articleActions.deleteReplyComment(dataToDeleteReply));
+        setIsOpenManageModal(false);
+    }
+
+    // Like reply comment
+    const likeReplyComment = () => {
+        console.log("comment", comment);
+        const dataToLikeReply = {
+            postID: comment.postID,
+            parrentComment: comment.parrentComment,
+            commentID: comment.commentID,
+            userID: userInfo._id,
+        }
+        console.log("dataToLikeReply", dataToLikeReply);
+        dispatch(articleActions.likeReplyComment(dataToLikeReply));
+    }
+
+    const unlikeReplyComment = () => {
+        console.log("comment", comment);
+        const dataToUnLikeReply = {
+            postID: comment.postID,
+            parrentComment: comment.parrentComment,
+            commentID: comment.commentID,
+            userID: userInfo._id,
+        }
+        console.log("dataToUnLikeReply", dataToUnLikeReply);
+        // dispatch(articleActions.likeReplyComment(dataToUnLikeReply));
+        dispatch(articleActions.unlikeReplyComment(dataToUnLikeReply));
+    }
+
+    const hideReplyComment = () => {
+        // console.log("comment", comment);
+        const dataToHideReply = {
+            postID: comment.postID,
+            parrentComment: comment.parrentComment,
+            commentID: comment.commentID,
+            userID: userInfo._id,
+        }
+        // console.log("dataToHideReply", dataToHideReply);
+        dispatch(articleActions.hideReplyComment(dataToHideReply));
+        setIsOpenManageModal(!isOpenManageModal);   
+
+    }
+
+    const showReplyComment = () => {
+        // console.log("comment", comment);
+        const dataToShowReply = {
+            postID: comment.postID,
+            parrentComment: comment.parrentComment,
+            commentID: comment.commentID,
+            userID: userInfo._id,
+        }
+        // console.log("dataToHideReply", dataToHideReply);
+        dispatch(articleActions.showReplyComment(dataToShowReply));
+        setIsOpenManageModal(!isOpenManageModal);   
+
+    }
+
+    // Phần của chỉnh sửa post
+    const [isEditting, setEditting] = useState(false);
+    const editRef = useRef(null);
+
+    const [currentEditImage, setCurrentEditImage] = useState("");
+    const [editImageLink, setEditImageLink] = useState("");
+
+    const uploadEditPicture = async(e) => {
+        const formData = new FormData();
+        formData.append("file", e.target.files[0])
+        formData.append("upload_preset", "phiroud");
+        const sleep = ms => new Promise(res => setTimeout(res, ms));
+        await sleep(1000);
+        const data = await AjaxHelper.post(config.URL_ARTICLE_PICTURE, formData, {});
+        // console.log(data.data.url);
+        setEditImageLink(data.data.url);
+    }
+
+
+    const editBigComment = () => {
+        var dataToEdit = {
+            content: editRef.current.value,
+            imgUrl: editImageLink,
+            commentID: comment.commentID,
+            postID: comment.postID,
+        }
+        console.log("dataToEdit", dataToEdit);
+        dispatch(articleActions.editBigComment(dataToEdit));
+        // Reset lại dữ liệu sau khi sửa
+        setEditting(!isEditting);
+        editRef.current.value='';
+        setEditImageLink('');
+    }
+
+
+    const editReplyComment = () => {
+        var dataToEditReply = {
+            content: editRef.current.value,
+            imgUrl: editImageLink,
+            commentID: comment.commentID,
+            postID: comment.postID,
+            parrentComment: comment.parrentComment
+        }
+        // console.log("dataToEditReply", dataToEditReply);
+        dispatch(articleActions.editReplyComment(dataToEditReply));
+        // Reset lại dữ liệu sau khi sửa
+        setEditting(!isEditting);
+        editRef.current.value='';
+        setEditImageLink('');
+    }
+
+    const showInteractComment = () => {
+        dispatch(articleActions.openShowUserModal());
+        var dataToSend = {
+            postID: comment.postID,
+            commentID: comment.commentID,
+            parrentComment: comment.parrentComment
+        }
+        // console.log("dataToSend", dataToSend);
+        dispatch(articleActions.getCommentInteractionList(dataToSend)) 
+    }
+
     return (
         <>
         {
             (comment.isHidden && 
                 (!userInfo||userInfo._id != comment.userID)) ?(null):
             <div className="comment-item">
-                <div className="comment-heading">
-                    <img 
-                        className= {comment.isHidden ? "user-avatar gray-scale" : "user-avatar"}
-                        src={comment.userAvatar}
-                    ></img>
-                    <div 
-                        className= {comment.isHidden ? "comment-container gray-scale" : "comment-container"}
-                    >
-                        <p className="user-name">{comment.name}</p>
-                        <div className="comment-content">
-                            {comment.content}
-                        </div>
-                        {
-                            comment.reactions && comment.reactions.length!=0 ?
-                                <div className="comment-interaction">
-                                    <AiFillLike  size={20} className='interact-icon'/>
-                                    <p className='like-count'>{comment.reactions.length}</p>
+                {
+                    !isEditting   
+                    ?   // Hiển thị comment bình thường 
+                        <div className="comment-heading">
+                            <img 
+                                className= {comment.isHidden ? "user-avatar gray-scale" : "user-avatar"}
+                                src={comment.userAvatar}
+                            ></img>
+                            <div 
+                                className= {comment.isHidden ? "comment-container gray-scale" : "comment-container"}
+                            >
+                                <p className="user-name">{comment.name}</p>
+                                <div className="comment-content">
+                                    {comment.content}
                                 </div>
-                            : (null)
-                        }
-                        
-                    </div>
-                    {
-                        (!userInfo||userInfo._id != comment.userID) ? (null) : 
-                            <div className="comment-manage">
-                                <HiDotsHorizontal 
-                                    size={14}
-                                    className="open-modal"
-                                    onClick={()=>{
-                                        console.log("ACV");
-                                        setIsOpenManageModal(!isOpenManageModal);   
-                                    }}
-                                /> 
                                 {
-                                    !isOpenManageModal ? (null) : 
-                                        <div className="comment-modal">
-                                            {
-                                                !comment.isHidden ?
-                                                <div 
-                                                    className="modal-item"
-                                                    onClick={()=>hideThisComment()}
-                                                >
-                                                    Ẩn    
-                                                </div>
-                                                : 
-                                                <div 
-                                                    className="modal-item"
-                                                    onClick={()=>showThisComment()}
-                                                >
-                                                    Hiện   
-                                                </div>
-                                            }
-                                            
-                                            <div 
-                                                className="modal-item"
-                                                onClick={()=>{
-                                                    // Check cấp độ hiện tại của cái cmt này trước, 
-                                                    // sẽ thêm vào cái hàm refine comment
-                                                    // console.log("comment", comment);
-                                                    deleteComment();
-                                                }}
-                                            >
-                                                Xoá
-                                            </div>
-                                            <div className="modal-item">
-                                                Báo cáo
-                                            </div>
-                                            <div className="modal-item">
-                                                Chỉnh sửa
-                                            </div>
-                                        </div> 
+                                    comment.reactions && comment.reactions.length!=0 ?
+                                        <div 
+                                            className="comment-interaction"
+                                            onClick={()=> {
+                                                showInteractComment();
+                                            }}
+                                        >
+                                            <AiFillLike  size={20} className='interact-icon'/>
+                                            <p className='like-count'>{comment.reactions.length}</p>
+                                        </div>
+                                    : (null)
                                 }
                                 
                             </div>
-                    }
-                </div>
+                            {
+                                (!userInfo||userInfo._id != comment.userID) ? (null) : 
+                                    <div className="comment-manage">
+                                        <HiDotsHorizontal 
+                                            size={14}
+                                            className="open-modal"
+                                            onClick={()=>{
+                                                // console.log("ACV");
+                                                setIsOpenManageModal(!isOpenManageModal);   
+                                            }}
+                                        /> 
+                                        {
+                                            !isOpenManageModal ? (null) : 
+                                                <div className="comment-modal">
+                                                    {
+                                                        !comment.isHidden ?
+                                                        <div 
+                                                            className="modal-item"
+                                                            onClick={()=>{
+                                                                if(comment.parrentComment.length==0){
+                                                                    hideThisComment();
+                                                                }
+                                                                else {
+                                                                    hideReplyComment();
+                                                                }
+                                                            }}
+                                                        >
+                                                            Ẩn    
+                                                        </div>
+                                                        : 
+                                                        <div 
+                                                            className="modal-item"
+                                                            onClick={()=>{
+                                                                if(comment.parrentComment.length==0){
+                                                                    showThisComment();
+                                                                }
+                                                                else {
+                                                                    showReplyComment();
+                                                                }
+                                                            }}
+                                                        >
+                                                            Hiện   
+                                                        </div>
+                                                    }
+                                                    <div 
+                                                        className="modal-item"
+                                                        onClick={()=>{
+                                                            // console.log("comment", comment);
+                                                            // // 
+                                                            if(comment.parrentC.lengthomment.length==0){
+                                                                deleteComment();
+                                                            }
+                                                            else deleteReplyComment();
+                                                            
+                                                        }}
+                                                    >
+                                                        Xoá
+                                                    </div>
+                                                    <div className="modal-item">
+                                                        Báo cáo
+                                                    </div>
+                                                    <div 
+                                                        className="modal-item"
+                                                        onClick = {() => {  
+                                                            setEditting(!isEditting);
+                                                            setIsOpenManageModal(false);
+                                                            setEditImageLink(comment.imgUrl)
+                                                        }}
+                                                    >
+                                                        Chỉnh sửa
+                                                    </div>
+                                                </div> 
+                                        }
+                                        
+                                    </div>
+                            }
+                        </div>
+                    :   
+                        // Đây là phần chỉnh sửa comment
+                        <div className="comment-editting">
+                            <div className='comment-editting-heading'>
+                                <img 
+                                    src={userInfo.avatar}
+                                    className='current-user-avatar'
+                                ></img>
+
+                                <input 
+                                    type="text" 
+                                    className="comment-box"
+                                    ref={editRef}
+                                    defaultValue={comment.content}
+                                >
+                                </input>
+
+                                <label
+                                    className="add-img-label"
+                                    for="editting-image-input"
+                                >
+                                    <IoImageOutline size={28} className='add-image-icon'/>
+                                </label>
+
+                                <button
+                                    className="button-edit-cancel"
+                                    onClick={() => {
+                                       setEditting(!isEditting);
+                                       editRef.current.value='';
+                                       setEditImageLink('');
+                                    }}
+                                >
+                                    Huỷ
+                                </button>
+                                <button
+                                    className="button-edit-confirm"
+                                    onClick={() => {
+                                        if(comment.parrentComment.length==0){
+                                            editBigComment();
+                                        }
+                                        else {
+                                            editReplyComment();
+                                        }
+                                    }}
+                                >
+                                    Lưu
+                                </button>
+                            </div>
+
+                            <div className='big-comment-image'>
+                                <input
+                                    className='big-comment-image-add-hidden'
+                                    type='file'
+                                    id='editting-image-input'
+                                    // ref={pageRef.postImageRef}
+                                    onChange={ async(e) => {
+                                        setEditImageLink("");
+                                        var tgt = e.target || window.event.srcElement;
+                                        var files = tgt.files;
+                                        // console.log("files", files);
+                                        // FileReader support
+                                        if (FileReader && files && files.length) {
+                                            var fr = new FileReader();
+                                            const sleep = ms => new Promise(res => setTimeout(res, ms));
+                                            fr.onload = async() => {
+                                                setCurrentEditImage(fr.result);
+                                                await sleep(2000);
+                                                setCurrentEditImage("");
+                                            }
+                                            fr.readAsDataURL(files[0]);
+                                            uploadEditPicture(e);
+                                        }
+                                    }}
+                                />
+                                {
+                                    currentEditImage!="" 
+                                    ?
+                                        <div className="big-comment-img-display-temp-container">
+                                            <img 
+                                                src={currentEditImage}
+                                                className="big-comment-img-display-temp">  
+                                            </img>
+                                        </div>
+                                    : (null)
+                                }   
+                                {
+                                    editImageLink=="" ? (null) :
+                                    <div className='comment-link-container'>
+                                        <img 
+                                            src={editImageLink}
+                                            className="big-comment-img-display">  
+                                        </img>
+                                        <div
+                                            className='delete-reply-img-link'
+                                            onClick={()=> {
+                                                setEditImageLink("");
+                                            }}
+                                        >
+                                            Xoá ảnh
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>  
+                }
+                
                 
                 <div className="comment-interact">
-                    <p 
-                        className={isLiked ?"interact-item like active" : "interact-item like"}s
-                        onClick={(e) => changeLiked()}
-                    >
-                        Thích
-                    </p>
+                    {
+                        comment.reactions && comment.reactions.includes(userInfo._id) ? 
+                            <p 
+                                className="interact-item like active"
+                                onClick={
+                                    (e) => {
+                                        
+                                        if(comment.parrentComment.length==0){
+                                            unlikeBigComment();
+                                        }
+                                        else {
+                                            unlikeReplyComment();
+                                        }
+                                    }
+                                }
+                            >
+                                Bỏ thích
+                            </p>
+                        :
+                            <p 
+                                className="interact-item like"
+                                onClick={
+                                    (e) => { 
+                                        if(comment.parrentComment.length==0){
+                                            likeBigComment()
+                                        }
+                                        else {
+                                            likeReplyComment();
+                                        }
+                                    }
+                                }
+                            >
+                                Thích
+                            </p>
+                    }
+                    
                     <p 
                         className="interact-item rep" 
                         onClick = {(e) => changeUserReplyDisplay() }
@@ -219,11 +578,98 @@ const CommentItem = ({comment}) => {
                     <p className="interact-time">{calculateTime(comment.time)}</p>
                 </div>
                 {
-                    !comment.imgUrl ? (null) :
+                    isEditting || !comment.imgUrl ? (null) :
                     <img className="comment-image"
                         src={comment.imgUrl}
                     ></img>
                 }
+                {
+                    userReplyDisplay == false ? (null) :
+                    <div className="user-reply-comment">
+                        <div className='user-reply-heading'>
+                            <img 
+                                src={userInfo.avatar}
+                                className='current-user-avatar'
+                            ></img>
+                            <input 
+                                type="text" 
+                                className="comment-box"
+                                ref={commentItem.replyText}
+                            >
+                            </input>
+                            <label
+                                className="add-img-label"
+                                for="big-comment-image-input"
+                            >
+                                <IoImageOutline size={28} className='add-image-icon'/>
+                            </label>
+                            <IoSend 
+                                size={28} 
+                                className='send-comment'
+                                onClick={(e)=> {
+                                    sendReplyComment();
+                                }}
+                            ></IoSend>
+                        </div>
+                        <div className='big-comment-image'>
+                            <input
+                                className='big-comment-image-add-hidden'
+                                type='file'
+                                id='big-comment-image-input'
+                                // ref={pageRef.postImageRef}
+                                onChange={ async(e) => {
+                                    dispatch(articleActions.removeBigCommentPicture())  
+                                    var tgt = e.target || window.event.srcElement;
+                                    var files = tgt.files;
+                                    // console.log("files", files);
+                                    // FileReader support
+                                    if (FileReader && files && files.length) {
+                                        var fr = new FileReader();
+                                        const sleep = ms => new Promise(res => setTimeout(res, ms));
+                                        fr.onload = async() => {
+                                            // document.querySelector('.big-comment-img-display').src = fr.result;
+                                            // console.log("fr.result", fr.result);
+                                            // addTempImage(fr.result);
+                                            setCurrentCommnentImg(fr.result);
+                                            await sleep(2000);
+                                            setCurrentCommnentImg("");
+                                        }
+                                        fr.readAsDataURL(files[0]);
+                                        uploadPicture(e);
+                                    }
+                                }}
+                            />
+                            {
+                                currentCommnentImg!="" 
+                                ?
+                                    <div className="big-comment-img-display-temp-container">
+                                        <img 
+                                            src={currentCommnentImg}
+                                            className="big-comment-img-display-temp">  
+                                        </img>
+                                    </div>
+                                : (null)
+                            }   
+                            {
+                                replyCommentLink=="" ? (null) :
+                                <div className='comment-link-container'>
+                                    <img 
+                                        src={replyCommentLink}
+                                        className="big-comment-img-display">  
+                                    </img>
+                                    <div
+                                        className='delete-reply-img-link'
+                                        onClick={()=> {
+                                            setReplyCommentLink('');
+                                        }}
+                                    >
+                                        Xoá ảnh
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>  
+                } 
                 {
                     !comment.replyComment || comment.replyComment.length == 0 ? (null) : 
                     <div className='reply'>
@@ -259,24 +705,7 @@ const CommentItem = ({comment}) => {
                         }
                     </div>
                 }
-                {
-                    userReplyDisplay == false ? (null) :
-                    <div className="user-reply-comment">
-                        <img 
-                            src="https://i.pinimg.com/originals/33/c2/20/33c220ed89693515fb07aecd51a26eda.jpg"
-                            className='current-user-avatar'
-                        ></img>
-                        <input type="text" className="comment-box"></input>
-                        <IoImageOutline size={28} className='add-image-icon'/>
-                        <IoSend 
-                            size={28} 
-                            className='send-comment'
-                            onClick={(e)=> {
-                                console.log("e.target.parentNode", e.target.parentNode);
-                            }}
-                        ></IoSend>
-                    </div>   
-                } 
+                
             </div>
         }
         </>

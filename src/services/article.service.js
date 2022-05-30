@@ -15,6 +15,18 @@ export const articleService = {
     showBigCommentOfArticle,
     likeArticle,
     unLikeArticle,
+    likeBigComment,
+    unlikeBigComment,
+    addReplyComment,
+    deleteReplyComment,
+    likeReplyComment,
+    unlikeReplyComment,
+    hideReplyComment,
+    showReplyComment,
+    editBigComment,
+    editReplyComment,
+    getPostInteractionList,
+    getCommentInteractionList
 };
 
 function getAllArticle() {
@@ -80,5 +92,79 @@ function likeArticle(data) {
 function unLikeArticle(data) {
     return handleResponse(
         ajaxHelper.deleteFix(config.URL_ARTICLE + '/interaction', data, {})
+    );
+}
+
+function likeBigComment(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_ARTICLE + '/comment/interaction', data, {})
+    );
+}
+
+
+function unlikeBigComment(data) {
+    return handleResponse(
+        ajaxHelper.deleteFix(config.URL_ARTICLE + '/comment/interaction', data, {})
+    );
+}
+
+function addReplyComment(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_ARTICLE + '/comment/reply', data, {})
+    );
+}
+
+function deleteReplyComment(data) {
+    return handleResponse(
+        ajaxHelper.deleteFix(config.URL_ARTICLE + '/comment/reply', data, {})
+    );
+}
+
+function likeReplyComment(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_ARTICLE + '/comment/reply/interaction', data, {})
+    );
+}
+
+function unlikeReplyComment(data) {
+    return handleResponse(
+        ajaxHelper.deleteFix(config.URL_ARTICLE + '/comment/reply/interaction', data, {})
+    );
+}
+
+
+function hideReplyComment(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_ARTICLE + '/comment/reply/hide', data, {})
+    );
+}
+
+function showReplyComment(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_ARTICLE + '/comment/reply/show', data, {})
+    );
+}
+
+function editBigComment(data) {
+    return handleResponse(
+        ajaxHelper.put(config.URL_ARTICLE + '/comment', data, {})
+    );
+}
+
+function editReplyComment(data) {
+    return handleResponse(
+        ajaxHelper.put(config.URL_ARTICLE + '/comment/reply', data, {})
+    );
+}
+
+function getPostInteractionList(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_ARTICLE + '/interaction-list', data, {})
+    );
+}
+
+function getCommentInteractionList(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_ARTICLE + '/comment/interaction-list', data, {})
     );
 }
