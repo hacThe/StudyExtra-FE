@@ -60,12 +60,12 @@ function ManagerHeader(props) {
     setMobileMoreAnchorEl(null);
   };
 
+  const notifications = useSelector((state) => state.userNotifications.notifications) || [];
+
   useEffect(async () => {
     dispatch(userActions.getCurrentUser());
-    /*  if(typeof UserInfo !== "undefined")
-      dispatch(userActions.getUserNotifications()); */
+      dispatch(userActions.getUserNotifications()); 
   }, []);
-  const notifications = []; ///////////////
 
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
   const profileMenuId = "primary-search-account-menu";
@@ -147,7 +147,7 @@ function ManagerHeader(props) {
       onClose={handleNotificationMenuClose}
       className="notification-menu"
     >
-      {notifications.map((item, index) => (
+     {notifications.map((item, index) => (
         <MenuItem
           key={index}
           onClick={handleNotificationMenuClose}
@@ -156,11 +156,21 @@ function ManagerHeader(props) {
           <Avatar
             className="avatar"
             alt="Remy Sharp"
-            src={item.imgUrl || "/default-avatar.png"}
+            src={item.type === "system" ? "/SE-LOGO.png" : item.creator.avatar}
           />
           <NotificationContent notification={item} />
         </MenuItem>
       ))}
+      {
+        notifications.length < 1 &&
+        <MenuItem 
+        onClick={handleNotificationMenuClose}
+        className="notification_group"
+        style={{fontSize: "1.5rem"}}
+        >
+          Không có thông báo nào
+        </MenuItem>
+      }
     </Menu>
   );
 
