@@ -7,56 +7,36 @@ import { IoReturnUpBack } from "react-icons/io5";
 
 function ConcreteDocument(){
     const dispatch = useDispatch();
-    const [currentTypeSelect, setCurrentType] = useState(0);
-    const changeType = (event, newValue) => {
-        setCurrentType(newValue);
-    };
+    
+    const documents = useSelector((state) => {return state.document.documents;}) || [];
+    const documentTypes = useSelector((state) => {return state.document.documentType}) || [];
+    
+    var splitting = window.location.href.split('/');
+    console.log("currentID", splitting[splitting.length - 1]);
 
-    const filters = ["Cũ nhất", "Mới nhất", "Xem nhiều nhất", "Xem ít nhất"];
-    const [currentFilterIndex, changeCurrentFilterIndex] = useState(0);
+    var currentID =  splitting[splitting.length - 1];
+    const [currentDocument, setCurrentDocument] = useState(null);
+    
+    const getCurrentDocument = () => {
+        console.log(documents.length);
+        for(var i = 0 ; i < documents.length; i++){
+            console.log(documents[i]._id, currentID);
+            if(documents[i]._id == currentID){
+                setCurrentDocument(documents[i]);
+                console.log("document 1", documents[i]);
+                return;
+            }
+        }
 
-
+    }
 
     React.useEffect(async () => {
         await dispatch(documentActions.getAllDocument());
-        console.log("documents.length", documents.length);
-    }, []);
-    
-    
-    var documentWithFilter = [];
-    const documents =
-        useSelector((state) => {
-            return state.document.documents;
-        }) || [];
-
-
-
-    var maxItem = 10;
-    const [page, setPage] = useState(1);
-    useEffect(() => {
-        setPage(1)
-    }, 1)
-
-    const setCurrentPage = (num) => {
-        setPage(num)
-    }
-
-
-    const documentTypes =
-        useSelector((state) => {
-            return [
-                {
-                    _id: 'abc',
-                    name: "Tất cả",
-                },
-                ...state.document.documentType,
-            ];
-        }) || [];
-
-    React.useEffect(async () => {
         await dispatch(documentActions.getAllDocumentType());
+        const sleep = ms => new Promise(res => setTimeout(res, ms));
+        await sleep(4000);
+        getCurrentDocument();
     }, []);
-
 
     return (
         <div className="document-page-container">
