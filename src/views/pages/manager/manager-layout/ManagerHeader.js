@@ -64,7 +64,7 @@ function ManagerHeader(props) {
 
   useEffect(async () => {
     dispatch(userActions.getCurrentUser());
-      dispatch(userActions.getUserNotifications()); 
+    dispatch(userActions.getUserNotifications());
   }, []);
 
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
@@ -112,7 +112,7 @@ function ManagerHeader(props) {
         <MenuItem onClick={handleMenuClose}>Người dùng</MenuItem>
       </Link>
       <MenuItem onClick={handleMenuClose}>Đổi mật khẩu</MenuItem>
-      <MenuItem onClick={()=>handleLogout()}>Đăng xuất</MenuItem>
+      <MenuItem onClick={() => handleLogout()}>Đăng xuất</MenuItem>
     </Menu>
   );
   const notificationMenuId = "primary-search-notification-menu";
@@ -147,7 +147,7 @@ function ManagerHeader(props) {
       onClose={handleNotificationMenuClose}
       className="notification-menu"
     >
-     {notifications.map((item, index) => (
+      {notifications.map((item, index) => (
         <MenuItem
           key={index}
           onClick={handleNotificationMenuClose}
@@ -163,10 +163,10 @@ function ManagerHeader(props) {
       ))}
       {
         notifications.length < 1 &&
-        <MenuItem 
-        onClick={handleNotificationMenuClose}
-        className="notification_group"
-        style={{fontSize: "1.5rem"}}
+        <MenuItem
+          onClick={handleNotificationMenuClose}
+          className="notification_group"
+          style={{ fontSize: "1.5rem" }}
         >
           Không có thông báo nào
         </MenuItem>

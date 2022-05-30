@@ -56,7 +56,6 @@ function login(username, password) {
       (user) => {
         alert("login successfully", user)
         cookiesUtil.setAccessToken(user.token)
-        //   cookiesUtil.setCurrentUserInfo(user.user)
         dispatch(success());
       },
       (error) => {
