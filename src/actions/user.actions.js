@@ -80,9 +80,8 @@ function login(username, password) {
 function logout() {
   return (dispatch) => {
     usersServices.logout();
-    // window.location.reload(true);
     dispatch(success());
-   // window.location.reload(true);
+    window.location.reload(true);
   };
   function success() {
     return { type: userConstants.LOGOUT };

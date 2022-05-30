@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import {
   AppBar,
   Box,
-  Toolbar,
   IconButton,
   InputBase,
   Badge,
@@ -12,7 +11,6 @@ import {
   Avatar,
   Menu,
   Grid,
-  Button,
 } from "@mui/material";
 
 import { BiSearch } from "react-icons/bi";
@@ -30,10 +28,13 @@ function ManagerHeader(props) {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const UserInfo = useSelector(
     (state) => state.user.currentUser
-  ); /* console.log("user: ", typeof UserInfo === "undefined"); */
+  );
 
   const dispatch = useDispatch();
 
+  const handleLogout = () => {
+    dispatch(userActions.logout());
+  }
   //----------------
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -58,10 +59,6 @@ function ManagerHeader(props) {
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
-
-  //const [notifications, setNotification] = useState([]);
-  /* console.log("state: ", useSelector(state => state))/////////
-    const notifications = useSelector(state => state.userNotifications.notifications.data) || []*/
 
   useEffect(async () => {
     dispatch(userActions.getCurrentUser());
@@ -115,7 +112,7 @@ function ManagerHeader(props) {
         <MenuItem onClick={handleMenuClose}>Người dùng</MenuItem>
       </Link>
       <MenuItem onClick={handleMenuClose}>Đổi mật khẩu</MenuItem>
-      <MenuItem onClick={handleMenuClose}>Đăng xuất</MenuItem>
+      <MenuItem onClick={()=>handleLogout()}>Đăng xuất</MenuItem>
     </Menu>
   );
   const notificationMenuId = "primary-search-notification-menu";
