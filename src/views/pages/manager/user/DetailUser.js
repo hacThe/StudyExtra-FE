@@ -27,14 +27,20 @@ import { useNavigate } from "react-router-dom";
 import LeadingIconButton from "../../../components/LeadingIconButton";
 import { userActions } from "../../../../actions";
 import DepositeGemModal from "./component/DepositeGemModal";
+import { usersServices } from "../../../../services";
 
 const DetailUser = () => {
   const userInfo = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const { id } = useParams();
   console.log(id, "id nè");
+  const [exams, setExams] = useState([]);
+
   useEffect(() => {
     dispatch(userActions.getOne(id));
+    usersServices.getUserExam(id).then((data) => {
+      setExams(data.data);
+    });
   }, []);
 
   const handleToogleLockState = () => {
@@ -191,8 +197,7 @@ const DetailUser = () => {
   //   },
   // ];
 
-
-  console.log(userInfo)
+  console.log(userInfo);
   const rowDocs = [];
   userInfo.transactions?.map((value, _index) => {
     const time = new Date(value.createdAt);
@@ -219,7 +224,7 @@ const DetailUser = () => {
     navigate(-1);
   };
 
-  const [editGemModal, setEditGemModal ] = useState(false);
+  const [editGemModal, setEditGemModal] = useState(false);
 
   return (
     <>
@@ -329,15 +334,17 @@ const DetailUser = () => {
                 <h5>Toàn bộ khóa học</h5>
                 {courses.map((item, index) => (
                   <div key={index} className="course-item">
-                    <Link to="">{item.name}</Link>
+                    <Link to={"/chi-tiet-khoa-hoc/" + item.courseId}>
+                      {item.name}
+                    </Link>
                   </div>
                 ))}
               </Grid>
               <Grid item xs={12} lg={6} className="exams-list">
                 <h5>Cuộc thi đã tham gia</h5>
-                {courses.map((item, index) => (
+                {exams.map((item, index) => (
                   <div key={index} className="course-item">
-                    <Link to="">{item.name}</Link>
+                    <Link to={`/luyen-de/${item._id}`}>{item.name}</Link>
                   </div>
                 ))}
               </Grid>
