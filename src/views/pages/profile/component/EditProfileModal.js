@@ -1,13 +1,11 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "./../../../../actions/user.actions";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { FiEdit, FiRefreshCw } from "react-icons/fi";
+import { FiRefreshCw } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
 import { Modal, Box } from "@mui/material";
-import { ResetPasswordModal } from "./ResetPasswordModal";
 import "./EditProfileModal.scss";
 
 function EditModal(props) {

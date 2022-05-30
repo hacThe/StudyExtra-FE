@@ -4,19 +4,19 @@ import Stack from '@mui/material/Stack';
 export default function PaginationOutlined(props) {
 
   const renderNumberOfPage = () => {
-    if (props.index % 8 == 0) {
-      return props.index / 8
+    if (props.index % props.itemPerPage == 0) {
+      return props.index / props.itemPerPage
     } else {
-      return Math.floor(props.index / 8) + 1;
+      return Math.floor(props.index / props.itemPerPage) + 1;
     }
-  }
+  } 
 
   const choosePage = (e, num) => {
-    if (props.setCurrentPageInYourCourses) {
+   /*  if (props.setCurrentPageInYourCourses) {
       props.setCurrentPageInYourCourses(num);
-    } else {
+    } else { */
       props.setCurrentPage(num);
-    }
+    //}
   }
 
 

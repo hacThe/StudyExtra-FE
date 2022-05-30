@@ -11,7 +11,6 @@ const ExamResult = () => {
     const dispatch = useDispatch();
     const param = useParams();
     const examID = param.id;
-    //console.log("idddddddddddd: ", examID)
     useEffect (() => {
         dispatch(examAction.getResultExam(examID));
     }, [])

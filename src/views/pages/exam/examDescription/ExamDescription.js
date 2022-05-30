@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { BsCheckCircleFill } from "react-icons/bs";
 import { GiQueenCrown } from "react-icons/gi";
 import { Container, Grid, Button, Card, Avatar } from '@mui/material';
@@ -14,13 +14,15 @@ const ExamDescription = () => {
     const param = useParams();
     const exam = useSelector(state => state.exam.exam) || {}
     const takeExam = useSelector(state => state.takeExam);
+    const topResult = useSelector(state => state.exam.topResult) || []
 
     useEffect(() => {
-        dispatch(examAction.getOne(param.id)); 
+        dispatch(examAction.getOne(param.id));
+        dispatch(examAction.getTopResult(param.id));
     }, [])
 
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         if (!takeExam.isLoading && takeExam.isTaking === 'taking') {
             navigate('/luyen-de/' + exam._id + '/vao-thi');
             localStorage.clear();
@@ -31,18 +33,20 @@ const ExamDescription = () => {
                 alert(takeExam.error);
             }
     }, [takeExam])
-   
 
-    const LeaderCard = () => {
+
+    const LeaderCard = (props) => {
         return (
             <div className="list-card">
                 <Card className="leader-card">
-                    <div className="rank">1.</div>
-                    <div className="avata_group">
-                        <Avatar alt="Remy Sharp" src="https://vieclamthemonline.com/wp-content/uploads/2021/10/anh-blackpink-rose.jpg" />
-                        <p>Leslie Alexander</p>
+                    <div className="rank">{props.index + 1}.
+                        <div className="avata_group">
+                            <Avatar alt="Remy Sharp" src={props.data.userID.avatar} />
+                            <p>{props.data.userID.name}</p>
+                        </div>
                     </div>
-                    <div className="score">10</div>
+
+                    <div className="score">Score: {props.data.maxScore}</div>
                 </Card>
             </div>
         )
@@ -81,9 +85,13 @@ const ExamDescription = () => {
                     <div className="leader-board_group">
                         <h5><GiQueenCrown></GiQueenCrown> Leaderboard</h5>
 
-                        {Array.from({ length: 10 }).map((_, idx) => (
-                            <LeaderCard key={idx} />
-                        ))}
+                        {topResult.length > 1 &&
+                            (
+                                topResult.map((val, idx) => (
+                                    <LeaderCard key={idx} data={val} index={idx} />
+                                ))
+                            )
+                        }
                     </div>
                 </Grid>
             </Grid>
