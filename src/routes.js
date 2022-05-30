@@ -107,6 +107,7 @@ const GenarelAnnouncement = React.lazy(() =>
   import("./views/pages/announcement/GenarelAnnouncement")
 );
 const ConcretePost = React.lazy(() => import("./views/pages/question/ConcretePost"));
+const ConcreteDocument = React.lazy(() => import("./views/pages/document/ConcreteDocument"));
 
 // Những route chỉ truy xuất khi chưa đăng nhập
 const publicRoute = [
@@ -143,6 +144,7 @@ const commonRoute = [
   },
   { path: "/xep-hang", name: "Xếp hạng", element: <Ranking /> },
   { path: "/tai-lieu", name: "Tài liệu", element: <Document /> },
+  { path: "/tai-lieu/:id", name: "Tài liệu", element: <ConcreteDocument /> },
   { path: "/khoa-hoc", name: "Trang chủ", element: <Courses /> },
   { path: "/hoi-dap/:id", name: "Hỏi đáp", element: <ConcretePost /> },
   { path: "/hoi-dap", name: "Hỏi đáp", element: <Question /> },

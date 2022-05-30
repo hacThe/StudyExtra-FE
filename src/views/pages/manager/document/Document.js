@@ -11,7 +11,7 @@ const columnDocs = [
     // {field: , headerName: , width: }
     {field: 'stt', headerName: "STT"},
     {field: 'name', headerName: "Tên tài liệu", width: 300},
-    {field: 'type', headerName: "Phân loại", width: 300},
+    {field: 'type', headerName: "Phân loại", width: 200},
     {field: 'view', headerName: "Số lượt xem"},
     {field: 'time', headerName: "Thời gian", width: 120},
     {field: 'link', headerName: "Link", width: 240},
