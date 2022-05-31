@@ -16,6 +16,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.course.courses) || [];
   const posts = useSelector((state) => state.post.posts) || [];
+  const user = useSelector((state) => state.user) || [];
 
   useEffect(() => {
     dispatch(courseAction.getAllCourse());
@@ -36,7 +37,7 @@ const Login = () => {
         <div className="home-wrapper">
           <Slider></Slider>
           <Notification></Notification>
-          <YourCourses courses={courses}></YourCourses>
+          <YourCourses courses={user.currentUser ? user.currentUser.courseID : []}></YourCourses>
           <FeaturedCourse courses={courses}></FeaturedCourse>
           <QAndA posts={posts}></QAndA>
 
