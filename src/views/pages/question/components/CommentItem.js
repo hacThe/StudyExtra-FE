@@ -1,14 +1,15 @@
 import React , {useState, useEffect, useRef} from 'react'
-import '../scss/CommentItem.scss';
 import { useDispatch, useSelector } from "react-redux";
-import { BsTriangleFill } from "react-icons/bs";
+import '../scss/CommentItem.scss';
 import { IoImageOutline , IoSend} from "react-icons/io5";
 import { HiDotsHorizontal} from "react-icons/hi";
 import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
-
-import Consts from '../ConstKey.js';
-import { articleActions } from '../../../../actions/article.action';
 import { AiFillLike } from "react-icons/ai";
+import Consts from '../ConstKey.js';
+
+import { articleActions } from '../../../../actions/article.action';
+import { showToast } from '../../../../actions/toast.action';
+
 import AjaxHelper from '../../../../services/api';
 import config from '../../../../services/api/config';
 
@@ -64,7 +65,8 @@ const CommentItem = ({comment}) => {
         }
         // console.log("dataToDelete: ", data);
         dispatch(articleActions.deleteBigComment(data));
-        setIsOpenManageModal(!isOpenManageModal);   
+        setIsOpenManageModal(!isOpenManageModal);
+        dispatch(showToast("success", "Xoá bình luận thành công!"));   
     }
 
 
@@ -76,6 +78,7 @@ const CommentItem = ({comment}) => {
         // console.log("dataToHide: ", data);  
         dispatch(articleActions.hideBigComment(data));
         setIsOpenManageModal(!isOpenManageModal);   
+        dispatch(showToast("success", "Ẩn bình luận thành công!"));   
 
         // console.log("comment", comment.isHidden);s
     }
@@ -90,7 +93,7 @@ const CommentItem = ({comment}) => {
         console.log("dataToShow: ", data);
         dispatch(articleActions.showBigComment(data));
         setIsOpenManageModal(!isOpenManageModal);   
-
+        dispatch(showToast("success", "Hiện bình luận thành công!"));   
     }
 
     const calculateTime = (timeString) => {
@@ -128,6 +131,8 @@ const CommentItem = ({comment}) => {
         }
         // console.log("data to like", data)''
         dispatch(articleActions.likeBigComment(data));
+        dispatch(showToast("success", "Thích bình luận thành công!"));   
+
     }
 
     // unlike bigcomment
@@ -139,6 +144,8 @@ const CommentItem = ({comment}) => {
         }
         console.log("data to unlike", data);
         dispatch(articleActions.unlikeBigComment(data));
+        dispatch(showToast("success", "Bỏ thích bình luận thành công!"));   
+
     }
 
     // reply comment
@@ -167,6 +174,7 @@ const CommentItem = ({comment}) => {
         commentItem.replyText.current.value = "";
         changeUserReplyDisplay();
         setReplyCommentLink('');
+        dispatch(showToast("success", "Gửi bình luận thành công!"));   
     }
     const [replyCommentLink, setReplyCommentLink] = useState('');
 
@@ -194,6 +202,8 @@ const CommentItem = ({comment}) => {
         console.log("dataToDeleteReply", dataToDeleteReply);
         dispatch(articleActions.deleteReplyComment(dataToDeleteReply));
         setIsOpenManageModal(false);
+        dispatch(showToast("success", "Xoá bình luận thành công!"));   
+
     }
 
     // Like reply comment
@@ -207,6 +217,7 @@ const CommentItem = ({comment}) => {
         }
         console.log("dataToLikeReply", dataToLikeReply);
         dispatch(articleActions.likeReplyComment(dataToLikeReply));
+        dispatch(showToast("success", "Thích bình luận thành công!"));   
     }
 
     const unlikeReplyComment = () => {
@@ -220,6 +231,8 @@ const CommentItem = ({comment}) => {
         console.log("dataToUnLikeReply", dataToUnLikeReply);
         // dispatch(articleActions.likeReplyComment(dataToUnLikeReply));
         dispatch(articleActions.unlikeReplyComment(dataToUnLikeReply));
+        dispatch(showToast("success", "Bỏ thích bình luận thành công!"));   
+
     }
 
     const hideReplyComment = () => {
@@ -233,7 +246,7 @@ const CommentItem = ({comment}) => {
         // console.log("dataToHideReply", dataToHideReply);
         dispatch(articleActions.hideReplyComment(dataToHideReply));
         setIsOpenManageModal(!isOpenManageModal);   
-
+        dispatch(showToast("success", "Ẩn bình luận thành công!")); 
     }
 
     const showReplyComment = () => {
@@ -247,6 +260,7 @@ const CommentItem = ({comment}) => {
         // console.log("dataToHideReply", dataToHideReply);
         dispatch(articleActions.showReplyComment(dataToShowReply));
         setIsOpenManageModal(!isOpenManageModal);   
+        dispatch(showToast("success", "Hiện bình luận thành công!")); 
 
     }
 
@@ -282,6 +296,8 @@ const CommentItem = ({comment}) => {
         setEditting(!isEditting);
         editRef.current.value='';
         setEditImageLink('');
+        dispatch(showToast("success", "Chỉnh sửa bình luận thành công!")); 
+
     }
 
 
@@ -299,6 +315,8 @@ const CommentItem = ({comment}) => {
         setEditting(!isEditting);
         editRef.current.value='';
         setEditImageLink('');
+        dispatch(showToast("success", "Chỉnh sửa bình luận thành công!")); 
+
     }
 
     const showInteractComment = () => {
@@ -397,7 +415,7 @@ const CommentItem = ({comment}) => {
                                                         onClick={()=>{
                                                             // console.log("comment", comment);
                                                             // // 
-                                                            if(comment.parrentC.lengthomment.length==0){
+                                                            if(comment.parrentComment.length==0){
                                                                 deleteComment();
                                                             }
                                                             else deleteReplyComment();

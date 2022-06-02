@@ -1,8 +1,10 @@
 import React , {useEffect, useRef, useState, useImperativeHandle, forwardRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { articleActions } from '../../../../actions/article.action';
-
 import '../scss/AddPostSection.scss';
+
+import { articleActions } from '../../../../actions/article.action';
+import { showToast, hideToast } from '../../../../actions/toast.action';
+
 const AddPostSection = forwardRef((props, ref) => {
     const dispatch = useDispatch();
     
@@ -55,6 +57,8 @@ const AddPostSection = forwardRef((props, ref) => {
         // console.log("props", props);
         // console.log("ref", ref) 
         ref.current.closeAddPost();  
+        // dispatch(hideToast());
+        dispatch(showToast( "success", "Thêm mục hỏi đáp thành công!"));
     }
 
     return (

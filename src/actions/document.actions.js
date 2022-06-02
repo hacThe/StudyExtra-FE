@@ -235,4 +235,3 @@ function deleteDocumentType(id){
         }
     }
 }
-
