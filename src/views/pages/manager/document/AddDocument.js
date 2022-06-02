@@ -8,6 +8,8 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import DocumentTypeModal from './DocumentTypeModal.js';
 import {documentActions} from '../../../../actions/document.actions.js'
+import { showToast } from '../../../../actions/toast.action';
+
 
 function AddDocument(props) {
     const dispatch = useDispatch();
@@ -106,13 +108,26 @@ function AddDocument(props) {
     }
 
     const changeLink = (e) => {
-        // if(e.target.value.indexOf("https://") == -1){
-        //     return;
-        // }
+        if(e.target.value.indexOf("https://") == -1){
+            return;
+        }
         document.querySelector('#iframe-document').setAttribute('src',e.target.value)
     }
 
     const addDocument = () => {
+        // Check các điều kiện nhập
+        if(document.querySelector('#document-title').value.length == 0){
+            dispatch(showToast("fail","Bạn phải nhập thông tin tên tài liệu"));
+            return;
+        }
+        else if(document.querySelector('#document-author').value.length == 0){
+            dispatch(showToast("fail","Bạn phải nhập thông tin tên tác giả"));
+            return;
+        }
+        else if(document.querySelector('#document-link').value.length == 0){
+            dispatch(showToast("fail","Bạn phải nhập thông tin link tài liệu"));
+            return;
+        }
         const data = {
             name: document.querySelector('#document-title').value,
             typeID: getAllSelectedTypeID(),

@@ -10,7 +10,8 @@ import { useNavigate } from "react-router-dom";
 const columnDocs = [
     // {field: , headerName: , width: }
     {field: 'stt', headerName: "STT"},
-    {field: 'name', headerName: "Tên tài liệu", width: 300},
+    {field: 'name', headerName: "Tên tài liệu", width: 200},
+    {field: 'author', headerName: "Tên tác giả", width: 120},
     {field: 'type', headerName: "Phân loại", width: 200},
     {field: 'view', headerName: "Số lượt xem"},
     {field: 'time', headerName: "Thời gian", width: 120},
@@ -62,6 +63,7 @@ function DocumentManage(props) {
                 id: document[i]._id,
                 stt: i+1,
                 name: document[i].name,
+                author: document[i].author,
                 type: getTypeName(document[i].typeID),
                 view: document[i].views,
                 link: document[i].link ? document[i].link : "https://www.pinterest.com/",
