@@ -25,6 +25,7 @@ function ConcreteDocument(){
     React.useEffect(async () => {
         dispatch(documentActions.getAllDocumentType());
         dispatch(documentActions.getDocumentByIDNew(currentID));
+        dispatch(documentActions.increasingDocumentView(currentID));
     }, []);
 
     const convertStringToReadableDate = (str) => {
@@ -62,7 +63,7 @@ function ConcreteDocument(){
         }
     }
 
-    
+
 
     return (
         <div className="document-page-container">
