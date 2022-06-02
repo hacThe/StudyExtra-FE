@@ -12,11 +12,18 @@ export const documentService = {
     getAllDocumentType,
     addNewDocumentType,
     deleteDocumentType,
+    getDocumentByIDNew,
 };
 
 function getAllDocument() {
     return handleResponse(
         ajaxHelper.get(config.URL_GET_DOCUMENTS, {}, options())
+    );
+}
+
+function getDocumentByIDNew(id) {
+    return handleResponse(
+        ajaxHelper.get(config.URL_GET_DOCUMENTS + '/' + id, {} , options())
     );
 }
 
@@ -54,6 +61,7 @@ function getAllDocumentType() {
         ajaxHelper.get(config.URL_TYPE_CATEGORY, {}, options())
     );
 }
+
 
 
 

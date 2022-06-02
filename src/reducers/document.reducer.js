@@ -9,6 +9,7 @@ const initialState = {
     documentTypeOpen: false,
     documentType:[],
     currentEditingDoc:{},
+    currentViewingDoc:{},
     isFlushed: true,
 };
    
@@ -157,6 +158,27 @@ export function document(state = initialState, action) {
                 ...state,
                 isLoading: false,
                 currentEditingDoc: action.document.data
+            };
+        }
+        case documentConstants.GET_DOCUMENT_BY_ID_NEW_REQUEST:{
+            return {
+                ...state,
+                isLoading: true,
+            };
+        }
+        case documentConstants.GET_DOCUMENT_BY_ID_NEW_FAILURE:{
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            };
+        }
+        case documentConstants.GET_DOCUMENT_BY_ID_NEW_SUCCESS:{
+            // console.log("action.document.data vô đây rồi mà, cmn",action.document.data)
+            return {
+                ...state,
+                isLoading: false,
+                currentViewingDoc: action.document.data
             };
         }
         default:
