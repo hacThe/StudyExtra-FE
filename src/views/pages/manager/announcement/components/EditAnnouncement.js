@@ -113,8 +113,10 @@ function EditAnnouncement(props) {
             title
         }).then(res => {
             if (res.data.status == 200) {
-                dispatch('success', 'Chỉnh sửa thông báo thành công!')
+                dispatch(showToast('success', 'Chỉnh sửa thông báo thành công!'))
                 navigate('/quan-ly/thong-bao-chung')
+            } else {
+                dispatch(showToast('fail', 'Chỉnh sửa thông báo thất bại!'))
             }
         }).catch(err => {
             dispatch('fail', 'Chỉnh sửa thông báo thất bại!')
@@ -126,12 +128,13 @@ function EditAnnouncement(props) {
             slug,
         }).then(res => {
             if (res.data.status == 200) {
-                dispatch('success', 'Xóa thông báo thành công!')
+                dispatch(showToast('success', 'Xóa thông báo thành công!'))
                 navigate('/quan-ly/thong-bao-chung')
+            } else {
+                dispatch(showToast('fail', 'Chỉnh sửa thông báo thất bại!'))
             }
         }).catch(err => {
-            dispatch('fail', 'Xóa thông báo thất bại!')
-
+            dispatch(showToast('fail', 'Xóa thông báo thất bại!'))
         })
     }
 

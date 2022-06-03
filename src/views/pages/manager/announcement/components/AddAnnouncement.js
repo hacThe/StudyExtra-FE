@@ -80,7 +80,6 @@ function AddAnnouncement(props) {
     }
 
     const handleAddAnnouncemnt = async () => {
-        console.log(idUser)
         await axios.post(URL.URL_ADD_ANNOUNCEMENT, {
             title,
             content,
