@@ -9,7 +9,7 @@ import 'suneditor/dist/css/suneditor.min.css'; // Import Sun Editor's CSS File
 import axios from 'axios'
 import URL from '../../../../../services/api/config'
 import { useSelector, useDispatch } from 'react-redux'
-import { showToast, hideToast } from '../../../../../actions/toast.action'
+import { showToast } from '../../../../../actions/toast.action'
 
 function AddAnnouncement(props) {
     const navigate = useNavigate();
@@ -80,6 +80,7 @@ function AddAnnouncement(props) {
     }
 
     const handleAddAnnouncemnt = async () => {
+        console.log(idUser)
         await axios.post(URL.URL_ADD_ANNOUNCEMENT, {
             title,
             content,

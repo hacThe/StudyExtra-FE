@@ -55,6 +55,18 @@ function ManageAnnouncement(props) {
         return a.getDate() + '/' + (a.getMonth() + 1) + '/' + a.getFullYear()
     }
 
+    function convertToPlain(html){
+
+        // Create a new div element
+        var tempDivElement = document.createElement("div");
+    
+        // Set the HTML content with the given value
+        tempDivElement.innerHTML = html;
+    
+        // Retrieve the text property of the element 
+        return tempDivElement.textContent || tempDivElement.innerText || "";
+    }
+
     useEffect(() => {
         async function fetchData() {
             await axios.get(URL.URL_GET_ALL_ANNOUNCEMENT)
@@ -69,11 +81,11 @@ function ManageAnnouncement(props) {
                                 slug: announcement.slug,
                                 title: announcement.title,
                                 userCreate: announcement.user.name,
-                                content: announcement.content,
-                                timeCreate: renderTime(announcement.updatedAt)
+                                content: announcement.content.dangerouslySetInnerHTML,
+                                content: convertToPlain(announcement.content),
+                                timeCreate: renderTime(announcement.updatedAt),
                             })
                         })
-                        console.log(array)
                         setListAnnouncement(array)
                         setListAnnouncementFilter(array)
                     }
