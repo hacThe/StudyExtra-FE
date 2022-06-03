@@ -1,18 +1,59 @@
-import { merge, now } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
 // material
 import { Card, CardHeader, Box, Container, Grid } from '@mui/material';
 import './UserChart.scss'
 // ----------------------------------------------------------------------
-import { useSelector, useDispatch } from 'react-redux';
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
+import URL from '../../../../../services/api/config'
 export default function UserChat() {
+    const [users, setUsers] = useState([])
+    const [male, setMale] = useState(0)
+    const [listAge, setListAge] = useState([0, 0, 0, 0])
+    useEffect(() => {
 
+        const filterAge = (user) => {
+            let underFifteen = 0
+            let fifteenToEighteen = 0
+            let eighteenToTwentyFive = 0
+            let overTwentyFive = 0
+            let currentYear = new Date()
+            user.forEach(value => {
+                let currentBirthday = new Date(value.birthday)
+                if (currentYear.getFullYear() - currentBirthday.getFullYear() < 15) {
+                    underFifteen++
+                } else if (currentYear.getFullYear() - currentBirthday.getFullYear() >= 15 && currentYear.getFullYear() - currentBirthday.getFullYear() <= 18) {
+                    fifteenToEighteen++
+                } else if (currentYear.getFullYear() - currentBirthday.getFullYear() > 18 && currentYear.getFullYear() - currentBirthday.getFullYear() <= 25) {
+                    eighteenToTwentyFive++
+                } else {
+                    overTwentyFive++
+                }
+            })
+
+            setListAge([underFifteen, fifteenToEighteen, eighteenToTwentyFive, overTwentyFive])
+        }
+
+        const fetApi = async () => {
+            await axios.get(URL.URL_GET_LIST_USER)
+                .then(res => {
+                    setUsers(res.data.data)
+                    filterAge(res.data.data)
+                    setMale(
+                        res.data.data.reduce((total, value) => {
+                            if (value.gender == 'nam') {
+                                total++
+                            }
+                            return total
+                        }, 0)
+                    )
+                })
+        }
+        fetApi()
+    }, [])
 
     const chartOptions = {
-
-        series: [44, 55, 41, 32],
+        series: listAge,
         options: {
             chart: {
                 width: 380,
@@ -54,7 +95,7 @@ export default function UserChat() {
 
     const chartOptionsGender = {
 
-        series: [45, 55],
+        series: [Number(male), users.length - (Number(male))],
         options: {
             chart: {
                 width: 380,

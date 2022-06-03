@@ -87,4 +87,10 @@ export default {
   // Ranking
   URL_GET_RANKING: URL_SYSTEM_V1 + "/courses/ranking",
 
+  // Get listUser
+  URL_GET_LIST_USER: URL_SYSTEM_V1 + "/courses/getListUser",
+
+
+  // Get transactions
+  URL_GET_TRANSACTIONS: URL_SYSTEM_V1 + "/transaction/getAllTransaction",
 };
