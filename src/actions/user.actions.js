@@ -53,6 +53,7 @@ function login(username, password) {
     usersServices.login(username, password).then(
       (user) => {
         alert("login successfully", user);
+        console.log("login successfully", user);
         cookiesUtil.setAccessToken(user.token);
         //   cookiesUtil.setCurrentUserInfo(user.user)
         dispatch(success(user.user));
