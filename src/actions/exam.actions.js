@@ -6,6 +6,7 @@ export const examAction = {
     getOne,
     CheckExamRequirement,
     postResultExam,
+    getTopResult,
     getResultExam
 };
 
@@ -112,7 +113,6 @@ function getResultExam(examID) {
         examServices.getResultExam(examID).then(
             (result) => {
                 dispatch(success(result.data))
-                console.log("tttttttttttt: ",result);
             },
             error => {
                 dispatch(failure(error))
@@ -128,5 +128,29 @@ function getResultExam(examID) {
     }
     function failure(error) {
         return { type: examConstants.GET_RESULT_FAILURE, error };
+    }
+}
+
+function getTopResult(examID) {
+    return (dispatch) => {
+        dispatch(request())
+        examServices.getTopResult(examID).then(
+            (result) => {
+                dispatch(success(result.data))
+            },
+            error => {
+                dispatch(failure(error))
+            }
+        )
+    }
+
+    function request() {
+        return { type: examConstants.GET_TOP_RESULT_REQUEST };
+    }
+    function success(result) {
+        return { type: examConstants.GET_TOP_RESULT_SUCCESS, result };
+    }
+    function failure(error) {
+        return { type: examConstants.GET_TOP_RESULT_FAILURE, error };
     }
 }

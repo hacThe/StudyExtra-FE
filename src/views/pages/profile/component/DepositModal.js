@@ -1,11 +1,9 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { userActions } from "./../../../../actions/user.actions";
 import { usersServices } from "../../../../services";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
-import BackToPageButton from "../../../components/BackToPageButton"
 import { GrClose } from "react-icons/gr";
 import { IoReturnUpBackOutline } from "react-icons/io5";
 import { Modal, Box, Button } from '@mui/material';

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { List, ListItem, ListItemText, Button, FormControl, RadioGroup, FormLabel, FormControlLabel, Radio } from '@mui/material';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { List, ListItemText, Button, FormControl, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 
-function Filter() {
+function Filter(props) {
     const menuList = ["Tất cả", "Lớp 10", "Lớp 11", "Lớp 12", "Luyện thi", "Khác", "Khóa học của bạn"];
 
     return (
@@ -11,7 +10,7 @@ function Filter() {
                 <List className="list-btn">
                     {menuList.map((item, index) => (
                         <ListItemText key={index} className="filter-item">
-                            <Button className="filter-btn">
+                            <Button className={"filter-btn" + (props.typeExam === item ? ' btn-active' : '')} onClick={() => props.setTypeExam(item)}>
                                 {item}
                             </Button>
                         </ListItemText>
@@ -25,10 +24,11 @@ function Filter() {
                     <select
                         id="demo-simple-select"
                         className='sorting-control'
+                        onChange={(e) => props.setSortExam(e.target.value)}
                     >
-                        <option className="sorting-item">Mới nhất</option>
-                        <option className="sorting-item">Cũ nhất</option>
-                        <option className="sorting-item">Xem nhiều nhất</option>
+                        <option className="sorting-item" value={1}>Mới nhất</option>
+                        <option className="sorting-item" value={2}>Cũ nhất</option>
+                        <option className="sorting-item" value={3}>Xem nhiều nhất</option>
                     </select>
                 </div>
 

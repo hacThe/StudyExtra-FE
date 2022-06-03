@@ -19,6 +19,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { courseAction } from "../../../../../actions/course.action";
 import { appActions } from "../../../../../actions/app.action";
+import { courseService } from "../../../../../services";
 function CourseDetailManager(props) {
   const navigate = useNavigate();
   const fields = [
@@ -32,7 +33,7 @@ function CourseDetailManager(props) {
       headerName: "Giới tính",
       valueGetter: (params) => (params.sex === 0 ? "Nữ" : "Nam"),
     },
-    { field: "email", headerName: "Email", flex: 1, minWidth: 300 },
+    { field: "mail", headerName: "Email", flex: 1, minWidth: 300 },
     {
       field: "action",
       headerName: "Tùy chọn",
@@ -50,106 +51,7 @@ function CourseDetailManager(props) {
       ),
     },
   ];
-  const students = [
-    {
-      id: 1,
-      stt: 1,
-      username: "hacThe",
-      fullname: "Dương Hiển Thế",
-      birthday: "07/08/2009",
-      sex: "1",
-      email: "hienthe473@gmail.com",
-    },
-    {
-      id: 2,
-      stt: 2,
-      username: "hacThe",
-      fullname: "Dương Hiển Thế",
-      birthday: "07/08/2009",
-      sex: "1",
-      email: "hienthe473@gmail.com",
-    },
-
-    {
-      id: 3,
-      stt: 3,
-      username: "hacThe",
-      fullname: "Dương Hiển Thế",
-      birthday: "07/08/2009",
-      sex: "1",
-      email: "hienthe473@gmail.com",
-    },
-
-    {
-      id: 4,
-      stt: 4,
-      username: "hacThe",
-      fullname: "Dương Hiển Thế",
-      birthday: "07/08/2009",
-      sex: "1",
-      email: "hienthe473@gmail.com",
-    },
-
-    {
-      id: 5,
-      stt: 5,
-      username: "hacThe",
-      fullname: "Dương Hiển Thế",
-      birthday: "07/08/2009",
-      sex: "1",
-      email: "hienthe473@gmail.com",
-    },
-
-    {
-      id: 6,
-      stt: 6,
-      username: "hacThe",
-      fullname: "Dương Hiển Thế",
-      birthday: "07/08/2009",
-      sex: "1",
-      email: "hienthe473@gmail.com",
-    },
-
-    {
-      id: 7,
-      stt: 7,
-      username: "hacThe",
-      fullname: "Dương Hiển Thế",
-      birthday: "07/08/2009",
-      sex: "1",
-      email: "hienthe473@gmail.com",
-    },
-
-    {
-      id: 8,
-      stt: 8,
-      username: "hacThe",
-      fullname: "Dương Hiển Thế",
-      birthday: "07/08/2009",
-      sex: "1",
-      email: "hienthe473@gmail.com",
-    },
-
-    {
-      id: 9,
-      stt: 9,
-      username: "hacThe",
-      fullname: "Dương Hiển Thế",
-      birthday: "07/08/2009",
-      sex: "1",
-      email: "hienthe473@gmail.com",
-    },
-
-    {
-      id: 10,
-      stt: 10,
-      username: "hacThe",
-      fullname: "Dương Hiển Thế",
-      birthday: "07/08/2009",
-      sex: "1",
-      email: "hienthe473@gmail.com",
-    },
-  ];
+  const [students, setStudents] = useState([]);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -164,7 +66,21 @@ function CourseDetailManager(props) {
   useEffect(() => {
     console.log("ID nè: ", id);
     dispatch(courseAction.getOne(id));
+    courseService.getStudents(id).then(
+      (data) => {
+        setStudents(
+          data.data.map((item) => {
+            item.id = item._id;
+            return item;
+          })
+        );
+      },
+      (error) => {
+        console.log({ error });
+      }
+    );
   }, []);
+  console.log({ students });
   console.log("Course nè", course);
 
   const handleEditInfoOnClick = () => {

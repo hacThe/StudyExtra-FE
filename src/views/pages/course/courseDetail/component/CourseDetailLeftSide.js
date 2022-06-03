@@ -36,7 +36,7 @@ function CourseDetailLeftSide({ course }) {
     return (
       <>
         <div className="lesson-list">
-          {lessons.map((lesson, index) => {
+          {lessons?.map((lesson, index) => {
             return (
               <div className="course-lesson-tile display-flex justify-content-between">
                 <div className="align-center">
@@ -62,7 +62,9 @@ function CourseDetailLeftSide({ course }) {
                       stroke-linejoin="round"
                     />
                   </svg>
-                  <span className="lesson-name">{`${index + 1}. ${lesson.name}`}</span>
+                  <span className="lesson-name">{`${index + 1}. ${
+                    lesson.name
+                  }`}</span>
                 </div>
               </div>
             );

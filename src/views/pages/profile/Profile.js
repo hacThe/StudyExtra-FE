@@ -28,9 +28,12 @@ const Profile = () => {
     useSelector((state) => state)
   );
   console.log("user: ", UserInfo);
-
+  const [exams, setExams] = useState([]);
   useEffect(() => {
     dispatch(userActions.getCurrentUser());
+    usersServices.getCurrentUserExam().then((data) => {
+      setExams(data.data);
+    });
   }, []);
 
   const InformList = [
@@ -150,11 +153,15 @@ const Profile = () => {
 
   return (
     <>
-      <Container style={{
-        backgroundColor: "white",
-        marginTop: "24px",
-        borderRadius: "10px"
-      }} className="profile" maxWidth="xl">
+      <Container
+        style={{
+          backgroundColor: "white",
+          marginTop: "24px",
+          borderRadius: "10px",
+        }}
+        className="profile"
+        maxWidth="xl"
+      >
         <div className="title-profile">
           <h1>Hồ sơ học viên</h1>
           <button variant="outlined" onClick={() => setOpen(true)}>
@@ -225,9 +232,9 @@ const Profile = () => {
               </Grid>
               <Grid item xs={12} lg={6} className="exams-list">
                 <h5>Cuộc thi đã tham gia</h5>
-                {courses.map((item, index) => (
+                {exams.map((item, index) => (
                   <div key={index} className="course-item">
-                    <Link to="">{item.name}</Link>
+                    <Link to={`/luyen-de/${item._id}`}>{item.name}</Link>
                   </div>
                 ))}
               </Grid>

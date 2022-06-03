@@ -17,15 +17,18 @@ function youtube_parser(url) {
 }
 
 function SingleCourseForm({ course, onSubmit }) {
-  console.log({
-    course
-  }, "is editting")
+  console.log(
+    {
+      course,
+    },
+    "is editting"
+  );
   const formik = useFormik({
     validateOnChange: true,
     validateOnBlur: true,
     validateOnMount: false,
     initialValues: {
-      ...course
+      ...course,
     },
     validationSchema: Yup.object({
       categories: Yup.number().required("Vui lòng chọn thể loại cho khóa học"),
@@ -39,7 +42,7 @@ function SingleCourseForm({ course, onSubmit }) {
         .min(0, "Giá tiền lớn hơn hoặc bằng 0")
         .required("Vui lòng nhập giá tiền cho khóa học"),
     }),
-    onSubmit: onSubmit
+    onSubmit: onSubmit,
   });
 
   console.log("render single course form");
@@ -80,42 +83,50 @@ function SingleCourseForm({ course, onSubmit }) {
 
   const handleAddRequirementOnClick = () => {
     if (document.getElementById("newRequirement").value.trim()) {
-      const requirementTile = document.getElementById("newRequirement").value.trim();
+      const requirementTile = document
+        .getElementById("newRequirement")
+        .value.trim();
       const requirementList = formik.values.requirements;
       if (requirementList.includes(requirementTile)) {
         alert("Nội dung không được trùng lặp");
       } else {
-        formik.setFieldValue("requirements", [...requirementList, requirementTile]);
+        formik.setFieldValue("requirements", [
+          ...requirementList,
+          requirementTile,
+        ]);
         console.log(formik.values.requirements);
       }
     }
     document.getElementById("newRequirement").value = "";
   };
 
-
-  const handleChange = e => {
+  const handleChange = (e) => {
     if (e.target.files[0]) {
       uploadImg(e.target.files[0]);
     }
-  }
+  };
   const uploadImg = (imgSelected) => {
     const storageRef = ref(storage, `file${imgSelected.name}`);
     const uploadTask = uploadBytesResumable(storageRef, imgSelected);
 
-    uploadTask.on("state_changed", (snapshot) => {
-      const prog = Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      //setUpProg(prog);
-    },
-      (err) => { console.log(err) },
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const prog =
+          Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        //setUpProg(prog);
+      },
+      (err) => {
+        console.log(err);
+      },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((URL) => {
-          formik.setFieldValue('imgUrl', URL)
+          formik.setFieldValue("imgUrl", URL);
           console.log("url: ", URL);
-        }
-        )
+        });
       }
-    )
-  }
+    );
+  };
 
   return (
     <div className="single-course-form-wrapper">
@@ -128,12 +139,19 @@ function SingleCourseForm({ course, onSubmit }) {
               <label htmlFor="uploadThumbnailInput">
                 <div className="se-btn">Chọn ảnh</div>
               </label>
-              <input id="uploadThumbnailInput" style={{display: "none"}} type="file" onChange={handleChange} />
-
+              <input
+                id="uploadThumbnailInput"
+                style={{ display: "none" }}
+                type="file"
+                onChange={handleChange}
+              />
             </div>
             <div className="aspect-ratio">
               <img
-                src={ formik.values.imgUrl || window.location.origin  + '/img/default.jpg'}
+                src={
+                  formik.values.imgUrl ||
+                  window.location.origin + "/img/default.jpg"
+                }
                 alt=""
                 width={"100%"}
               />
@@ -151,21 +169,23 @@ function SingleCourseForm({ course, onSubmit }) {
               />
             </div>
             <div className="aspect-ratio">
-              {
-                youtube_parser(formik.values.introVideoUrl) ? (<iframe
+              {youtube_parser(formik.values.introVideoUrl) ? (
+                <iframe
                   width="560"
                   height="315"
-                  src={`https://www.youtube.com/embed/${youtube_parser(formik.values.introVideoUrl)}` }
+                  src={`https://www.youtube.com/embed/${youtube_parser(
+                    formik.values.introVideoUrl
+                  )}`}
                   title="YouTube video player"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen
-                ></iframe>)
-                :(
-                  <h1 className="align-center" style={{marginTop: "20%"}}>Nhập đúng đường dẫn video youtube của bạn</h1>
-                )
-              }
-              
+                ></iframe>
+              ) : (
+                <h1 className="align-center" style={{ marginTop: "20%" }}>
+                  Nhập đúng đường dẫn video youtube của bạn
+                </h1>
+              )}
             </div>
           </Grid>
         </Grid>
@@ -199,7 +219,6 @@ function SingleCourseForm({ course, onSubmit }) {
         )}
       </div>
 
-
       <div className="mb-3">
         <label htmlFor="categories">Loại khóa học</label>
         <select
@@ -208,7 +227,9 @@ function SingleCourseForm({ course, onSubmit }) {
           value={formik.values.categories}
           onChange={formik.handleChange}
         >
-          <option value={0}>Lớp 10</option>
+          <option selected value={0}>
+            Lớp 10
+          </option>
           <option value={1}>Lớp 11</option>
           <option value={2}>Lớp 12</option>
           <option value={3}>Khác</option>
