@@ -267,7 +267,7 @@ function getUserNotifications() {
   return (dispatch) => {
     dispatch(request());
     usersServices.getUserNotifications().then(
-      (userNotifications) => dispatch(success(userNotifications)),
+      (userNotifications) => dispatch(success(userNotifications.data)),
       (error) => dispatch(failure(error.toString()))
     );
   };
