@@ -27,8 +27,8 @@ code {
   }
 }
 
-.se-action-btn{
-  font-family: 'Montserrat';
+.se-action-btn {
+  font-family: "Montserrat";
   font-size: 1.4rem;
   text-align: center;
   line-height: 37px;
@@ -36,13 +36,13 @@ code {
   border-radius: 5px;
   background-color: var(--primary-color);
   color: white;
-  &:hover{
+  &:hover {
     cursor: pointer;
-    filter: brightness(.8);
+    filter: brightness(0.8);
   }
 }
 
-.se-action-btn.danger{
+.se-action-btn.danger {
   background-color: var(--danger-color);
 }
 .outline-btn {
@@ -91,7 +91,7 @@ input {
   font-family: "Montserrat", sans-serif;
   border-radius: 5px;
   min-width: 220px;
-  border: 1px solid #D5D5D5;
+  border: 1px solid #d5d5d5;
   &:focus {
     border: 1px solid #838383;
     outline: none;
@@ -107,7 +107,7 @@ textarea {
   border-radius: 5px;
   resize: none;
   font-family: "Montserrat", sans-serif;
-  border: 1px solid #D5D5D5;
+  border: 1px solid #d5d5d5;
   &:focus {
     border: 1px solid #838383;
     outline: none;
@@ -208,8 +208,7 @@ button {
   background-color: blue;
 }
 
-
-.delete-button-on-table{
+.delete-button-on-table {
   margin-left: auto;
   margin-right: auto;
   padding: 6px;
@@ -220,14 +219,13 @@ button {
   margin-bottom: 6px;
   justify-content: center;
   align-items: center;
-  &:hover{
+  &:hover {
     background-color: #aaa;
     text-decoration: underline;
     cursor: pointer;
     font-weight: 600;
   }
 }
-
 
 .aspect-ratio {
   border-radius: 10px;
@@ -239,7 +237,8 @@ button {
 }
 
 /* Adjust the iframe so it's rendered in the outer-width and outer-height of it's parent */
-.aspect-ratio iframe,.aspect-ratio img {
+.aspect-ratio iframe,
+.aspect-ratio img {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -247,18 +246,15 @@ button {
   top: 0;
 }
 
-
-
 ::-webkit-scrollbar {
   width: 7px;
   display: none;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   border-radius: 10rem;
   border: 1px solid #fff;
 }
-
 
 ::-webkit-scrollbar-track-piece:start {
   background: transparent;

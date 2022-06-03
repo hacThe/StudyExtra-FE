@@ -3,15 +3,12 @@ import "slick-carousel/slick/slick-theme.css";
 import CardCourses from "./CardCourses";
 import React, { Component } from "react";
 import Slider from "react-slick";
-
+import "./SliderCourse.scss";
 export default class SliderCourses extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    }
+    this.state = {};
   }
-
 
   render() {
     var settings = {
@@ -29,8 +26,7 @@ export default class SliderCourses extends Component {
             slidesToScroll: 3,
             infinite: true,
             dots: true,
-
-          }
+          },
         },
         {
           breakpoint: 768,
@@ -39,32 +35,35 @@ export default class SliderCourses extends Component {
             slidesToScroll: 2,
             infinite: true,
             dots: true,
-
-          }
+          },
         },
         {
           breakpoint: 620,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
-            initialSlide: 1
-          }
+            initialSlide: 1,
+          },
         },
         {
           breakpoint: 480,
           settings: {
             slidesToShow: 1,
-            slidesToScroll: 1
-          }
-        }
-      ]
+            slidesToScroll: 1,
+          },
+        },
+      ],
     };
     return (
-      <div>
+      <div className="slider-course">
         <Slider {...settings}>
-          {this.props.courses.map((course,key) => (
+          {this.props.courses.map((course, key) => (
             <div>
-              <CardCourses key={key} isPayment={this.props.isPayment} course={course}></CardCourses>
+              <CardCourses
+                key={key}
+                isPayment={this.props.isPayment}
+                course={course}
+              ></CardCourses>
             </div>
           ))}
         </Slider>
