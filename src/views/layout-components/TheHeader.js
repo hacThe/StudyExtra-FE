@@ -93,18 +93,20 @@ function TheHeader() {
     setMobileMoreAnchorEl(null);
   };
 
-  const notifications = useSelector((state) => state.userNotifications.notifications) || [];
+  const notifications =
+    useSelector((state) => state.userNotifications.notifications.data) || [];
 
   useEffect(async () => {
     dispatch(userActions.getCurrentUser());
-    dispatch(userActions.getUserNotifications()); 
+    /* if (typeof UserInfo !== "undefined")
+      dispatch(userActions.getUserNotifications()); */
   }, []);
 
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
   const profileMenuId = "primary-search-account-menu";
   function handleLogout() {
     dispatch(userActions.logout());
-  /*   navigate("/dang-nhap"); */
+    navigate("/dang-nhap");
   }
   const renderMenu = (
     <Menu
@@ -128,6 +130,7 @@ function TheHeader() {
           <Avatar
             className="avatar"
             alt="Remy Sharp"
+            /* src={typeof UserInfo === "undefined" ? "default-avatar.png" : UserInfo.avatar} */
             src={isLoggedIn && UserInfo?.avatar}
           />
         </Grid>
@@ -205,21 +208,11 @@ function TheHeader() {
           <Avatar
             className="avatar"
             alt="Remy Sharp"
-            src={item.type === "system" ? "/SE-LOGO.png" : item.creator.avatar}
+            src={item.imgUrl || "/default-avatar.png"}
           />
           <NotificationContent notification={item} />
         </MenuItem>
       ))}
-      {
-        notifications.length < 1 &&
-        <MenuItem 
-        onClick={handleNotificationMenuClose}
-        className="notification_group"
-        style={{fontSize: "1.5rem"}}
-        >
-          Không có thông báo nào
-        </MenuItem>
-      }
     </Menu>
   );
   //------------------------------------------MOBILE MENU---------------------------------------------//

@@ -17,10 +17,8 @@ export const userActions = {
   updateProfile,
   getUserTransaction,
   getCurrentUser,
-  editUserGem
+  editUserGem,
 };
-
-
 
 function editUserGem(amount, userId, callback) {
   return (dispatch) => {
@@ -28,9 +26,9 @@ function editUserGem(amount, userId, callback) {
 
     usersServices.editUserGem(amount, userId).then(
       (transactions) => {
-        dispatch(success(transactions["data"]))
+        dispatch(success(transactions["data"]));
         if (callback) {
-          callback(transactions["data"])
+          callback(transactions["data"]);
         }
       },
       (error) => dispatch(failure(error.toString()))
@@ -54,13 +52,14 @@ function login(username, password) {
     dispatch(request());
     usersServices.login(username, password).then(
       (user) => {
-        alert("login successfully", user)
-        cookiesUtil.setAccessToken(user.token)
-        dispatch(success());
+        alert("login successfully", user);
+        cookiesUtil.setAccessToken(user.token);
+        //   cookiesUtil.setCurrentUserInfo(user.user)
+        dispatch(success(user.user));
       },
       (error) => {
         alert(error);
-        dispatch(failure(error.toString()))
+        dispatch(failure(error.toString()));
       }
     );
   };
@@ -79,8 +78,9 @@ function login(username, password) {
 function logout() {
   return (dispatch) => {
     usersServices.logout();
+    // window.location.reload(true);
     dispatch(success());
-    window.location.reload(true);
+    // window.location.reload(true);
   };
   function success() {
     return { type: userConstants.LOGOUT };
@@ -122,9 +122,9 @@ function getOne(id, callback) {
 
     usersServices.getOne(id).then(
       (users) => {
-        dispatch(success(users["data"]))
+        dispatch(success(users["data"]));
         if (callback) {
-          callback(users["data"])
+          callback(users["data"]);
         }
       },
       (error) => dispatch(failure(error.toString()))
@@ -142,17 +142,15 @@ function getOne(id, callback) {
   }
 }
 
-
-
 function getCurrentUser(id, callback) {
   return (dispatch) => {
     dispatch(request());
 
     usersServices.getCurrentUser(id).then(
       (users) => {
-        dispatch(success(users["data"]))
+        dispatch(success(users["data"]));
         if (callback) {
-          callback(users["data"])
+          callback(users["data"]);
         }
       },
       (error) => dispatch(failure(error.toString()))
@@ -170,16 +168,15 @@ function getCurrentUser(id, callback) {
   }
 }
 
-
 function toogleLockState(id, callback) {
   return (dispatch) => {
     dispatch(request());
 
     usersServices.toogleLockState(id).then(
       (users) => {
-        dispatch(success(users["data"]))
+        dispatch(success(users["data"]));
         if (callback) {
-          callback(users["data"])
+          callback(users["data"]);
         }
       },
       (error) => dispatch(failure(error.toString()))
@@ -196,8 +193,6 @@ function toogleLockState(id, callback) {
     return { type: userConstants.GETONE_FAILURE, error };
   }
 }
-
-
 
 function getAll() {
   return (dispatch) => {
@@ -227,9 +222,9 @@ function _delete(id, callback) {
 
     usersServices._delete(id).then(
       () => {
-        dispatch(success(id))
+        dispatch(success(id));
         if (callback) {
-          callback(id)
+          callback(id);
         }
       },
       (error) => dispatch(failure(id, error.toString()))
@@ -246,7 +241,6 @@ function _delete(id, callback) {
     return { type: userConstants.DELETE_FAILURE, id, error };
   }
 }
-
 
 //thong tin tai khoan
 function getUserCourses() {
@@ -273,7 +267,7 @@ function getUserNotifications() {
   return (dispatch) => {
     dispatch(request());
     usersServices.getUserNotifications().then(
-      (userNotifications) => dispatch(success(userNotifications.data)),
+      (userNotifications) => dispatch(success(userNotifications)),
       (error) => dispatch(failure(error.toString()))
     );
   };
@@ -282,7 +276,10 @@ function getUserNotifications() {
     return { type: userConstants.GET_USER_NOTIFICATION_REQUEST };
   }
   function success(userNotifications) {
-    return { type: userConstants.GET_USER_NOTIFICATION_SUCCESS, userNotifications };
+    return {
+      type: userConstants.GET_USER_NOTIFICATION_SUCCESS,
+      userNotifications,
+    };
   }
   function failure(error) {
     return { type: userConstants.GET_USER_NOTIFICATION_FAILURE, error };
@@ -294,8 +291,8 @@ function uploadAvatar(avatarUrl) {
     dispatch(request());
     usersServices.uploadAvatar(avatarUrl).then(
       (user) => {
-        cookiesUtil.setCurrentUserInfo(user.user)
-        dispatch(success(user))
+        cookiesUtil.setCurrentUserInfo(user.user);
+        dispatch(success(user));
         window.location.reload(true);
       },
       (error) => dispatch(failure(error.toString()))
@@ -339,14 +336,13 @@ function uploadAvatar(avatarUrl) {
   }
 } */
 
-
 function updateProfile(newInfo) {
   return (dispatch) => {
     dispatch(request());
     usersServices.updateProfile(newInfo).then(
       (user) => {
-        cookiesUtil.setCurrentUserInfo(user.user)
-        dispatch(success(user))
+        cookiesUtil.setCurrentUserInfo(user.user);
+        dispatch(success(user));
         window.location.reload(true);
       },
       (error) => dispatch(failure(error.toString()))
@@ -369,7 +365,7 @@ function getUserTransaction() {
     dispatch(request());
     usersServices.getUserTransaction().then(
       (userTransaction) => {
-        dispatch(success(userTransaction))
+        dispatch(success(userTransaction));
       },
       (error) => dispatch(failure(error.toString()))
     );
@@ -379,10 +375,12 @@ function getUserTransaction() {
     return { type: userConstants.GET_USER_TRANSACTION_REQUEST };
   }
   function success(userTransaction) {
-    return { type: userConstants.GET_USER_TRANSACTION_SUCCESS, userTransaction };
+    return {
+      type: userConstants.GET_USER_TRANSACTION_SUCCESS,
+      userTransaction,
+    };
   }
   function failure(error) {
     return { type: userConstants.GET_USER_TRANSACTION_FAILURE, error };
   }
 }
-

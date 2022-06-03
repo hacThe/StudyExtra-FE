@@ -14,6 +14,7 @@ export function authentication(state = initialState, action) {
         error: false
       };
     case userConstants.LOGIN_SUCCESS:
+      //user: cookiesUtil.getCurrentUserInfo()
       window.location.reload(true);
       return {
         waiting: false,
@@ -22,7 +23,7 @@ export function authentication(state = initialState, action) {
         user
       };
     case userConstants.LOGOUT:
-      return {waiting: false, isLoggedIn: false };
+      return {};
     case userConstants.LOGIN_FAILURE:
       return {
         ...state,

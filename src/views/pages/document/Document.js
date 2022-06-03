@@ -164,10 +164,10 @@ function Document(){
                                 ?
                                     val.isHidden ? (null) :
                                     (typeof documentTypes[currentTypeSelect]!='undefined')&&documentTypes[currentTypeSelect]._id=='abc' ?
-                                        (<DocumentCard name={val.name} views={val.views}/>)  
+                                        (<DocumentCard name={val.name} views={val.views} id={val._id}/>)  
                                     :
                                         (val.typeID.includes(documentTypes[currentTypeSelect]._id) 
-                                            ?(<DocumentCard name={val.name} views={val.views}/>)
+                                            ?(<DocumentCard name={val.name} views={val.views} id={val._id}/>)
                                             :(null)
                                         )
                                 :

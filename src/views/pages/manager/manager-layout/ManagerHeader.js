@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Box,
+  Toolbar,
   IconButton,
   InputBase,
   Badge,
@@ -11,6 +12,7 @@ import {
   Avatar,
   Menu,
   Grid,
+  Button,
 } from "@mui/material";
 
 import { BiSearch } from "react-icons/bi";
@@ -28,13 +30,10 @@ function ManagerHeader(props) {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const UserInfo = useSelector(
     (state) => state.user.currentUser
-  );
+  ); /* console.log("user: ", typeof UserInfo === "undefined"); */
 
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    dispatch(userActions.logout());
-  }
   //----------------
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -60,12 +59,16 @@ function ManagerHeader(props) {
     setMobileMoreAnchorEl(null);
   };
 
-  const notifications = useSelector((state) => state.userNotifications.notifications) || [];
+  //const [notifications, setNotification] = useState([]);
+  /* console.log("state: ", useSelector(state => state))/////////
+    const notifications = useSelector(state => state.userNotifications.notifications.data) || []*/
 
   useEffect(async () => {
     dispatch(userActions.getCurrentUser());
-    dispatch(userActions.getUserNotifications());
+    /*  if(typeof UserInfo !== "undefined")
+      dispatch(userActions.getUserNotifications()); */
   }, []);
+  const notifications = []; ///////////////
 
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
   const profileMenuId = "primary-search-account-menu";
@@ -112,7 +115,7 @@ function ManagerHeader(props) {
         <MenuItem onClick={handleMenuClose}>Người dùng</MenuItem>
       </Link>
       <MenuItem onClick={handleMenuClose}>Đổi mật khẩu</MenuItem>
-      <MenuItem onClick={() => handleLogout()}>Đăng xuất</MenuItem>
+      <MenuItem onClick={handleMenuClose}>Đăng xuất</MenuItem>
     </Menu>
   );
   const notificationMenuId = "primary-search-notification-menu";
@@ -156,21 +159,11 @@ function ManagerHeader(props) {
           <Avatar
             className="avatar"
             alt="Remy Sharp"
-            src={item.type === "system" ? "/SE-LOGO.png" : item.creator.avatar}
+            src={item.imgUrl || "/default-avatar.png"}
           />
           <NotificationContent notification={item} />
         </MenuItem>
       ))}
-      {
-        notifications.length < 1 &&
-        <MenuItem
-          onClick={handleNotificationMenuClose}
-          className="notification_group"
-          style={{ fontSize: "1.5rem" }}
-        >
-          Không có thông báo nào
-        </MenuItem>
-      }
     </Menu>
   );
 

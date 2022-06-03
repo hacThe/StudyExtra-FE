@@ -1,16 +1,19 @@
 import React , {useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { AiFillLike } from "react-icons/ai";
-import { FaCommentAlt } from "react-icons/fa";
+
+import EditPostSection from './EditPostSection';
 import CommentItem from './CommentItem';
+import '../scss/Post.scss';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import '../scss/Post.scss';
+
+import { AiFillLike } from "react-icons/ai";
+import { FaCommentAlt } from "react-icons/fa";
 import { FiMoreHorizontal } from "react-icons/fi";
-import { articleActions } from '../../../../actions/article.action';
-import EditPostSection from './EditPostSection';
 import { IoImageOutline , IoSend} from "react-icons/io5";
 
+import { articleActions } from '../../../../actions/article.action';
+import { showToast } from '../../../../actions/toast.action';
 
 const Post = ({post}) => {
     const dispatch = useDispatch();
@@ -19,10 +22,12 @@ const Post = ({post}) => {
     const interactPost = () => {
         setLiked(!isLiked);
     }
-    // console.log("post: ",post);
+    console.log("post: ",post);
+    useSelector((state) => {
+        console.log({ state });
+    })
 
-
-    const userInfo = useSelector((state) => state.user.currentUser);
+    const userInfo = useSelector(state => state.authentication.user);
     // console.log("userInfo", userInfo);
 
     const calculateTime = (timeString) => {
@@ -56,7 +61,7 @@ const Post = ({post}) => {
     const childRef = useRef(null);
 
     const editPost = () => {
-        // console.log("childRef", childRef);
+        console.log("childRef", childRef);
         childRef.current.editArticle();    
     }
     
@@ -71,12 +76,12 @@ const Post = ({post}) => {
     }
 
     const commentCount = (comments) => {
-        // console.log("comments", comments)
+        console.log("comments", comments)
         var res = 0;
         for(var i = 0; i < comments.length; i++){
             res += countReplyComment(comments[i].replyComment) + 1;
         }        
-        // console.log("total", res);
+        console.log("total", res);
         return res;
     }
 
@@ -88,7 +93,7 @@ const Post = ({post}) => {
 
     const commentRef = useRef(null);
     const addBigComment = () => {
-        // console.log("commentRef.current.value", commentRef.current.value);
+        console.log("commentRef.current.value", commentRef.current.value);
         const data = {
             userID: userInfo._id,
             postID: post._id,
@@ -102,7 +107,9 @@ const Post = ({post}) => {
         commentRef.current.value="";
         dispatch(articleActions.addBigComment(data));
         setUserReplyDisplay(!userReplyDisplay);
-        dispatch(articleActions.removeBigCommentPicture())
+        dispatch(articleActions.removeBigCommentPicture());
+        dispatch(showToast("success", "Gửi bình luận thành công!")); 
+
     }
 
     const [currentCommnentImg, setCurrentCommnentImg] = useState("");
@@ -126,6 +133,8 @@ const Post = ({post}) => {
         }
         // console.log("likePostData", likePostData);
         dispatch(articleActions.likeArticle(likePostData));
+        dispatch(showToast("success", "Thích bài viết thành công!")); 
+
     }
 
     const unLikePost = () => {
@@ -135,19 +144,10 @@ const Post = ({post}) => {
         }
         // console.log("unlikePostData", unlikePostData);
         dispatch(articleActions.unLikeArticle(unlikePostData));
+        dispatch(showToast("success", "Bỏ thích bài viết thành công!")); 
+
     }
 
-    // console.log("post", post);
-    
-    // console.log("userInfo", userInfo);
-
-
-    const showInteractionUserList = () => {
-        dispatch(articleActions.openShowUserModal());
-        dispatch(articleActions.getPostInteractionList({
-            postID: post._id
-        }))
-    }
     return (
         
         <div className="question-body">
@@ -165,7 +165,7 @@ const Post = ({post}) => {
                                 <p className="post-time">{calculateTime(post.createdAt)}</p>
                             </div>
                             {
-                                typeof userInfo == 'undefined' || userInfo == null ||
+                                typeof userInfo == 'undefined' ||
                                 (typeof userInfo != 'undefined' && userInfo._id != post.userID )
                                 ? (null) :
                                 <div className='right-heading'>
@@ -196,13 +196,15 @@ const Post = ({post}) => {
                                                 onClick={()=>{
                                                     dispatch(articleActions.deleteArticle(post._id))
                                                     setIsOpenManageModal(!isOpenManageModal);
+                                                    dispatch(showToast("success", "Xoá bài viết thành công!")); 
+
                                                 }}
                                             >
                                                 Xoá
                                             </div>
-                                            {/* <div className="modal-item">
+                                            <div className="modal-item">
                                                 Ẩn
-                                            </div> */}
+                                            </div>
                                         </div>
                                     }
                                 </div>
@@ -265,12 +267,7 @@ const Post = ({post}) => {
                                     }
                                     
                                 </div>
-                                <p 
-                                    className="amount"
-                                    onClick={()=>{
-                                        showInteractionUserList();
-                                    }}
-                                >
+                                <p className="amount">
                                     {post.reactions.length}
                                 </p>
                             </div>
@@ -329,14 +326,14 @@ const Post = ({post}) => {
                                                 dispatch(articleActions.removeBigCommentPicture())  
                                                 var tgt = e.target || window.event.srcElement;
                                                 var files = tgt.files;
-                                                // console.log("files", files);
+                                                console.log("files", files);
                                                 // FileReader support
                                                 if (FileReader && files && files.length) {
                                                     var fr = new FileReader();
                                                     const sleep = ms => new Promise(res => setTimeout(res, ms));
                                                     fr.onload = async() => {
                                                         // document.querySelector('.big-comment-img-display').src = fr.result;
-                                                        // console.log("fr.result", fr.result);
+                                                        console.log("fr.result", fr.result);
                                                         // addTempImage(fr.result);
                                                         setCurrentCommnentImg(fr.result);
                                                         await sleep(2000);
@@ -360,18 +357,17 @@ const Post = ({post}) => {
                                         }   
                                         {
                                             bigCommentLink=="" ? (null) :
-                                            <div className='comment-link-container'>
+                                            <div>
                                                 <img 
                                                     src={bigCommentLink}
                                                     className="big-comment-img-display">  
                                                 </img>
                                                 <div
-                                                    className='delete-reply-img-link'
                                                     onClick={()=> {
                                                         dispatch(articleActions.removeBigCommentPicture())
                                                     }}
                                                 >
-                                                    Xoá ảnh
+                                                    Close
                                                 </div>
                                             </div>
                                         }

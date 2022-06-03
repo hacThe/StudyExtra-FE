@@ -2,7 +2,7 @@ import React , {useEffect, useRef, useState, forwardRef, useImperativeHandle} fr
 import { useDispatch, useSelector } from "react-redux"; 
 import { articleActions } from '../../../../actions/article.action';
 import '../scss/EditPostSection.scss';
-
+import { showToast } from '../../../../actions/toast.action';
 const EditPostSection = ({postInfo}, ref) => {
     console.log("postInfo", postInfo);
 
@@ -38,7 +38,7 @@ const EditPostSection = ({postInfo}, ref) => {
         return state.article.editArticle.imgLink;
     })
 
-    const userInfo = useSelector((state) => state.user.currentUser);
+    const userInfo = useSelector(state => state.authentication.user);
     console.log("userInfo", userInfo);
 
     useImperativeHandle(ref, () => ({
@@ -49,7 +49,8 @@ const EditPostSection = ({postInfo}, ref) => {
                 imgUrl: imgLinkEditRedux,
             }
             dispatch(articleActions.editArticle(data));
-            console.log("dataToEdit: ",data);
+            // console.log("dataToEdit: ",data);
+            dispatch(showToast("success", "Chỉnh sửa bài viết thành công!"));
             // window.location.reload();
         },
     }));

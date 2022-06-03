@@ -1,25 +1,5 @@
 import { examConstants } from "../constaint/exam.constants";
 
-
-export const editDetail = (detail) => {
-    return dispatch => {
-        dispatch({
-            type: examConstants.SET_DETAIL,
-            detail
-        })
-    }
-}
-
-export const editTestCount = (testCount) => {
-    return dispatch => {
-        dispatch({
-            type: examConstants.SET_TEST_COUNT,
-            testCount
-        })
-
-    }
-}
-
 export const editQuestion = (oldIndex, question, newIndex) => {
     return (dispatch) => {
         dispatch({

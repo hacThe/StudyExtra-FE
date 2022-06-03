@@ -15,33 +15,38 @@ import { user } from "../../../../reducers/user.reducer";
 const CourseDetail = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const course = useSelector((state) => state.course.course);
-  const infoUser = useSelector((state) => state.authentication.user);
+  const isLoggedIn = useSelector((state) => state.authentication.isLoggedIn);
+  const infoUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   const { id } = useParams();
   useEffect(() => {
     console.log("ID nè: ", id);
-    dispatch(courseAction.getOne(id, infoUser._id));
+    dispatch(courseAction.getOne(id, infoUser?._id));
   }, []);
   console.log("Course nè", course);
   const navigate = useNavigate();
   const buyCourse = async () => {
+    if (!isLoggedIn) {
+      navigate("/dang-nhap");
+      return;
+    }
     if (
       course &&
       course.studentIds &&
       course.studentIds.includes(infoUser._id)
     ) {
-      console.log("registed")
+      console.log("registed");
       navigate(`/bai-hoc/:id`);
     } else {
-
-      if (infoUser.gem < course.price)
-      {
-        alert("Tài khoản không đủ để thực hiện giao dịch")
-      }
-      else{
+      if (infoUser.gem < course.price) {
+        alert("Tài khoản không đủ để thực hiện giao dịch");
+      } else {
         console.log("Buy");
         await axios
-          .post(URL.URL_BUY_COURSE, { courseId: course._id, username: infoUser.username })
+          .post(URL.URL_BUY_COURSE, {
+            courseId: course._id,
+            username: infoUser.username,
+          })
           .then((res) => {
             console.log(res);
             navigate(`/bai-hoc/:id`);
@@ -49,7 +54,6 @@ const CourseDetail = (props) => {
           .catch((err) => {
             console.log(err);
           });
-
       }
     }
   };
@@ -63,7 +67,7 @@ const CourseDetail = (props) => {
         <Grid item xs={4}>
           <CourseDetailRightSide
             buyCourse={buyCourse}
-            registed={course.studentIds?.includes(infoUser._id) || false}
+            registed={course.studentIds?.includes(infoUser?._id) || false}
             course={course}
             toogle={() => {
               setModalVisible(!modalVisible);

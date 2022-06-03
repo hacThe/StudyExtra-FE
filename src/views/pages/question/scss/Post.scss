@@ -165,10 +165,6 @@
                 font-weight: 600;
                 line-height: 2.4rem;
                 color: #6E6E6E;
-                &:hover{
-                    cursor: pointer;
-                    opacity: 0.7;
-                }
             } 
         }
     }
@@ -262,35 +258,12 @@
                   transform: rotateZ(-360deg);
                 }
             }
-            .comment-link-container{
-                position: relative;
+            .big-comment-img-display{
+                margin-top: 0.8rem;
+                margin-left: 4.4rem;
                 width: 16rem;
                 height: 16rem;
-                .big-comment-img-display{
-                    margin-top: 0.8rem;
-                    margin-left: 4.4rem;
-                    width: 16rem;
-                    height: 16rem;
-                    object-fit: cover;
-                }
-                &:hover{
-                    filter: grayscale(30%);
-                    .delete-reply-img-link{
-                        display: block;
-                    }
-                }
-                .delete-reply-img-link{
-                    display: none;
-                    position: absolute;
-                    left: 9rem;
-                    top: 50%;
-                    background-color: #fff;
-                    padding: 4px 10px;
-                    font-size: 1.2rem;
-                    &:hover{
-                        cursor: pointer;
-                    }
-                }
+                object-fit: cover;
             }
         }
         

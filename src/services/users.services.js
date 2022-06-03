@@ -24,7 +24,9 @@ export const usersServices = {
   resetPassword,
   resendVerifyEmail,
   getCurrentUser,
-  editUserGem
+  editUserGem,
+  getUserExam,
+  getCurrentUserExam,
 };
 
 function login(username, password) {
@@ -39,6 +41,7 @@ function register(user) {
 
 function logout() {
   cookiesUtil.remove("_jwt");
+  // cookiesUtil.remove("_user");
   return true;
 }
 
@@ -48,10 +51,21 @@ function getOne(id) {
   );
 }
 
+function getUserExam(userId) {
+  return handleResponse(
+    ajaxHelper.get(config.URL_USERS + `/getUserExam/${userId}`, {}, options())
+  );
+}
 
 function getCurrentUser(id) {
   return handleResponse(
     ajaxHelper.get(config.URL_USERS + `/getCurrentUser`, {}, options())
+  );
+}
+
+function getCurrentUserExam(id) {
+  return handleResponse(
+    ajaxHelper.get(config.URL_USERS + `/getCurrentUserExam`, {}, options())
   );
 }
 
@@ -94,10 +108,9 @@ function updateProfile(newInfo) {
   );
 }
 
-
 function editUserGem(amount, userId) {
   return handleResponse(
-    ajaxHelper.post(config.URL_UPDATE_GEM, {amount, userId}, options())
+    ajaxHelper.post(config.URL_UPDATE_GEM, { amount, userId }, options())
   );
 }
 
