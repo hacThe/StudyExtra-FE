@@ -17,6 +17,9 @@ export function user(state = initialState, action) {
     case userConstants.GETALL_FAILURE:
       return { ...state, isLoading: false, error: action.error };
 
+    case userConstants.LOGIN_SUCCESS:
+      return { currentUser: action.user };
+
     case userConstants.GETONE_REQUEST:
       return { ...state, isLoading: true };
     case userConstants.GETONE_SUCCESS:
@@ -27,17 +30,15 @@ export function user(state = initialState, action) {
     case userConstants.GET_CURRENT_USER_REQUEST:
       return { ...state, isLoading: true };
     case userConstants.GET_CURRENT_USER_SUCCESS:
-      console.log({currentUser: action.user})
+      console.log({ currentUser: action.user });
       return { ...state, isLoading: false, currentUser: action.user };
     case userConstants.GET_CURRENT_USER_FAILURE:
       return { ...state, isLoading: false, error: action.error };
 
-
-      case userConstants.LOGOUT:
-        return {
-          ...initialState
-        };
-
+    case userConstants.LOGOUT:
+      return {
+        ...initialState,
+      };
 
     case userConstants.DELETE_REQUEST:
       return { ...state, isLoading: true };

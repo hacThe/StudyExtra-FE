@@ -31,6 +31,8 @@ const EmailVerification = React.lazy(() =>
 
 const Routers = () => {
   const authentication = useSelector((state) => state.authentication);
+  const currentUser = useSelector((state) => state.user.currentUser);
+  console.log("currentUser", currentUser);
   return (
     // <React.Suspense fallback={loading}>
     <React.Suspense fallback={loading}>
@@ -42,17 +44,21 @@ const Routers = () => {
           name="Quên mật khẩu"
           element={<ForgotPassword />}
         />
-        
+
         <Route
           path="/cap-nhat-thong-tin"
           name="Cập nhật thông tin người dùng"
           element={<UpdateInfo />}
         />
-        <Route path="/xac-nhan-email/:id/:token" name="Xác nhận email" element={<EmailVerification />} />
+        <Route
+          path="/xac-nhan-email/:id/:token"
+          name="Xác nhận email"
+          element={<EmailVerification />}
+        />
 
-        <Route path="/quan-ly" name="Trang chủ" element={<ManagerContent />}>
-          {
-            routes.managerRoute.map((route, idx) => {
+        {(currentUser && currentUser.role === "user") || (
+          <Route path="/quan-ly" name="Trang chủ" element={<ManagerContent />}>
+            {routes.managerRoute.map((route, idx) => {
               return (
                 route.element && (
                   <Route
@@ -62,9 +68,9 @@ const Routers = () => {
                   />
                 )
               );
-            })
-          }
-        </Route>
+            })}
+          </Route>
+        )}
         <Route path="/" name="Trang chủ" element={<TheContent />}>
           <Route index name="Trang chủ" element={<Navigate to="trang-chu" />} />
           <Route path="/404" name="Page 404" element={<Page404 />} />
@@ -106,14 +112,7 @@ const Routers = () => {
           })}
         </Route>
 
-        <Route
-          path="*"
-          element={
-            <Navigate
-              to={authentication.isLoggedIn ? "/trang-chu" : "/dang-nhap"}
-            />
-          }
-        />
+        <Route path="*" element={<Navigate to={"/404"} />} />
         {/* <Route path="*" element={<Navigate to="404" />}/> */}
 
         {/* <AuthGuard path="/" name="Trang chủ">

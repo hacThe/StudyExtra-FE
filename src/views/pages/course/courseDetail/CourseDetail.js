@@ -15,6 +15,7 @@ import { user } from "../../../../reducers/user.reducer";
 const CourseDetail = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
   const course = useSelector((state) => state.course.course);
+  const isLoggedIn = useSelector((state) => state.authentication.isLoggedIn);
   const infoUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -25,6 +26,10 @@ const CourseDetail = (props) => {
   console.log("Course nè", course);
   const navigate = useNavigate();
   const buyCourse = async () => {
+    if (!isLoggedIn) {
+      navigate("/dang-nhap");
+      return;
+    }
     if (
       course &&
       course.studentIds &&
