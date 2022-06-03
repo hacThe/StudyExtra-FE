@@ -5,6 +5,7 @@ import {documentActions} from '../../../../actions/document.actions.js'
 import { MdModeEdit } from "react-icons/md";
 import { AiFillCloseCircle} from "react-icons/ai";
 import { cookiesUtil } from "../../../../utilities";
+import { showToast } from '../../../../actions/toast.action';
 
 
 function DocumentTypeModal() {
@@ -119,10 +120,14 @@ function DocumentTypeModal() {
     const addDocumentType = () => {
         const typeDocumentInput = document.querySelector('.input-document-type').value;
         if(typeDocumentInput == false || typeDocumentInput == '' || typeDocumentInput.length ==0 ){
-           
+            dispatch(showToast("fail","Bạn chưa nhập tên loại tài liệu"));
         }
         else {
             dispatch(documentActions.addNewDocumentType(typeDocumentInput));
+            if(isEditting)
+                dispatch(showToast("success","Chỉnh sửa loại tài liệu thành công!"));
+            else 
+                dispatch(showToast("success","Thêm loại tài liệu thành công!"));
             document.querySelector('.input-document-type').value = '';
         }
         
@@ -131,6 +136,7 @@ function DocumentTypeModal() {
     const deleteDocumentType = (typeID) => {
         console.log("TypeID", typeID);
         dispatch(documentActions.deleteDocumentType(typeID));
+        dispatch(showToast("success","Xoá loại tài liệu thành công!"));
     }
 
     const [currentIdType,changeCurrentIDType] = useState("nothing");

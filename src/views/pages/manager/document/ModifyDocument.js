@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DocumentTypeModal from './DocumentTypeModal.js';
 import {documentActions} from '../../../../actions/document.actions.js'
 import {useParams} from 'react-router-dom';
+import { showToast } from '../../../../actions/toast.action';
 
 function ModifyDocument(props) {
     const dispatch = useDispatch();
@@ -253,9 +254,25 @@ function ModifyDocument(props) {
             }
         }
         if(checkValidation == false) {
-            alert("Bạn chưa thay đổi trường nào, không thể lưu");
+            dispatch(showToast("fail","Bạn chưa thay đổi trường nào, không thể lưu!"));
             return;
         }
+        var name = isValidation.name ? val.name : val1.name;
+        var author = isValidation.author ? val.author : val1.author;
+        var link = isValidation.link ? val.link : val1.link;
+        if(name.length == 0){
+            dispatch(showToast("fail","Bạn phải nhập thông tin tên tài liệu"));
+            return;
+        }
+        else if(author.length == 0){
+            dispatch(showToast("fail","Bạn phải nhập thông tin tên tác giả"));
+            return;
+        }
+        else if(link.length == 0){
+            dispatch(showToast("fail","Bạn phải nhập thông tin link tài liệu"));
+            return;
+        }
+
         const data = {
             _id: val1.id,
             name: isValidation.name ? val.name : val1.name,
@@ -266,6 +283,7 @@ function ModifyDocument(props) {
         }
         console.log("data", data);
         await dispatch(documentActions.editDocument(data));
+        dispatch(showToast("success","Chỉnh sửa tài liệu thành công!"));
         document.querySelector('.back-to-manage').click();
     }
 

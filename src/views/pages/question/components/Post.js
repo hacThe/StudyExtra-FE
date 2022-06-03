@@ -1,16 +1,19 @@
 import React , {useState, useEffect, useRef} from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { AiFillLike } from "react-icons/ai";
-import { FaCommentAlt } from "react-icons/fa";
+
+import EditPostSection from './EditPostSection';
 import CommentItem from './CommentItem';
+import '../scss/Post.scss';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-import '../scss/Post.scss';
+
+import { AiFillLike } from "react-icons/ai";
+import { FaCommentAlt } from "react-icons/fa";
 import { FiMoreHorizontal } from "react-icons/fi";
-import { articleActions } from '../../../../actions/article.action';
-import EditPostSection from './EditPostSection';
 import { IoImageOutline , IoSend} from "react-icons/io5";
 
+import { articleActions } from '../../../../actions/article.action';
+import { showToast } from '../../../../actions/toast.action';
 
 const Post = ({post}) => {
     const dispatch = useDispatch();
@@ -104,7 +107,9 @@ const Post = ({post}) => {
         commentRef.current.value="";
         dispatch(articleActions.addBigComment(data));
         setUserReplyDisplay(!userReplyDisplay);
-        dispatch(articleActions.removeBigCommentPicture())
+        dispatch(articleActions.removeBigCommentPicture());
+        dispatch(showToast("success", "Gửi bình luận thành công!")); 
+
     }
 
     const [currentCommnentImg, setCurrentCommnentImg] = useState("");
@@ -128,6 +133,8 @@ const Post = ({post}) => {
         }
         // console.log("likePostData", likePostData);
         dispatch(articleActions.likeArticle(likePostData));
+        dispatch(showToast("success", "Thích bài viết thành công!")); 
+
     }
 
     const unLikePost = () => {
@@ -137,6 +144,8 @@ const Post = ({post}) => {
         }
         // console.log("unlikePostData", unlikePostData);
         dispatch(articleActions.unLikeArticle(unlikePostData));
+        dispatch(showToast("success", "Bỏ thích bài viết thành công!")); 
+
     }
 
     return (
@@ -187,6 +196,8 @@ const Post = ({post}) => {
                                                 onClick={()=>{
                                                     dispatch(articleActions.deleteArticle(post._id))
                                                     setIsOpenManageModal(!isOpenManageModal);
+                                                    dispatch(showToast("success", "Xoá bài viết thành công!")); 
+
                                                 }}
                                             >
                                                 Xoá

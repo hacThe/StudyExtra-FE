@@ -12,11 +12,19 @@ export const documentService = {
     getAllDocumentType,
     addNewDocumentType,
     deleteDocumentType,
+    getDocumentByIDNew,
+    increasingDocumentView
 };
 
 function getAllDocument() {
     return handleResponse(
         ajaxHelper.get(config.URL_GET_DOCUMENTS, {}, options())
+    );
+}
+
+function getDocumentByIDNew(id) {
+    return handleResponse(
+        ajaxHelper.get(config.URL_GET_DOCUMENTS + '/' + id, {} , options())
     );
 }
 
@@ -57,6 +65,7 @@ function getAllDocumentType() {
 
 
 
+
 function addNewDocumentType(newName) {
     return handleResponse(
         ajaxHelper.post(config.URL_TYPE_CATEGORY, {name: newName}, options())
@@ -66,6 +75,12 @@ function addNewDocumentType(newName) {
 function deleteDocumentType(id) {
     return handleResponse(
         ajaxHelper.deleteFix(config.URL_TYPE_CATEGORY, {_id: id})
+    );
+}
+
+function increasingDocumentView(id) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_GET_DOCUMENTS + '/increasing-view', {_id: id})
     );
 }
 
