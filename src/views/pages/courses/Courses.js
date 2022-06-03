@@ -14,11 +14,13 @@ import PizZip from 'pizzip'
 //Export docs
 import handleExport from "../../../utilities/ExportDocs";
 
+
 function Courses(props) {
+
+    const user = useSelector(state => state.user)
     const dispatch = useDispatch();
     const courses =
         useSelector((state) => {
-
             return state.course.courses;
         }) || [];
     const [typeCourse, setTypeCourse] = useState("all");
@@ -30,8 +32,8 @@ function Courses(props) {
     const [currentPage, setCurrentPage] = useState(1);
 
     React.useEffect(async () => {
+        console.log(user)
         dispatch(courseAction.getAllCourse());
-        console.log(coursesCurrent)
     }, []);
 
     const onChangeCourses = (currentType) => {
@@ -68,7 +70,6 @@ function Courses(props) {
     //Export
 
     const [mockDataExportDocs, isMock] = React.useState([
-
         {
             id: 1,
             name: 'Phuoc',
@@ -109,13 +110,12 @@ function Courses(props) {
                 </h1>
                 <YourCourse
                     currentPageInYourCourses={currentPageInYourCourses}
-                    courses={courses}
+                    courses={user.currentUser ? user.currentUser.courseID : []}
                 ></YourCourse>
                 <PaginationOutlined
                     setCurrentPageInYourCourses={setCurrentPageInYourCourses}
-                    index={courses.length}
+                    index={user.currentUser ? user.currentUser.courseID.length : 0}
                 ></PaginationOutlined>
-
                 <h1 style={{ padding: '40px 20px', fontSize: '28px' }}>Toàn bộ khóa học</h1>
                 <ButtonGroupCustom
                     typeCourse={typeCourse}
@@ -127,8 +127,8 @@ function Courses(props) {
                     coursesCurrent={coursesCurrent}
                 ></WholeCourses>
                 <PaginationOutlined setCurrentPage={setCurrentPage} index={coursesCurrent.length}></PaginationOutlined>
-                <input type="file" id="fileInput" onChange={(e) => showFile(e)} />
-                <div style={{ border: '1px solid black', padding: '10px', display: 'flex', borderRadius: '8px', width: 'fit-content', cursor: 'pointer' }} onClick={() => handleExport(mockDataExportDocs, 'user', 'MANAGE USER')}>Export excel</div>
+                {/* <input type="file" id="fileInput" onChange={(e) => showFile(e)} /> */}
+                {/* <div style={{ border: '1px solid black', padding: '10px', display: 'flex', borderRadius: '8px', width: 'fit-content', cursor: 'pointer' }} onClick={() => handleExport(mockDataExportDocs, 'user', 'MANAGE USER')}>Export excel</div> */}
             </div>
         </Container>
 

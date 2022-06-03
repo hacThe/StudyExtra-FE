@@ -5,6 +5,8 @@ import '../Announcement.scss'
 import axios from 'axios'
 import { Link } from "react-router-dom";
 import URL from '../../../../services/api/config'
+import { Markup } from 'interweave';
+
 
 function GeneralNotion(props) {
     const [listAnnouncement, setListAnnouncement] = useState([])
@@ -25,7 +27,7 @@ function GeneralNotion(props) {
 
     const renderTime = (time) => {
         let a = new Date(time)
-        return '- ' + a.getDate() + '/' + (a.getMonth() + 1) + '/' + a.getFullYear() + ' - ' + a.getHours() + ':' + a.getMinutes()
+        return a.getDate() + '/' + (a.getMonth() + 1) + '/' + a.getFullYear() + ' - ' + a.getHours() + ':' + a.getMinutes()
     }
 
     const renderNumberOfPage = () => {
@@ -36,27 +38,36 @@ function GeneralNotion(props) {
         }
     }
 
+  
+
     const choosePage = (e, num) => {
         setPage(num);
     }
 
 
     return (
-        <Card style={{ borderRadius: '8px', backgroundColor: '#fdfdfd', padding: '20px' }}>
-            <div style={{ color: '#0056e0', fontFamily: "'Montserrat', san-serif", fontSize: '16px', fontWeight: '600', marginBottom: '10px' }}>THÔNG BÁO CHUNG</div>
+        <Card style={{ backgroundColor: '#f4f4f4', padding: '20px', border: 'none', boxShadow: 'none' }}>
+            <div style={{ color: 'black', fontFamily: "'Montserrat', san-serif", fontSize: '28px', fontWeight: '700', marginBottom: '10px' }}>THÔNG BÁO CHUNG</div>
             <Divider></Divider>
             <div style={{ marginTop: '15px', marginBottom: '15px' }}>
                 {
                     listAnnouncement.length !== 0 ? listAnnouncement.map((item, index) => {
                         if (index < page * 8 && index >= (page - 1) * 8) {
                             return (
-                                <div style={{ marginLeft: '10px', marginRight: '15px', marginBottom: '15px' }}>
-                                    <Link to={`${item.slug}`} className='notification-item' style={{ display: 'flex', justifyContent: 'start  ', textAlign: 'justify' }}>
-                                        <p style={{ lineHeight: '20px' }}>
-                                            <BsFillCaretRightFill style={{ fontSize: '10px', lineHeight: '16px' }}></BsFillCaretRightFill>
+                                <div key={index} style={{ cursor: 'pointer', marginLeft: '10px', marginRight: '15px', marginBottom: '15px', backgroundColor: '#E2E2E2', borderRadius: '10px', boxShadow: '2px 2px 4px rgb(0 0 0 / 25%)', padding: '24px' }}>
+                                    <Link to={`${item.slug}`} style={{ display: 'flex', justifyContent: 'start  ', textAlign: 'justify', boxShadow: 'none', flexDirection: 'column' }}>
+                                        <div style={{ marginBottom: '18px' }} className='title'>
                                             {item.title}
-                                            <span className='notification-time' style={{ lineHeight: '16px', marginLeft: '5px' }}> {renderTime(item.updatedAt)}</span>
-                                        </p>
+                                        </div>
+                                        <div style={{ marginBottom: '18px', fontStyle: 'italic' }} className='notification-time'>
+                                            {renderTime(item.updatedAt)}
+                                        </div>
+                                        <div style={{ marginBottom: '18px', color: 'black' }} className='content'>
+                                            <Markup content={item.content}></Markup>
+                                        </div>
+                                        <div style={{ fontWeight: '700', fontSize: '14px', lineHeight: '17px', color: 'black' }}>
+                                            Xem thêm
+                                        </div>
                                     </Link>
                                 </div>
                             )
@@ -65,7 +76,6 @@ function GeneralNotion(props) {
                         <h1 style={{ margin: '50px', width: '100%', textAlign: 'center' }}>Không có kết quả tìm kiếm</h1>
                     )
                 }
-
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Pagination onChange={(event, page) => choosePage(event, page)} size='small' count={renderNumberOfPage()} color="primary" />

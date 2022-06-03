@@ -20,6 +20,7 @@
     "firebase": "^9.6.11",
     "formik": "^2.2.9",
     "history": "^5.2.0",
+    "interweave": "^13.0.0",
     "link-check": "^5.1.0",
     "lodash": "^4.17.21",
     "node-sass": "^7.0.1",
