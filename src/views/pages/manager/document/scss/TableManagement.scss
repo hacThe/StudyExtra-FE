@@ -96,3 +96,9 @@
 .div-custom-manage{
     display: flex;
 }
+
+.MuiDataGrid-cellContent{
+    &:hover{
+        cursor: pointer;
+    }
+}

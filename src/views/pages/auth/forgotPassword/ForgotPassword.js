@@ -1,14 +1,12 @@
 import React, { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { usersServices } from "../../../../services";
 import { Link, useNavigate } from "react-router-dom";
-import { TextField, Box, Grid, Stack, Button, useForkRef } from "@mui/material";
-import { BsGoogle, BsFacebook, BsFillReplyFill } from "react-icons/bs";
+import { TextField, Stack } from "@mui/material";
+import { BsFillReplyFill } from "react-icons/bs";
 import "./ForgotPassword.scss";
-import { maxWidth } from "@mui/system";
-// import Container from '@mui/material/Container';
+
 const ForgotPassword = () => {
   // 0: ForgotPasswordModal, 1
   const [currentPage, setPage] = useState(0);

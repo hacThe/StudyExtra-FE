@@ -56,7 +56,6 @@ function login(username, password) {
       (user) => {
         alert("login successfully", user)
         cookiesUtil.setAccessToken(user.token)
-        //   cookiesUtil.setCurrentUserInfo(user.user)
         dispatch(success());
       },
       (error) => {
@@ -80,9 +79,8 @@ function login(username, password) {
 function logout() {
   return (dispatch) => {
     usersServices.logout();
-    // window.location.reload(true);
     dispatch(success());
-   // window.location.reload(true);
+    window.location.reload(true);
   };
   function success() {
     return { type: userConstants.LOGOUT };
@@ -275,7 +273,7 @@ function getUserNotifications() {
   return (dispatch) => {
     dispatch(request());
     usersServices.getUserNotifications().then(
-      (userNotifications) => dispatch(success(userNotifications)),
+      (userNotifications) => dispatch(success(userNotifications.data)),
       (error) => dispatch(failure(error.toString()))
     );
   };

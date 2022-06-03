@@ -3,6 +3,7 @@ import { examConstants } from "../constaint/exam.constants";
 const initialState = {
     exams: [],
     exam: {},
+    topResult: [],
     isLoading: false,
     error: ""
 }
@@ -39,6 +40,24 @@ export const exam = (state = initialState, action) => {
                 exam: action.exam,
             }
         case examConstants.GET_EXAM_FAILURE:
+            return {
+                ...state,
+                isLoading: false,
+                error: action.error
+            }
+        case examConstants.GET_TOP_RESULT_REQUEST:
+            return {
+                ...state,
+                isLoading: true
+            }
+
+        case examConstants.GET_TOP_RESULT_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                topResult: action.result,
+            }
+        case examConstants.GET_TOP_RESULT_FAILURE:
             return {
                 ...state,
                 isLoading: false,

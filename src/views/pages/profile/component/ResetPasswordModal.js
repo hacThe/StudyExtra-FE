@@ -1,16 +1,12 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { userActions } from "./../../../../actions/user.actions";
 import { usersServices } from "../../../../services";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { GrClose } from "react-icons/gr";
-import { Modal, Box, Button } from '@mui/material';
+import { Modal, Box } from '@mui/material';
 import "./ResetPasswordModal.scss"
 
 function ResetPasswordModal(props) {
-    const dispatch = useDispatch();
     const handleClose = (event, reason) => {
         if (reason !== 'backdropClick') {
             passwordFormik.setValues(passwordFormik.initialValues);
