@@ -34,7 +34,7 @@ export default function RevenueChart() {
 
     var CHART_DATA = [
         {
-            name: 'Lượt truy cập (Nghìn lượt)',
+            name: 'Gem',
             type: 'area',
             data: valueShow
         }
@@ -105,7 +105,6 @@ export default function RevenueChart() {
         let listGemTransaction = []
         let real = []
         transaction.forEach(value => {
-            console.log(new Date(value.createdAt))
             if (new Date(value.createdAt) - dateStart >= 0 && dateEnd - new Date(value.createdAt) >= 0) {
                 listGemTransaction.push(value.amount)
             }
@@ -128,11 +127,19 @@ export default function RevenueChart() {
             }
             real.push(amountLast)
             setValueShow(real)
-        } else {
-
+        } else if (listGemTransaction.length == 0) {
+            let typeDataFake = [dateStart.getDate() + '-' + monthNames[dateStart.getMonth()], dateEnd.getDate() + '-' + monthNames[dateEnd.getMonth()]]
+            setValueShow([0, 0])
+            setTypeData(typeDataFake)
         }
-        console.log(listGemTransaction)
-        console.log(real)
+        else {
+            let typeDataFake = [dateStart.getDate() + '-' + monthNames[dateStart.getMonth()], dateEnd.getDate() + '-' + monthNames[dateEnd.getMonth()]]
+            for (let i = 1; i < listGemTransaction.length - 1; i++) {
+                typeDataFake.splice(1, 0, '')
+            }
+            setValueShow(listGemTransaction)
+            setTypeData(typeDataFake)
+        }
     }
 
     const handleCancel = () => {

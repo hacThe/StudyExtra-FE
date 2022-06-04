@@ -41,7 +41,7 @@ function Notification(props) {
                                     <p style={{ fontSize: '18px', fontWeight: '600' }}>Thông báo chung</p>
                                 </Grid>
                                 <Grid style={{ display: 'flex', justifyContent: 'end', alignItems: 'start' }} md={6} sm={6}>
-                                    <a onClick={(e) => { e.preventDefault(); navigate('/announcement') }} href="#" style={{ fontSize: '12px', textDecoration: 'none', color: '#7B68EE', fontWeight: '700', display: 'flex' }}>
+                                    <a onClick={(e) => { e.preventDefault(); navigate('/thong-bao') }} href="#" style={{ fontSize: '12px', textDecoration: 'none', color: '#7B68EE', fontWeight: '700', display: 'flex' }}>
                                         <div>Xem thêm</div>
                                         <FiChevronsRight style={{ paddingLeft: '5px', fontSize: '20px', transform: 'translateY(-10%)' }}></FiChevronsRight>
                                     </a>
@@ -52,7 +52,7 @@ function Notification(props) {
                                             return (
                                                 <Grid style={{ display: 'flex', marginBottom: '8px' }} md={12} sm={12}>
                                                     <FiShuffle style={{ paddingRight: '10px', fontSize: '24px', transform: 'translateY(-12%)' }}></FiShuffle>
-                                                    <a href="#" onClick={() => { navigate(`/announcement/${announcement.slug}`) }} style={{ fontSize: '16px', textDecoration: 'none', color: 'black', fontWeight:'500' }}>{announcement.title}
+                                                    <a href="#" onClick={() => { navigate(`/thong-bao/${announcement.slug}`) }} style={{ fontSize: '16px', textDecoration: 'none', color: 'black', fontWeight:'500' }}>{announcement.title}
                                                         <span style={{color: '#08c', fontWeight:'500', fontSize:'12px'}}>
                                                             {renderTime(announcement.updatedAt)}
                                                         </span>

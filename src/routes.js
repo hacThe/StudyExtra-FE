@@ -149,9 +149,9 @@ const commonRoute = [
   { path: "/test-socket", name: "Tìm kiếm", element: <Socket /> },
   // temporary path
   { path: "/thu-nghiem", name: "Thử nghiệm", element: <Overall /> },
-  { path: "/announcement/:slug", name: "Thông báo", element: <Announcement /> },
+  { path: "/thong-bao/:slug", name: "Thông báo", element: <Announcement /> },
   {
-    path: "/announcement",
+    path: "/thong-bao",
     name: "Thông báo",
     element: <GenarelAnnouncement />,
   },
