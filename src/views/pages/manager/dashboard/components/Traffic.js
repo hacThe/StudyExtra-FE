@@ -73,14 +73,6 @@ export default function Traffic() {
                                 <div className='btn-time'>Chọn khoảng thời gian</div>
                             </div>
                             <div style={{ display: 'flex', padding: '12px', alignItems:'start' }}>
-                                <div style={{marginLeft: '10px'}} className='btn-option'>Day</div>
-                                <div style={{marginLeft: '10px'}} className='btn-option active'>Month</div>
-                                <div style={{marginLeft: '10px'}} className='btn-option'>Year</div>
-                                <div style={{marginLeft: '24px'}} className='btn-option active'>
-                                    <BsDownload></BsDownload>
-                                </div>
-
-
                             </div>
                         </div>
                         <Box sx={{ p: 3, pb: 1 }} dir="ltr">
