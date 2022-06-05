@@ -119,36 +119,46 @@ const TableManageMent = ({rowDocs,columnDocs, filter}) => {
     }
 
     const onCellClick = (params, event) => {
-        if(!isLoaded)
-        {
-            var ele = document.querySelector('.MuiDataGrid-footerContainer');
-            ele.insertBefore(divContainer, ele.children[0]);
-            isLoaded = true;
+        // console.log("params", params);
+        if(params.field=='link'){
+            // console.log("params", params.row.link);
+            alert("document link was copy to clipboard");   
+            navigator.clipboard.writeText(params.row.link.toString());
+            event.preventDefault();
         }
-        changeidSelect(params.id);
-        addManageDocument();
-        const element = divContainer;
-        if(idSelect.length >= 2){
-            if(editButton.parentNode!=null)
-                editButton.parentNode.removeChild(editButton);
-            if(deleteButton.parentNode!=null)
-                deleteButton.parentNode.removeChild(deleteButton);
-            element.insertBefore(deleteButton, element.children[0]);
+        else {
+            if(!isLoaded)
+            {
+                var ele = document.querySelector('.MuiDataGrid-footerContainer');
+                ele.insertBefore(divContainer, ele.children[0]);
+                isLoaded = true;
+            }
+            changeidSelect(params.id);
+            addManageDocument();
+            const element = divContainer;
+            if(idSelect.length >= 2){
+                if(editButton.parentNode!=null)
+                    editButton.parentNode.removeChild(editButton);
+                if(deleteButton.parentNode!=null)
+                    deleteButton.parentNode.removeChild(deleteButton);
+                element.insertBefore(deleteButton, element.children[0]);
+            }
+            else if(idSelect.length  == 1){
+                if(editButton.parentNode!=null)
+                    editButton.parentNode.removeChild(editButton);
+                if(deleteButton.parentNode!=null)
+                    deleteButton.parentNode.removeChild(deleteButton);
+                element.insertBefore(editButton, element.children[0]);
+                element.insertBefore(deleteButton, element.children[0]);
+            }
+            else if(idSelect.length  == 0) {
+                if(editButton.parentNode!=null)
+                    editButton.parentNode.removeChild(editButton);
+                if(deleteButton.parentNode!=null)
+                    deleteButton.parentNode.removeChild(deleteButton);
+            }
         }
-        else if(idSelect.length  == 1){
-            if(editButton.parentNode!=null)
-                editButton.parentNode.removeChild(editButton);
-            if(deleteButton.parentNode!=null)
-                deleteButton.parentNode.removeChild(deleteButton);
-            element.insertBefore(editButton, element.children[0]);
-            element.insertBefore(deleteButton, element.children[0]);
-        }
-        else if(idSelect.length  == 0) {
-            if(editButton.parentNode!=null)
-                editButton.parentNode.removeChild(editButton);
-            if(deleteButton.parentNode!=null)
-                deleteButton.parentNode.removeChild(deleteButton);
-        }
+        
     }
 
     const onRowClick = () => {
