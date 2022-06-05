@@ -1,11 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState,useImperativeHandle, forwardRef } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import './scss/Question.scss';
 import Post from './components/Post.js';
 import { articleActions } from '../../../actions/article.action';
 import AddPostSection from './components/AddPostSection';
+import ShowUserModal from './components/ShowUserModal';
+// import { appActions } from "../../../actions";
 
-const refineComments = (comments, postID) => {
+const refineComments = (comments, postID, parrentComment) => {
     var res = [];
     // console.log("comments", comments);
     try{
@@ -24,10 +26,11 @@ const refineComments = (comments, postID) => {
                 imgUrl: cmt.imgUrl,
                 isHidden: cmt.isHidden,
                 time: cmt.time,
-                reactions: cmt.reactions,
+                reactions: cmt.reactions || [],
+                parrentComment: parrentComment,
             }
             if(cmt.replyComment && cmt.replyComment.length > 0)
-                tempt.replyComment =  refineComments(cmt.replyComment, postID);
+                tempt.replyComment =  refineComments(cmt.replyComment, postID, [...parrentComment, cmt.commentID]);
             else tempt.replyComment = [];
             res.push(tempt);
         });
@@ -56,7 +59,7 @@ const refineData = (data) => {
             createdAt: item.createdAt,
             reactions: item.reactions
         }
-        var tempComment = refineComments(item.comments,item._id );
+        var tempComment = refineComments(item.comments,item._id, []);
         temp.comment = tempComment;
         res.push(temp);
     });
@@ -115,16 +118,47 @@ const Question = () => {
         }) || [];
     // console.log("articles", articles)
 
-
-    const userInfo = useSelector(state => state.authentication.user);
+    
+    const userInfo = useSelector((state) => state.user.currentUser);
     // console.log("userInfo", userInfo);
 
     const [isOpenPost, setIsOpenPost] = useState(false);
-
     
+    const ref = useRef(this);
+    useImperativeHandle(ref, () => ({
+        closeAddPost : () => {
+            setIsOpenPost(false);
+        },
+    }));
+    // console.log("question ref", ref);
+
+    useSelector((state) => {
+        console.log({ state });
+    })
+
+    const isShowUserModal = useSelector((state) => {
+        return state.article.isShowModalUser;
+    }) || false;
+
     return (    
         <div className="question-page-container">
+            {
+                isShowUserModal 
+                    ? <ShowUserModal/>
+                    : (null)
+            }
             <div className="question-container">
+                {/* <button
+                    onClick={() => {
+                        if(!isShowUserModal)
+                            dispatch(articleActions.openShowUserModal());
+                        else 
+                            dispatch(articleActions.closeShowUserModal());
+                    }}
+                >
+                    Control Modal
+                </button> */}
+                
                 <div className="add-post-section">
                     {
                         userInfo ?
@@ -155,7 +189,7 @@ const Question = () => {
                     
                     {
                         !isOpenPost ? (null) :
-                        <AddPostSection/>
+                        <AddPostSection ref={ref}/>
                     }
                     {
                         refineData(articles).map((item)=>{
@@ -168,6 +202,22 @@ const Question = () => {
                     }
                 </div>
             </div>
+            {/* Đây là confirm modal */}
+            {/* <span
+                onClick={() => {
+                    dispatch(
+                        appActions.openConfirmDialog("THis is content", () => {
+                            console.log("haha");
+                        })
+                    );
+                }}
+                className="se-btn"
+            >
+                Click me
+            </span> */}
+
+            {/* Đây là modal hiển thị danh sách user đã like */}
+            
         </div>
     )
 }

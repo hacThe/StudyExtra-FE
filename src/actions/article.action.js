@@ -18,7 +18,21 @@ export const articleActions = {
     hideBigComment,
     showBigComment,
     likeArticle,
-    unLikeArticle
+    unLikeArticle,
+    likeBigComment,
+    unlikeBigComment,
+    addReplyComment,
+    deleteReplyComment,
+    likeReplyComment,
+    unlikeReplyComment,
+    hideReplyComment,
+    showReplyComment,
+    editBigComment,
+    editReplyComment,
+    openShowUserModal,
+    closeShowUserModal,
+    getPostInteractionList,
+    getCommentInteractionList
 }
 
 function getAllArticle(){
@@ -50,8 +64,8 @@ function addNewArticle(data){
     return (dispatch)=>{
         dispatch(request())
         articleService.addNewArticle(data).then(
-            (article)=>{
-                dispatch(success(article))
+            (articles)=>{
+                dispatch(success(articles))
             },
             (error)=>{
                 dispatch(failure(error.toString()))
@@ -62,8 +76,8 @@ function addNewArticle(data){
         function request() {
             return { type: articleConstants.ADD_ARTICLE_REQUEST };
         }
-        function success(article ) {
-            return {type: articleConstants.ADD_ARTICLE_SUCCESS, article };
+        function success(articles ) {
+            return {type: articleConstants.ADD_ARTICLE_SUCCESS, articles };
         }
         function failure(error) {
             return { type: articleConstants.ADD_ARTICLE_FAILURE, error };
@@ -75,8 +89,8 @@ function editArticle(data){
     return (dispatch)=>{
         dispatch(request())
         articleService.editArticle(data).then(
-            (article)=>{
-                dispatch(success(article))
+            (articles)=>{
+                dispatch(success(articles))
             },
             (error)=>{
                 dispatch(failure(error.toString()))
@@ -87,8 +101,8 @@ function editArticle(data){
         function request() {
             return { type: articleConstants.EDIT_ARTICLE_REQUEST };
         }
-        function success(article ) {
-            return {type: articleConstants.EDIT_ARTICLE_SUCCESS, article };
+        function success(articles) {
+            return {type: articleConstants.EDIT_ARTICLE_SUCCESS, articles };
         }
         function failure(error) {
             return { type: articleConstants.EDIT_ARTICLE_FAILURE, error };
@@ -383,6 +397,324 @@ function unLikeArticle(data){
     }
 }
 
+function likeBigComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.likeBigComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.LIKE_BIG_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.LIKE_BIG_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.LIKE_BIG_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+function unlikeBigComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.unlikeBigComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.LIKE_BIG_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.LIKE_BIG_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.LIKE_BIG_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+function addReplyComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.addReplyComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.ADD_REPLY_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.ADD_REPLY_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.ADD_REPLY_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+function deleteReplyComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.deleteReplyComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.DELETE_REPLY_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.DELETE_REPLY_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.DELETE_REPLY_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+function likeReplyComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.likeReplyComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.LIKE_REPLY_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.LIKE_REPLY_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.LIKE_REPLY_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+function unlikeReplyComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.unlikeReplyComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.UNLIKE_REPLY_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.UNLIKE_REPLY_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.UNLIKE_REPLY_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+function hideReplyComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.hideReplyComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.HIDE_REPLY_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.HIDE_REPLY_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.HIDE_REPLY_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+function showReplyComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.showReplyComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.SHOW_REPLY_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.SHOW_REPLY_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.SHOW_REPLY_COMMENT_FAILURE, error };
+        }
+    }
+}
 
 
+function editBigComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.editBigComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.EDIT_BIG_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.EDIT_BIG_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.EDIT_BIG_COMMENT_FAILURE, error };
+        }
+    }
+}
 
+
+function editReplyComment(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.editReplyComment(data).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.EDIT_REPLY_COMMENT_REQUEST };
+        }
+        function success(articles ) {
+            return {type: articleConstants.EDIT_REPLY_COMMENT_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: articleConstants.EDIT_REPLY_COMMENT_FAILURE, error };
+        }
+    }
+}
+
+function openShowUserModal() {
+    return (dispatch) => {
+        dispatch(request())
+        
+        function request() {
+            return { type: articleConstants.OPEN_MODAL_SHOW_USER};
+        }
+    }
+}
+
+function closeShowUserModal() {
+    return (dispatch) => {
+        dispatch(request())
+        
+        function request() {
+            return { type: articleConstants.CLOSE_MODAL_SHOW_USER};
+        }
+    }
+}
+
+function getPostInteractionList(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.getPostInteractionList(data).then(
+            (userList)=>{
+                dispatch(success(userList))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.GET_POST_INTERACTION_LIST_REQUEST };
+        }
+        function success(userList ) {
+            return {type: articleConstants.GET_POST_INTERACTION_LIST_SUCCESS, userList };
+        }
+        function failure(error) {
+            return { type: articleConstants.GET_POST_INTERACTION_LIST_FAILURE, error };
+        }
+    }
+}
+
+function getCommentInteractionList(data) {
+    return (dispatch)=>{
+        dispatch(request())
+        articleService.getCommentInteractionList(data).then(
+            (userList)=>{
+                dispatch(success(userList))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: articleConstants.GET_COMMENT_INTERACTION_LIST_REQUEST };
+        }
+        function success(userList ) {
+            return {type: articleConstants.GET_COMMENT_INTERACTION_LIST_SUCCESS, userList };
+        }
+        function failure(error) {
+            return { type: articleConstants.GET_COMMENT_INTERACTION_LIST_FAILURE, error };
+        }
+    }
+}
