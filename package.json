@@ -25,6 +25,7 @@
     "interweave": "^13.0.0",
     "link-check": "^5.1.0",
     "lodash": "^4.17.21",
+    "moment": "^2.29.3",
     "node-sass": "^7.0.1",
     "pizzip": "^3.1.1",
     "prop-types": "^15.8.1",

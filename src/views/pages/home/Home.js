@@ -19,11 +19,7 @@ const Login = () => {
   const posts = useSelector((state) => state.post.posts) || [];
   const user = useSelector((state) => state.user) || [];
 
-  useEffect(() => {
-    axios.get(URL.URL_CREATE_ACCESS).then(res => {
-      console.log(res)
-    })
-  }, [])
+  
 
   useEffect(() => {
     dispatch(courseAction.getAllCourse());
