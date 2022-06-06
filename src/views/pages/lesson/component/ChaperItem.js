@@ -14,7 +14,7 @@ const ChapterItem= (props) => {
             <div className="chapter-item-container">
                 <p className="chapter-title">Phần {props.index+1}: {props.chapter.name}</p>
                 <div className="chapter-detail">
-                    0/{props.chapter.lessons ? props.chapter.lessons.length : 0} | 33:02
+                    {props.chapter.lessons ? props.chapter.lessons.length : 0} bài học
                 </div>
                 <div className="chapter-open">
                     <IoIosArrowDown 

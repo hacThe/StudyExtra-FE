@@ -40,7 +40,7 @@ const LessonItem= (props) => {
             </div>
             <div className='lesson-item-container'>
                 <p className="tilte">
-                    {props.index}. {props.lesson.name}
+                    {props.lessonIndex + 1}. {props.lesson.name}
                 </p>
                 <div className="lesson-detail">
                     <div className="play-icon">

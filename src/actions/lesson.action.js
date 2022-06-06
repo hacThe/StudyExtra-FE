@@ -3,7 +3,8 @@ import { lessonService } from '../services';
 
 export const lessonActions = {
     getCourseInfo,
-    changeSelectedLessonIndex
+    changeSelectedLessonIndex,
+    saveNote
 }
 
 function getCourseInfo(id){
@@ -36,6 +37,31 @@ function changeSelectedLessonIndex(selectedLesson) {
         dispatch(request())
         function request() {
             return { type: lessonConstants.CHANGE_SELECT_LESSON_INDEX , selectedLesson};
+        }
+    }
+}
+
+function saveNote(data){
+    return (dispatch)=>{
+        dispatch(request())
+
+        lessonService.saveNotion(data).then(
+            (data)=>{
+                dispatch(success(data))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        function request() {
+            return { type: lessonConstants.SAVE_NOTION_REQUEST };
+        }
+        function success(data) {
+            return {type: lessonConstants.SAVE_NOTION_SUCCESS, data };
+        }
+        function failure(error) {
+            return { type: lessonConstants.SAVE_NOTION_FAILURE, error };
         }
     }
 }

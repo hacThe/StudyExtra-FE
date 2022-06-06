@@ -176,7 +176,9 @@ const Lesson = () => {
                                 Tổng hợp tài liệu liên quan đến bài học: 
                                 {
                                     !currentLesson ? null :
-                                    <a href={currentLesson.documentUrl}>
+                                    <a href={currentLesson.documentUrl} 
+                                        style={{marginLeft: 4, textDecoration: 'underline'}}
+                                    >
                                         Tổng hợp
                                     </a>
                                 }
@@ -203,7 +205,9 @@ const Lesson = () => {
                             {
                                 (width > 920) ? null : (
                                     <div className={panel==4 ? 'panel' : 'panel hide'}>
-                                        <Notion/>
+                                        <Notion
+                                            currentLesson={currentLesson}
+                                        />
                                     </div>
                                 ) 
                             }
@@ -215,7 +219,7 @@ const Lesson = () => {
                 {
                     (width < 920) ? null : (
                         <Grid item xs={12} sm={12} md={12} lg={4} className="lesson-overall">
-                            <LessonOverall changeIndex={changeSelectedIndex}/>
+                            <LessonOverall currentLesson={currentLesson} changeIndex={changeSelectedIndex}/>
                         </Grid>
                     ) 
                 }

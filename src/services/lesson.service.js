@@ -3,7 +3,8 @@ import { options, handleResponse } from '../helpers';
 import ajaxHelper from './api';
 
 export const lessonService = {
-    getCourseInfo
+    getCourseInfo, 
+    saveNotion
 };
 
 function getCourseInfo(id) {
@@ -12,6 +13,11 @@ function getCourseInfo(id) {
     );
 }
 
+function saveNotion(data) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_COURSE_LEARNING + '/notion/', data , options())
+    );
+}
 // function getAllDocument() {
 //     return handleResponse(
 //         ajaxHelper.get(config.URL_GET_DOCUMENTS, {}, options())

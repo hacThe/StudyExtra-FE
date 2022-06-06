@@ -59,7 +59,9 @@ const LessonOverall= (props) => {
                         }
                     </div>
                     <div className={panel==2 ? 'panel' : 'panel hide'}>
-                        <Notion/>
+                        <Notion
+                            currentLesson={props.currentLesson}
+                        />
                     </div>
                 </div>
             </div>
