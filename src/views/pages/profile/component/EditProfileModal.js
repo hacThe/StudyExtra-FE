@@ -6,11 +6,12 @@ import * as Yup from "yup";
 import { FiRefreshCw } from "react-icons/fi";
 import { GrClose } from "react-icons/gr";
 import { Modal, Box } from "@mui/material";
+import { showToast } from '../../../../actions/toast.action';
 import "./EditProfileModal.scss";
 
 function EditModal(props) {
   console.log(props);
-  const UserInfo = useSelector((state) => state.user.user);
+  const UserInfo = useSelector((state) => state.user.currentUser);
   const initialValues = {
     username: UserInfo.username,
     fullname: UserInfo.name,
@@ -61,8 +62,10 @@ function EditModal(props) {
       console.log("Edit modal:  ", values);
       if (values !== formik.initialValues) {
         dispatch(userActions.updateProfile(values));
+        dispatch(showToast('success', 'Thay đổi thông tin thành công'))
       } else {
-        alert("Thông tin không bị thay đổi");
+        //alert("Thông tin không bị thay đổi");
+        dispatch(showToast('fail', 'Thông tin không bị thay đổi'))
       }
     },
   });

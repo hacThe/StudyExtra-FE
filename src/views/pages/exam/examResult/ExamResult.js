@@ -24,6 +24,7 @@ const ExamResult = () => {
         listAnswers: []
     }];
     const Questions = exam.listQuestion || innitQuestion;
+    console.log("question   ", Questions);
 
 
     useEffect(() => {
@@ -75,9 +76,9 @@ const ExamResult = () => {
             <Grid container spacing={2} className="exam-grid">
                 <Grid item xs={12} md={7} lg={8} className="exam-detail_content">
                     <h1 className="title-result">Kết quả bài thi</h1>
-                    <p className="score-result">Bạn đã hoàn thành bài thi với số điểm: <b style={{ color: '#7B68EE' }}>{takeExam.resultExam.score ? takeExam.resultExam.score : "xxx"}/{takeExam.resultExam.userAnswer ? takeExam.resultExam.userAnswer.length : "xxx"}</b></p>
+                    <p className="score-result">Bạn đã hoàn thành bài thi với số điểm: <b style={{ color: '#7B68EE' }}>{takeExam.resultExam.score ? takeExam.resultExam.score : 0}/{takeExam.resultExam.userAnswer ? takeExam.resultExam.userAnswer.length : "xxx"}</b></p>
                     {
-                        Questions.map((val, idx) => (
+                        takeExam.resultExam.userAnswer && Questions.map((val, idx) => (
                             <div className="result-list" key={idx}>
                                 <p className="title-question" ><b>Câu {idx + 1}:</b> {val.nameQuestion} {takeExam.resultExam.userAnswer[idx] === 0 && <i style={{color: '#C30000'}}>-Chưa trả lời!</i>}</p>
                                 {Questions[idx].listAnswers.map((item, index) => (

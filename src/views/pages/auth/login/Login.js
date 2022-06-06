@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { userActions } from "../../../../actions/user.actions";
-import { cookiesUtil } from "../../../../utilities";
-import { TextField, Box, Grid, Stack, Button } from "@mui/material";
+import { Stack } from "@mui/material";
 import "./Login.scss";
-import LoginForm from "./LoginForm";
 import ListOfLoginMethodModal from "./ListOfLoginMethodModal";
 import LoginWithUserNameAndPasswordModal from "./LoginWithUserNameAndPasswordModal";
 
@@ -29,6 +27,7 @@ const Login = () => {
 
   if (authentication.isLoggedIn) return <Navigate to="/trang-chu" />;
 
+
   return (
     <>
       <div className="login-page-wrapper">
@@ -40,7 +39,7 @@ const Login = () => {
             height: "100vh",
           }}
         >
-          {currentPage == 0 && (
+          {currentPage === 0 && (
             <ListOfLoginMethodModal
               GoToLoginWithUsernameAndPasswordScreen={
                 GoToLoginWithUsernameAndPasswordScreen
@@ -48,7 +47,7 @@ const Login = () => {
             />
           )}
 
-          {currentPage == 1 && (
+          {currentPage === 1 && (
             <LoginWithUserNameAndPasswordModal
               HandleSignInButtonOnClick={HandleSignInButtonOnClick}
               BackToChooseLoginMethodScreen={BackToChooseLoginMethodScreen}

@@ -106,7 +106,6 @@ console.log("notificstion: ", notifications);//////////
   const profileMenuId = "primary-search-account-menu";
   function handleLogout() {
     dispatch(userActions.logout());
-    /*   navigate("/dang-nhap"); */
   }
   const renderMenu = (
     <Menu
@@ -135,7 +134,7 @@ console.log("notificstion: ", notifications);//////////
         </Grid>
         <Grid item xs={8}>
           <h6>{isLoggedIn && UserInfo?.username}</h6>
-          <p>{isLoggedIn && UserInfo?.gem}</p>
+          <p>{isLoggedIn && UserInfo?.gem} GEM</p>
         </Grid>
       </MenuItem>
       <Link to="/thong-tin-tai-khoan">

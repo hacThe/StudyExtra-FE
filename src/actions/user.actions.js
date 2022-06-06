@@ -52,7 +52,7 @@ function login(username, password) {
     dispatch(request());
     usersServices.login(username, password).then(
       (user) => {
-        alert("login successfully", user);
+        //alert("login successfully", user);
         cookiesUtil.setAccessToken(user.token);
         //   cookiesUtil.setCurrentUserInfo(user.user)
         dispatch(success(user.user));

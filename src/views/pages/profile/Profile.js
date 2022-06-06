@@ -3,8 +3,9 @@ import { Grid, Container, Button, Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
 import clsx from "clsx";
 import "./Profile.scss";
-import { FiEdit, FiRefreshCw } from "react-icons/fi";
-
+import { FiEdit } from "react-icons/fi";
+import ToastComponent from './../../components/ToastComponent'
+import { showToast } from './../../../actions/toast.action'
 import TransactionTable from "./component/TransactionTable";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "./../../../actions/user.actions";
@@ -17,11 +18,6 @@ import { usersServices } from "../../../services";
 const Profile = () => {
   const dispatch = useDispatch();
   const UserInfo = useSelector((state) => state.user.currentUser);
-  const courses = useSelector((state) => state.user.currentUser.courseID) || [];
-  const transaction =
-    useSelector((state) => state.user.currentUser.transactions) || [];
-  console.log("transaction: ", transaction); //////////
-  //const [avatar, setAvatar] = useState(UserInfo.avatar);
 
   console.log(
     "state: ",
@@ -39,37 +35,37 @@ const Profile = () => {
   const InformList = [
     {
       name: "Họ và tên",
-      value: UserInfo.name,
+      value: UserInfo?.name,
     },
     {
       name: "ID",
-      value: UserInfo.username,
+      value: UserInfo?.username,
     },
     {
       name: "Ngày sinh",
       value:
-        new Date(UserInfo.birthday).getDate() +
+        new Date(UserInfo?.birthday).getDate() +
         "-" +
-        (new Date(UserInfo.birthday).getMonth() + 1) +
+        (new Date(UserInfo?.birthday).getMonth() + 1) +
         "-" +
-        new Date(UserInfo.birthday).getFullYear(),
+        new Date(UserInfo?.birthday).getFullYear(),
     },
     {
       name: "Giới tính",
-      value: UserInfo.gender,
+      value: UserInfo?.gender,
     },
     {
       name: "Email",
-      value: UserInfo.mail,
-      verified: UserInfo.emailVerified,
+      value: UserInfo?.mail,
+      verified: UserInfo?.emailVerified,
     },
     {
       name: "Số điện thoại",
-      value: UserInfo.phone,
+      value: UserInfo?.phone,
     },
     {
       name: "Số dư",
-      value: UserInfo.gem + " GEM",
+      value: UserInfo?.gem + " GEM",
     },
   ];
 
@@ -100,23 +96,9 @@ const Profile = () => {
     { field: "ghichu", headerName: "Ghi chú", width: 200 },
   ];
 
-  /*  const rowDocs = [
-     { id: 1, stt: 1, thoigian: "12:12:00 16/04/2001", thaydoi: -500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-     { id: 2, stt: 2, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-     { id: 3, stt: 3, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-     { id: 4, stt: 4, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-     { id: 5, stt: 5, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-     { id: 6, stt: 6, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-     { id: 7, stt: 7, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-     { id: 8, stt: 8, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-     { id: 9, stt: 9, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-     { id: 10, stt: 10, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-     { id: 11, stt: 11, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-     { id: 12, stt: 12, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' },
-     { id: 13, stt: 13, thoigian: "12:12:00 16/04/2001", thaydoi: 500, sodu: 1250, ghichu: 'không có gì để ghi chú' }
-   ] */
+
   const rowDocs = [];
-  transaction.map((value, _index) => {
+  UserInfo?.transactions.map((value, _index) => {
     const time = new Date(value.createdAt);
     rowDocs.push({
       id: _index + 1,
@@ -153,6 +135,7 @@ const Profile = () => {
 
   return (
     <>
+      <ToastComponent />
       <Container
         style={{
           backgroundColor: "white",
@@ -187,11 +170,11 @@ const Profile = () => {
               {
                 <Avatar
                   alt="Remy Sharp"
-                  src={UserInfo.avatar}
+                  src={UserInfo?.avatar}
                   sx={{ width: 300, height: 300 }}
                 />
               }
-              <UploadModal avatar={UserInfo.avatar}></UploadModal>
+              <UploadModal avatar={UserInfo?.avatar}></UploadModal>
             </div>
             <Grid container>
               {InformList.slice(0, 4).map((item, index) => (
@@ -222,9 +205,9 @@ const Profile = () => {
             <Grid container className="courses-exams-group">
               <Grid item xs={12} lg={6} className="courses-list">
                 <h5>Toàn bộ khóa học</h5>
-                {courses.map((item, index) => (
+                {UserInfo?.courseID.map((item, index) => (
                   <div key={index} className="course-item">
-                    <Link to={"/chi-tiet-khoa-hoc/" + item.courseId}>
+                    <Link to={"/chi-tiet-khoa-hoc/" + item._id}>
                       {item.name}
                     </Link>
                   </div>

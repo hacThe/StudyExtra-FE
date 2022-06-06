@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { showToast, hideToast } from '../../actions/toast.action'
 function ToastComponent(props) {
     const dispatch = useDispatch()
-    const toast = useSelector(state => state.toast)
+    const toast = useSelector(state => state.toast) || {}
 
     useEffect(() => {
         let timer
