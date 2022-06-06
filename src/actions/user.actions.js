@@ -26,10 +26,12 @@ function editUserGem(amount, userId, callback) {
 
     usersServices.editUserGem(amount, userId).then(
       (transactions) => {
-        dispatch(success(transactions["data"]));
-        if (callback) {
-          callback(transactions["data"]);
-        }
+        dispatch(getOne(transactions.data._id, callback));
+        // dispatch(success(transactions["data"]));
+        // console.log(transactions.data);
+        // if (callback) {
+        //   callback(transactions["data"]);
+        // }
       },
       (error) => dispatch(failure(error.toString()))
     );

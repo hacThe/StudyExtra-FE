@@ -244,7 +244,9 @@ const DetailUser = () => {
           <div className="align-center">
             <LeadingIconButton
               icon={<AiOutlineExport />}
-              content="Xuất Excel"
+              content={
+                userInfo.role == "user" ? "Cấp quyền Admin" : "Xóa quyền Admin"
+              }
             />
             <LeadingIconButton
               onClick={handleToogleLockState}
