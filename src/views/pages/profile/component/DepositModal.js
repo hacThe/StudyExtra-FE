@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { GrClose } from "react-icons/gr";
 import { IoReturnUpBackOutline } from "react-icons/io5";
 import { Modal, Box, Button } from '@mui/material';
+import { showToast } from '../../../../actions/toast.action';
 import "./DepositModal.scss"
 
 function DepositModal(props) {
@@ -97,7 +98,8 @@ function DepositModal(props) {
                     }
                 }
                 usersServices.depositRequest(transaction).then((data) => {
-                    alert("Request sent successfully");
+                    //alert("Request sent successfully");
+                    dispatch(showToast('success', 'Gửi yêu cầu thành công'));
                     setOpen(false);
                 },
                     (error) => {

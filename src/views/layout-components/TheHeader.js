@@ -43,7 +43,7 @@ function TheHeader() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const isLoggedIn = useSelector((state) => state.authentication.isLoggedIn);
   const UserInfo = useSelector((state) => state.user.currentUser);
-  console.log({UserInfo})
+  console.log({ UserInfo })
 
   const dispatch = useDispatch();
 
@@ -93,20 +93,19 @@ function TheHeader() {
     setMobileMoreAnchorEl(null);
   };
 
-  const notifications =
-    useSelector((state) => state.userNotifications.notifications.data) || [];
-
+  const notifications = useSelector((state) => state.userNotifications.notifications) || [];
+console.log("notificstion: ", notifications);//////////
   useEffect(async () => {
-    dispatch(userActions.getCurrentUser());
-    /* if (typeof UserInfo !== "undefined")
-      dispatch(userActions.getUserNotifications()); */
+    if (isLoggedIn) {
+      dispatch(userActions.getCurrentUser());
+      dispatch(userActions.getUserNotifications());
+    }
   }, []);
 
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
   const profileMenuId = "primary-search-account-menu";
   function handleLogout() {
     dispatch(userActions.logout());
-    navigate("/dang-nhap");
   }
   const renderMenu = (
     <Menu
@@ -130,13 +129,12 @@ function TheHeader() {
           <Avatar
             className="avatar"
             alt="Remy Sharp"
-            /* src={typeof UserInfo === "undefined" ? "default-avatar.png" : UserInfo.avatar} */
             src={isLoggedIn && UserInfo?.avatar}
           />
         </Grid>
         <Grid item xs={8}>
           <h6>{isLoggedIn && UserInfo?.username}</h6>
-          <p>{isLoggedIn && UserInfo?.gem}</p>
+          <p>{isLoggedIn && UserInfo?.gem} GEM</p>
         </Grid>
       </MenuItem>
       <Link to="/thong-tin-tai-khoan">
@@ -199,7 +197,7 @@ function TheHeader() {
       onClose={handleNotificationMenuClose}
       className="notification-menu"
     >
-      {notifications.map((item, index) => (
+      {notifications.length > 0 && notifications.map((item, index) => (
         <MenuItem
           key={index}
           onClick={handleNotificationMenuClose}
@@ -208,11 +206,21 @@ function TheHeader() {
           <Avatar
             className="avatar"
             alt="Remy Sharp"
-            src={item.imgUrl || "/default-avatar.png"}
+            src={item.type === "system" ? "/SE-LOGO.png" : item.creator.avatar}
           />
           <NotificationContent notification={item} />
         </MenuItem>
       ))}
+      {
+        notifications.length < 1 &&
+        <MenuItem
+          onClick={handleNotificationMenuClose}
+          className="notification_group"
+          style={{ fontSize: "1.5rem" }}
+        >
+          Không có thông báo nào
+        </MenuItem>
+      }
     </Menu>
   );
   //------------------------------------------MOBILE MENU---------------------------------------------//

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { examAction } from "../../../../actions/exam.actions";
 import { TimerComponent } from "../component/TimerComponent";
 import { ExamGrid } from "./ExamGrid";
+
 import './ExamDetail.scss';
 
 const ExamDetail = () => {
@@ -48,7 +49,6 @@ const ExamDetail = () => {
     }, [])
     useEffect(() => {
         if (takeExam.submited) {
-            alert("Result saved");
             navigate('/luyen-de/' + param.id + '/ket-qua')
             localStorage.clear();
         }

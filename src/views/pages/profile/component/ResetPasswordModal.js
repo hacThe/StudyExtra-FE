@@ -4,9 +4,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { GrClose } from "react-icons/gr";
 import { Modal, Box } from '@mui/material';
+import { showToast } from '../../../../actions/toast.action';
 import "./ResetPasswordModal.scss"
+import { useDispatch } from "react-redux";
 
 function ResetPasswordModal(props) {
+    const dispatch = useDispatch()
     const handleClose = (event, reason) => {
         if (reason !== 'backdropClick') {
             passwordFormik.setValues(passwordFormik.initialValues);
@@ -56,7 +59,8 @@ function ResetPasswordModal(props) {
         onSubmit: (values) => {
             console.log(values)
             usersServices.resetPassword(values.oldPassword, values.password).then((data) => {
-                alert("Đổi mật khẩu thành công")
+                //alert("Đổi mật khẩu thành công")
+                dispatch(showToast('success', 'Đổi mật khẩu thành công'));
                 props.setPassOpen(false);
             }, (error) => {
                 alert(error.response.data);

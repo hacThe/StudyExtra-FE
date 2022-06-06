@@ -52,8 +52,7 @@ function login(username, password) {
     dispatch(request());
     usersServices.login(username, password).then(
       (user) => {
-        alert("login successfully", user);
-        console.log("login successfully", user);
+        //alert("login successfully", user);
         cookiesUtil.setAccessToken(user.token);
         //   cookiesUtil.setCurrentUserInfo(user.user)
         dispatch(success(user.user));
@@ -268,7 +267,7 @@ function getUserNotifications() {
   return (dispatch) => {
     dispatch(request());
     usersServices.getUserNotifications().then(
-      (userNotifications) => dispatch(success(userNotifications)),
+      (userNotifications) => dispatch(success(userNotifications.data)),
       (error) => dispatch(failure(error.toString()))
     );
   };
