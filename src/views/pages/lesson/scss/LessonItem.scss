@@ -1,6 +1,14 @@
 .lesson-item-wrapper{
     display: flex;
     padding: 0.8rem;
+    &:hover{
+        cursor: pointer;
+        background-color: #efefef;
+    }
+    &.active{
+        background-color: #efefef;
+    }
+
     .icon-complete{
         color: #7B68EE;
         margin-right: 1.3rem;

@@ -8,8 +8,8 @@ const Notion= () => {
         <div className="notion-wrapper">
             <div className="notion-container">
                 <div className="notion-controller">
-                    <IoIosSave class='controller-icon' size={20}/>
-                    <MdDownload class='controller-icon' size={20}/>
+                    <IoIosSave className='controller-icon' size={20}/>
+                    <MdDownload className='controller-icon' size={20}/>
                 </div>
                 <textarea className='note-editing'>
 

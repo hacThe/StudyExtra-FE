@@ -22,12 +22,10 @@ const Post = ({post}) => {
     const interactPost = () => {
         setLiked(!isLiked);
     }
-    console.log("post: ",post);
-    useSelector((state) => {
-        console.log({ state });
-    })
+    // console.log("post: ",post);
 
-    const userInfo = useSelector(state => state.authentication.user);
+
+    const userInfo = useSelector((state) => state.user.currentUser);
     // console.log("userInfo", userInfo);
 
     const calculateTime = (timeString) => {
@@ -61,7 +59,7 @@ const Post = ({post}) => {
     const childRef = useRef(null);
 
     const editPost = () => {
-        console.log("childRef", childRef);
+        // console.log("childRef", childRef);
         childRef.current.editArticle();    
     }
     
@@ -76,12 +74,12 @@ const Post = ({post}) => {
     }
 
     const commentCount = (comments) => {
-        console.log("comments", comments)
+        // console.log("comments", comments)
         var res = 0;
         for(var i = 0; i < comments.length; i++){
             res += countReplyComment(comments[i].replyComment) + 1;
         }        
-        console.log("total", res);
+        // console.log("total", res);
         return res;
     }
 
@@ -93,7 +91,7 @@ const Post = ({post}) => {
 
     const commentRef = useRef(null);
     const addBigComment = () => {
-        console.log("commentRef.current.value", commentRef.current.value);
+        // console.log("commentRef.current.value", commentRef.current.value);
         const data = {
             userID: userInfo._id,
             postID: post._id,
@@ -148,6 +146,17 @@ const Post = ({post}) => {
 
     }
 
+    console.log("post", post);
+    
+    // console.log("userInfo", userInfo);
+
+
+    const showInteractionUserList = () => {
+        dispatch(articleActions.openShowUserModal());
+        dispatch(articleActions.getPostInteractionList({
+            postID: post._id
+        }))
+    }
     return (
         
         <div className="question-body">
@@ -165,7 +174,7 @@ const Post = ({post}) => {
                                 <p className="post-time">{calculateTime(post.createdAt)}</p>
                             </div>
                             {
-                                typeof userInfo == 'undefined' ||
+                                typeof userInfo == 'undefined' || userInfo == null ||
                                 (typeof userInfo != 'undefined' && userInfo._id != post.userID )
                                 ? (null) :
                                 <div className='right-heading'>
@@ -202,9 +211,9 @@ const Post = ({post}) => {
                                             >
                                                 Xoá
                                             </div>
-                                            <div className="modal-item">
+                                            {/* <div className="modal-item">
                                                 Ẩn
-                                            </div>
+                                            </div> */}
                                         </div>
                                     }
                                 </div>
@@ -218,7 +227,7 @@ const Post = ({post}) => {
                             </p>
                             <Carousel className='carousel-slider picture-slider' showThumbs={false} style={{borderRadius: '20px'}} axis='horizontal'>
                                 {
-                                    post.imgUrl.map((imgUrl) =>{
+                                    post.imgUrl ? post.imgUrl.map((imgUrl) =>{
                                         return (
                                             <div className='question-picture-container'>
                                                 <img className="question-picture"
@@ -230,7 +239,7 @@ const Post = ({post}) => {
                                                 ></img>
                                             </div>
                                         )
-                                    })
+                                    }): null
                                 } 
                             </Carousel>
                             <div className="picture-pagination">
@@ -247,7 +256,7 @@ const Post = ({post}) => {
                                     onClick={()=> interactPost()}
                                 >
                                     {
-                                        userInfo && post.reactions.includes(userInfo._id) 
+                                        post.reactions && userInfo && post.reactions.includes(userInfo._id) 
                                         ?
                                             <AiFillLike 
                                                 className={'liked'}
@@ -267,8 +276,13 @@ const Post = ({post}) => {
                                     }
                                     
                                 </div>
-                                <p className="amount">
-                                    {post.reactions.length}
+                                <p 
+                                    className="amount"
+                                    onClick={()=>{
+                                        showInteractionUserList();
+                                    }}
+                                >
+                                    {post.reactions ? post.reactions.length : '0'}
                                 </p>
                             </div>
                             <div className="interact">
@@ -326,14 +340,14 @@ const Post = ({post}) => {
                                                 dispatch(articleActions.removeBigCommentPicture())  
                                                 var tgt = e.target || window.event.srcElement;
                                                 var files = tgt.files;
-                                                console.log("files", files);
+                                                // console.log("files", files);
                                                 // FileReader support
                                                 if (FileReader && files && files.length) {
                                                     var fr = new FileReader();
                                                     const sleep = ms => new Promise(res => setTimeout(res, ms));
                                                     fr.onload = async() => {
                                                         // document.querySelector('.big-comment-img-display').src = fr.result;
-                                                        console.log("fr.result", fr.result);
+                                                        // console.log("fr.result", fr.result);
                                                         // addTempImage(fr.result);
                                                         setCurrentCommnentImg(fr.result);
                                                         await sleep(2000);
@@ -357,17 +371,18 @@ const Post = ({post}) => {
                                         }   
                                         {
                                             bigCommentLink=="" ? (null) :
-                                            <div>
+                                            <div className='comment-link-container'>
                                                 <img 
                                                     src={bigCommentLink}
                                                     className="big-comment-img-display">  
                                                 </img>
                                                 <div
+                                                    className='delete-reply-img-link'
                                                     onClick={()=> {
                                                         dispatch(articleActions.removeBigCommentPicture())
                                                     }}
                                                 >
-                                                    Close
+                                                    Xoá ảnh
                                                 </div>
                                             </div>
                                         }

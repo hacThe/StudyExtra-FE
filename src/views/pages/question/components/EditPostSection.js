@@ -38,7 +38,7 @@ const EditPostSection = ({postInfo}, ref) => {
         return state.article.editArticle.imgLink;
     })
 
-    const userInfo = useSelector(state => state.authentication.user);
+    const userInfo = useSelector((state) => state.user.currentUser);
     console.log("userInfo", userInfo);
 
     useImperativeHandle(ref, () => ({

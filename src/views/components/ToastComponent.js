@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { showToast, hideToast } from '../../actions/toast.action'
 function ToastComponent(props) {
     const dispatch = useDispatch()
-    const toast = useSelector(state => state.toast)
+    const toast = useSelector(state => state.toast) || {}
 
     useEffect(() => {
         let timer
@@ -43,10 +43,10 @@ function ToastComponent(props) {
                     <AiFillCheckCircle onClick={handleShow} style={{ fontSize: '24px', color: renderType() }}></AiFillCheckCircle>
                 </div>
                 <div style={{ marginLeft: '14px' }}>
-                    <div style={{ fontFamily: "'Montserrat', san-serif" }} className='title'>Success</div>
-                    <div style={{ fontFamily: "'Montserrat', san-serif", paddingRight: '10px' }} className='Message'>
+                    <p style={{ fontFamily: "'Montserrat', san-serif" }} className='title'>{toast.typeToast === 'success' ? "Success" : "Failure"}</p>
+                    <p style={{ fontFamily: "'Montserrat', san-serif", paddingRight: '10px' }} className='Message'>
                         {toast.message}
-                    </div>
+                    </p>
                 </div>
             </div>
             <div >

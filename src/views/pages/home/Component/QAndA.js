@@ -19,11 +19,14 @@ function QAndA(props) {
                             <FiChevronsRight style={{ paddingLeft: '5px', fontSize: '20px', transform: 'translateY(-10%)' }}></FiChevronsRight>
                         </a>
                     </Grid>
-                    {props.posts.map((post, key) => (
-                        <Grid key={key} md={6} sm={12}>
-                            <QuestionComponent post={post}></QuestionComponent>
-                        </Grid>
-                    ))}
+                    {props.articles.reverse().map((article,key) => {
+                        if(key>props.articles.length - 5) return(
+                            <Grid key={key} md={6} sm={12}>
+                                <QuestionComponent post={props.posts[key]} article={article}></QuestionComponent>
+                            </Grid>
+                        )
+                        
+                    })}
                 </Grid>
             </Container>
         </div>

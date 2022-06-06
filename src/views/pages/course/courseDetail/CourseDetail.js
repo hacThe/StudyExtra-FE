@@ -36,7 +36,7 @@ const CourseDetail = (props) => {
       course.studentIds.includes(infoUser._id)
     ) {
       console.log("registed");
-      navigate(`/bai-hoc/:id`);
+      navigate(`/bai-hoc/` + course.courseId);
     } else {
       if (infoUser.gem < course.price) {
         alert("Tài khoản không đủ để thực hiện giao dịch");

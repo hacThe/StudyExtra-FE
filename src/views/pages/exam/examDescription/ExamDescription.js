@@ -6,6 +6,8 @@ import { Container, Grid, Button, Card, Avatar } from '@mui/material';
 import './ExamDescription.scss'
 import { useDispatch, useSelector } from "react-redux";
 import { examAction } from "../../../../actions/exam.actions";
+import ToastComponent from "../../../components/ToastComponent";
+import { showToast } from "../../../../actions/toast.action";
 
 const ExamDescription = () => {
 
@@ -30,7 +32,8 @@ const ExamDescription = () => {
         else
             if (!takeExam.isLoading && takeExam.isTaking === 'notAccept') {
                 takeExam.isTaking = 'innit';
-                alert(takeExam.error);
+                //alert(takeExam.error);
+                dispatch(showToast('fail', takeExam.error))
             }
     }, [takeExam])
 
@@ -60,6 +63,7 @@ const ExamDescription = () => {
 
     return (
         <Container className="exam-detail" maxWidth="xl">
+            <ToastComponent />
             <Grid container spacing={2} className="exam-grid">
                 <Grid item xs={12} md={7} lg={8} className="exam-detail_content">
                     <div className="exam-name">
