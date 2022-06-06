@@ -2,7 +2,8 @@ import { lessonConstants } from '../constaint/';
 import { lessonService } from '../services';
 
 export const lessonActions = {
-    getCourseInfo
+    getCourseInfo,
+    changeSelectedLessonIndex
 }
 
 function getCourseInfo(id){
@@ -29,6 +30,16 @@ function getCourseInfo(id){
         }
     }
 }
+
+function changeSelectedLessonIndex(selectedLesson) {
+    return (dispatch) => { 
+        dispatch(request())
+        function request() {
+            return { type: lessonConstants.CHANGE_SELECT_LESSON_INDEX , selectedLesson};
+        }
+    }
+}
+
 // function changeModalStatus(isOpen) {
 //     return (dispatch) => { 
 //         dispatch(request())

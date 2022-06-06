@@ -2,15 +2,20 @@ import React from 'react';
 import '../scss/LessonItem.scss';
 import { AiFillPlayCircle, AiFillCheckCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
+import { lessonActions } from '../../../../actions/lesson.action';
 const LessonItem= (props) => {
-    console.log("props Lesson", props);
+    const dispatch = useDispatch();
+
+    // console.log("props Lesson", props);
 
     const changeIndex= () => {
         const dataToChangeIndex = {
             chapterIndex: props.chapterIndex,
             lessonIndex: props.lessonIndex
         }
-        console.log("dataToChangeIndex",dataToChangeIndex);
+        // console.log("dataToChangeIndex",dataToChangeIndex);
+        dispatch(lessonActions.changeSelectedLessonIndex(dataToChangeIndex));
+        props.changeIndex(dataToChangeIndex);
     }
 
     const userSelectedLessonIndex = useSelector((state) => {
@@ -41,7 +46,7 @@ const LessonItem= (props) => {
                     <div className="play-icon">
                         <AiFillPlayCircle size={10}/>
                     </div>
-                    <p className="lesson-time">10:40</p>
+                    <p className="lesson-time">10:00</p>
                 </div>
             </div>
         </div>

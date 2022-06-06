@@ -36,7 +36,11 @@ const ChapterItem= (props) => {
                 {
                     !props.chapter.lessons ? null : props.chapter.lessons.map((value, index) => {
                         return (
-                            <LessonItem chapterIndex={props.index} lesson={value} key={index} lessonIndex={index}/>
+                            <LessonItem 
+                                chapterIndex={props.index} lesson={value} 
+                                key={index} lessonIndex={index}
+                                changeIndex={props.changeIndex}
+                            />
                         );
                     })    
                 }

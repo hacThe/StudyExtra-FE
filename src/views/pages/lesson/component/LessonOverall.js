@@ -4,7 +4,7 @@ import '../scss/LessonOverall.scss';
 import ChapterItem from './ChaperItem.js';
 import Notion from './Notion';
 
-const LessonOverall= () => {
+const LessonOverall= (props) => {
     const [panel, setPanel] = React.useState(1);
     const changePanel = (event, newValue) => {
         setPanel(newValue);
@@ -52,7 +52,7 @@ const LessonOverall= () => {
                             !currentCourse.chapters ? null:
                             currentCourse.chapters.map((value, index, key) => {
                                 return(
-                                    <ChapterItem chapter={value} index={index} key={index}/>
+                                    <ChapterItem chapter={value} index={index} key={index} changeIndex={props.changeIndex}/>
                                 )
                                 
                             })

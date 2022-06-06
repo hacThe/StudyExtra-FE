@@ -1,4 +1,4 @@
-import React , {useEffect} from 'react'
+import React , {useEffect, useState} from 'react'
 import {Grid} from '@mui/material'
 import './scss/Lesson.scss';
 import Credit from './component/Credit';
@@ -10,10 +10,12 @@ import Notion from './component/Notion';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { lessonActions } from '../../../actions/lesson.action';
+// Để play video
+import ReactPlayer from 'react-player'
 const Lesson = () => {
     const dispatch = useDispatch()
     const {id} = useParams()
-    console.log(id);
+    // console.log(id);
     useEffect(()=>{
         // dispatch(courseAction.getLesson(id))
         dispatch(lessonActions.getCourseInfo(id));
@@ -35,17 +37,59 @@ const Lesson = () => {
         return state.lesson.currentCourse
     }) || {};
 
+    const currrentSelectedIndex = useSelector((state) => {{
+        return state.lesson.userSelectedLessonIndex;
+    }})
+    
+   
+            //  [state.lesson.userSelectedLessonIndex.chapterIndex].lessons
+    //         [state.lesson.userSelectedLessonIndex.chapterIndex];
+    // useSelector((state) => {
+    //     // console.log("state.lesson.currentCourse", state.lesson.currentCourse)
+
+    //     if(Object.keys(state.lesson.currentCourse).length==0) return {};
+    //     else 
+    //     {
+    //         // console.log(state.lesson.currentCourse.chapters, "state.lesson.currentCourse.chapters")
+    //         return JSON.parse(JSON.stringify(state.lesson.currentCourse.chapters))
+    //         [state.lesson.userSelectedLessonIndex.chapterIndex].lessons
+    //         [state.lesson.userSelectedLessonIndex.chapterIndex];
+    //     }
+        
+    // }) || {};
+
+    const [selectedIndex, setSelectedIndex] = useState({
+        chapterIndex: 0,
+        lessonIndex: 0
+    });
+
+    // 
+    const changeSelectedIndex = (selectedIndex) => {
+        setSelectedIndex(selectedIndex);
+    }
+
+
+    var currentLesson = currentCourse.chapters ? 
+    currentCourse.chapters[selectedIndex.chapterIndex].lessons[selectedIndex.lessonIndex] : {};
+    console.log("currentLesson", currentLesson);
     return (
         <div className="lesson-wrapper">
             <Grid container spacing={2}>
                 <Grid item xs={12} sm={12} md={12} lg={8} className="lesson-detail">
                     <div className='video-responsive'>
-                        <iframe 
+                        <ReactPlayer 
                             className="lesson-video" 
-                            src="https://www.youtube.com/embed/zueyEdRZQlk" 
-                            title="YouTube video player" 
-                            allowFullScreen
-                        ></iframe>
+                            url={currentLesson ? currentLesson.videoUrl : " "}
+                            width='100%'
+                            height='100%'
+                            controls={true}
+                        />
+                        {/* <iframe 
+                            
+                            src=
+                            // title="YouTube video player" 
+                            // allowFullScreen
+                        ></iframe> */}
                     </div>
                     <div className='tab-panel'>
                         <div className='panel-choosing'>
@@ -117,7 +161,7 @@ const Lesson = () => {
                         </div>
                         <div className='panel-container'>
                             <div className={panel==1 ? 'panel' : 'panel hide'}  >
-                                Đây là text về mô tả ngắn cho bài học, ngắn thôi chữ cũng cỡ 200 - 300 ký tự nha
+                                {currentLesson.name}
                                 
                                 <div className="question-section">
                                     <div className="comment-count">35 hỏi đáp</div>
@@ -129,7 +173,14 @@ const Lesson = () => {
                                 </div>
                             </div>
                             <div className={panel==2 ? 'panel' : 'panel hide'}>
-                                {/* Tổng hợp tài liệu liên quan đến bài học: https://www.facebook.com/hienthe.duong.5/ */}
+                                Tổng hợp tài liệu liên quan đến bài học: 
+                                {
+                                    !currentLesson ? null :
+                                    <a href={currentLesson.documentUrl}>
+                                        Tổng hợp
+                                    </a>
+                                }
+
                                 <div className="credit-wrapper">
                                     <Credit/>
                                 </div>
@@ -141,7 +192,7 @@ const Lesson = () => {
                                             !currentCourse.chapters ? null:
                                             currentCourse.chapters.map((value, index, key) => {
                                                 return(
-                                                    <ChapterItem chapter={value} index={index} key={index}/>
+                                                    <ChapterItem chapter={value} index={index} key={index} changeIndex={changeSelectedIndex}/>
                                                 )
                                                 
                                             })
@@ -164,7 +215,7 @@ const Lesson = () => {
                 {
                     (width < 920) ? null : (
                         <Grid item xs={12} sm={12} md={12} lg={4} className="lesson-overall">
-                            <LessonOverall/>
+                            <LessonOverall changeIndex={changeSelectedIndex}/>
                         </Grid>
                     ) 
                 }

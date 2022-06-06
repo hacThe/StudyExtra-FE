@@ -34,7 +34,11 @@ export function lesson(state = initialState, action) {
                 isLoading: false,
                 currentCourse: action.course.currentCourseChapter,
             }
-        
+        case lessonConstants.CHANGE_SELECT_LESSON_INDEX:
+            return {
+                ...state,
+                userSelectedLessonIndex: action.selectedLesson
+            }
         // case documentConstants.CHANGE_PAGINATION_REQUEST:
         //     var newState = {...state};
         //     newState.pagination = action.page;
