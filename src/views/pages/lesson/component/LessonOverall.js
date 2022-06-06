@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import '../scss/LessonOverall.scss';
 import ChapterItem from './ChaperItem.js';
 import Notion from './Notion';
@@ -10,9 +11,14 @@ const LessonOverall= () => {
         console.log("newValue", newValue)
     };
     
+    const currentCourse = useSelector((state) => {
+        return state.lesson.currentCourse
+    }) || {};
+
+    // console.log(currentCourse);
     return (
         <div className='lesson-overall-wrapper'>
-            <p className="lesson-title">Đây là tên của khoá học</p>
+            <p className="lesson-title">{currentCourse.name}</p>
             <div className='tab-panel'>
                 <div className='panel-choosing'>
                     <div 
@@ -42,9 +48,15 @@ const LessonOverall= () => {
                 </div>
                 <div className='panel-container'>
                     <div className={panel==1 ? 'panel' : 'panel hide'}  >
-                        <ChapterItem></ChapterItem>
-                        <ChapterItem></ChapterItem>
-                        <ChapterItem></ChapterItem>
+                        {   
+                            !currentCourse.chapters ? null:
+                            currentCourse.chapters.map((value, index, key) => {
+                                return(
+                                    <ChapterItem chapter={value} index={index} key={index}/>
+                                )
+                                
+                            })
+                        }
                     </div>
                     <div className={panel==2 ? 'panel' : 'panel hide'}>
                         <Notion/>

@@ -3,7 +3,15 @@ import { lessonConstants } from "../constaint";
 const initialState = {
     isLoading: false,
     error: {},
-    currentCourse: {}
+    currentCourse: {},
+    userCurrentLessonIndex: {
+        chapterIndex: 0,
+        lessonIndex: 0,
+    },
+    userSelectedLessonIndex: {
+        chapterIndex: 0,
+        lessonIndex: 0
+    },
 };
    
 export function lesson(state = initialState, action) {
@@ -26,6 +34,7 @@ export function lesson(state = initialState, action) {
                 isLoading: false,
                 currentCourse: action.course.currentCourseChapter,
             }
+        
         // case documentConstants.CHANGE_PAGINATION_REQUEST:
         //     var newState = {...state};
         //     newState.pagination = action.page;

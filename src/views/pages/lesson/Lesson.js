@@ -24,12 +24,17 @@ const Lesson = () => {
     const [panel, setPanel] = React.useState(1);
     const changePanel = (event, newValue) => {
         setPanel(newValue);
-        console.log("newValue", newValue)
+        // console.log("newValue", newValue)
     };
 
-    useSelector((state) => {
-        console.log("State nè", state);
-    })
+    // useSelector((state) => {
+    //     console.log("State nè", state);
+    // })
+
+    const currentCourse = useSelector((state) => {
+        return state.lesson.currentCourse
+    }) || {};
+
     return (
         <div className="lesson-wrapper">
             <Grid container spacing={2}>
@@ -124,7 +129,7 @@ const Lesson = () => {
                                 </div>
                             </div>
                             <div className={panel==2 ? 'panel' : 'panel hide'}>
-                                Tổng hợp tài liệu liên quan đến bài học: https://www.facebook.com/hienthe.duong.5/
+                                {/* Tổng hợp tài liệu liên quan đến bài học: https://www.facebook.com/hienthe.duong.5/ */}
                                 <div className="credit-wrapper">
                                     <Credit/>
                                 </div>
@@ -132,9 +137,15 @@ const Lesson = () => {
                             {
                                 (width > 920) ? null : (
                                     <div className={panel==3 ? 'panel' : 'panel hide'}  >
-                                        <ChapterItem></ChapterItem>
-                                        <ChapterItem></ChapterItem>
-                                        <ChapterItem></ChapterItem>
+                                        {   
+                                            !currentCourse.chapters ? null:
+                                            currentCourse.chapters.map((value, index, key) => {
+                                                return(
+                                                    <ChapterItem chapter={value} index={index} key={index}/>
+                                                )
+                                                
+                                            })
+                                        }
                                     </div>
                                 ) 
                             }

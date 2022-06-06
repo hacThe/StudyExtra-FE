@@ -1,15 +1,41 @@
 import React from 'react';
 import '../scss/LessonItem.scss';
 import { AiFillPlayCircle, AiFillCheckCircle } from "react-icons/ai";
-const LessonItem= () => {
+import { useDispatch, useSelector } from 'react-redux';
+const LessonItem= (props) => {
+    console.log("props Lesson", props);
+
+    const changeIndex= () => {
+        const dataToChangeIndex = {
+            chapterIndex: props.chapterIndex,
+            lessonIndex: props.lessonIndex
+        }
+        console.log("dataToChangeIndex",dataToChangeIndex);
+    }
+
+    const userSelectedLessonIndex = useSelector((state) => {
+        return state.lesson.userSelectedLessonIndex;
+    })
+
     return (
-        <div className='lesson-item-wrapper'>
+        <div 
+            className={ 
+                userSelectedLessonIndex.chapterIndex === props.chapterIndex &&
+                userSelectedLessonIndex.lessonIndex === props.lessonIndex ?
+                'lesson-item-wrapper active'
+                :
+                'lesson-item-wrapper'
+            }
+            onClick={()=> {
+                changeIndex();
+            }}
+        >
             <div className='icon-complete'>
                 <AiFillCheckCircle size={20}/>
             </div>
             <div className='lesson-item-container'>
                 <p className="tilte">
-                    1. Tên bài học số 1 nè
+                    {props.index}. {props.lesson.name}
                 </p>
                 <div className="lesson-detail">
                     <div className="play-icon">
