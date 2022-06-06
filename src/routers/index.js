@@ -56,21 +56,26 @@ const Routers = () => {
           element={<EmailVerification />}
         />
 
-        {(currentUser && currentUser.role === "user") || (
-          <Route path="/quan-ly" name="Trang chủ" element={<ManagerContent />}>
-            {routes.managerRoute.map((route, idx) => {
-              return (
-                route.element && (
-                  <Route
-                    key={route.path}
-                    path={route.path}
-                    element={route.element}
-                  />
-                )
-              );
-            })}
-          </Route>
-        )}
+        {!authentication.isLoggedIn ||
+          (currentUser && currentUser.role === "user") || (
+            <Route
+              path="/quan-ly"
+              name="Trang chủ"
+              element={<ManagerContent />}
+            >
+              {routes.managerRoute.map((route, idx) => {
+                return (
+                  route.element && (
+                    <Route
+                      key={route.path}
+                      path={route.path}
+                      element={route.element}
+                    />
+                  )
+                );
+              })}
+            </Route>
+          )}
         <Route path="/" name="Trang chủ" element={<TheContent />}>
           <Route index name="Trang chủ" element={<Navigate to="trang-chu" />} />
           <Route path="/404" name="Page 404" element={<Page404 />} />
