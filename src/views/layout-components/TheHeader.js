@@ -420,13 +420,13 @@ function TheHeader() {
               md={4}
               className="logo_group"
             >
-              <Link to="/trang-chu">
+              <a href="/trang-chu">
                 <Avatar
                   sx={{ bgcolor: "green[500]", width: 36, height: 36 }}
                   variant="rounded"
                   src="/SE-LOGO.png"
                 ></Avatar>
-              </Link>
+              </a>
               <Typography
                 variant="h6"
                 noWrap

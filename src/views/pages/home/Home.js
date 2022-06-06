@@ -14,6 +14,7 @@ import { articleActions } from "../../../actions/article.action";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const courses = useSelector((state) => state.course.courses) || [];
   const posts = useSelector((state) => state.post.posts) || [];
   const articles = useSelector((state) => state.article.articles) || [];
@@ -39,8 +40,12 @@ const Login = () => {
         <div className="home-wrapper">
           <Slider></Slider>
           {isLoggedIn && <Notification></Notification>}
-          {isLoggedIn && <YourCourses courses={courses}></YourCourses>}
           <FeaturedCourse courses={courses}></FeaturedCourse>
+          {isLoggedIn && (
+            <YourCourses
+              courses={user.currentUser ? user.currentUser.courseID : []}
+            ></YourCourses>
+          )}
           {isLoggedIn && <QAndA posts={posts} articles={articles}></QAndA>}
 
           {/* <span

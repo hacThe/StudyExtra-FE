@@ -111,12 +111,14 @@ const ExamResult = () => {
                     {val.rightAnswer === index && (
                       <GoCheck style={{ color: "#7B68EE" }} />
                     )}
-                    {takeExam.resultExam.userAnswer[idx] === index + 1 &&
+                    {takeExam.resultExam?.userAnswer &&
+                      takeExam.resultExam.userAnswer[idx] === index + 1 &&
                       takeExam.resultExam.userAnswer[idx] !==
                         val.rightAnswer + 1 && (
                         <TiDeleteOutline style={{ color: "#C30000" }} />
                       )}
-                    {val.rightAnswer !== index &&
+                    {takeExam.resultExam?.userAnswer &&
+                      val.rightAnswer !== index &&
                       takeExam.resultExam.userAnswer[idx] !== index + 1 && (
                         <GoCheck style={{ color: "transparent" }} />
                       )}
