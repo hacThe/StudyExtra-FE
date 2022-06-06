@@ -83,5 +83,5 @@ export default {
   URL_DELETE_TRANSACTION: URL_SYSTEM_V1 + "/transaction/delete",
   URL_CONFIRM_TRANSACTION: URL_SYSTEM_V1 + "/transaction/confirm",
   // course-learning
-
+  URL_COURSE_LEARNING: URL_SYSTEM_V1 + "/lesson/",
 };

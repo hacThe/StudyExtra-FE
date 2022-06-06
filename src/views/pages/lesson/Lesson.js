@@ -7,16 +7,16 @@ import LessonOverall from './component/LessonOverall';
 import useWindowDimensions from './functions/useWindowDimensions';
 import ChapterItem from './component/ChaperItem.js';
 import Notion from './component/Notion';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { courseAction } from '../../../actions/course.action';
-
+import { lessonActions } from '../../../actions/lesson.action';
 const Lesson = () => {
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
     const {id} = useParams()
     console.log(id);
     useEffect(()=>{
         // dispatch(courseAction.getLesson(id))
+        dispatch(lessonActions.getCourseInfo(id));
     }, [])
 
 
@@ -27,6 +27,9 @@ const Lesson = () => {
         console.log("newValue", newValue)
     };
 
+    useSelector((state) => {
+        console.log("State nè", state);
+    })
     return (
         <div className="lesson-wrapper">
             <Grid container spacing={2}>

@@ -15,7 +15,7 @@ import { searchAnnouncement } from './searchAnnouncement.reducer'
 import { transactionReducer } from './transaction.reducer'
 import { newExam } from "./newExam.reducer";
 import { toast } from './toast.reducer'
-
+import { lesson } from "./lesson.reducer";
 const rootReducer = combineReducers({
   app, // appReducer
   course, // course
@@ -33,7 +33,8 @@ const rootReducer = combineReducers({
   transactionReducer,
   user,
   newExam,
-  toast
+  toast,
+  lesson 
 });
 
 export default rootReducer;

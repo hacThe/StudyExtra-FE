@@ -1,11 +1,34 @@
 import { lessonConstants } from '../constaint/';
-import { documentService } from '../services';
+import { lessonService } from '../services';
 
 export const lessonActions = {
-    
+    getCourseInfo
 }
 
+function getCourseInfo(id){
+    return (dispatch)=>{
+        dispatch(request())
 
+        lessonService.getCourseInfo(id).then(
+            (course)=>{
+                dispatch(success(course))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        function request() {
+            return { type: lessonConstants.GET_COURSE_BY_COURSE_ID_REQUEST };
+        }
+        function success(course) {
+            return {type: lessonConstants.GET_COURSE_BY_COURSE_ID_SUCCESS, course };
+        }
+        function failure(error) {
+            return { type: lessonConstants.GET_COURSE_BY_COURSE_ID_FAILURE, error };
+        }
+    }
+}
 // function changeModalStatus(isOpen) {
 //     return (dispatch) => { 
 //         dispatch(request())
