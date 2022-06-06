@@ -1,27 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Container, Button, Badge } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Grid, Container, Button, Badge } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import { FaGem } from "react-icons/fa";
 import { AiOutlineExport } from "react-icons/ai";
-import './ManagerUser.scss';
-import GemRequestMenu from './component/GemRequestMenu';
+import "./ManagerUser.scss";
+import GemRequestMenu from "./component/GemRequestMenu";
 import { useDispatch, useSelector } from "react-redux";
 import UsersTable from "./component/UsersTable";
 import DataTableComponent from "../../../components/DataTableComponent";
 import { userActions } from "../../../../actions";
 import { transactionActions } from "../../../../actions/transaction.action";
-
-
+import handleExport from "../../../../utilities/ExportDocs";
 
 const ManagerUser = () => {
-
   const [anchorNt, setAnchorNt] = React.useState(null);
   const isNotificationMenuOpen = Boolean(anchorNt);
 
-  const handleDepositRequestOnClick = ()=>{
-    navigate('/quan-ly/nguoi-dung/yeu-cau-nap-gem')
-  }
-
+  const handleDepositRequestOnClick = () => {
+    navigate("/quan-ly/nguoi-dung/yeu-cau-nap-gem");
+  };
 
   const handleNotificationMenuOpen = (event) => {
     setAnchorNt(event.currentTarget);
@@ -31,36 +28,38 @@ const ManagerUser = () => {
   };
   const gemRequests = [{}, {}, {}];
   const MenuId = "primary-search-notification-menu";
-  const dispatch = useDispatch()
-  const userList = useSelector(state=>state.user.users) || [];
+  const dispatch = useDispatch();
+  const userList = useSelector((state) => state.user.users) || [];
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(userActions.getAll());
-    dispatch(transactionActions.getDepositeGemRequest())
-  }, [])
+    dispatch(transactionActions.getDepositeGemRequest());
+  }, []);
 
-  const transactionRequest = useSelector(state=>state.transactionReducer.transactions)
+  const transactionRequest = useSelector(
+    (state) => state.transactionReducer.transactions
+  );
 
-  var [filter, setFilter] = useState('');
+  var [filter, setFilter] = useState("");
   var changeFilter = (e) => {
     setFilter(e.target.value);
-  }
+  };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const columnUsers = [
     // {field: , headerName: , width: }
-    { field: 'stt',  headerName: "STT", width: 100 },
-    { field: 'username', headerName: "Username", width: 120 },
-    { field: 'name', headerName: "Tên người dùng", width: 200, flex: 1 },
-    { field: 'mail', headerName: "Email", width: 200, flex: 1 },
-    { field: 'gem', headerName: "Tổng số GEM", width: 200},
-    { field: 'phone', headerName: "Số điện thoại", width: 120 },
-    { field: 'role', headerName: "Phân quyền", width: 150 }
-  ]
+    { field: "stt", headerName: "STT", width: 100 },
+    { field: "username", headerName: "Username", width: 120 },
+    { field: "name", headerName: "Tên người dùng", width: 200, flex: 1 },
+    { field: "mail", headerName: "Email", width: 200, flex: 1 },
+    { field: "gem", headerName: "Tổng số GEM", width: 200 },
+    { field: "phone", headerName: "Số điện thoại", width: 120 },
+    { field: "role", headerName: "Phân quyền", width: 150 },
+  ];
 
-  const handleRowOnClick = (id)=>{
-    navigate(`/quan-ly/nguoi-dung/${id}`)
-  }
+  const handleRowOnClick = (id) => {
+    navigate(`/quan-ly/nguoi-dung/${id}`);
+  };
 
   return (
     <div className="manager-user-wrapper manager-fa-ke-modal">
@@ -70,7 +69,11 @@ const ManagerUser = () => {
             <h1>Danh sách người dùng</h1>
             <div className="inp-group">
               <label>Nhập bất kì để tìm kiếm </label>
-              <input className="search-inp" type='text' onChange={(e) => changeFilter(e)}></input>
+              <input
+                className="search-inp"
+                type="text"
+                onChange={(e) => changeFilter(e)}
+              ></input>
             </div>
           </div>
 
@@ -80,7 +83,8 @@ const ManagerUser = () => {
                 variant="contained"
                 className="gem-request"
                 aria-controls={MenuId}
-                onClick={handleDepositRequestOnClick}>
+                onClick={handleDepositRequestOnClick}
+              >
                 <FaGem />
                 Yêu cầu nạp GEM
               </Button>
@@ -94,24 +98,47 @@ const ManagerUser = () => {
               gemRequests={gemRequests}
               isNotificationMenuOpen={isNotificationMenuOpen}
             ></GemRequestMenu> */}
-            <Button className="btn-export">
+            <Button
+              onClick={() => {
+                console.log("Click");
+                const accountList = Array.from(
+                  userList.map((item, index) => {
+                    item.stt = index + 1;
+                    item.id = item._id;
+                    return item;
+                  })
+                );
+                delete accountList.password;
+                delete accountList.courseID;
+                delete accountList.transactions;
+                delete accountList.examID;
+                delete accountList.notifications;
+                delete accountList.attentions;
+                console.log({ accountList });
+                handleExport(
+                  accountList,
+                  `Study Extra - Danh sách tài khoản`,
+                  columnUsers.map((item) => item.headerName)
+                );
+              }}
+              className="btn-export"
+            >
               <AiOutlineExport />
               Xuất file
             </Button>
           </div>
         </div>
 
-
-          <DataTableComponent
-            onRowClick={(e)=>handleRowOnClick(e.id)}
-            columnDocs={columnUsers}
-            rowDocs={userList.map((item, index)=>{
-              item.stt = index + 1
-              item.id = item._id
-              return item
-            })}
-            filter={filter}
-          ></DataTableComponent>
+        <DataTableComponent
+          onRowClick={(e) => handleRowOnClick(e.id)}
+          columnDocs={columnUsers}
+          rowDocs={userList.map((item, index) => {
+            item.stt = index + 1;
+            item.id = item._id;
+            return item;
+          })}
+          filter={filter}
+        ></DataTableComponent>
       </Container>
     </div>
   );

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import URL from "../../../../services/api/config";
 import axios from "axios";
 import { options } from "../../../../helpers";
+import handleExport from "../../../../utilities/ExportDocs";
 
 const columnDocs = [
   // {field: , headerName: , width: }
@@ -15,7 +16,19 @@ const columnDocs = [
   { field: "title", headerName: "Tiêu đề", width: 200, flex: 2 },
   { field: "userCreate", headerName: "Người tạo", width: 200, flex: 2 },
   { field: "timeCreate", headerName: "Ngày tạo", minWidth: 100, flex: 2 },
-  { field: "content", headerName: "Nội dung", flex: 4 },
+  {
+    field: "content",
+    headerName: "Nội dung",
+    flex: 4,
+    renderCell: (params) => {
+      return (
+        <div
+          className="div"
+          dangerouslySetInnerHTML={{ __html: params.row.content }}
+        ></div>
+      );
+    },
+  },
 ];
 
 // const RawrowDocs = [
@@ -118,7 +131,15 @@ function ManageAnnouncement(props) {
         </div>
         <div style={{ display: "flex", justifyContent: "end" }}>
           <LeadingIconButton
-            icon={<GrDocumentExcel size={24} />}
+            onClick={() => {
+              console.log("Click");
+              handleExport(
+                listAnnouncement,
+                `Study Extra - Danh sách thông báo`,
+                columnDocs.map((item) => item.headerName)
+              );
+            }}
+            icon={<GrDocumentExcel />}
             content={"Xuất Excel"}
           ></LeadingIconButton>
         </div>

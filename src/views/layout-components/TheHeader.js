@@ -43,7 +43,7 @@ function TheHeader() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   const isLoggedIn = useSelector((state) => state.authentication.isLoggedIn);
   const UserInfo = useSelector((state) => state.user.currentUser);
-  console.log({ UserInfo })
+  console.log({ UserInfo });
 
   const dispatch = useDispatch();
 
@@ -93,8 +93,9 @@ function TheHeader() {
     setMobileMoreAnchorEl(null);
   };
 
-  const notifications = useSelector((state) => state.userNotifications.notifications) || [];
-console.log("notificstion: ", notifications);//////////
+  const notifications =
+    useSelector((state) => state.userNotifications.notifications) || [];
+  console.log("notificstion: ", notifications); //////////
   useEffect(async () => {
     if (isLoggedIn) {
       dispatch(userActions.getCurrentUser());
@@ -143,8 +144,8 @@ console.log("notificstion: ", notifications);//////////
       </Link>
 
       {isLoggedIn && UserInfo?.role === "admin" && (
-        <a href="/quan-ly">
-          <MenuItem onClick={handleMenuClose}>Quản lí</MenuItem>
+        <a href="/quan-ly/dashboard">
+          <MenuItem onClick={handleMenuClose}>Quản lí Study Extra</MenuItem>
         </a>
       )}
 
@@ -198,22 +199,24 @@ console.log("notificstion: ", notifications);//////////
       onClose={handleNotificationMenuClose}
       className="notification-menu"
     >
-      {notifications.length > 0 && notifications.map((item, index) => (
-        <MenuItem
-          key={index}
-          onClick={handleNotificationMenuClose}
-          className="notification_group"
-        >
-          <Avatar
-            className="avatar"
-            alt="Remy Sharp"
-            src={item.type === "system" ? "/SE-LOGO.png" : item.creator.avatar}
-          />
-          <NotificationContent notification={item} />
-        </MenuItem>
-      ))}
-      {
-        notifications.length < 1 &&
+      {notifications.length > 0 &&
+        notifications.map((item, index) => (
+          <MenuItem
+            key={index}
+            onClick={handleNotificationMenuClose}
+            className="notification_group"
+          >
+            <Avatar
+              className="avatar"
+              alt="Remy Sharp"
+              src={
+                item.type === "system" ? "/SE-LOGO.png" : item.creator.avatar
+              }
+            />
+            <NotificationContent notification={item} />
+          </MenuItem>
+        ))}
+      {notifications.length < 1 && (
         <MenuItem
           onClick={handleNotificationMenuClose}
           className="notification_group"
@@ -221,7 +224,7 @@ console.log("notificstion: ", notifications);//////////
         >
           Không có thông báo nào
         </MenuItem>
-      }
+      )}
     </Menu>
   );
   //------------------------------------------MOBILE MENU---------------------------------------------//

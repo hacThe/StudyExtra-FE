@@ -263,3 +263,12 @@ button {
 ::-webkit-scrollbar-track-piece:end {
   background: transparent;
 }
+
+.se-wrapper-inner.se-wrapper-wysiwyg.sun-editor-editable {
+  min-height: 500px;
+}
+
+.sun-editor .se-wrapper .se-wrapper-inner {
+  height: 100% !important;
+  min-height: unset !important;
+}

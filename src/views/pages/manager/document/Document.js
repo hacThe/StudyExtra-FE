@@ -6,6 +6,7 @@ import { documentActions } from "../../../../actions/document.actions.js";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import handleExport from "../../../../utilities/ExportDocs";
 
 const columnDocs = [
   // {field: , headerName: , width: }
@@ -106,8 +107,19 @@ function DocumentManage(props) {
         <div className="table-header">
           <div className="heading">
             <div className="header">Danh sách tài liệu</div>
-            <div className="export">
-              <GrDocumentExcel size={24} />
+            <div
+              onClick={() => {
+                console.log("Click");
+                handleExport(
+                  convertDocumentToData(documents),
+                  `Study Extra - Danh sách tài liệu`,
+                  columnDocs.map((item) => item.headerName)
+                );
+              }}
+              className="export"
+            >
+              <GrDocumentExcel />
+
               <p className="export-title">Xuất Excel</p>
             </div>
           </div>

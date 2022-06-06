@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./CourseListManager.scss";
 
-import { GrDocumentExcel } from "react-icons/gr";
+import { AiOutlineExport } from "react-icons/ai";
 import DataTableComponent from "../../../../components/DataTableComponent";
 import LeadingIconButton from "../../../../components/LeadingIconButton";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { courseAction } from "../../../../../actions/course.action";
+import handleExport from "../../../../../utilities/ExportDocs";
 
 const columnDocs = [
   // {field: , headerName: , width: }
   { field: "stt", headerName: "STT" },
   { field: "name", headerName: "Tên khóa học", width: 300, flex: 1 },
-  { field: "category", headerName: "Phân loại" },
   { field: "lessons", headerName: "Số bài học" },
   { field: "attendee", headerName: "Số học sinh" },
   { field: "price", headerName: "Giá bán" },
@@ -25,13 +25,13 @@ const CourseListManager = () => {
     dispatch(courseAction.getAllCourse());
   }, []);
   const rawData = useSelector((state) => {
-    console.log({state})
-    return state.course.courses});
-  
+    console.log({ state });
+    return state.course.courses;
+  });
 
   const rowDocs = rawData.map((item, index) => {
     const temp = {};
-    temp.id = item.courseId
+    temp.id = item.courseId;
     temp.stt = index + 1;
     temp.name = item.name;
     temp.category = item.category;
@@ -67,8 +67,16 @@ const CourseListManager = () => {
             <div className="heading">
               <div className="header">Danh sách khóa học</div>
               <LeadingIconButton
-                icon={<GrDocumentExcel size={24} />}
-                content={"Xuất Excel"}
+                onClick={() => {
+                  console.log("Click");
+                  handleExport(
+                    rowDocs,
+                    `Study Extra - Danh sách khóa học`,
+                    columnDocs.map((item) => item.headerName)
+                  );
+                }}
+                icon={<AiOutlineExport size={18} />}
+                content={"Xuất tài liệu"}
               />
             </div>
             <div className="filter-container">

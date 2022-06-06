@@ -1,6 +1,11 @@
 import React, { useState } from "react";
-import { DataGrid } from "@mui/x-data-grid";
 import "./scss/DataTableComponent.scss";
+
+import {
+  DataGrid,
+  GridToolbarContainer,
+  GridToolbarExport,
+} from "@mui/x-data-grid";
 
 const datagridSx = {
   borderRadius: 2,
@@ -33,6 +38,23 @@ const datagridSx = {
 };
 
 const DataTableComponent = ({ rowDocs, columnDocs, filter, onRowClick }) => {
+  function CustomToolbar() {
+    return (
+      <GridToolbarContainer>
+        <GridToolbarExport
+          excelOptions={{
+            columnsStyles: {
+              // replace the dd.mm.yyyy default date format
+              recruitmentDay: { numFmt: "dd/mm/yyyy" },
+              // set this column in green
+              incomes: { font: { argb: "FF00FF00" } },
+            },
+          }}
+        />
+      </GridToolbarContainer>
+    );
+  }
+
   const [selectionModel, setSelectionModel] = React.useState([]);
 
   const handleOnRowClick = (e) => {
@@ -59,10 +81,14 @@ const DataTableComponent = ({ rowDocs, columnDocs, filter, onRowClick }) => {
   };
 
   return (
-    <div style={{ height: 750, width: "100%" }} className="datagrid-container-wrapper">
+    <div
+      style={{ height: 750, width: "100%" }}
+      className="datagrid-container-wrapper"
+    >
       {selectionModel?.length > 0 && (
         <span className="selected-rows-count">
-          Đã chọn {selectionModel.length} hàng. <strong onClick={() => alert("Xóa hàng")}>Xóa hàng đã chọn</strong>
+          Đã chọn {selectionModel.length} hàng.{" "}
+          <strong onClick={() => alert("Xóa hàng")}>Xóa hàng đã chọn</strong>
         </span>
       )}
       <DataGrid
@@ -79,6 +105,9 @@ const DataTableComponent = ({ rowDocs, columnDocs, filter, onRowClick }) => {
         onRowClick={handleOnRowClick}
         disableSelectionOnClick
         hideFooterSelectedRowCount
+        // components={{
+        //   Toolbar: CustomToolbar,
+        // }}
       />
     </div>
   );
