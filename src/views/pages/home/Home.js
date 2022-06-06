@@ -10,13 +10,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { courseAction } from "../../../actions/course.action";
 import { postAction } from "../../../actions/post.action";
 import { appActions } from "../../../actions";
-
+import axios from 'axios'
+import URL from '../../../services/api/config'
 
 const Login = () => {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.course.courses) || [];
   const posts = useSelector((state) => state.post.posts) || [];
   const user = useSelector((state) => state.user) || [];
+
+  useEffect(() => {
+    axios.get(URL.URL_CREATE_ACCESS).then(res => {
+      console.log(res)
+    })
+  }, [])
 
   useEffect(() => {
     dispatch(courseAction.getAllCourse());

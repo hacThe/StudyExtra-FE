@@ -1,12 +1,11 @@
 import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
 // material
-import { Card, CardHeader, Box, Container, Grid, Button } from '@mui/material';
+import { Card, CardHeader, Box, Container, Grid, Button, formLabelClasses } from '@mui/material';
 //
 import BaseOptionChart from './BaseOptionChart';
 import './Traffic.scss'
 // ----------------------------------------------------------------------
-import { BsDownload } from 'react-icons/bs'
 import React, { useEffect, useState } from 'react';
 import URL from '../../../../../services/api/config'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -24,8 +23,7 @@ export default function RevenueChart() {
     const [transaction, setTransaction] = useState()
     const [typeDate, setTypeData] = React.useState([start, '', '', '', '', '', start]);
     const [growth, setGrowth] = React.useState(start + ' - ' + start)
-    const [valueShow, setValueShow] = useState([22, 3, 56, 2, 14, 15, 29])
-    const [showOption, setShowOption] = React.useState(false);
+    const [valueShow, setValueShow] = useState([])
     const [dateStart, setDateStart] = React.useState(new Date());
     const [dateEnd, setDateEnd] = React.useState(new Date());
     const [dateStartReal, setDateStartReal] = React.useState(new Date())
@@ -46,6 +44,8 @@ export default function RevenueChart() {
             await axios.get(URL.URL_GET_TRANSACTIONS)
                 .then(res => {
                     setTransaction(res.data.data)
+                    console.log(res.data.data)
+                    handleShowDate1(res.data.data)
                 })
         }
         fetApi()
@@ -97,7 +97,6 @@ export default function RevenueChart() {
         setDateStartReal(dateStart)
         setIsShow(false)
         setGrowth(dateStart.getDate() + ' ' + monthNames[dateEnd.getMonth()] + ' - ' + dateEnd.getDate() + ' ' + monthNames[dateEnd.getMonth()])
-
         handleShowDate()
     }
 
@@ -112,13 +111,13 @@ export default function RevenueChart() {
 
         if (listGemTransaction.length >= 7) {
             setTypeData([dateStart.getDate() + '-' + monthNames[dateStart.getMonth()], '', '', '', '', '', dateEnd.getDate() + '-' + monthNames[dateEnd.getMonth()]])
-            let soNguyen = (listGemTransaction.length / 7).toFixed()
+            let soNguyen = Math.floor((listGemTransaction.length / 7))
             let soDu = (listGemTransaction.length % soNguyen)
             for (let i = 0; i < 6; i++) {
                 let amount = 0
-                amount += listGemTransaction[i * soNguyen]
-                amount += listGemTransaction[i * soNguyen + 1]
-                amount += listGemTransaction[i * soNguyen + 2]
+                for (let j = 0; j < soNguyen; j++) {
+                    amount += listGemTransaction[(i * soNguyen) + j]
+                }
                 real.push(amount)
             }
             let amountLast = 0
@@ -137,7 +136,46 @@ export default function RevenueChart() {
             for (let i = 1; i < listGemTransaction.length - 1; i++) {
                 typeDataFake.splice(1, 0, '')
             }
-            setValueShow(listGemTransaction)
+            setTypeData(typeDataFake)
+        }
+    }
+
+    const handleShowDate1 = (transac) => {
+        let listGemTransaction = []
+        let real = []
+        transac.forEach(value => {
+            if (new Date(value.createdAt) - dateStart >= 0 && dateEnd - new Date(value.createdAt) >= 0) {
+                listGemTransaction.push(value.amount)
+            }
+        })
+
+        if (listGemTransaction.length >= 7) {
+            setTypeData([dateStart.getDate() + '-' + monthNames[dateStart.getMonth()], '', '', '', '', '', dateEnd.getDate() + '-' + monthNames[dateEnd.getMonth()]])
+            let soNguyen = Math.floor((listGemTransaction.length / 7))
+            let soDu = (listGemTransaction.length % soNguyen)
+            for (let i = 0; i < 6; i++) {
+                let amount = 0
+                for (let j = 0; j < soNguyen; j++) {
+                    amount += listGemTransaction[(i * soNguyen) + j]
+                }
+                real.push(amount)
+            }
+            let amountLast = 0
+            for (let i = 0; i < soDu; i++) {
+                amountLast += listGemTransaction[6 * soNguyen + i]
+            }
+            real.push(amountLast)
+            setValueShow(real)
+        } else if (listGemTransaction.length == 0) {
+            let typeDataFake = [dateStart.getDate() + '-' + monthNames[dateStart.getMonth()], dateEnd.getDate() + '-' + monthNames[dateEnd.getMonth()]]
+            setValueShow([0, 0])
+            setTypeData(typeDataFake)
+        }
+        else {
+            let typeDataFake = [dateStart.getDate() + '-' + monthNames[dateStart.getMonth()], dateEnd.getDate() + '-' + monthNames[dateEnd.getMonth()]]
+            for (let i = 1; i < listGemTransaction.length - 1; i++) {
+                typeDataFake.splice(1, 0, '')
+            }
             setTypeData(typeDataFake)
         }
     }
@@ -171,8 +209,8 @@ export default function RevenueChart() {
                                 renderInput={(params) => <TextField {...params} />}
                             />
                             <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-                                <div onClick={handleComform} style={{ border: '1px solid var(--primary-color)', fontWeight: '600', fontSize: '13px', padding: '5px 10px', backgroundColor: 'var(--primary-color)', borderRadius: '4px', color: 'white' }}>Xác nhận</div>
-                                <div onClick={handleCancel} style={{ border: '1px solid var(--primary-color)', fontWeight: '600', fontSize: '13px', padding: '5px 10px', backgroundColor: 'white', borderRadius: '4px', color: 'var(--primary-color)' }}>Hủy</div>
+                                <div onClick={handleComform} style={{ cursor: 'pointer', border: '1px solid var(--primary-color)', fontWeight: '600', fontSize: '13px', padding: '5px 10px', backgroundColor: 'var(--primary-color)', borderRadius: '4px', color: 'white' }}>Xác nhận</div>
+                                <div onClick={handleCancel} style={{ cursor: 'pointer', border: '1px solid var(--primary-color)', fontWeight: '600', fontSize: '13px', padding: '5px 10px', backgroundColor: 'white', borderRadius: '4px', color: 'var(--primary-color)' }}>Hủy</div>
                             </div>
                         </LocalizationProvider>
                     </div>

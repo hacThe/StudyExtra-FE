@@ -93,4 +93,9 @@ export default {
 
   // Get transactions
   URL_GET_TRANSACTIONS: URL_SYSTEM_V1 + "/transaction/getAllTransaction",
+
+
+  //Crate access
+  URL_CREATE_ACCESS: URL_SYSTEM_V1 + "/access/createAccess",
+  URL_GET_ALL_ACCESS: URL_SYSTEM_V1 + "/access/getAllAccess",
 };
