@@ -106,8 +106,11 @@ function TheHeader() {
   //--------------------------------------------------------------PROFILE-MENU-------------------------------------------------------//
   const profileMenuId = "primary-search-account-menu";
   function handleLogout() {
-    dispatch(userActions.logout());
-    /*   navigate("/dang-nhap"); */
+    dispatch(
+      userActions.logout(() => {
+        navigate("/dang-nhap");
+      })
+    );
   }
   const renderMenu = (
     <Menu

@@ -75,12 +75,15 @@ function login(username, password) {
   }
 }
 
-function logout() {
+function logout(callback) {
   return (dispatch) => {
     usersServices.logout();
     // window.location.reload(true);
     dispatch(success());
     // window.location.reload(true);
+    if (callback instanceof Function) {
+      callback();
+    }
   };
   function success() {
     return { type: userConstants.LOGOUT };
