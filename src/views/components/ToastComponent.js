@@ -7,6 +7,7 @@ import { showToast, hideToast } from '../../actions/toast.action'
 function ToastComponent(props) {
     const dispatch = useDispatch()
     const toast = useSelector(state => state.toast)
+    console.log("toast", toast)
 
     useEffect(() => {
         let timer

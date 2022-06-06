@@ -12,9 +12,9 @@ import { useParams } from 'react-router-dom';
 import { courseAction } from '../../../actions/course.action';
 
 const Lesson = () => {
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     const {id} = useParams()
-
+    console.log(id);
     useEffect(()=>{
         // dispatch(courseAction.getLesson(id))
     }, [])

@@ -82,4 +82,6 @@ export default {
     URL_SYSTEM_V1 + "/transaction/getDepositeGemRequest",
   URL_DELETE_TRANSACTION: URL_SYSTEM_V1 + "/transaction/delete",
   URL_CONFIRM_TRANSACTION: URL_SYSTEM_V1 + "/transaction/confirm",
+  // course-learning
+
 };

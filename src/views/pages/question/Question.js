@@ -171,7 +171,9 @@ const Question = () => {
                                     <div
                                         className='user-question'
                                     >
-                                        {userInfo.name} ơi, bạn có câu hỏi hay thắc mắc gì không?
+                                        <span className="content">
+                                            {userInfo.name} ơi, bạn có câu hỏi hay thắc mắc gì không?
+                                        </span>
                                     </div>
                                     
                                 </div>                        
