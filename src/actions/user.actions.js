@@ -52,10 +52,10 @@ function login(username, password) {
     dispatch(request());
     usersServices.login(username, password).then(
       (user) => {
-        alert("login successfully", user);
         cookiesUtil.setAccessToken(user.token);
-        //   cookiesUtil.setCurrentUserInfo(user.user)
         dispatch(success(user.user));
+        console.log(user.token);
+        alert("login successfully", user);
       },
       (error) => {
         alert(error);
@@ -153,7 +153,10 @@ function getCurrentUser(id, callback) {
           callback(users["data"]);
         }
       },
-      (error) => dispatch(failure(error.toString()))
+      (error) => {
+        console.log(error);
+        dispatch(failure(error.toString()));
+      }
     );
   };
 
