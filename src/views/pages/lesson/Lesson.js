@@ -15,7 +15,7 @@ import ReactPlayer from 'react-player'
 
 import './scss/Question.scss';
 import Post from './component/Post.js';
-import { articleActions } from '../../../actions/article.action';
+import { discussionActions } from '../../../actions/dicussion.action';
 import ShowUserModal from './component/ShowUserModal';
 import './scss/ConcretePost.scss';
 
@@ -141,13 +141,13 @@ const Lesson = () => {
     
     // Phần discussion
     React.useEffect(async () => {
-        await dispatch(articleActions.getAllArticle());
+        await dispatch(discussionActions.getAllArticle());
         window.scrollTo(0, 0);
     }, []);
 
     const articles =
         useSelector((state) => {
-            return state.article.articles;
+            return state.discussion.articles;
         }) || [];
     
     const userInfo = useSelector((state) => state.user.currentUser);
@@ -157,7 +157,7 @@ const Lesson = () => {
     })
 
     const isShowUserModal = useSelector((state) => {
-        return state.article.isShowModalUser;
+        return state.discussion.isShowModalUser;
     }) || false;
     
 

@@ -3,14 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import CommentItem from './CommentItem';
 import '../scss/Post.scss';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
-
-import { AiFillLike } from "react-icons/ai";
 import { FaCommentAlt } from "react-icons/fa";
-import { FiMoreHorizontal } from "react-icons/fi";
 import { IoImageOutline , IoSend} from "react-icons/io5";
 
-import { articleActions } from '../../../../actions/article.action';
+// import { discussionActions } from '../../../../actions/article.action';
+import { discussionActions } from '../../../../actions/dicussion.action';
+
 import { showToast } from '../../../../actions/toast.action';
 
 const Post = ({post}) => {
@@ -101,9 +99,9 @@ const Post = ({post}) => {
             time: new Date(),
         }
         commentRef.current.value="";
-        dispatch(articleActions.addBigComment(data));
+        dispatch(discussionActions.addBigComment(data));
         setUserReplyDisplay(!userReplyDisplay);
-        dispatch(articleActions.removeBigCommentPicture());
+        dispatch(discussionActions.removeBigCommentPicture());
         dispatch(showToast("success", "Gửi bình luận thành công!")); 
 
     }
@@ -116,10 +114,10 @@ const Post = ({post}) => {
         formData.append("upload_preset", "phiroud");
         const sleep = ms => new Promise(res => setTimeout(res, ms));
         await sleep(1000);
-        dispatch(articleActions.uploadBigCommentArticlePicture(formData));
+        dispatch(discussionActions.uploadBigCommentArticlePicture(formData));
     }
 
-    const bigCommentLink = useSelector(state => state.article.bigComment.imgLink);
+    const bigCommentLink = useSelector(state => state.discussion.bigComment.imgLink);
     // console.log("bigCommentLink: ", bigCommentLink)
 
     const likePost = () => {
@@ -128,7 +126,7 @@ const Post = ({post}) => {
             userID: userInfo._id,
         }
         // console.log("likePostData", likePostData);
-        dispatch(articleActions.likeArticle(likePostData));
+        dispatch(discussionActions.likeArticle(likePostData));
         dispatch(showToast("success", "Thích bài viết thành công!")); 
 
     }
@@ -139,7 +137,7 @@ const Post = ({post}) => {
             userID: userInfo._id,
         }
         // console.log("unlikePostData", unlikePostData);
-        dispatch(articleActions.unLikeArticle(unlikePostData));
+        dispatch(discussionActions.unLikeArticle(unlikePostData));
         dispatch(showToast("success", "Bỏ thích bài viết thành công!")); 
 
     }
@@ -150,8 +148,8 @@ const Post = ({post}) => {
 
 
     const showInteractionUserList = () => {
-        dispatch(articleActions.openShowUserModal());
-        dispatch(articleActions.getPostInteractionList({
+        dispatch(discussionActions.openShowUserModal());
+        dispatch(discussionActions.getPostInteractionList({
             postID: post._id
         }))
     }
@@ -159,36 +157,9 @@ const Post = ({post}) => {
         
         <div className="question-body">
             <div>
-                <div className="question-interact">
-                    <div className="interact">
-                        <p 
-                            className="amount"
-                            onClick={()=>{
-                                showInteractionUserList();
-                            }}
-                        >
-                            {post.reactions ? post.reactions.length : '0'}
-                        </p>
-                    </div>
-                    <div className="interact">
-                        <div className="icon icon-2">
-                            <FaCommentAlt 
-                                size={20}
-                                onClick={()=>{
-                                    setUserReplyDisplay(!userReplyDisplay);
-                                }}
-                            />
-                        </div>
-                        <p className="amount">
-                            {commentCount(post.comment)}
-                        </p>
-                    </div>
-                </div>
-                
-                <div className='divider'></div>
                 <div className="comment-section">
                     {
-                        userReplyDisplay == false || !userInfo ? (null) :
+                        !userInfo ? (null) :
                         <div className="user-reply-comment">
                             <div className='user-reply-heading'>
                                 <img 
@@ -222,7 +193,7 @@ const Post = ({post}) => {
                                     id='big-comment-image-input'
                                     // ref={pageRef.postImageRef}
                                     onChange={ async(e) => {
-                                        dispatch(articleActions.removeBigCommentPicture())  
+                                        dispatch(discussionActions.removeBigCommentPicture())  
                                         var tgt = e.target || window.event.srcElement;
                                         var files = tgt.files;
                                         // console.log("files", files);
@@ -264,7 +235,7 @@ const Post = ({post}) => {
                                         <div
                                             className='delete-reply-img-link'
                                             onClick={()=> {
-                                                dispatch(articleActions.removeBigCommentPicture())
+                                                dispatch(discussionActions.removeBigCommentPicture())
                                             }}
                                         >
                                             Xoá ảnh

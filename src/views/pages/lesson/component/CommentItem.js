@@ -5,7 +5,7 @@ import { IoImageOutline , IoSend} from "react-icons/io5";
 import { HiDotsHorizontal} from "react-icons/hi";
 import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
 import { AiFillLike } from "react-icons/ai";
-import { articleActions } from '../../../../actions/article.action';
+import { discussionActions } from '../../../../actions/dicussion.action';
 import { showToast } from '../../../../actions/toast.action';
 
 import AjaxHelper from '../../../../services/api';
@@ -33,7 +33,7 @@ const CommentItem = ({comment}) => {
             commentID: comment.commentID,
         }
         // console.log("dataToDelete: ", data);
-        dispatch(articleActions.deleteBigComment(data));
+        dispatch(discussionActions.deleteBigComment(data));
         setIsOpenManageModal(!isOpenManageModal);
         dispatch(showToast("success", "Xoá bình luận thành công!"));   
     }
@@ -45,7 +45,7 @@ const CommentItem = ({comment}) => {
             commentID: comment.commentID,
         }
         // console.log("dataToHide: ", data);  
-        dispatch(articleActions.hideBigComment(data));
+        dispatch(discussionActions.hideBigComment(data));
         setIsOpenManageModal(!isOpenManageModal);   
         dispatch(showToast("success", "Ẩn bình luận thành công!"));   
 
@@ -60,7 +60,7 @@ const CommentItem = ({comment}) => {
             commentID: comment.commentID,
         }
         console.log("dataToShow: ", data);
-        dispatch(articleActions.showBigComment(data));
+        dispatch(discussionActions.showBigComment(data));
         setIsOpenManageModal(!isOpenManageModal);   
         dispatch(showToast("success", "Hiện bình luận thành công!"));   
     }
@@ -99,7 +99,7 @@ const CommentItem = ({comment}) => {
             userID: userInfo._id,
         }
         // console.log("data to like", data)''
-        dispatch(articleActions.likeBigComment(data));
+        dispatch(discussionActions.likeBigComment(data));
         dispatch(showToast("success", "Thích bình luận thành công!"));   
 
     }
@@ -112,7 +112,7 @@ const CommentItem = ({comment}) => {
             userID: userInfo._id,
         }
         console.log("data to unlike", data);
-        dispatch(articleActions.unlikeBigComment(data));
+        dispatch(discussionActions.unlikeBigComment(data));
         dispatch(showToast("success", "Bỏ thích bình luận thành công!"));   
 
     }
@@ -138,7 +138,7 @@ const CommentItem = ({comment}) => {
             time: new Date(),
         }
         console.log("data to send", dataToSend);
-        dispatch(articleActions.addReplyComment(dataToSend));
+        dispatch(discussionActions.addReplyComment(dataToSend));
         // reset cái nội dung hiện tại
         commentItem.replyText.current.value = "";
         changeUserReplyDisplay();
@@ -158,7 +158,7 @@ const CommentItem = ({comment}) => {
         const data = await AjaxHelper.post(config.URL_ARTICLE_PICTURE, formData, {});
         // console.log(data.data.url);
         setReplyCommentLink(data.data.url)
-        // dispatch(articleActions.uploadBigCommentArticlePicture(formData));
+        // dispatch(discussionActions.uploadBigCommentArticlePicture(formData));
     }
 
     // Delete reply comment
@@ -169,7 +169,7 @@ const CommentItem = ({comment}) => {
             commentID: comment.commentID
         }
         console.log("dataToDeleteReply", dataToDeleteReply);
-        dispatch(articleActions.deleteReplyComment(dataToDeleteReply));
+        dispatch(discussionActions.deleteReplyComment(dataToDeleteReply));
         setIsOpenManageModal(false);
         dispatch(showToast("success", "Xoá bình luận thành công!"));   
 
@@ -185,7 +185,7 @@ const CommentItem = ({comment}) => {
             userID: userInfo._id,
         }
         console.log("dataToLikeReply", dataToLikeReply);
-        dispatch(articleActions.likeReplyComment(dataToLikeReply));
+        dispatch(discussionActions.likeReplyComment(dataToLikeReply));
         dispatch(showToast("success", "Thích bình luận thành công!"));   
     }
 
@@ -198,8 +198,8 @@ const CommentItem = ({comment}) => {
             userID: userInfo._id,
         }
         console.log("dataToUnLikeReply", dataToUnLikeReply);
-        // dispatch(articleActions.likeReplyComment(dataToUnLikeReply));
-        dispatch(articleActions.unlikeReplyComment(dataToUnLikeReply));
+        // dispatch(discussionActions.likeReplyComment(dataToUnLikeReply));
+        dispatch(discussionActions.unlikeReplyComment(dataToUnLikeReply));
         dispatch(showToast("success", "Bỏ thích bình luận thành công!"));   
 
     }
@@ -213,7 +213,7 @@ const CommentItem = ({comment}) => {
             userID: userInfo._id,
         }
         // console.log("dataToHideReply", dataToHideReply);
-        dispatch(articleActions.hideReplyComment(dataToHideReply));
+        dispatch(discussionActions.hideReplyComment(dataToHideReply));
         setIsOpenManageModal(!isOpenManageModal);   
         dispatch(showToast("success", "Ẩn bình luận thành công!")); 
     }
@@ -227,7 +227,7 @@ const CommentItem = ({comment}) => {
             userID: userInfo._id,
         }
         // console.log("dataToHideReply", dataToHideReply);
-        dispatch(articleActions.showReplyComment(dataToShowReply));
+        dispatch(discussionActions.showReplyComment(dataToShowReply));
         setIsOpenManageModal(!isOpenManageModal);   
         dispatch(showToast("success", "Hiện bình luận thành công!")); 
 
@@ -260,7 +260,7 @@ const CommentItem = ({comment}) => {
             postID: comment.postID,
         }
         console.log("dataToEdit", dataToEdit);
-        dispatch(articleActions.editBigComment(dataToEdit));
+        dispatch(discussionActions.editBigComment(dataToEdit));
         // Reset lại dữ liệu sau khi sửa
         setEditting(!isEditting);
         editRef.current.value='';
@@ -279,7 +279,7 @@ const CommentItem = ({comment}) => {
             parrentComment: comment.parrentComment
         }
         // console.log("dataToEditReply", dataToEditReply);
-        dispatch(articleActions.editReplyComment(dataToEditReply));
+        dispatch(discussionActions.editReplyComment(dataToEditReply));
         // Reset lại dữ liệu sau khi sửa
         setEditting(!isEditting);
         editRef.current.value='';
@@ -289,14 +289,14 @@ const CommentItem = ({comment}) => {
     }
 
     const showInteractComment = () => {
-        dispatch(articleActions.openShowUserModal());
+        dispatch(discussionActions.openShowUserModal());
         var dataToSend = {
             postID: comment.postID,
             commentID: comment.commentID,
             parrentComment: comment.parrentComment
         }
         // console.log("dataToSend", dataToSend);
-        dispatch(articleActions.getCommentInteractionList(dataToSend)) 
+        dispatch(discussionActions.getCommentInteractionList(dataToSend)) 
     }
 
     return (
@@ -605,7 +605,7 @@ const CommentItem = ({comment}) => {
                                 id='big-comment-image-input'
                                 // ref={pageRef.postImageRef}
                                 onChange={ async(e) => {
-                                    dispatch(articleActions.removeBigCommentPicture())  
+                                    dispatch(discussionActions.removeBigCommentPicture())  
                                     var tgt = e.target || window.event.srcElement;
                                     var files = tgt.files;
                                     // console.log("files", files);
@@ -665,7 +665,7 @@ const CommentItem = ({comment}) => {
                             ? 
                                 <div className="hide-answer">
                                     <p 
-                                        className='title'
+                                        className='title-1'
                                         onClick = {() => changeReplyDisplay()}
                                     >
                                         Ẩn câu trả lời
@@ -675,7 +675,7 @@ const CommentItem = ({comment}) => {
                             : 
                                 <div className="hide-answer">
                                     <p 
-                                        className='title'
+                                        className='title-1'
                                         onClick = {() => changeReplyDisplay()}
                                     >
                                         Hiện câu trả lời
