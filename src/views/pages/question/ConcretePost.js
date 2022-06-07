@@ -1,12 +1,9 @@
-import React, { useEffect, useRef, useState,useImperativeHandle, forwardRef } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import './scss/Question.scss';
 import Post from './components/Post.js';
 import { articleActions } from '../../../actions/article.action';
-import AddPostSection from './components/AddPostSection';
 import ShowUserModal from './components/ShowUserModal';
-import { article } from '../../../reducers/article.reducer';
-// import { appActions } from "../../../actions";
 import './scss/ConcretePost.scss';
 
 const refineComments = (comments, postID, parrentComment) => {
@@ -99,11 +96,11 @@ const ConcretePost = () => {
     var isFindPost = () => {
         for(var i = 0; i < articles.length; i++){
             if(articles[i]._id == currentID){
-                console.log("tìm thấy rồi")
+                // console.log("tìm thấy rồi")
                 return true;
             }
         }
-        console.log("ủa ra đây rồi mà")
+        // console.log("ủa ra đây rồi mà")  
         return false;
     }
 

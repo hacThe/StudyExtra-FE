@@ -14,7 +14,7 @@ function QuestionComponent(props) {
     }
 
     // Chỉnh sửa phần lấy nội dung của các post
-    console.log("props.article",props.article);
+    console.log("props.article",props.article.content.length);
 
     const countReplyComment = (replyComment) =>{
         var res = 0;
@@ -34,7 +34,9 @@ function QuestionComponent(props) {
 
     
     return (
-        <div onClick={handleClickPost} style={{ margin: '10px', backgroundColor: 'white', borderRadius: '8px', cursor:'pointer',boxShadow: 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px' }}>
+        <div
+            onClick={handleClickPost} style={{ margin: '10px', backgroundColor: 'white', borderRadius: '8px', cursor:'pointer',boxShadow: 'rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px' }}
+        >
             <Stack style={{ padding: '15px' }} alignItems="center" direction="row">
                 <Avatar src={props.article.avatar ? props.article.avatar : null} style={{ width: '36px', height: '36px' }} sx={{ bgcolor: deepOrange[500] }}></Avatar>
                 <div style={{ fontSize: '18px', fontWeight: '600', paddingLeft: '10px' }}>{props.article.name}</div>
@@ -47,7 +49,7 @@ function QuestionComponent(props) {
                     <div style={{ transform: 'translateY(-8%)' }}>{commentCount(props.article.comments)}</div>
                 </div>
             </Stack>
-            <div className='hidden-line' style={{ padding: '0 15px 40px 15px', fontSize: '14px' }}>{props.article.content}</div>
+            <div className='hidden-line' style={{ padding: '0 15px 40px 15px', fontSize: '14px' }}>{props.article.content.length!=0 ? props.article.content : "{Bài đăng không có nội dung}"}</div>
         </div>
 
     );

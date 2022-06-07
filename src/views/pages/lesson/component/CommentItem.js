@@ -5,8 +5,6 @@ import { IoImageOutline , IoSend} from "react-icons/io5";
 import { HiDotsHorizontal} from "react-icons/hi";
 import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
 import { AiFillLike } from "react-icons/ai";
-import Consts from '../ConstKey.js';
-
 import { articleActions } from '../../../../actions/article.action';
 import { showToast } from '../../../../actions/toast.action';
 
@@ -26,35 +24,6 @@ const CommentItem = ({comment}) => {
     const changeUserReplyDisplay = () => {
         setUserReplyDisplay(!userReplyDisplay);
     }
-
-
-    const [pressedKeys, setPressedKeys] = useState([]);
-    useEffect(() => {
-        const onKeyDown = ({key}) => {
-            if (Consts.ALLOWED_KEYS.includes(key) && !pressedKeys.includes(key)) {
-                setPressedKeys(previousPressedKeys => [...previousPressedKeys, key]);
-                const currentActive = document.activeElement;
-                if(currentActive.classList.contains('comment-box')){
-                    // console.log("Thêm comment vào cái list");
-                    // Viết hàm thêm, tác động redux là ok
-                }
-            }
-        }
-
-        const onKeyUp = ({key}) => {
-            if (Consts.ALLOWED_KEYS.includes(key)) {
-                setPressedKeys(previousPressedKeys => previousPressedKeys.filter(k => k !== key));
-            }
-        }
-
-        document.addEventListener('keydown', onKeyDown);
-        document.addEventListener('keyup', onKeyUp);
-
-        return () => {
-            document.removeEventListener('keydown', onKeyDown);
-            document.removeEventListener('keyup', onKeyUp);
-        }
-    }, []);
 
     const userInfo = useSelector((state) => state.user.currentUser);
 

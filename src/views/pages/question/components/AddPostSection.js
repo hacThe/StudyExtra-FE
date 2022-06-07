@@ -46,6 +46,10 @@ const AddPostSection = forwardRef((props, ref) => {
 
 
     const addArticle = () => {
+        if(pageRef.postContent.current.value.length == 0) {
+            dispatch(showToast( "fail", "Bài đăng chưa có nội dung!"));
+            return;
+        }
         const data = {
             userID: userInfo._id,
             content: pageRef.postContent.current.value,

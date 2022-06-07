@@ -20,7 +20,7 @@ function ConcreteDocument(){
 
     var currentID =  splitting[splitting.length - 1];
     const currentDocument = useSelector((state) => {return state.document.currentViewingDoc}) || [];
-    // console.log("currentDocument", currentDocument);
+    console.log("currentDocument", currentDocument);
     
     React.useEffect(async () => {
         dispatch(documentActions.getAllDocumentType());
@@ -87,8 +87,8 @@ function ConcreteDocument(){
                                 Tác giả: {currentDocument.author}
                             </div>  
                             <div className='document-time'>
-                                Ngày đăng: {convertStringToReadableDate(currentDocument.updatedAt)} 
-                                ({currentDocument.updatedAt ? calculateTime(currentDocument.updatedAt) : "?"})
+                                Ngày đăng: {convertStringToReadableDate(currentDocument.createdAt)} 
+                                ({currentDocument.updatedAt ? calculateTime(currentDocument.createdAt) : "?"})
                             </div>
                         </div>
                         <div className="information-row-2">

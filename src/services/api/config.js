@@ -93,4 +93,7 @@ export default {
   URL_GET_TRANSACTIONS: URL_SYSTEM_V1 + "/transaction/getAllTransaction",
   // course-learning
   URL_COURSE_LEARNING: URL_SYSTEM_V1 + "/lesson/",
+  //discussion
+  URL_DISCUSSION: URL_SYSTEM_V1 + "/discussion/",
+
 };
