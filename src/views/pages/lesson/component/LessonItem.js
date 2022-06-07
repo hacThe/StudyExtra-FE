@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../scss/LessonItem.scss';
 import { AiFillPlayCircle, AiFillCheckCircle } from "react-icons/ai";
 import { useDispatch, useSelector } from 'react-redux';
 import { lessonActions } from '../../../../actions/lesson.action';
+import { discussionActions } from '../../../../actions/dicussion.action';
+
+
 const LessonItem= (props) => {
     const dispatch = useDispatch();
 
-    // console.log("props Lesson", props);
+    console.log("props Lesson", props.lesson._id);
 
     const changeIndex= () => {
         const dataToChangeIndex = {
@@ -16,6 +19,7 @@ const LessonItem= (props) => {
         // console.log("dataToChangeIndex",dataToChangeIndex);
         dispatch(lessonActions.changeSelectedLessonIndex(dataToChangeIndex));
         props.changeIndex(dataToChangeIndex);
+        dispatch(discussionActions.getDiscussionByLessonID(props.lesson._id));
     }
 
     const userSelectedLessonIndex = useSelector((state) => {

@@ -187,7 +187,7 @@ const CommentItem = ({comment}) => {
         const sleep = ms => new Promise(res => setTimeout(res, ms));
         await sleep(1000);
         const data = await AjaxHelper.post(config.URL_ARTICLE_PICTURE, formData, {});
-        // console.log(data.data.url);
+        console.log(data.data.url);
         setReplyCommentLink(data.data.url)
         // dispatch(articleActions.uploadBigCommentArticlePicture(formData));
     }

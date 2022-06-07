@@ -62,14 +62,11 @@ const refineData = (data) => {
         // console.log("item to refine", item)
         var temp = {
             _id: item._id,
-            userID: item.userID,
-            username: item.username,
-            userAvatar: item.avatar,
             contents: item.content,
             imgUrl: item.imgUrl,
             name: item.name,
             createdAt: item.createdAt,
-            reactions: item.reactions
+            lessonID: item.lessonID
         }
         var tempComment = refineComments(item.comments,item._id, []);
         temp.comment = tempComment;
@@ -142,7 +139,7 @@ const Lesson = () => {
     // Phần discussion
     React.useEffect(async () => {
         await dispatch(discussionActions.getAllArticle());
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
     }, []);
 
     const articles =
@@ -270,12 +267,12 @@ const Lesson = () => {
                                 {currentLesson.name}
                                 {/* Phần bình luận ở đây */}
                                 <div className="question-section">
-                                
                                     <div className="question-container">
                                         <div className="add-post-section">
                                             {
+                                               
                                                 refineData(articles).map((item)=>{
-                                                    // if(item._id !== currentID )
+                                                    if(item.lessonID == currentLesson._id )
                                                         return (
                                                             <Post 
                                                                 post = {item}

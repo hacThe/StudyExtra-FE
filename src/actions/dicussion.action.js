@@ -32,7 +32,33 @@ export const discussionActions = {
     openShowUserModal,
     closeShowUserModal,
     getPostInteractionList,
-    getCommentInteractionList
+    getCommentInteractionList,
+    getDiscussionByLessonID,
+}
+
+function getDiscussionByLessonID(id){
+    return (dispatch)=>{
+        dispatch(request())
+        discussionService.getDiscussionByLessonID(id).then(
+            (articles)=>{
+                dispatch(success(articles))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        
+        function request() {
+            return { type: discussionConstants.GET_ARTICLE_BY_LESSONID_REQUEST };
+        }
+        function success(articles ) {
+            return {type: discussionConstants.GET_ARTICLE_BY_LESSONID_SUCCESS, articles };
+        }
+        function failure(error) {
+            return { type: discussionConstants.GET_ARTICLE_BY_LESSONID_FAILURE, error };
+        }
+    }
 }
 
 function getAllArticle(){

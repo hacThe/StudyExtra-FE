@@ -18,8 +18,6 @@ const CommentItem = ({comment}) => {
         setReplyDisplay(!replyDisplay);
     } 
     
-
-
     const [userReplyDisplay, setUserReplyDisplay] = useState(false);
     const changeUserReplyDisplay = () => {
         setUserReplyDisplay(!userReplyDisplay);

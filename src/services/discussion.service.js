@@ -26,8 +26,15 @@ export const discussionService = {
     editBigComment,
     editReplyComment,
     getPostInteractionList,
-    getCommentInteractionList
+    getCommentInteractionList,
+    getDiscussionByLessonID
 };
+
+function getDiscussionByLessonID(lessonID) {
+    return handleResponse(
+        ajaxHelper.get(config.URL_DISCUSSION +'/'+ lessonID, {}, options())
+    );
+}
 
 function getAllArticle() {
     return handleResponse(
@@ -55,7 +62,7 @@ function deleteArticle(id) {
 
 function uploadArticlePicture(data) {
     return handleResponse(
-        ajaxHelper.post(config.URL_DISCUSSION_PICTURE, data, {})
+        ajaxHelper.post(config.URL_ARTICLE_PICTURE, data, {})
     );
 }
 

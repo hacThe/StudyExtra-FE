@@ -153,6 +153,7 @@ const Post = ({post}) => {
             postID: post._id
         }))
     }
+    
     return (
         
         <div className="question-body">

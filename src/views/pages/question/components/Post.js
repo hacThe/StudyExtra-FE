@@ -119,6 +119,7 @@ const Post = ({post}) => {
         const sleep = ms => new Promise(res => setTimeout(res, ms));
         await sleep(1000);
         dispatch(articleActions.uploadBigCommentArticlePicture(formData));
+        console.log("ủa sao vô đây chạy")
     }
 
     const bigCommentLink = useSelector(state => state.article.bigComment.imgLink);
@@ -146,7 +147,7 @@ const Post = ({post}) => {
 
     }
 
-    console.log("post", post);
+    // console.log("post", post);
     
     // console.log("userInfo", userInfo);
 
