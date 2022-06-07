@@ -102,6 +102,8 @@
             margin-left: 0rem;
             width: calc(100%);
             position: relative;
+            display: flex;
+            flex-direction: column;
             .comment-editting-heading{
                 display: flex;
                 width: 100%;
@@ -128,7 +130,7 @@
                 .add-img-label{
                     position: absolute;
                     right: 17rem;
-                    top: 0.4rem; 
+                    top: 0.1rem; 
                     &:hover{
                         cursor: pointer;
                         opacity: 0.7;
@@ -146,6 +148,7 @@
                 }
             }
             .big-comment-image{
+                position: relative;
                 .big-comment-image-add-hidden{
                     display: none;
                 }
@@ -245,6 +248,8 @@
             margin-left: 4.4rem;
             width: calc(100% - 4.4rem);
             position: relative;
+            display: flex;
+            flex-direction: column;
             .user-reply-heading{
                 display: flex;
                 width: 100%;
@@ -270,8 +275,8 @@
                 }
                 .add-img-label{
                     position: absolute;
-                    right: 6rem;
-                    top: 0.4rem; 
+                    right: 2rem;
+                    top: 0rem; 
                     &:hover{
                         cursor: pointer;
                         opacity: 0.7;
@@ -365,10 +370,9 @@
                     cursor: pointer;
                     opacity: 0.7;
                 }
-                .title-1{
+                .title{
                     font-weight: 700;
                     margin-right: 0.5rem;
-                    font-size: 1.2rem;
                 }
                 .icon{
                     margin-bottom: 0.3rem;

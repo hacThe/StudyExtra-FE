@@ -102,6 +102,8 @@
             margin-left: 0rem;
             width: calc(100%);
             position: relative;
+            display: flex;
+            flex-direction: column;
             .comment-editting-heading{
                 display: flex;
                 width: 100%;
@@ -146,6 +148,7 @@
                 }
             }
             .big-comment-image{
+                position: relative;
                 .big-comment-image-add-hidden{
                     display: none;
                 }
@@ -245,6 +248,8 @@
             margin-left: 4.4rem;
             width: calc(100% - 4.4rem);
             position: relative;
+            display: flex;
+            flex-direction: column;
             .user-reply-heading{
                 display: flex;
                 width: 100%;

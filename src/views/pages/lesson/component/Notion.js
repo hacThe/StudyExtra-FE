@@ -54,6 +54,7 @@ const Notion= (props) => {
         }
         return res;
     }
+    
     return (
         <div className="notion-wrapper">
             <div className="notion-container">

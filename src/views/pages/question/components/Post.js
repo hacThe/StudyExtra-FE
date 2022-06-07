@@ -158,6 +158,7 @@ const Post = ({post}) => {
             postID: post._id
         }))
     }
+
     return (
         
         <div className="question-body">
@@ -319,7 +320,7 @@ const Post = ({post}) => {
                                         </input>
                                         <label
                                             className="add-img-label"
-                                            for="big-comment-image-input"
+                                            for="big-comment-image-input-1"
                                         >
                                             <IoImageOutline size={28} className='add-image-icon'/>
                                         </label>
@@ -335,7 +336,7 @@ const Post = ({post}) => {
                                         <input
                                             className='big-comment-image-add-hidden'
                                             type='file'
-                                            id='big-comment-image-input'
+                                            id='big-comment-image-input-1'
                                             // ref={pageRef.postImageRef}
                                             onChange={ async(e) => {
                                                 dispatch(articleActions.removeBigCommentPicture())  
@@ -392,7 +393,7 @@ const Post = ({post}) => {
                             } 
                             {
                                 post.comment.map((comment) => {
-                                    return (<CommentItem comment={comment}/>)
+                                    return (<CommentItem comment={comment} closeDisplay={() => setUserReplyDisplay(false)}/>)
                                 })
                             }
                         </div>

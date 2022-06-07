@@ -58,29 +58,10 @@ const Post = ({post}) => {
         // console.log("childRef", childRef);
         childRef.current.editArticle();    
     }
-    
 
-    // Count comment
-    const countReplyComment = (replyComment) =>{
-        var res = 0;
-        for(var i = 0; i < replyComment.length; i++){
-            res += countReplyComment(replyComment[i].replyComment) + 1;
-        }        
-        return res;
-    }
-
-    const commentCount = (comments) => {
-        // console.log("comments", comments)
-        var res = 0;
-        for(var i = 0; i < comments.length; i++){
-            res += countReplyComment(comments[i].replyComment) + 1;
-        }        
-        // console.log("total", res);
-        return res;
-    }
 
     // Add big comment
-    const [userReplyDisplay, setUserReplyDisplay] = useState(false);
+    const [userReplyDisplay, setUserReplyDisplay] = useState(true);
     const changeUserReplyDisplay = () => {
         setUserReplyDisplay(!userReplyDisplay);
     }
@@ -109,6 +90,7 @@ const Post = ({post}) => {
     const [currentCommnentImg, setCurrentCommnentImg] = useState("");
 
     const uploadPicture = async(e) => {
+
         const formData = new FormData();
         formData.append("file", e.target.files[0])
         formData.append("upload_preset", "phiroud");
@@ -248,7 +230,11 @@ const Post = ({post}) => {
                     } 
                     {
                         post.comment.map((comment) => {
-                            return (<CommentItem comment={comment}/>)
+                            return (
+                                <CommentItem comment={comment} closeDisplay={() => setUserReplyDisplay(false)}
+                                    openDisplay={() => setUserReplyDisplay(true)}
+                                />
+                            )
                         })
                     }
                 </div>

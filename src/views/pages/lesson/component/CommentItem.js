@@ -1,13 +1,13 @@
 import React , {useState, useEffect, useRef} from 'react'
-import { useDispatch, useSelector } from "react-redux";
 import '../scss/CommentItem.scss';
+import { useDispatch, useSelector } from "react-redux";
+import { BsTriangleFill } from "react-icons/bs";
 import { IoImageOutline , IoSend} from "react-icons/io5";
 import { HiDotsHorizontal} from "react-icons/hi";
 import { VscTriangleDown, VscTriangleUp } from "react-icons/vsc";
-import { AiFillLike } from "react-icons/ai";
-import { discussionActions } from '../../../../actions/dicussion.action';
-import { showToast } from '../../../../actions/toast.action';
 
+import { discussionActions } from '../../../../actions/dicussion.action';
+import { AiFillLike } from "react-icons/ai";
 import AjaxHelper from '../../../../services/api';
 import config from '../../../../services/api/config';
 
@@ -18,10 +18,14 @@ const CommentItem = ({comment}) => {
         setReplyDisplay(!replyDisplay);
     } 
     
+
+
     const [userReplyDisplay, setUserReplyDisplay] = useState(false);
     const changeUserReplyDisplay = () => {
         setUserReplyDisplay(!userReplyDisplay);
     }
+
+
 
     const userInfo = useSelector((state) => state.user.currentUser);
 
@@ -32,8 +36,7 @@ const CommentItem = ({comment}) => {
         }
         // console.log("dataToDelete: ", data);
         dispatch(discussionActions.deleteBigComment(data));
-        setIsOpenManageModal(!isOpenManageModal);
-        dispatch(showToast("success", "Xoá bình luận thành công!"));   
+        setIsOpenManageModal(!isOpenManageModal);   
     }
 
 
@@ -45,7 +48,6 @@ const CommentItem = ({comment}) => {
         // console.log("dataToHide: ", data);  
         dispatch(discussionActions.hideBigComment(data));
         setIsOpenManageModal(!isOpenManageModal);   
-        dispatch(showToast("success", "Ẩn bình luận thành công!"));   
 
         // console.log("comment", comment.isHidden);s
     }
@@ -60,7 +62,7 @@ const CommentItem = ({comment}) => {
         console.log("dataToShow: ", data);
         dispatch(discussionActions.showBigComment(data));
         setIsOpenManageModal(!isOpenManageModal);   
-        dispatch(showToast("success", "Hiện bình luận thành công!"));   
+
     }
 
     const calculateTime = (timeString) => {
@@ -98,8 +100,6 @@ const CommentItem = ({comment}) => {
         }
         // console.log("data to like", data)''
         dispatch(discussionActions.likeBigComment(data));
-        dispatch(showToast("success", "Thích bình luận thành công!"));   
-
     }
 
     // unlike bigcomment
@@ -111,8 +111,6 @@ const CommentItem = ({comment}) => {
         }
         console.log("data to unlike", data);
         dispatch(discussionActions.unlikeBigComment(data));
-        dispatch(showToast("success", "Bỏ thích bình luận thành công!"));   
-
     }
 
     // reply comment
@@ -141,7 +139,6 @@ const CommentItem = ({comment}) => {
         commentItem.replyText.current.value = "";
         changeUserReplyDisplay();
         setReplyCommentLink('');
-        dispatch(showToast("success", "Gửi bình luận thành công!"));   
     }
     const [replyCommentLink, setReplyCommentLink] = useState('');
 
@@ -169,8 +166,6 @@ const CommentItem = ({comment}) => {
         console.log("dataToDeleteReply", dataToDeleteReply);
         dispatch(discussionActions.deleteReplyComment(dataToDeleteReply));
         setIsOpenManageModal(false);
-        dispatch(showToast("success", "Xoá bình luận thành công!"));   
-
     }
 
     // Like reply comment
@@ -184,7 +179,6 @@ const CommentItem = ({comment}) => {
         }
         console.log("dataToLikeReply", dataToLikeReply);
         dispatch(discussionActions.likeReplyComment(dataToLikeReply));
-        dispatch(showToast("success", "Thích bình luận thành công!"));   
     }
 
     const unlikeReplyComment = () => {
@@ -198,8 +192,6 @@ const CommentItem = ({comment}) => {
         console.log("dataToUnLikeReply", dataToUnLikeReply);
         // dispatch(discussionActions.likeReplyComment(dataToUnLikeReply));
         dispatch(discussionActions.unlikeReplyComment(dataToUnLikeReply));
-        dispatch(showToast("success", "Bỏ thích bình luận thành công!"));   
-
     }
 
     const hideReplyComment = () => {
@@ -213,7 +205,7 @@ const CommentItem = ({comment}) => {
         // console.log("dataToHideReply", dataToHideReply);
         dispatch(discussionActions.hideReplyComment(dataToHideReply));
         setIsOpenManageModal(!isOpenManageModal);   
-        dispatch(showToast("success", "Ẩn bình luận thành công!")); 
+
     }
 
     const showReplyComment = () => {
@@ -227,7 +219,6 @@ const CommentItem = ({comment}) => {
         // console.log("dataToHideReply", dataToHideReply);
         dispatch(discussionActions.showReplyComment(dataToShowReply));
         setIsOpenManageModal(!isOpenManageModal);   
-        dispatch(showToast("success", "Hiện bình luận thành công!")); 
 
     }
 
@@ -263,8 +254,6 @@ const CommentItem = ({comment}) => {
         setEditting(!isEditting);
         editRef.current.value='';
         setEditImageLink('');
-        dispatch(showToast("success", "Chỉnh sửa bình luận thành công!")); 
-
     }
 
 
@@ -282,8 +271,6 @@ const CommentItem = ({comment}) => {
         setEditting(!isEditting);
         editRef.current.value='';
         setEditImageLink('');
-        dispatch(showToast("success", "Chỉnh sửa bình luận thành công!")); 
-
     }
 
     const showInteractComment = () => {
@@ -296,6 +283,8 @@ const CommentItem = ({comment}) => {
         // console.log("dataToSend", dataToSend);
         dispatch(discussionActions.getCommentInteractionList(dataToSend)) 
     }
+
+    let newIden = ((new Date() - new Date(2022, 1, 1))%10000).toString();
 
     return (
         <>
@@ -382,7 +371,7 @@ const CommentItem = ({comment}) => {
                                                         onClick={()=>{
                                                             // console.log("comment", comment);
                                                             // // 
-                                                            if(comment.parrentComment.length==0){
+                                                            if(comment.parrentC.lengthomment.length==0){
                                                                 deleteComment();
                                                             }
                                                             else deleteReplyComment();
@@ -391,9 +380,9 @@ const CommentItem = ({comment}) => {
                                                     >
                                                         Xoá
                                                     </div>
-                                                    {/* <div className="modal-item">
+                                                    <div className="modal-item">
                                                         Báo cáo
-                                                    </div> */}
+                                                    </div>
                                                     <div 
                                                         className="modal-item"
                                                         onClick = {() => {  
@@ -584,7 +573,7 @@ const CommentItem = ({comment}) => {
                             </input>
                             <label
                                 className="add-img-label"
-                                for="big-comment-image-input"
+                                for={newIden}
                             >
                                 <IoImageOutline size={28} className='add-image-icon'/>
                             </label>
@@ -600,7 +589,7 @@ const CommentItem = ({comment}) => {
                             <input
                                 className='big-comment-image-add-hidden'
                                 type='file'
-                                id='big-comment-image-input'
+                                id={newIden}
                                 // ref={pageRef.postImageRef}
                                 onChange={ async(e) => {
                                     dispatch(discussionActions.removeBigCommentPicture())  
@@ -663,7 +652,7 @@ const CommentItem = ({comment}) => {
                             ? 
                                 <div className="hide-answer">
                                     <p 
-                                        className='title-1'
+                                        className='title'
                                         onClick = {() => changeReplyDisplay()}
                                     >
                                         Ẩn câu trả lời
@@ -673,7 +662,7 @@ const CommentItem = ({comment}) => {
                             : 
                                 <div className="hide-answer">
                                     <p 
-                                        className='title-1'
+                                        className='title'
                                         onClick = {() => changeReplyDisplay()}
                                     >
                                         Hiện câu trả lời
