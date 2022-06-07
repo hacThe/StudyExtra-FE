@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import '../scss/Notion.scss';
 import { IoIosSave } from "react-icons/io";
 import { MdDownload } from "react-icons/md";
@@ -11,6 +11,12 @@ const Notion= (props) => {
     console.log("propsNotion", props)
     const userInfo = useSelector((state) => state.user.currentUser);
 
+    const currentCourse = useSelector((state) => {
+        return state.lesson.currentCourse
+    }) || {};
+
+
+    console.log("currentCourse", currentCourse._id);
     const saveNote = async() => {
         if(noteRef.current.value.length==0) {
             dispatch(showToast('fail', "Không thể lưu ghi chú trống"))
@@ -25,6 +31,7 @@ const Notion= (props) => {
         // console.log("noteToSave", noteToSave);
         dispatch(lessonActions.saveNote(noteToSave));
         dispatch(showToast('success', "Thêm ghi chú thành công"))
+        dispatch(lessonActions.getCourseInfo(currentCourse.courseId));
     }
 
     const downloadTxtFile = () => {
@@ -54,6 +61,9 @@ const Notion= (props) => {
         }
         return res;
     }
+    useEffect(() => {
+        noteRef.current.value = getDefaultValue();
+    })
     
     return (
         <div className="notion-wrapper">
@@ -71,7 +81,6 @@ const Notion= (props) => {
                     />
                 </div>
                 <textarea className='note-editing' ref={noteRef}
-                    defaultValue={getDefaultValue()}
                 >
 
                 </textarea>
