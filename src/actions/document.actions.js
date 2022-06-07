@@ -13,7 +13,8 @@ export const documentActions = {
     addNewDocumentType,
     deleteDocumentType,
     getDocumentByIDNew,
-    increasingDocumentView
+    increasingDocumentView,
+    addNewDocumentTypeID
 }
 
 function changePagination(page){
@@ -260,6 +261,32 @@ function deleteDocumentType(id){
         }
         function failure(error) {
             return { type: documentConstants.DELETE_TYPE_DOCUMENT_FAILURE, error };
+        }
+    }
+}
+
+function addNewDocumentTypeID(newName, id) {
+    return (dispatch)=>{
+        dispatch(request())
+        // console.log("Course Action get all has called")
+
+        documentService.addNewDocumentTypeID(newName, id).then(
+            (documentType)=>{
+                dispatch(success(documentType))
+            },
+            (error)=>{
+                dispatch(failure(error.toString()))
+                console.log({error})
+            }
+        )
+        function request() {
+            return { type: documentConstants.ADD_NEW_TYPE_DOCUMENT_REQUEST };
+        }
+        function success(documentType ) {
+            return {type: documentConstants.ADD_NEW_TYPE_DOCUMENT_SUCCESS, documentType};
+        }
+        function failure(error) {
+            return { type: documentConstants.ADD_NEW_TYPE_DOCUMENT_FAILURE, error };
         }
     }
 }

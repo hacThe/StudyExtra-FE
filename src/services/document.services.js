@@ -13,7 +13,8 @@ export const documentService = {
     addNewDocumentType,
     deleteDocumentType,
     getDocumentByIDNew,
-    increasingDocumentView
+    increasingDocumentView,
+    addNewDocumentTypeID
 };
 
 function getAllDocument() {
@@ -71,6 +72,13 @@ function addNewDocumentType(newName) {
         ajaxHelper.post(config.URL_TYPE_CATEGORY, {name: newName}, options())
     );
 }
+
+function addNewDocumentTypeID(newName, id) {
+    return handleResponse(
+        ajaxHelper.post(config.URL_TYPE_CATEGORY + '/'+ id, {name: newName}, options())
+    );
+}
+
 
 function deleteDocumentType(id) {
     return handleResponse(

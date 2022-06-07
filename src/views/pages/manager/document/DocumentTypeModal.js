@@ -133,6 +133,21 @@ function DocumentTypeModal() {
         
     }
 
+    const addDocumentTypeID = (id) => {
+        const typeDocumentInput = document.querySelector('.input-document-type').value;
+        if(typeDocumentInput == false || typeDocumentInput == '' || typeDocumentInput.length ==0 ){
+            dispatch(showToast("fail","Bạn chưa nhập tên loại tài liệu"));
+        }
+        else {
+            dispatch(documentActions.addNewDocumentTypeID(typeDocumentInput, id));
+            if(isEditting)
+                dispatch(showToast("success","Chỉnh sửa loại tài liệu thành công!"));
+            else 
+                dispatch(showToast("success","Thêm loại tài liệu thành công!"));
+            document.querySelector('.input-document-type').value = '';
+        }
+    }
+
     const deleteDocumentType = (typeID) => {
         console.log("TypeID", typeID);
         dispatch(documentActions.deleteDocumentType(typeID));
@@ -210,7 +225,7 @@ function DocumentTypeModal() {
                                             changeAllDocument();
                                             // console.log("currentIdType", currentIdType);
                                             deleteDocumentType(currentIdType);
-                                            addDocumentType();
+                                            addDocumentTypeID(currentIdType);
                                             document.querySelector('.input-document-type').value = "";
                                         }
                                     }
