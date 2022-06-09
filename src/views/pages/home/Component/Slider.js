@@ -14,21 +14,21 @@ function Slider(props) {
       >
         <div style={{ height: "350px" }}>
           <img
-            style={{ maxWidth: "100%", height: "350px", objectFit: "fill" }}
+            style={{ maxWidth: "100%", height: "350px", objectFit: "cover" }}
             src="/img/1.png"
           />
           {/* <p className="legend">Legend 1</p> */}
         </div>
         <div style={{ height: "350px" }}>
           <img
-            style={{ maxWidth: "100%", height: "350px", objectFit: "fill" }}
+            style={{ maxWidth: "100%", height: "350px", objectFit: "cover" }}
             src="/img/2.png"
           />
           {/* <p className="legend">Legend 2</p> */}
         </div>
         <div style={{ height: "350px" }}>
           <img
-            style={{ maxWidth: "100%", height: "350px", objectFit: "fill" }}
+            style={{ maxWidth: "100%", height: "350px", objectFit: "cover" }}
             src="/img/3.png"
           />
           {/* <p className="legend">Legend 3</p> */}
@@ -36,7 +36,7 @@ function Slider(props) {
 
         <div style={{ height: "350px" }}>
           <img
-            style={{ maxWidth: "100%", height: "350px", objectFit: "fill" }}
+            style={{ maxWidth: "100%", height: "350px", objectFit: "cover" }}
             src="/img/4.png"
           />
           {/* <p className="legend">Legend 3</p> */}
@@ -44,7 +44,7 @@ function Slider(props) {
 
         <div style={{ height: "350px" }}>
           <img
-            style={{ maxWidth: "100%", height: "350px", objectFit: "fill" }}
+            style={{ maxWidth: "100%", height: "350px", objectFit: "cover" }}
             src="/img/5.png"
           />
           {/* <p className="legend">Legend 3</p> */}

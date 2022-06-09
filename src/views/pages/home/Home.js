@@ -10,17 +10,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { courseAction } from "../../../actions/course.action";
 import { postAction } from "../../../actions/post.action";
 import { appActions } from "../../../actions";
-import axios from 'axios'
-import URL from '../../../services/api/config'
-import { articleActions } from '../../../actions/article.action';
+import axios from "axios";
+import URL from "../../../services/api/config";
+import { articleActions } from "../../../actions/article.action";
 
 const Login = () => {
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.course.courses) || [];
   const posts = useSelector((state) => state.post.posts) || [];
   const articles = useSelector((state) => state.article.articles) || [];
-
-  
 
   useEffect(() => {
     dispatch(courseAction.getAllCourse());
@@ -45,20 +43,34 @@ const Login = () => {
           <Notification></Notification>
           <YourCourses courses={courses}></YourCourses>
           <FeaturedCourse courses={courses}></FeaturedCourse>
+          <img
+            style={{ borderRadius: "10px", marginTop: "36px" }}
+            src="./img/banner.png"
+            width="100%"
+            alt=""
+          />
           <QAndA posts={posts} articles={articles}></QAndA>
-
-          <span
-            onClick={() => {
-              dispatch(
-                appActions.openConfirmDialog("THis is content", () => {
-                  console.log("haha");
-                })
-              );
+          <h1
+            style={{
+              fontSize: "",
+              fontSize: "3rem",
+              textAlign: "center",
+              marginTop: "100px",
+              marginBottom: "36px",
             }}
-            className="se-btn"
           >
-            Click me
-          </span>
+            Khách hàng nói gì về Study Extra
+          </h1>
+          <img
+            style={{
+              borderRadius: "10px",
+              marginTop: "36px",
+              margin: "auto",
+            }}
+            src="./img/testimonia.png"
+            width="100%"
+            alt=""
+          />
         </div>
       </Container>
     </>
@@ -66,4 +78,3 @@ const Login = () => {
 };
 
 export default Login;
-
