@@ -59,7 +59,8 @@ Giúp bạn mua những khóa học và đắm chìm trong thế giới kiến t
 Để build và deploy
 ### `npm run build`
 Thêm file .env với nội dung như sau:
-JWT_SECRET=your-secrect-key
+<br/>
+`JWT_SECRET=your-secrect-key
 DB_USER_NAME=your-db-usrname
 DB_PASSWORD=your-passwrd
 PORT=5000
@@ -70,7 +71,7 @@ SERVICE=gmail
 EMAIL_PORT=587
 SECURE=true
 USER=youremail@gmail.com
-PASS=yourpassword
+PASS=yourpassword`
 ### **Cài đặt Database:**
 Tìm kiếm MongoDB Cluster mà vọc vạch
 
