@@ -63,13 +63,11 @@ Thêm file .env với nội dung như sau:
 <br/>
 `JWT_SECRET=your-secrect-key`
 <br/>
-
 `DB_USER_NAME=your-db-usrname`
 <br/>
 `DB_PASSWORD=your-passwrd`
 <br/>
 `PORT=5000`
-
 <br/>
 `FE_URL=http://localhost:5050`
 <br/>
@@ -84,6 +82,10 @@ Thêm file .env với nội dung như sau:
 `USER=youremail@gmail.com`
 <br/>
 `PASS=yourpassword`
+
+<br/>
+<br/>
+
 ### **Cài đặt Database:**
 Tìm kiếm MongoDB Cluster mà vọc vạch
 
