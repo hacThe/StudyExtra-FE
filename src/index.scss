@@ -1,13 +1,273 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap");
+
+a {
+  text-decoration: none;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.outlined-btn,
+.se-btn {
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: var(--primary-color);
+  color: white;
+  transition: all 0.5s;
+  &:hover {
+    cursor: pointer;
+    filter: brightness(0.8);
+  }
+}
+
+.se-action-btn {
+  font-family: "Montserrat";
+  font-size: 1.4rem;
+  text-align: center;
+  line-height: 37px;
+  padding: 0 12px;
+  border-radius: 5px;
+  background-color: var(--primary-color);
+  color: white;
+  &:hover {
+    cursor: pointer;
+    filter: brightness(0.8);
+  }
+}
+
+.se-action-btn.danger {
+  background-color: var(--danger-color);
+}
+.outline-btn {
+  background-color: transparent;
+  border: 1px solid var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  font-size: 1.4rem;
+}
+
+.full-width-text {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.justify-content-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.align-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+select,
+input {
+  display: block;
+  // margin: auto;
+  padding: 8px 12px;
+  font-size: 1.6rem;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 5px;
+  min-width: 220px;
+  border: 1px solid #d5d5d5;
+  &:focus {
+    border: 1px solid #838383;
+    outline: none;
+  }
+}
+
+textarea {
+  width: 100%;
+  height: 120px;
+  outline: none;
+  padding: 12px;
+  font-size: 1.4rem;
+  border-radius: 5px;
+  resize: none;
+  font-family: "Montserrat", sans-serif;
+  border: 1px solid #d5d5d5;
+  &:focus {
+    border: 1px solid #838383;
+    outline: none;
+  }
+}
+
+button {
+  outline: none;
+  border: none;
+  font-size: 1.4rem;
+  font-weight: 600;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: var(--primary-color);
+  color: white;
+  transition: all 0.5s;
+  &:hover {
+    cursor: pointer;
+    filter: brightness(0.8);
+  }
+}
+
+.mb-3 {
+  margin-bottom: 0.9rem;
+}
+
+.input-error-validation {
+  color: rgb(209, 9, 9);
+  font-weight: 500;
+  font-style: italic;
+  font-size: 1.2rem !important;
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+.leading-icon-button {
+  margin-left: 18px;
+  padding: 4px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+
+  svg {
+    font-size: 2.4rem;
+  }
+
+  &:hover {
+    background-color: var(--hover-background-color);
+    cursor: pointer;
+  }
+
+  .content {
+    margin-left: 8px;
+    font-size: 1.6rem;
+    font-weight: 500;
+  }
+}
+
+.back-icon-button {
+  padding: 4px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: inline-flex;
+
+  &:hover {
+    background-color: var(--hover-background-color);
+    cursor: pointer;
+  }
+
+  svg {
+    font-size: 2.4rem;
+    color: var(--fade-text-color);
+  }
+
+  .content {
+    margin-left: 8px;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--fade-text-color);
+  }
+}
+
+.blue-box,
+.red-box {
+  height: 500px;
+  background-color: red;
+}
+
+.blue-box {
+  background-color: blue;
+}
+
+.delete-button-on-table {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 6px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  margin-bottom: 6px;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    background-color: #aaa;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 600;
+  }
+}
+
+.aspect-ratio {
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* The height of the item will now be 56.25% of the width. */
+}
+
+/* Adjust the iframe so it's rendered in the outer-width and outer-height of it's parent */
+.aspect-ratio iframe,
+.aspect-ratio img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  display: none;
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 10rem;
+  border: 1px solid #fff;
+}
+
+::-webkit-scrollbar-track-piece:start {
+  background: transparent;
+}
+
+::-webkit-scrollbar-track-piece:end {
+  background: transparent;
+}
+
+.text-hoverable {
+  &:hover {
+    cursor: pointer;
+    color: #000e50;
+    text-decoration: underline;
+  }
 }

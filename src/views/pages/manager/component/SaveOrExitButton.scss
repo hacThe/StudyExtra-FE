@@ -1,0 +1,29 @@
+.save-or-exit-btn{
+    
+    display: flex;
+    justify-content: flex-end;
+
+    span{
+
+        font-size: 1.4rem;
+        display: inline-block;
+        padding: 8px 12px;
+        color: white;
+        border-radius: 5px;
+        font-weight: 500;
+
+        &:hover{
+            cursor: pointer;
+            opacity: .8;
+
+        }
+    }
+    .cancel-btn{
+        background-color: #D83232;
+        margin-right: 12px;
+    }
+
+    .save-btn{
+        background-color: #24A639
+    }
+}

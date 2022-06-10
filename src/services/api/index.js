@@ -18,4 +18,10 @@ AjaxHelper.delete = (url, options) => {
   return axios.delete(url, options);
 };
 
+AjaxHelper.deleteFix = (url, params) => {
+  // console.log("url", url);
+  // console.log("params", params);
+  return axios.delete(url, {data:params});
+};
+
 export default AjaxHelper;

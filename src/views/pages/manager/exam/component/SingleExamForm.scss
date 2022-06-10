@@ -1,0 +1,123 @@
+.single-exam-form-wrapper{
+
+  .btn-delete{
+    margin-left: 5px;
+  }
+
+  .btn-delete:hover{
+    opacity: .6;
+  }
+
+  .list-input-form{
+    position: sticky;
+    top: 136px;
+  }
+    .question-top-bar{
+        h3{
+            margin-right: 18px;
+            font-size: 2rem;
+        }
+    }
+
+    .question-list {
+        margin-top: 18px;
+        .question-tile {
+          p {
+            font-size: 1.4rem;
+            font-weight: normal;
+            line-height: 17px;
+            margin-bottom: 12px;
+    
+            strong {
+              font-size: 1.5rem;
+            }
+          }
+    
+          .justify-content-between {
+            align-items: flex-start;
+          }
+          span {
+            text-align: center;
+            margin-top: -8px;
+            font-family: "Montserrat";
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--primary-color);
+            display: inline-block;
+            padding: 8px;
+            border-radius: 5px;
+            min-width: 100px;
+    
+            &:hover {
+              cursor: pointer;
+              background-color: var(--hover-background-color);
+            }
+          }
+    
+          .answer-list {
+            margin: 6px 0px 18px 27px;
+            margin-left: 27px;
+    
+            .answer-tile.right-answer {
+              position: relative;
+    
+              svg {
+                position: absolute;
+                left: -24px;
+                top: 1px;
+                font-weight: bold;
+                font-size: 1.4rem;
+                color: var(--primary-color);
+              }
+            }
+          }
+        }
+      }
+    
+      select,
+      input {
+        max-width: 100%;
+        width: 332px;
+      }
+    
+    
+      .se-btn{
+          color: white;
+          font-size: 1.6rem;
+    
+          svg{
+              margin-right: 12px;
+              width: 18px;
+              height: 18px;
+          }
+    
+    
+    
+      }
+
+      .save-or-exit-btn{
+          margin-top: 12px;
+      }
+
+
+      .category{
+              display: inline-block;
+              position: relative;
+              .manage-category{
+                position: absolute;
+                right: -4px;
+                top: -24px;
+                font-size: 1.4rem;
+                color: var(--primary-color);
+                padding: 4px;
+                display: inline-block;
+                border-radius: 5px;
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: var(--hover-background-color);
+                }
+              }
+      }
+}

@@ -1,0 +1,156 @@
+import { examConstants } from "../constaint/exam.constants";
+import { examServices } from "../services/exam.services";
+
+export const examAction = {
+    getAll,
+    getOne,
+    CheckExamRequirement,
+    postResultExam,
+    getTopResult,
+    getResultExam
+};
+
+function getAll() {
+    return (dispatch) => {
+        dispatch(request());
+        examServices.getExams().then(
+            (exams)=>{
+                dispatch(success(exams.data));
+            },
+            (error)=>{
+                dispatch(failure(error))
+            }
+        )
+    }
+
+    function request() {
+        return { type: examConstants.GET_EXAMS_REQUEST };
+    }
+    function success(exams) {
+        return { type: examConstants.GET_EXAMS_SUCCESS, exams}
+    }
+    function failure(error) {
+        return { type: examConstants.GET_EXAMS_FAILURE, error}
+    }
+}
+
+function getOne(id) {
+    return (dispatch) => {
+        dispatch(request());
+        examServices.getExam(id).then(
+            (exam)=>{
+                dispatch(success(exam.data));
+            },
+            (error)=>{
+                dispatch(failure(error))
+            }
+        )
+    }
+
+    function request() {
+        return { type: examConstants.GET_EXAM_REQUEST };
+    }
+    function success(exam) {
+        return { type: examConstants.GET_EXAM_SUCCESS, exam}
+    }
+    function failure(error) {
+        return { type: examConstants.GET_EXAM_FAILURE, error}
+    }
+}
+
+
+function CheckExamRequirement(id) {
+    return (dispatch) => {
+        dispatch(request());
+        examServices.CheckExamRequirement(id).then(
+            (result)=>{
+                dispatch(success());
+            },
+            (error)=>{
+                dispatch(failure(error))
+            }
+        )
+    }
+
+    function request() {
+        return { type: examConstants.CHECK_EXAM_REQUIREMENT_REQUEST };
+    }
+    function success() {
+        return { type: examConstants.CHECK_EXAM_REQUIREMENT_SUCCESS}
+    }
+    function failure(error) {
+        return { type: examConstants.CHECK_EXAM_REQUIREMENT_FAILURE, error}
+    }
+}
+
+function postResultExam(examID, userAnswer) {
+    return (dispatch) => {
+        dispatch(request())
+        examServices.postResultExam( examID, userAnswer).then(
+            () => {
+                dispatch(success())
+            },
+            error => {
+                dispatch(failure(error))
+            }
+        )
+    }
+
+    function request() {
+        return { type: examConstants.POST_RESULT_REQUEST };
+    }
+    function success() {
+        return { type: examConstants.POST_RESULT_SUCCESS };
+    }
+    function failure(error) {
+        return { type: examConstants.POST_RESULT_FAILURE, error };
+    }
+}
+
+function getResultExam(examID) {
+    return (dispatch) => {
+        dispatch(request())
+        examServices.getResultExam(examID).then(
+            (result) => {
+                dispatch(success(result.data))
+            },
+            error => {
+                dispatch(failure(error))
+            }
+        )
+    }
+
+    function request() {
+        return { type: examConstants.GET_RESULT_REQUEST };
+    }
+    function success(result) {
+        return { type: examConstants.GET_RESULT_SUCCESS, result };
+    }
+    function failure(error) {
+        return { type: examConstants.GET_RESULT_FAILURE, error };
+    }
+}
+
+function getTopResult(examID) {
+    return (dispatch) => {
+        dispatch(request())
+        examServices.getTopResult(examID).then(
+            (result) => {
+                dispatch(success(result.data))
+            },
+            error => {
+                dispatch(failure(error))
+            }
+        )
+    }
+
+    function request() {
+        return { type: examConstants.GET_TOP_RESULT_REQUEST };
+    }
+    function success(result) {
+        return { type: examConstants.GET_TOP_RESULT_SUCCESS, result };
+    }
+    function failure(error) {
+        return { type: examConstants.GET_TOP_RESULT_FAILURE, error };
+    }
+}

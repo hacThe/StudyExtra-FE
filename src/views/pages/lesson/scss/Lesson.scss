@@ -1,0 +1,111 @@
+.lesson-wrapper {
+  transition: 0.5s;
+  width: 100%;
+  background-color: #fff;
+  margin-top: 1, 2rem;
+  position: relative;
+  .lesson-detail {
+    .video-responsive {
+      overflow: hidden;
+      padding-bottom: 56.25%;
+      position: relative;
+      height: 0;
+      .lesson-video {
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+      }
+    }
+    .tab-panel {
+      .panel-choosing {
+        display: flex;
+        margin-left: 2.4rem;
+        margin-top: 1rem;
+
+        .panel-choose {
+          font-weight: 600;
+          font-size: 1.6rem;
+          line-height: 2rem;
+          color: #939393;
+        }
+        .panel-choose:hover {
+          color: #ddd;
+          cursor: pointer;
+        }
+        .panel-choose.active {
+          color: #000;
+          font-weight: 600;
+          position: relative;
+          .active-bar {
+            transition: 0.5s;
+            height: 2px;
+            background-color: rgb(56, 56, 56);
+            width: calc(100% + 24px);
+            position: absolute;
+            right: -14px;
+            top: 24px;
+          }
+          .overall {
+            width: calc(100% + 32px);
+            right: -23px;
+          }
+          .document {
+            width: calc(100% + 44px);
+            right: -20px;
+          }
+          .content {
+            width: calc(100% + 50px);
+            right: -22px;
+          }
+          .notion {
+            width: calc(100% + 50px);
+            right: -26px;
+          }
+        }
+        .panel-choose.divide {
+          margin-left: 4px;
+        }
+        .vertical-divider {
+          width: 1px;
+          height: 2rem;
+          background-color: #aeaeae;
+          margin: 0 2.4rem;
+        }
+      }
+      .horizontal-divider {
+        width: 48rem;
+        height: 1px;
+        background-color: #aeaeae;
+        margin-left: 1.4rem;
+        margin-top: 0.6rem;
+      }
+      .panel-container {
+        margin-top: 1.4rem;
+        margin-left: 2.4rem;
+        margin-bottom: 18rem;
+        .panel {
+          font-weight: 400;
+          font-size: 1.6rem;
+          .credit-wrapper {
+            margin-top: 8rem;
+          }
+          .question-section {
+            margin-top: 3.6rem;
+            .comment-count {
+              font-weight: 600;
+              font-size: 1.8rem;
+              margin-bottom: 2.8rem;
+            }
+          }
+        }
+        .panel.hide {
+          display: none;
+        }
+      }
+    }
+  }
+  .lesson-overall {
+  }
+}

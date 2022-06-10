@@ -1,0 +1,42 @@
+.traffic {
+    .modal-layout {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 100;
+        background-color: rgba(0, 0, 0, 0.3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: all 1s ease-in-out;
+
+        .modal {
+            width: 400px;
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+
+
+            .css-1w13o7u-MuiTypography-root {
+                font-size: 18px;
+            }
+
+            .css-nxo287-MuiInputBase-input-MuiOutlinedInput-input {
+                font-size: 18px;
+            }
+
+            .css-1sumxir-MuiFormLabel-root-MuiInputLabel-root {
+                font-size: 18px;
+            }
+
+            .css-1u3bzj6-MuiFormControl-root-MuiTextField-root {
+                margin-bottom: 15px;
+            }
+
+        }
+    }
+}

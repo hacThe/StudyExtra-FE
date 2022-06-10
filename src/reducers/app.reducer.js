@@ -2,6 +2,11 @@ const initialState = {
   notificationShow: false,
   settingShow: false,
   darkMode: false,
+  confirmActionModal: {
+    open: false,
+    content: "Hành động này không thể hoàn tác, bạn vẫn muốn thực hiện?",
+    action: undefined
+  }
 };
 
 

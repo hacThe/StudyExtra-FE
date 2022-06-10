@@ -1,0 +1,21 @@
+.drag-and-drop-item{
+
+    .action-wrapper{
+        padding: 6px;
+        margin-left: 24px;
+        border-radius: 50%;
+        transition: .3s;
+        display: flex;
+        align-items: center;
+        &:hover{
+            cursor: pointer;
+            background-color: #a5a5a5;
+        
+        }
+
+        svg{
+            font-size: 2.2rem;
+    
+        }
+    }
+}

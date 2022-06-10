@@ -1,0 +1,52 @@
+.chapter-item-wrapper {
+  margin-right: 12px;
+  background-color: white;
+  box-shadow: 0 0 2px 2px rgba($color: #000000, $alpha: 0.15);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  overflow: hidden;
+  margin-top: 12px;
+  .chapter-item-container {
+    transition: 0.5s;
+    &:hover {
+      cursor: pointer;
+      filter: brightness(0.8);
+    }
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    .chapter-title {
+      text-transform: capitalize;
+      font-weight: 600;
+      font-size: 1.6rem;
+      line-height: 1.6;
+    }
+    .chapter-detail {
+      color: #e0e0e0;
+      font-size: 1.4rem;
+    }
+    .chapter-open {
+      position: absolute;
+      right: 1.3rem;
+      top: 30%;
+      :hover {
+        cursor: pointer;
+        opacity: 0.3;
+      }
+      .hide {
+        display: none;
+      }
+    }
+  }
+  .lesson-items-container {
+    display: block;
+  }
+  .lesson-items-container.hide {
+    display: none;
+  }
+}

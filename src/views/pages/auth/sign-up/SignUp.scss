@@ -1,0 +1,92 @@
+.sign-up-page-wrapper {
+  background-image: url("https://img.freepik.com/free-vector/diverse-people-holding-letters-word-english-learn-foreign-language_141192-180.jpg?w=1380");
+  background-position: top;
+  background-size: contain;
+
+  button {
+    display: block;
+    width: 100%;
+    margin-top: 1.8rem;
+  }
+
+  input {
+    width: 100%;
+  }
+  select {
+    width: 100%;
+  }
+
+  form {
+    margin: auto;
+    width: 80%;
+  }
+  .se-btn {
+    width: 100%;
+  }
+  .outline-btn {
+    background: #ffffff;
+    border: 1px solid #989898;
+    box-sizing: border-box;
+    color: #000;
+  }
+
+  .google-login {
+    background-color: #e24747;
+  }
+
+  .facebook-login {
+    background-color: #566eef;
+  }
+
+  p {
+    font-size: 14px;
+  }
+
+  .sign-up-form-modal {
+    padding-left: 40px;
+    padding-right: 40px;
+    width: 94%;
+    max-width: 700px;
+    position: relative;
+  }
+
+  .back-btn {
+    position: absolute;
+    top: 12px;
+    left: 58px;
+    font-size: 2rem;
+    color: #999;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.6;
+    }
+  }
+
+  input {
+    font-family: "Montserrat", sans-serif !important;
+  }
+
+  .se-btn {
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 16px;
+    height: 56px;
+  }
+
+  .app-logo {
+    height: 40px;
+    width: 40px;
+    border-radius: 5px;
+    background-color: var(--primary-color);
+  }
+
+  .modal-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 29px;
+    margin-top: 36px;
+    margin-bottom: 31px;
+  }
+}

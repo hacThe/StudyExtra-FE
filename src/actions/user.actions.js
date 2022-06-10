@@ -1,50 +1,67 @@
-import { userConstants } from '../constaint';
-import { usersServices } from '../services';
-
+import { userConstants } from "../constaint";
+import { userNotifications } from "../reducers/notification.reducer";
+import { usersServices } from "../services";
+import { cookiesUtil } from "../utilities";
+import { showToast } from "./toast.action";
 
 export const userActions = {
   login,
   logout,
-  register,
+  // register,
   getAll,
-  delete: _delete
+  getOne,
+  delete: _delete,
+  getUserCourses,
+  getUserNotifications,
+  uploadAvatar,
+  toogleLockState,
+  updateProfile,
+  getUserTransaction,
+  getCurrentUser,
+  editUserGem,
 };
+
+function editUserGem(amount, userId, callback) {
+  return (dispatch) => {
+    dispatch(request());
+
+    usersServices.editUserGem(amount, userId).then(
+      (transactions) => {
+        dispatch(success(transactions["data"]));
+        if (callback) {
+          callback(transactions["data"]);
+        }
+      },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.GETONE_REQUEST };
+  }
+  function success(user) {
+    return { type: userConstants.GETONE_SUCCESS, user };
+  }
+  function failure(error) {
+    return { type: userConstants.GETONE_FAILURE, error };
+  }
+}
 
 /// này là hàm login
 function login(username, password) {
-  return dispatch => { // dispatch này lấy đâu ra mà gọi được?
-   
-    dispatch(request()); 
-    dispatch(success());
-
-
-    // usersServices.login(username, password).then(
-    //   user => {
-    //     if (user && !user['error']) {
-    //       cookiesUtil.set('_tk_transport_', user['data']['system_token'])
-    //       dispatch(success());
-    //     }
-    //   },
-    //   error => {
-    //     console.log('the function is error');
-    //     fetch('http://localhost:3006/mockup-data/user.json')
-    //     .then(res => res.json())
-    //     .then((users) => {
-    //       // lọc user from array 
-    //         const crrUser = users.filter(user => (user.username === username && user.password === password));
-    //         if (crrUser.length > 0) {
-    //           cookiesUtil.set('_tk_transport_', "demo")
-    //           dispatch(success());
-    //         }
-    //         else dispatch(failure(failure('Unrecognize username or password')));
-            
-    //       }).catch(err => console.error(err));
-        
-        
-    //     // dispatch(failure(error.toString()));
-    //     // dispatch(alertActions.error(error.toString()));
-    //   }
-    // );
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.login(username, password).then(
+      (user) => {
+        cookiesUtil.setAccessToken(user.token);
+        dispatch(showToast("success", "Đăng nhập thành công"));
+        dispatch(success(user.user));
+      },
+      (error) => {
+        dispatch(showToast("fail", "Tài khoản hoặc mật khẩu không chính xác!"));
+        dispatch(failure(error.toString()));
+      }
+    );
   };
 
   function request() {
@@ -58,53 +75,107 @@ function login(username, password) {
   }
 }
 
-function logout() {
-  return dispatch => {
+function logout(callback) {
+  return (dispatch) => {
     usersServices.logout();
+    // window.location.reload(true);
     dispatch(success());
+    if (callback instanceof Function) {
+      callback();
+    }
+    // window.location.reload(true);
   };
   function success() {
     return { type: userConstants.LOGOUT };
   }
 }
 
-function register(user) {
-  return dispatch => {
-    dispatch(request(user));
+function getOne(id, callback) {
+  return (dispatch) => {
+    dispatch(request());
 
-    usersServices.register(user).then(
-      () => {
-        dispatch(success());
-        // history.push('/login');
-        // dispatch(alertActions.success('Registration successful'));
+    usersServices.getOne(id).then(
+      (users) => {
+        dispatch(success(users["data"]));
+        if (callback) {
+          callback(users["data"]);
+        }
       },
-      error => {
-        dispatch(failure(error.toString()));
-        // dispatch(alertActions.error(error.toString()));
-      }
+      (error) => dispatch(failure(error.toString()))
     );
   };
 
-  function request(user) {
-    return { type: userConstants.REGISTER_REQUEST, user };
+  function request() {
+    return { type: userConstants.GETONE_REQUEST };
   }
   function success(user) {
-    return { type: userConstants.REGISTER_SUCCESS, user };
+    return { type: userConstants.GETONE_SUCCESS, user };
   }
   function failure(error) {
-    return { type: userConstants.REGISTER_FAILURE, error };
+    return { type: userConstants.GETONE_FAILURE, error };
+  }
+}
+
+function getCurrentUser(id, callback) {
+  return (dispatch) => {
+    dispatch(request());
+
+    usersServices.getCurrentUser(id).then(
+      (users) => {
+        dispatch(success(users["data"]));
+        if (callback) {
+          callback(users["data"]);
+        }
+      },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.GET_CURRENT_USER_REQUEST };
+  }
+  function success(user) {
+    return { type: userConstants.GET_CURRENT_USER_SUCCESS, user };
+  }
+  function failure(error) {
+    return { type: userConstants.GET_CURRENT_USER_FAILURE, error };
+  }
+}
+
+function toogleLockState(id, callback) {
+  return (dispatch) => {
+    dispatch(request());
+
+    usersServices.toogleLockState(id).then(
+      (users) => {
+        dispatch(success(users["data"]));
+        if (callback) {
+          callback(users["data"]);
+        }
+      },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.GETONE_REQUEST };
+  }
+  function success(user) {
+    return { type: userConstants.GETONE_SUCCESS, user };
+  }
+  function failure(error) {
+    return { type: userConstants.GETONE_FAILURE, error };
   }
 }
 
 function getAll() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(request());
 
-    usersServices.getAll()
-      .then(
-        users => dispatch(success(users['data'])),
-        error => dispatch(failure(error.toString()))
-      );
+    usersServices.getAll().then(
+      (users) => dispatch(success(users["data"])),
+      (error) => dispatch(failure(error.toString()))
+    );
   };
 
   function request() {
@@ -119,17 +190,20 @@ function getAll() {
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
-function _delete(id) {
-  return dispatch => {
+function _delete(id, callback) {
+  return (dispatch) => {
     dispatch(request(id));
 
-    usersServices.delete(id)
-      .then(
-        () => dispatch(success(id)),
-        error => dispatch(failure(id, error.toString()))
-      );
+    usersServices._delete(id).then(
+      () => {
+        dispatch(success(id));
+        if (callback) {
+          callback(id);
+        }
+      },
+      (error) => dispatch(failure(id, error.toString()))
+    );
   };
-
 
   function request(id) {
     return { type: userConstants.DELETE_REQUEST, id };
@@ -139,5 +213,148 @@ function _delete(id) {
   }
   function failure(id, error) {
     return { type: userConstants.DELETE_FAILURE, id, error };
+  }
+}
+
+//thong tin tai khoan
+function getUserCourses() {
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.getUserCourses().then(
+      (userCourses) => dispatch(success(userCourses)),
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.GET_USER_COURSES_REQUEST };
+  }
+  function success(userCourses) {
+    return { type: userConstants.GET_USER_COURSES_SUCCESS, userCourses };
+  }
+  function failure(error) {
+    return { type: userConstants.GET_USER_COURSES_FAILURE, error };
+  }
+}
+
+function getUserNotifications() {
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.getUserNotifications().then(
+      (userNotifications) => dispatch(success(userNotifications.data)),
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.GET_USER_NOTIFICATION_REQUEST };
+  }
+  function success(userNotifications) {
+    return {
+      type: userConstants.GET_USER_NOTIFICATION_SUCCESS,
+      userNotifications,
+    };
+  }
+  function failure(error) {
+    return { type: userConstants.GET_USER_NOTIFICATION_FAILURE, error };
+  }
+}
+
+function uploadAvatar(avatarUrl) {
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.uploadAvatar(avatarUrl).then(
+      (user) => {
+        cookiesUtil.setCurrentUserInfo(user.user);
+        dispatch(success(user));
+        window.location.reload(true);
+      },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.UPLOAD_AVATAR_REQUEST };
+  }
+  function success(user) {
+    return { type: userConstants.UPLOAD_AVATAR_SUCCESS, user };
+  }
+  function failure(error) {
+    return { type: userConstants.UPLOAD_AVATAR_FAILURE, error };
+  }
+}
+
+/* function verifyEmail(id, token) {
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.verifyEmail(id, token).then(
+      (emailVerifyResult) => {
+        console.log("verify errrrrr: ", emailVerifyResult);
+        dispatch(success())
+      },
+      (error) => {
+        console.log("errrrrrrr: ", error.toString())
+        dispatch(failure(error.toString()))
+      }
+    );
+  };
+
+  function request() {
+    return { type: userConstants.VERIFY_EMAIL_REQUEST};
+  }
+  function success() {
+    return { type: userConstants.VERIFY_EMAIL_SUCCESS};
+  }
+  function failure(error) {
+    return { type: userConstants.VERIFY_EMAIL_FAILURE, error };
+  }
+} */
+
+function updateProfile(newInfo) {
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.updateProfile(newInfo).then(
+      (user) => {
+        cookiesUtil.setCurrentUserInfo(user.user);
+        dispatch(success(user));
+        window.location.reload(true);
+      },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.UPDATE_PROFILE_REQUEST };
+  }
+  function success(user) {
+    return { type: userConstants.UPDATE_PROFILE_SUCCESS, user };
+  }
+  function failure(error) {
+    return { type: userConstants.UPDATE_PROFILE_FAILURE, error };
+  }
+}
+
+function getUserTransaction() {
+  return (dispatch) => {
+    dispatch(request());
+    usersServices.getUserTransaction().then(
+      (userTransaction) => {
+        dispatch(success(userTransaction));
+      },
+      (error) => dispatch(failure(error.toString()))
+    );
+  };
+
+  function request() {
+    return { type: userConstants.GET_USER_TRANSACTION_REQUEST };
+  }
+  function success(userTransaction) {
+    return {
+      type: userConstants.GET_USER_TRANSACTION_SUCCESS,
+      userTransaction,
+    };
+  }
+  function failure(error) {
+    return { type: userConstants.GET_USER_TRANSACTION_FAILURE, error };
   }
 }

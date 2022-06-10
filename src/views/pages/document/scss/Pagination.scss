@@ -1,0 +1,71 @@
+.pagination-body{
+    display: flex;
+    justify-content: center;
+    margin-top: 2.4rem;
+    margin-bottom: 4.6rem;
+    padding-bottom: 4.6rem;
+    .prev-button{
+        width: 4.0rem;
+        height: 4.0rem;
+        border: none;
+        border-radius: 100%;
+        border-color: #fff;
+        background-color: #fff;
+        outline: none;
+        box-shadow: .0rem .0rem .4rem rgba(0,0,0,.25);
+        .prev-icon{
+            width: 2.0rem;
+            height: 2.0rem;
+        }
+    }
+    .prev-button:hover{
+        background-color: #ededed;
+        cursor: pointer;
+    }
+    .page-button-container{
+        display: flex;
+        .page-button{
+            width: 4.0rem;
+            height: 4.0rem;
+            border: none;
+            border-radius: 100%;
+            border-color: #fff;
+            background-color: #fff;
+            outline: none;
+            box-shadow: .0rem .0rem .4rem rgba(0,0,0,.25);
+            font-family: 'Montserrat';
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: #000;
+        }
+        .page-button.active{
+            background-color: #7B68EE;
+            color: #fff;
+        }
+        .page-button:hover{
+            background-color: #ededed;
+            cursor: pointer;
+        }
+        
+    }
+    .next-button{
+        width: 4.0rem;
+        height: 4.0rem;
+        border: none;
+        border-radius: 100%;
+        border-color: #fff;
+        background-color: #fff;
+        outline: none;
+        color: #000;
+        box-shadow: .0rem .0rem .4rem rgba(0,0,0,.25);
+        .next-icon{
+            width: 2.0rem;
+            height: 2.0rem;
+            color: #000;
+        }
+    }
+    .next-button:hover{
+        background-color: #ededed;
+        cursor: pointer;
+    }
+}

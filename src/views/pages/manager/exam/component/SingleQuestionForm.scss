@@ -1,0 +1,27 @@
+.answer-input-wrapper {
+  display: flex;
+  align-items: end;
+
+  .remove-btn {
+    margin-left: 12px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      cursor: pointer;
+      background-color: var(--hover-background-color);
+    }
+  }
+}
+
+.answer-tile {
+  margin-bottom: 12px;
+}
+
+.se-btn {
+  max-width: 224px;
+  margin-bottom: 12px;
+}

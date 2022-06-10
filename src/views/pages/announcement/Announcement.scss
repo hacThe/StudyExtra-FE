@@ -1,0 +1,158 @@
+.notification-item {
+    font-size: 14px;
+    color: black;
+    line-height: 18px;
+    color: #08c;
+    font-weight: 500;
+}
+
+.title {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 27px;
+    color: black;
+}
+
+.notification-item:hover {
+    color: #005580;
+}
+
+.content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 25px;
+    -webkit-line-clamp: 3;
+    height: 75px;
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.notification-time {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 13px;
+    line-height: 17px;
+    color: black;
+}
+
+
+
+.carousel .slider-wrapper {
+    border-radius: 16px;
+}
+
+
+.slick-prev:before {
+    color: red;
+}
+
+.slick-next::before {
+    color: red;
+}
+
+.hidden-line {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.css-1ri6ub7-MuiPaper-root-MuiCard-root {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    ;
+}
+
+.css-1ri6ub7-MuiPaper-root-MuiCard-root {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+    ;
+}
+
+.css-1j4k3n5-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+    background-color: #7B68EE;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.css-1j4k3n5-MuiButtonBase-root-MuiPaginationItem-root {
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+}
+
+.carousel .control-arrow,
+.carousel.carousel-slider .control-arrow {
+    top: 45%;
+    bottom: 45%;
+}
+
+.carousel .control-next.control-arrow:before {
+    transform: translateX(15%);
+    border-left: 8px solid #000000
+}
+
+.carousel .control-prev.control-arrow:before {
+    border-right: 8px solid #000000;
+    transform: translateX(-15%);
+}
+
+.carousel .control-arrow,
+.carousel.carousel-slider .control-arrow {
+    background-color: white;
+    border-radius: 50%;
+}
+
+.css-h93ljk-MuiTypography-root {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 25px;
+    -webkit-line-clamp: 2;
+    height: 50px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.carousel.carousel-slider {
+    overflow: inherit;
+}
+
+.carousel .control-next.control-arrow {
+    right: -15px;
+}
+
+.carousel .control-prev.control-arrow {
+    left: -15px;
+}
+
+.carousel .control-arrow,
+.carousel.carousel-slider .control-arrow {
+    opacity: 0.8;
+    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
+}
+
+.carousel .control-arrow:focus,
+.carousel .control-arrow:hover {
+    opacity: 1 !important;
+
+}
+
+.slick-prev:before {
+    color: #7B68EE;
+}
+
+.slick-next::before {
+    color: #7B68EE;
+}

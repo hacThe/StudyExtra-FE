@@ -1,0 +1,90 @@
+
+.footer{
+    height: 305px;
+    padding: 20px 0px;
+    .address{
+        h1{
+            font-family: Montserrat;
+            font-weight: bold;
+            font-size: 48px;
+            line-height: 59px;
+            color: #000000;
+            margin-bottom: 12px;
+            padding-bottom: 30px;
+        }
+        P{
+            font-family: Montserrat;
+            font-size: 13px;
+            line-height: 16px;
+            color: #353535;
+            padding-bottom: 12px;
+        }
+    }
+    .support{
+        a{
+            text-decoration: none;
+            font-family: Montserrat;
+            font-size: 13px;
+            line-height: 16px;
+            color: #353535;
+        }
+        p{
+            padding-bottom: 16px;
+        }
+    }
+
+    .contact{
+        padding-top: 16px;
+        padding-left: 16px;
+        .input-group{
+            display: flex;
+            border: 0.5px solid #353535;
+            border-radius: 15px;
+            height: 48px;
+            .input-text{
+                border: none;
+                height: 46px;
+                background-color: transparent;
+                width: 100%;
+                padding-left: 10px;
+            }
+            :focus-visible{
+                outline: none;
+            }
+            .btn-send{
+                height: 47px;
+                background-color: #353535;
+                border-radius: 15px;
+                margin-bottom: 20px;
+            }
+            
+        }
+        .input-group:focus-within{
+            box-shadow: 0 0 0 0.15rem rgba(44, 44, 44, 0.25);
+        }
+        p{
+            font-family: Montserrat;
+            font-size: 13px;
+            line-height: 16px;
+            color: #353535;
+            a{
+                svg{
+                    width: 21px;
+                    height: 24px;
+                    color: #7F7F7F;
+                    margin-bottom: -3px;
+                }
+            }
+            padding-bottom: 16px;
+        }
+        h5{
+            font-family: Montserrat;
+            font-weight: 500;
+            font-size: 24px;
+            line-height: 29px;
+            color: #353535;
+            padding-bottom: 16px;
+        }
+        
+    }
+}

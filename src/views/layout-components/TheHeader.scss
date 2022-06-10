@@ -1,0 +1,203 @@
+
+.the-header{
+    background-color: #FFFFFF !important;
+    color: #000000 !important;
+    height: 66px;
+    position: fixed !important;
+    box-shadow: 1px 1px 2px #cccccc !important;
+    padding: 0 1.2rem;
+    z-index: 10;
+    .toolbar{
+        height: 100%;
+    }
+    .logo_group{
+        flex-wrap: nowrap;
+        align-items: center;
+        .logo_group-name{
+            font-family: Montserrat;
+            font-weight: bold;
+            font-size: 1.6rem;
+            line-height: 20px;
+            letter-spacing: 0;
+            padding: 0px 8px;
+        }
+    }
+    .search-box{
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        .search-group{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #e8e8e8;
+            border-radius: 25px;
+            width: 420px !important;
+            height: 4rem;
+            .search-icon{
+                height: 23px;
+                width: 40px;
+                padding: 0px 5px;
+                color: #4E4E4E;
+                margin-top: 5px;
+            }
+            .search-inp{
+                width: 100%;
+                margin-right: 10px;
+                font-family: Montserrat;
+                font-size: 1.4rem;
+                line-height: 17px;
+                color: #4E4E4E;
+                input:focus{
+                    border: none;
+                }
+            }
+        }
+        .search-group:focus-within{
+            border: 2px solid #444;
+        }
+    }
+
+
+    .avatar-notification_group{
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        .avatar-notification_box{
+            .notification_group{
+                padding: 8px 12px;
+                svg{
+                    height: 21px;
+                    width: 21px;
+                    color: #939393;
+                }
+                span{
+                    font-size: 1rem;
+                }
+            }
+            .avatar_group{
+                .avatar{
+                    height: 36px;
+                    width: 36px;
+                    padding: 0px;
+                }
+                padding: 0px;
+                margin: 0px 0px 0px 12px;
+            }
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 36px;
+        }
+    }
+    
+}
+.profile-menu{
+    ul{
+        padding: 8px;
+    }
+    li{
+        font-family: Montserrat;
+        font-size: 1.4rem;
+        line-height: 17px;
+        color: #575757;
+        padding: 8px 16px;
+    }
+    li:hover{
+        background-color: #ebebeb;
+        color: #000000;
+    }
+    a{
+        text-decoration: none;
+    }
+    .profile_group{
+        .avatar{
+            height: 36px;
+            width: 36px;
+            padding: 0px;
+        }
+        h6{
+            font-weight: 600;
+            font-size: 1.6rem;
+            line-height: 20px;
+            color: #000000;
+        }
+        p{
+            font-size: 1rem;
+            line-height: 12px;
+        }
+        
+    }
+    
+}
+.notification-menu{
+    ul{
+        width: 280px;
+        .notification_group{
+            padding: 8px 10px;
+            .avatar{
+                height: 36px;
+                width: 36px;
+            }
+            .notification-content{
+                font-family: Montserrat;
+                font-weight: 400;
+                font-size: 1.3rem;
+                line-height: 16px;
+                color: #292929;
+                margin: 0px 14px;
+                width: 204px;
+               
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
+                -webkit-line-clamp: 2;
+            }
+        }
+    }
+}
+
+.mobile-navbar{
+    a{
+        text-decoration: none;
+        color: #575757;
+        span{
+            font-size: 1.2rem;
+            font-family: Montserrat;
+        }
+        svg{
+            height: 1.5rem;
+            width: 1.5rem;
+        }
+    }
+    .active{
+        color: #000000;
+        svg{
+            color: #000000;
+        }
+    }
+
+    h6{
+        font-weight: 600;
+        font-size: 1.6rem;
+        line-height: 20px;
+        color: #000000;
+        margin-bottom: 3px;
+
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        -webkit-line-clamp: 1;
+    }
+    p{
+        font-size: 1.2rem;
+        line-height: 12px;
+    }
+}
+

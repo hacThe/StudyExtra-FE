@@ -1,0 +1,3 @@
+export const rankingConstants = {
+    CHANGE_PAGINATION_REQUEST: 'CHANGE_PAGINATION_IN_RANKING_REQUEST',
+};
