@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+# Money Man
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![tag](https://img.shields.io/badge/-course-4db39d)](https://github.com/hacThe/StudyExtra-FE)
+[![tag](https://img.shields.io/badge/-study-4db39d)](https://github.com/hacThe/StudyExtra-FE)
+[![os](https://img.shields.io/badge/-teacher-%230175C2)](https://github.com/hacThe/StudyExtra-FE)
+[![framework](https://img.shields.io/badge/-student-%230175C2)](https://github.com/hacThe/StudyExtra-FE)
+[![framework](https://img.shields.io/badge/-english-%2302569B)](https://github.com/hacThe/StudyExtra-FE)
 
-## Available Scripts
+[![school](https://img.shields.io/badge/school-UIT-3f6cb6)](https://www.uit.edu.vn/)
+[![subject](https://img.shields.io/badge/subject-WEB-3f6cb6)](https://www.uit.edu.vn/)
+[![contributors](https://img.shields.io/badge/contributors-4-1d9583)](#team)
 
-In the project directory, you can run:
+<br>
 
-### `npm start`
+<p align="center">
+ <img src="./resources/money_man.svg" height = "200"></a>
+</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<p align="center">
+<i>Đây là một đồ án môn học.</i>
+</p>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+**Study Extra** là website thương mại điện tử dịch vụ E-learning 
+Giúp bạn mua những khóa học và đắm chìm trong thế giới kiến thức rộng lớn
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## **📝 Mục lục**
+- [Tài nguyên](#tài-nguyên)
+- [Cài đặt](#cài-đặt)
+	- [Front end](#cài-đặt-front-end)
+	- [Back end](#cài-đặt-back-end)
+	- [Database](#cài-đặt-data-base)
+- [Giao diện](#giao-diện)
+- [Thư viện và Công nghệ](#thư-viện-và-công-nghệ)
+- [Thành viên đóng góp](#thành-viên-đóng-góp)
+- [Giấy phép](#giấy-phép)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## **Tài nguyên**
+### **Sử dụng các source-code sau:**
+*	 Front-end: https://github.com/hacThe/StudyExtra-FE
+*  Back-end: https://github.com/LuongThienPhuoc/StudyExtra-BE
+*	 Database: MongoDB Cluster.
+### **Cài đặt:**
+### **Cài đặt Front End:**
+### **Cài đặt Back End:**
+### **Cài đặt Database:**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## **Giao diện**
+ 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## **Thư viện và Công nghệ**
+*	[ReactJS](https://flutter.dev/](https://reactjs.org/docs/getting-started.html).
+*	[NodeJS](https://firebase.google.com/](https://nodejs.org/en/docs/).
+*	[NPM](https://pub.dev/](https://www.npmjs.com/).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## **Thành viên đóng góp**
+- Dương Hiển Thế *(hacThe)*: 19522252@gm.uit.edu.vn
+- Nguyễn Tấn Thành *(TanThanh-CityBoi)*: 19522239@gm.uit.edu.vn
+- Nguyễn Công Phi *(CongPhiNguyen)*: 19522006@gm.uit.edu.vn
+- Lương Thiện Phước *(LuongThienPhuoc)*: 19522055@gm.uit.edu.vn
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<br/>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<br/>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## **Giấy phép**
+    MIT License
 
-### Code Splitting
+    Copyright (c) 2021 Lemidatt
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
 
-### Analyzing the Bundle Size
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
