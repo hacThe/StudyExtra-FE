@@ -263,3 +263,11 @@ button {
 ::-webkit-scrollbar-track-piece:end {
   background: transparent;
 }
+
+.text-hoverable {
+  &:hover {
+    cursor: pointer;
+    color: #000e50;
+    text-decoration: underline;
+  }
+}

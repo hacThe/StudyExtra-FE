@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./scss/Overall.scss";
 
 import TableManageMent from "./components/TableManagement";
-import { GrDocumentExcel } from "react-icons/gr";
+import { AiOutlineExport } from "react-icons/ai";
 
 const columnDocs = [
   // {field: , headerName: , width: }
@@ -202,7 +202,7 @@ const Overall = () => {
             <div className="heading">
               <div className="header">Danh sách tài liệu</div>
               <div className="export">
-                <GrDocumentExcel size={24} />
+                <AiOutlineExport size={18} />
                 <p className="export-title">Xuất Excel</p>
               </div>
             </div>

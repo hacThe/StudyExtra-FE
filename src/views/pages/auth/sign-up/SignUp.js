@@ -10,6 +10,7 @@ import "./SignUp.scss";
 import { maxWidth } from "@mui/system";
 import SignUpForm from "./SignUpForm";
 import { values } from "lodash";
+import { showToast } from "../../../../actions/toast.action";
 // import Container from '@mui/material/Container';
 const SignUp = () => {
   const navigate = useNavigate();
@@ -21,15 +22,17 @@ const SignUp = () => {
 
   function SignUpOnClick(value) {
     // execute sign up.
-   usersServices.register(value).then(
-    () => {
-      alert("register successfully");
-      navigate("/dang-nhap");
-    },
-    (error) => {
-      alert(error.toString());
-    }
-   );
+    usersServices.register(value).then(
+      () => {
+        dispatch(showToast("success", "Dăng ký tài khoản thành công"));
+        setTimeout(() => {
+          navigate("/dang-nhap");
+        }, 1000);
+      },
+      (error) => {
+        dispatch(showToast("fail", error.toString()));
+      }
+    );
   }
 
   return (

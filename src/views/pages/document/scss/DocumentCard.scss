@@ -1,46 +1,58 @@
-.card-body{
-    display: flex;
-    flex-direction: row;
-    box-shadow: .2rem .2rem .4rem rgba(0,0,0,0.2);
-    margin: 1.0rem;
-    margin-right: 2.0rem;
-    margin-left: 2.4rem;
-    position: relative;
-    border-radius: 1.0rem;
-    .document-type{
-        width: 2.5rem;
-        height: 3.5rem;
-        margin-top: 1.3rem;
-        margin-right: 2.6rem;
-        margin-left: 1.5rem;
-    }
-    .document-title-1{
-        line-height: 6.0rem;
-        font-size: 1.6rem;
-        width: 65%; 
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        text-transform: uppercase;
-    }
-    
-    .view-container{
-        display: flex;
-        position: absolute;
-        right: 0;
-        .view-icon{
-            height: 6.0rem;
-            margin-right: .8rem;
-        }
-        .view-number{
-            line-height: 6.0rem;
-            margin-right: 1.2rem;
-            font-size: 1.6rem;
-        }
-    }
-    &:hover{
-        background-color: #f1f1f1!important;
-        cursor: pointer;
+.card-body {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+    rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  margin: 1rem;
+  margin-right: 2rem;
+  margin-left: 2.4rem;
+  position: relative;
+  border-radius: 1rem;
+  padding: 18px;
+  .document-type {
+    width: 2.5rem;
+    height: 3.5rem;
+    margin-right: 18px;
+  }
+
+  .info-container {
+    width: 80%;
+    .document-title-1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      text-transform: capitalize;
     }
 
+    .document-author {
+      font-size: 1.3rem;
+      color: #5c5c5c;
+    }
+  }
+
+  .view-container {
+    display: flex;
+    position: absolute;
+    right: 0;
+    .view-icon {
+      fill: #5c5c5c;
+      --currentColor: #5c5c5c;
+      height: 6rem;
+      margin-right: 0.8rem;
+      color: #5c5c5c;
+    }
+    .view-number {
+      line-height: 6rem;
+      margin-right: 1.2rem;
+      font-size: 1.6rem;
+      color: #5c5c5c;
+    }
+  }
+  &:hover {
+    background-color: #f1f1f1 !important;
+    cursor: pointer;
+  }
 }

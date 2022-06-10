@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { TextField, Stack } from "@mui/material";
 import { BsFillReplyFill } from "react-icons/bs";
 import "./ForgotPassword.scss";
+import { showToast } from "../../../../actions/toast.action";
+import { useDispatch } from "react-redux";
 
 const ForgotPassword = () => {
   // 0: ForgotPasswordModal, 1
@@ -14,12 +16,10 @@ const ForgotPassword = () => {
   const verifyCode = useRef();
   const targetEmail = useRef();
   const navigate = useNavigate();
-
-
+  const dispatch = useDispatch();
   function backButtonOnClick() {
     setPage(currentPage - 1);
   }
-
 
   //------------------------------------------------------verify code-----------------------------------//
   function VerifyAuthCode(props) {
@@ -27,28 +27,34 @@ const ForgotPassword = () => {
     function VerifyCodeOnClick() {
       usersServices.verifyCode(props.username.current, inputCode).then(
         (data) => {
-          alert(data.message);
+          dispatch(showToast("success", data.message));
           props.verifyCode.current = inputCode;
           setPage(2);
         },
         (error) => {
-          alert(error.toString());
+          dispatch(showToast("fail", JSON.stringify(error)));
         }
-      )
+      );
     }
 
     function resendCodeOnClick() {
       // execute re-send verify code
       usersServices.sendVerifyCode(props.username.current).then(
         (data) => {
-          alert("Verify code has just sent to email: *******" + data.email.slice(7));
+          dispatch(
+            showToast(
+              "success",
+              "Verify code has just sent to email: *******" +
+                data.email.slice(7)
+            )
+          );
           props.targetEmail.current = data.email;
           setPage(1);
         },
         (error) => {
-          alert(error.toString());
+          dispatch(showToast("fail", error.toString()));
         }
-      )
+      );
     }
 
     return (
@@ -72,7 +78,10 @@ const ForgotPassword = () => {
           <p>
             Vui lòng kiểm tra email để nhận mã đặt lại mật khẩu gồm 8 chữ số.
           </p>
-          <p>Chúng tôi đã gửi mã xác nhận đến email: *******{props.targetEmail.current.slice(7)}</p>
+          <p>
+            Chúng tôi đã gửi mã xác nhận đến email: *******
+            {props.targetEmail.current.slice(7)}
+          </p>
 
           <Stack
             sx={{
@@ -88,8 +97,8 @@ const ForgotPassword = () => {
               label="Mã xác nhận: XXXXXXXX"
               variant="outlined"
               value={inputCode}
-              onChange={e => setInputCode(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && VerifyCodeOnClick()}
+              onChange={(e) => setInputCode(e.target.value)}
+              onKeyPress={(e) => e.key === "Enter" && VerifyCodeOnClick()}
               InputProps={{
                 style: {
                   borderRadius: "30px",
@@ -126,16 +135,24 @@ const ForgotPassword = () => {
   function ResetPassword(props) {
     function VerifyResetPasswordOnClick(password) {
       // execute reset password
-      usersServices.setNewPassword(props.username.current, props.verifyCode.current, password).then(
-        (data) => {
-          alert("Reset password successfully");
-          console.log(data);
-          navigate('/dang-nhap')
-        },
-        (error) => {
-          alert(error.toString());
-        }
-      )
+      usersServices
+        .setNewPassword(
+          props.username.current,
+          props.verifyCode.current,
+          password
+        )
+        .then(
+          (data) => {
+            dispatch(showToast("success", "Đặt lại mật khẩu thành công!"));
+            console.log(data);
+            setTimeout(() => {
+              navigate("/dang-nhap");
+            }, 1000);
+          },
+          (error) => {
+            dispatch(showToast("fail", error.toString()));
+          }
+        );
     }
 
     const passwordFormik = useFormik({
@@ -158,7 +175,7 @@ const ForgotPassword = () => {
           .oneOf([Yup.ref("password"), null], "Mật khẩu không trùng khớp"),
       }),
       onSubmit: (values) => {
-        VerifyResetPasswordOnClick(values.password)
+        VerifyResetPasswordOnClick(values.password);
       },
     });
 
@@ -214,9 +231,13 @@ const ForgotPassword = () => {
                   },
                 }}
               />
-              {passwordFormik.errors.password && passwordFormik.touched.repassword && (
-                <p className="input-error-validation"> {passwordFormik.errors.password} </p>
-              )}
+              {passwordFormik.errors.password &&
+                passwordFormik.touched.repassword && (
+                  <p className="input-error-validation">
+                    {" "}
+                    {passwordFormik.errors.password}{" "}
+                  </p>
+                )}
 
               <TextField
                 id="repassword"
@@ -226,22 +247,32 @@ const ForgotPassword = () => {
                 value={passwordFormik.values.repassword}
                 onChange={passwordFormik.handleChange}
                 InputProps={{
-                  style: { borderRadius: "30px", paddingLeft: "18px", fontSize: "1.5rem" },
+                  style: {
+                    borderRadius: "30px",
+                    paddingLeft: "18px",
+                    fontSize: "1.5rem",
+                  },
                 }}
                 InputLabelProps={{
                   style: {
                     fontFamily: "'Montserrat', san-serif",
                     borderColor: "white",
                     borderColor: "black",
-                    fontSize: "1.4rem"
+                    fontSize: "1.4rem",
                   },
                 }}
               />
-              {passwordFormik.errors.repassword && passwordFormik.touched.repassword && (
-                <p className="input-error-validation"> {passwordFormik.errors.repassword} </p>
-              )}
+              {passwordFormik.errors.repassword &&
+                passwordFormik.touched.repassword && (
+                  <p className="input-error-validation">
+                    {" "}
+                    {passwordFormik.errors.repassword}{" "}
+                  </p>
+                )}
 
-              <button type="submit" className="se-btn login-btn">XÁC NHẬN</button>
+              <button type="submit" className="se-btn login-btn">
+                XÁC NHẬN
+              </button>
             </Stack>
           </Stack>
         </form>
@@ -249,24 +280,28 @@ const ForgotPassword = () => {
     );
   }
 
-
   //------------------------------------------------create-verify-code-------------------------//
 
   function ForgotPasswordModal(props) {
-
     function sendVerifyCodeOnClick(value) {
       // execute send verify code
       usersServices.sendVerifyCode(value.username).then(
         (data) => {
-          alert("Verify code has just sent to email: *******" + data.email.slice(7));
+          dispatch(
+            showToast(
+              "success",
+              "Verify code has just sent to email: *******" +
+                data.email.slice(7)
+            )
+          );
           props.targetEmail.current = data.email;
           props.username.current = value.username;
           setPage(1);
         },
         (error) => {
-          alert(error.toString());
+          dispatch(showToast("fail", JSON.stringify(error)));
         }
-      )
+      );
     }
 
     const usernameFormik = useFormik({
@@ -277,10 +312,15 @@ const ForgotPassword = () => {
         username: "",
       },
       validationSchema: Yup.object({
-        username: Yup.string().required("Vui lòng nhập tên đăng nhập").matches(/^[a-zA-Z0-9]+$/, "Tên đăng nhập chỉ chứa chữ cái và chữ số ")
+        username: Yup.string()
+          .required("Vui lòng nhập tên đăng nhập")
+          .matches(
+            /^[a-zA-Z0-9]+$/,
+            "Tên đăng nhập chỉ chứa chữ cái và chữ số "
+          ),
       }),
       onSubmit: (values) => {
-        console.log(values)
+        console.log(values);
         sendVerifyCodeOnClick(values);
       },
     });
@@ -317,7 +357,6 @@ const ForgotPassword = () => {
                 label="Username "
                 type="username"
                 variant="outlined"
-
                 value={usernameFormik.values.username}
                 onChange={usernameFormik.handleChange}
                 InputProps={{
@@ -337,14 +376,17 @@ const ForgotPassword = () => {
                 }}
               />
               {usernameFormik.errors.username && (
-                <p className="input-error-validation"> {usernameFormik.errors.username} </p>
+                <p className="input-error-validation">
+                  {" "}
+                  {usernameFormik.errors.username}{" "}
+                </p>
               )}
 
               <button type="submit" className="se-btn login-btn">
                 Gửi
               </button>
             </Stack>
-            <p style={{marginBottom: "1rem"}}>
+            <p style={{ marginBottom: "1rem" }}>
               <Link to="/dang-nhap">
                 <strong> Đăng Nhập</strong>
               </Link>
@@ -373,11 +415,23 @@ const ForgotPassword = () => {
             height: "100vh",
           }}
         >
-          {currentPage == 0 && <ForgotPasswordModal targetEmail={targetEmail} username={username} />}
-          {currentPage == 1 && <VerifyAuthCode username={username} targetEmail={targetEmail} verifyCode={verifyCode} />}
-          {currentPage == 2 && <ResetPassword username={username} verifyCode={verifyCode} />}
+          {currentPage == 0 && (
+            <ForgotPasswordModal
+              targetEmail={targetEmail}
+              username={username}
+            />
+          )}
+          {currentPage == 1 && (
+            <VerifyAuthCode
+              username={username}
+              targetEmail={targetEmail}
+              verifyCode={verifyCode}
+            />
+          )}
+          {currentPage == 2 && (
+            <ResetPassword username={username} verifyCode={verifyCode} />
+          )}
         </Stack>
-
       </div>
     </>
   );

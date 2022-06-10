@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import clsx from "clsx";
 import "./Profile.scss";
 import { FiEdit } from "react-icons/fi";
-import ToastComponent from './../../components/ToastComponent'
-import { showToast } from './../../../actions/toast.action'
+import ToastComponent from "./../../components/ToastComponent";
+import { showToast } from "./../../../actions/toast.action";
 import TransactionTable from "./component/TransactionTable";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "./../../../actions/user.actions";
@@ -96,7 +96,6 @@ const Profile = () => {
     { field: "ghichu", headerName: "Ghi chú", width: 200 },
   ];
 
-
   const rowDocs = [];
   UserInfo?.transactions.map((value, _index) => {
     const time = new Date(value.createdAt);
@@ -124,10 +123,12 @@ const Profile = () => {
   function resendVerifyEmail() {
     usersServices.resendVerifyEmail().then(
       (data) => {
-        alert("Link xác nhận đã được gửi tới email của bạn ");
+        dispatch(
+          showToast("success", "Link xác nhận đã được gửi tới email của bạn ")
+        );
       },
       (error) => {
-        alert(error);
+        dispatch(showToast("fail", JSON.stringify(error)));
       }
     );
   }

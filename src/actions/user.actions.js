@@ -2,6 +2,7 @@ import { userConstants } from "../constaint";
 import { userNotifications } from "../reducers/notification.reducer";
 import { usersServices } from "../services";
 import { cookiesUtil } from "../utilities";
+import { showToast } from "./toast.action";
 
 export const userActions = {
   login,
@@ -52,13 +53,12 @@ function login(username, password) {
     dispatch(request());
     usersServices.login(username, password).then(
       (user) => {
-        //alert("login successfully", user);
         cookiesUtil.setAccessToken(user.token);
-        //   cookiesUtil.setCurrentUserInfo(user.user)
+        dispatch(showToast("success", "Đăng nhập thành công"));
         dispatch(success(user.user));
       },
       (error) => {
-        alert(error);
+        dispatch(showToast("fail", "Tài khoản hoặc mật khẩu không chính xác!"));
         dispatch(failure(error.toString()));
       }
     );
@@ -86,35 +86,6 @@ function logout() {
     return { type: userConstants.LOGOUT };
   }
 }
-
-/* function register(user) {
-  return (dispatch) => {
-    //dispatch(request(user));
-
-    usersServices.register(user).then(
-      () => {
-      //  dispatch(success());
-        alert("register successfully");
-        // dispatch(alertActions.success('Registration successful'));
-      },
-      (error) => {
-     ////   dispatch(failure(error.toString()));
-        alert("ERROR: " + error.toString());
-        // dispatch(alertActions.error(error.toString()));
-      }
-    );
-  };
-
-  function request(user) {
-    return { type: userConstants.REGISTER_REQUEST, user };
-  }
-  function success(user) {
-    return { type: userConstants.REGISTER_SUCCESS, user };
-  }
-  function failure(error) {
-    return { type: userConstants.REGISTER_FAILURE, error };
-  }
-} */
 
 function getOne(id, callback) {
   return (dispatch) => {

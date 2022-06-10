@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { GrDocumentExcel } from "react-icons/gr";
+import { AiOutlineExport } from "react-icons/ai";
 import DataTableComponent from "../../../components/DataTableComponent";
 import LeadingIconButton from "../../../components/LeadingIconButton";
-import {
-  AiOutlineExport,
-  AiOutlineEdit,
-  AiOutlineDelete,
-} from "react-icons/ai";
 import BackToPageButton from "../../../components/BackToPageButton";
 import { useDispatch, useSelector } from "react-redux";
 import { transactionActions } from "../../../../actions/transaction.action";
@@ -56,16 +51,6 @@ function DepositeGemRequests(props) {
       headerName: "Tùy chọn",
       minWidth: 180,
       renderCell: (params) => (
-        // <span
-        //   className="delete-button-on-table"
-        //   onClick={(e) => {
-        //     e.stopPropagation();
-        //     alert(JSON.stringify(params.row, null, 2));
-        //   }}
-        // >
-        //   <AiOutlineDelete size={20} />
-        // </span>
-
         <div
           style={{ width: "100%", paddingRight: "12px" }}
           className="justify-content-between"
@@ -73,7 +58,7 @@ function DepositeGemRequests(props) {
           <span
             onClick={(e) => {
               e.stopPropagation();
-              handleDeleteTransaction(params.row)
+              handleDeleteTransaction(params.row);
             }}
             style={{ marginRight: "12px" }}
             className="se-action-btn danger"
@@ -83,7 +68,7 @@ function DepositeGemRequests(props) {
           <span
             onClick={(e) => {
               e.stopPropagation();
-              handleConfirmTransaction(params.row)
+              handleConfirmTransaction(params.row);
             }}
             className="se-action-btn"
           >
@@ -226,8 +211,8 @@ function DepositeGemRequests(props) {
             </div>
 
             <LeadingIconButton
-              icon={<GrDocumentExcel />}
-              content={"Xuất Exel"}
+              icon={<AiOutlineExport size={18} />}
+              content={"Xuất Excel"}
             />
           </div>
           <DataTableComponent

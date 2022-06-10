@@ -11,6 +11,7 @@ import axios from "axios";
 import URL from "../../../../services/api/config";
 import youtube_parser from "../../../../utilities/ConvertDocsToMultipleChoice.util copy";
 import { user } from "../../../../reducers/user.reducer";
+import { showToast } from "../../../../actions/toast.action";
 
 const CourseDetail = (props) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -39,7 +40,9 @@ const CourseDetail = (props) => {
       navigate(`/bai-hoc/` + course.courseId);
     } else {
       if (infoUser.gem < course.price) {
-        alert("Tài khoản không đủ để thực hiện giao dịch");
+        dispatch(
+          showToast("fail", "Tài khoản không đủ để thực hiện giao dịch")
+        );
       } else {
         console.log("Buy");
         await axios
@@ -49,7 +52,10 @@ const CourseDetail = (props) => {
           })
           .then((res) => {
             console.log(res);
-            navigate(`/bai-hoc/:id`);
+            dispatch(showToast("success", "Đăng ký khóa học thành công!"));
+            setTimeout(() => {
+              navigate(`/bai-hoc/${course.courseId}`);
+            }, 1500);
           })
           .catch((err) => {
             console.log(err);

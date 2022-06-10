@@ -8,86 +8,98 @@ import "./SingleExamForm.scss";
 import LeadingIconButton from "../../../../components/LeadingIconButton";
 import SaveOrExitButton from "../../component/SaveOrExitButton";
 import { useNavigate } from "react-router-dom";
-import handleStringDocsToMultipleChoice from '../../../../../utilities/ConvertDocsToMultipleChoice.util'
+import handleStringDocsToMultipleChoice from "../../../../../utilities/ConvertDocsToMultipleChoice.util";
 import Docxtemplater from "docxtemplater";
-import PizZip from 'pizzip';
-import { setRequirement, deleteRequirement ,setNameExam, setTimeExam, setQuestionsExam, setPointExam, setTypeCategory, setDescription } from '../../../../../actions/newExam.action'
-import { useDispatch, useSelector } from "react-redux"
-import { IoMdAdd } from 'react-icons/io'
-import Fab from '@mui/material/Fab';
+import PizZip from "pizzip";
+import {
+  setRequirement,
+  deleteRequirement,
+  setNameExam,
+  setTimeExam,
+  setQuestionsExam,
+  setPointExam,
+  setTypeCategory,
+  setDescription,
+} from "../../../../../actions/newExam.action";
+import { useDispatch, useSelector } from "react-redux";
+import { IoMdAdd } from "react-icons/io";
+import Fab from "@mui/material/Fab";
 function SingleExamForm({ exam, handleAdd }) {
   const navigator = useNavigate();
-  const dispatch = useDispatch()
-  const newExam = useSelector((state) => state.newExam) || {}
+  const dispatch = useDispatch();
+  const newExam = useSelector((state) => state.newExam) || {};
   function AddNewQuestionOnClick() {
-    navigator(`/quan-ly/thi-thu/cau-hoi/tao-moi`)
+    navigator(`/quan-ly/thi-thu/cau-hoi/tao-moi`);
   }
 
   function EditQuestionOnClick(id) {
-    navigator(`/quan-ly/thi-thu/cau-hoi/chinh-sua/${id}`)
+    navigator(`/quan-ly/thi-thu/cau-hoi/chinh-sua/${id}`);
   }
 
-  const [require, setRequire] = useState('')
+  const [require, setRequire] = useState("");
 
-  const inputRef = useRef()
+  const inputRef = useRef();
   const [questions, setQuestions] = useState([]);
   const showFile = (e) => {
     e.preventDefault();
     const reader = new FileReader();
     reader.onload = async (e) => {
       const content = e.target.result;
-      var doc = new Docxtemplater(new PizZip(content), { delimiters: { start: '12op1j2po1j2poj1po', end: 'op21j4po21jp4oj1op24j' } });
+      var doc = new Docxtemplater(new PizZip(content), {
+        delimiters: {
+          start: "12op1j2po1j2poj1po",
+          end: "op21j4po21jp4oj1op24j",
+        },
+      });
       var text = doc.getFullText();
-      var list = handleStringDocsToMultipleChoice(text)
+      var list = handleStringDocsToMultipleChoice(text);
       if (list) {
-        setQuestions(list)
-        dispatch(setQuestionsExam(list))
+        setQuestions(list);
+        dispatch(setQuestionsExam(list));
       }
     };
     reader.readAsBinaryString(e.target.files[0]);
-  }
+  };
 
   const handleBlurNameExam = (e) => {
-    dispatch(setNameExam(e.target.value))
-  }
+    dispatch(setNameExam(e.target.value));
+  };
   const handleBlurTimeExam = (e) => {
-    dispatch(setTimeExam(e.target.value))
-  }
+    dispatch(setTimeExam(e.target.value));
+  };
   const handleBlurPointExam = (e) => {
-    dispatch(setPointExam(e.target.value))
-  }
+    dispatch(setPointExam(e.target.value));
+  };
   const handleBlurTypeCategory = (e) => {
-    dispatch(setTypeCategory(e.target.value))
-  }
+    dispatch(setTypeCategory(e.target.value));
+  };
 
   const handleChangeNameExam = (e) => {
-    dispatch(setNameExam(e.target.value))
-  }
+    dispatch(setNameExam(e.target.value));
+  };
   const handleChangeTimeExam = (e) => {
-    dispatch(setTimeExam(e.target.value))
-  }
+    dispatch(setTimeExam(e.target.value));
+  };
   const handleChangePointExam = (e) => {
-    dispatch(setPointExam(e.target.value))
-  }
+    dispatch(setPointExam(e.target.value));
+  };
 
   const handleChangeDescription = (e) => {
-    dispatch(setDescription(e.target.value))
-  }
-
+    dispatch(setDescription(e.target.value));
+  };
 
   const handleChangeRequire = (e) => {
-    setRequire(e.target.value)
-  }
+    setRequire(e.target.value);
+  };
 
   const handleClickAddRequire = (e) => {
-    dispatch(setRequirement(require))
-    setRequire('');
-  }
+    dispatch(setRequirement(require));
+    setRequire("");
+  };
 
   const handleDeleteRequire = (require) => {
-    dispatch(deleteRequirement(require))
-  }
-
+    dispatch(deleteRequirement(require));
+  };
 
   const formik = useFormik({
     validateOnChange: true,
@@ -105,9 +117,7 @@ function SingleExamForm({ exam, handleAdd }) {
       name: Yup.string().required("Vui lòng nhập tên bài thi"),
       time: Yup.string().required("Vui lòng nhập thời gian làm bài"),
     }),
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
+    onSubmit: (values) => {},
   });
 
   const Answer = [
@@ -140,7 +150,6 @@ function SingleExamForm({ exam, handleAdd }) {
   ];
 
   function QuestionTile({ question, index }) {
-
     return (
       <div className="question-tile">
         <div className="justify-content-between">
@@ -212,15 +221,13 @@ function SingleExamForm({ exam, handleAdd }) {
             <div className="mb-3">
               <label htmlFor="description">Mô tả</label>
               <textarea
-                style={{ width: '90%' }}
+                style={{ width: "90%" }}
                 id="description"
                 rows="4"
                 cols="50"
                 onChange={handleChangeDescription}
                 value={newExam.description}
-              >
-
-              </textarea>
+              ></textarea>
               {/* <input
                 type="text"
                 id="time"
@@ -258,19 +265,19 @@ function SingleExamForm({ exam, handleAdd }) {
                   style={{ display: "block" }}
                   value={newExam.typeCategory}
                 >
-                  <option value={''} label="--Chọn--">
+                  <option value={""} label="--Chọn--">
                     --Chọn--
                   </option>
-                  <option value={'Lớp 10'} label="Lớp 10">
+                  <option value={"Lớp 10"} label="Lớp 10">
                     Lớp 10
                   </option>
-                  <option value={'Lớp 11'} label="Lớp 11">
+                  <option value={"Lớp 11"} label="Lớp 11">
                     Lớp 11
                   </option>
-                  <option value={'Lớp 12'} label="Lớp 12">
+                  <option value={"Lớp 12"} label="Lớp 12">
                     Lớp 12
                   </option>
-                  <option value={'Khác'} label="Khác">
+                  <option value={"Khác"} label="Khác">
                     Khác
                   </option>
                 </select>
@@ -278,21 +285,63 @@ function SingleExamForm({ exam, handleAdd }) {
             </div>
 
             <div className="mb-3">
-              <label htmlFor="name">Bắt buộc</label>
-              <div style={{ borderRadius: '4px', border: '1px solid #D5D5D5', width: '90%', padding: '20px 10px' }}>
-                {
-                  newExam.requirement.map(value => {
-                    return (
-                      <div style={{ fontSize: '13px', backgroundColor: '#ebebeb', display: 'inline-block', padding: '5px', borderRadius: '16px', margin: '5px' }}>
-                        {value}
-                        <AiFillDelete onClick={() => { handleDeleteRequire(value) }} className="btn-delete" style={{ transform: 'translateY(+10%)', cursor: 'pointer' }}></AiFillDelete>
-                      </div>
-                    )
-                  })
-                }
-                <div style={{ display: 'flex', marginTop: '10px' }}>
-                  <input onChange={handleChangeRequire} value={require} style={{ paddingRight: '10px' }} type='text'></input>
-                  <div onClick={handleClickAddRequire} style={{ cursor: 'pointer', color: 'white', backgroundColor: 'var(--primary-color)', borderRadius: '10px', fontSize: '16px', textAlign: 'center', padding: '10px', marginLeft: '10px' }}>Thêm</div>
+              <label htmlFor="name">Tiêu chuẩn tham gia</label>
+              <div
+                style={{
+                  borderRadius: "4px",
+                  border: "1px solid #D5D5D5",
+                  width: "90%",
+                  padding: "20px 10px",
+                }}
+              >
+                {newExam.requirement.map((value) => {
+                  return (
+                    <div
+                      style={{
+                        fontSize: "13px",
+                        backgroundColor: "#ebebeb",
+                        display: "inline-block",
+                        padding: "5px",
+                        borderRadius: "16px",
+                        margin: "5px",
+                      }}
+                    >
+                      {value}
+                      <AiFillDelete
+                        onClick={() => {
+                          handleDeleteRequire(value);
+                        }}
+                        className="btn-delete"
+                        style={{
+                          transform: "translateY(+10%)",
+                          cursor: "pointer",
+                        }}
+                      ></AiFillDelete>
+                    </div>
+                  );
+                })}
+                <div style={{ display: "flex", marginTop: "10px" }}>
+                  <input
+                    onChange={handleChangeRequire}
+                    value={require}
+                    style={{ paddingRight: "10px" }}
+                    type="text"
+                  ></input>
+                  <div
+                    onClick={handleClickAddRequire}
+                    style={{
+                      cursor: "pointer",
+                      color: "white",
+                      backgroundColor: "var(--primary-color)",
+                      borderRadius: "10px",
+                      fontSize: "16px",
+                      textAlign: "center",
+                      padding: "10px",
+                      marginLeft: "10px",
+                    }}
+                  >
+                    Thêm
+                  </div>
                 </div>
               </div>
             </div>
@@ -310,9 +359,17 @@ function SingleExamForm({ exam, handleAdd }) {
             <LeadingIconButton
               icon={<AiOutlineImport />}
               content="Nhập câu hỏi"
-              onClick={() => { inputRef.current.click() }}
+              onClick={() => {
+                inputRef.current.click();
+              }}
             />
-            <input style={{ display: 'none' }} ref={inputRef} type="file" id="fileInput" onChange={(e) => showFile(e)} />
+            <input
+              style={{ display: "none" }}
+              ref={inputRef}
+              type="file"
+              id="fileInput"
+              onChange={(e) => showFile(e)}
+            />
             <LeadingIconButton
               icon={<AiOutlineExport />}
               content="Xuất câu hỏi"

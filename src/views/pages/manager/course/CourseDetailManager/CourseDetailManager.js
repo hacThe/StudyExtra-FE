@@ -20,36 +20,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { courseAction } from "../../../../../actions/course.action";
 import { appActions } from "../../../../../actions/app.action";
 import { courseService } from "../../../../../services";
+import { dateUltils } from "../../../../../utilities/date.ultil";
 function CourseDetailManager(props) {
   const navigate = useNavigate();
   const fields = [
     // {field: , headerName: , width: }
     { field: "stt", headerName: "STT" },
     { field: "username", headerName: "Username" },
-    { field: "fullname", headerName: "Họ và tên", flex: 1, minWidth: 200 },
-    { field: "birthday", headerName: "Ngày sinh", width: 150 },
+    { field: "name", headerName: "Họ và tên", flex: 1, minWidth: 200 },
+    {
+      field: "birthday",
+      headerName: "Ngày sinh",
+      width: 300,
+      valueGetter: (params) =>
+        dateUltils.fortmatToVietNameDay(params.row.birthday),
+    },
     {
       field: "sex",
       headerName: "Giới tính",
-      valueGetter: (params) => (params.sex === 0 ? "Nữ" : "Nam"),
+      valueGetter: (params) => (params.row.gender === 0 ? "Nữ" : "Nam"),
     },
     { field: "mail", headerName: "Email", flex: 1, minWidth: 300 },
-    {
-      field: "action",
-      headerName: "Tùy chọn",
-      minWidth: 100,
-      renderCell: (params) => (
-        <span
-          className="delete-button-on-table"
-          onClick={(e) => {
-            e.stopPropagation();
-            alert(JSON.stringify(params.row), null, 1);
-          }}
-        >
-          <AiOutlineDelete size={20} />
-        </span>
-      ),
-    },
   ];
   const [students, setStudents] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -161,7 +152,7 @@ function CourseDetailManager(props) {
       <div className="justify-content-between top-action-bar">
         <BackToPageButton content="Danh sách khóa học" />
         <div className="course-action align-center">
-          <LeadingIconButton icon={<AiOutlineExport />} content="Xuất Excel" />
+          {/* <LeadingIconButton icon={<AiOutlineExport />} content="Xuất Excel" /> */}
           <LeadingIconButton
             onClick={handleOpen}
             icon={<AiOutlineEdit />}
@@ -198,14 +189,17 @@ function CourseDetailManager(props) {
               ></input>
             </div>
 
-            <LeadingIconButton
+            {/* <LeadingIconButton
               icon={<GrDocumentExcel />}
-              content={"Xuất Exel"}
-            />
+              content={"Xuất Excel"}
+            /> */}
           </div>
           <DataTableComponent
             columnDocs={fields}
-            rowDocs={students}
+            rowDocs={students.map((item, index) => {
+              item.stt = index + 1;
+              return item;
+            })}
             filter={filter}
           />
         </div>

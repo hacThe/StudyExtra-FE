@@ -19,7 +19,7 @@ const Login = () => {
   const courses = useSelector((state) => state.course.courses) || [];
   const posts = useSelector((state) => state.post.posts) || [];
   const articles = useSelector((state) => state.article.articles) || [];
-
+  const authentication = useSelector((state) => state.authentication) || {};
   useEffect(() => {
     dispatch(courseAction.getAllCourse());
     dispatch(postAction.getAllPost());
@@ -40,16 +40,23 @@ const Login = () => {
       >
         <div className="home-wrapper">
           <Slider></Slider>
-          <Notification></Notification>
-          <YourCourses courses={courses}></YourCourses>
+          {authentication?.isLoggedIn && <Notification></Notification>}
           <FeaturedCourse courses={courses}></FeaturedCourse>
+          {authentication?.isLoggedIn && (
+            <YourCourses
+              style={{ marginTop: "24px" }}
+              courses={courses}
+            ></YourCourses>
+          )}
           <img
             style={{ borderRadius: "10px", marginTop: "36px" }}
             src="./img/banner.png"
             width="100%"
             alt=""
           />
-          <QAndA posts={posts} articles={articles}></QAndA>
+          {authentication?.isLoggedIn && (
+            <QAndA posts={posts} articles={articles}></QAndA>
+          )}
           <h1
             style={{
               fontSize: "",

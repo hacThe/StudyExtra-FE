@@ -1,122 +1,133 @@
 .home-wrapper {
-    //padding: 0 22px;
-    padding-top: 40px;
-    padding-bottom: 48px;
-    background-color: var(--background-color);
+  //padding: 0 22px;
+  padding-top: 40px;
+  padding-bottom: 48px;
+  background-color: var(--background-color);
 
+  .carousel .slider-wrapper {
+    border-radius: 16px;
+  }
 
-    .carousel .slider-wrapper {
-        border-radius: 16px;
-    }
+  .slick-prev:before {
+    color: red;
+  }
 
+  .slick-next::before {
+    color: red;
+  }
 
-    .slick-prev:before {
-        color: red;
-    }
+  .hidden-line {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    min-width: 300px;
+    max-width: 500px;
+  }
 
-    .slick-next::before {
-        color: red;
-    }
+  .css-1ri6ub7-MuiPaper-root-MuiCard-root {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+  }
 
-    .hidden-line {
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        min-width: 300px;
-        max-width: 500px;
-    }
+  .css-1ri6ub7-MuiPaper-root-MuiCard-root {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+  }
 
-    .css-1ri6ub7-MuiPaper-root-MuiCard-root {
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-        box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
-        ;
-    }
+  .css-1j4k3n5-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
+    background-color: #7b68ee;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+  }
 
-    .css-1ri6ub7-MuiPaper-root-MuiCard-root {
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-        box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
-        ;
-    }
+  .css-1j4k3n5-MuiButtonBase-root-MuiPaginationItem-root {
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  }
 
-    .css-1j4k3n5-MuiButtonBase-root-MuiPaginationItem-root.Mui-selected {
-        background-color: #7B68EE;
-        color: white;
-        font-size: 16px;
-        font-weight: 600;
-    }
+  .carousel .control-arrow,
+  .carousel.carousel-slider .control-arrow {
+    top: 50%;
+    transform: translateY(-50%);
+  }
 
-    .css-1j4k3n5-MuiButtonBase-root-MuiPaginationItem-root {
-        font-size: 16px;
-        font-weight: 600;
-        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
-    }
+  .carousel .control-next.control-arrow:before {
+    transform: translateX(15%);
+    border-left: 8px solid #000000;
+  }
 
-    .carousel .control-arrow,
-    .carousel.carousel-slider .control-arrow {
-        top: 45%;
-        bottom: 45%;
-    }
+  .carousel .control-prev.control-arrow:before {
+    border-right: 8px solid #000000;
+    transform: translateX(-15%);
+  }
 
-    .carousel .control-next.control-arrow:before {
-        transform: translateX(15%);
-        border-left: 8px solid #000000
-    }
+  .carousel .control-arrow,
+  .carousel.carousel-slider .control-arrow {
+    background-color: white;
+    border-radius: 50%;
+  }
 
-    .carousel .control-prev.control-arrow:before {
-        border-right: 8px solid #000000;
-        transform: translateX(-15%) ;
-    }
+  .css-h93ljk-MuiTypography-root {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 25px;
+    -webkit-line-clamp: 1;
+    height: 30px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
 
-    .carousel .control-arrow,
-    .carousel.carousel-slider .control-arrow {
-        background-color: white;
-        border-radius: 50%;
-    }
+  .carousel.carousel-slider {
+    overflow: inherit;
+  }
 
-    .css-h93ljk-MuiTypography-root {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        line-height: 25px;
-        -webkit-line-clamp: 2;
-        height: 50px;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-    }
+  .carousel .control-next.control-arrow {
+    right: -25px;
+  }
 
-    .carousel.carousel-slider{
-        overflow: inherit;
-    }
+  .carousel .control-prev.control-arrow {
+    left: -25px;
+  }
 
-    .carousel .control-next.control-arrow {
-        right: -15px;
-    }
+  .carousel .control-arrow,
+  .carousel.carousel-slider .control-arrow {
+    opacity: 1;
+    height: 50px;
+    width: 50px;
+    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
+  }
 
-    .carousel .control-prev.control-arrow{
-        left: -15px;
-    }
+  .carousel .control-arrow:focus,
+  .carousel .control-arrow:hover {
+    opacity: 1 !important;
+  }
 
-    .carousel .control-arrow, .carousel.carousel-slider .control-arrow{
-        opacity: 0.8;
-        box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
-    }
+  .slick-prev:before {
+    color: #7b68ee;
+  }
 
-    .carousel .control-arrow:focus, .carousel .control-arrow:hover{
-        opacity: 1 !important;
+  .slick-next::before {
+    color: #7b68ee;
+  }
 
-    }
+  .slick-arrow {
+    display: block;
+    transform: scale(1.7);
+  }
 
-    .slick-prev:before{
-        color: #7B68EE;
-    }
+  .slick-next {
+    right: -50px;
+  }
 
-    .slick-next::before{
-        color: #7B68EE;
-    }
-
+  .slick-prev {
+    left: -50px;
+  }
 }

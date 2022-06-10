@@ -10,7 +10,7 @@ import { MdOutlineAccessTimeFilled } from "react-icons/md";
 import { AiFillDollarCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { stringUtils } from "../../../../utilities";
-import Stack from '@mui/material/Stack';
+import Stack from "@mui/material/Stack";
 
 const bull = (
   <Box
@@ -28,9 +28,11 @@ export default function CardCourses(props) {
     console.log("Course id:", props.course);
     console.log("Click coures");
     navigate(
-      `/chi-tiet-khoa-hoc/${stringUtils.replaceSpaceWithDash(
-        stringUtils.removeVietnameseTones(props.course.name)
-      ).toLowerCase()}`
+      `/chi-tiet-khoa-hoc/${stringUtils
+        .replaceSpaceWithDash(
+          stringUtils.removeVietnameseTones(props.course.name)
+        )
+        .toLowerCase()}`
     );
   };
 
@@ -43,7 +45,7 @@ export default function CardCourses(props) {
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
+          height="176"
           // image="https://files.fullstack.edu.vn/f8-prod/courses/7.png"
           image={
             props.course.imgUrl
@@ -54,49 +56,63 @@ export default function CardCourses(props) {
         />
         <CardContent>
           <Typography
-            style={{ fontSize: "18px", fontWeight: "700" ,fontFamily: "'Montserrat', san-serif"}}
+            style={{
+              fontSize: "18px",
+              fontWeight: "600",
+              fontFamily: "'Montserrat', san-serif",
+            }}
             gutterBottom
             variant="h5"
             component="div"
           >
-            {props.course.name}
+            {props.course.name.substring(0, 25) +
+              (props.course.name.length > 25 ? "..." : "")}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Stack style={{ color: '#6E6E6E', marginLeft: '10px' }} direction="row" spacing={5}>
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <FaUserGraduate
-                style={{
-                  paddingRight: "5px",
-                  transform: "translateY(-8%)",
-                  fontSize: "18px",
-                }}
-              ></FaUserGraduate>
-              <div style={{fontSize:'16px',fontFamily: "'Montserrat', san-serif"}}>{props.course.studentIds.length}</div>
+        <Stack
+          style={{ color: "#6E6E6E", marginLeft: "10px" }}
+          direction="row"
+          spacing={5}
+        >
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <FaUserGraduate
+              style={{
+                paddingRight: "5px",
+                transform: "translateY(-8%)",
+                fontSize: "18px",
+              }}
+            ></FaUserGraduate>
+            <div
+              style={{
+                fontSize: "16px",
+                fontFamily: "'Montserrat', san-serif",
+              }}
+            >
+              {props.course.studentIds.length}
             </div>
+          </div>
+          <div style={{ display: "flex", justifyContent: "center" }}></div>
+          {!props.isPayment && (
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <MdOutlineAccessTimeFilled
+              <AiFillDollarCircle
                 style={{
                   paddingRight: "5px",
                   transform: "translateY(-15%)",
                   fontSize: "22px",
                 }}
-              ></MdOutlineAccessTimeFilled>
-              <div style={{fontSize:'16px',fontFamily: "'Montserrat', san-serif"}}>999</div>
-            </div>
-            {!props.isPayment && (
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <AiFillDollarCircle
-                  style={{
-                    paddingRight: "5px",
-                    transform: "translateY(-15%)",
-                    fontSize: "22px",
-                  }}
-                ></AiFillDollarCircle>
-                <div style={{fontSize:'16px',fontFamily: "'Montserrat', san-serif"}}>{props.course.price}</div>
+              ></AiFillDollarCircle>
+              <div
+                style={{
+                  fontSize: "16px",
+                  fontFamily: "'Montserrat', san-serif",
+                }}
+              >
+                {props.course.price}
               </div>
-            )}
+            </div>
+          )}
         </Stack>
       </CardActions>
     </Card>

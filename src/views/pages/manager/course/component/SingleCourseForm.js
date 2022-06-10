@@ -8,6 +8,8 @@ import CourseChapterList from "./CourseChapterList";
 import SaveOrExitButton from "../../component/SaveOrExitButton";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../../../../firebase";
+import { showToast } from "../../../../../actions/toast.action";
+import { useDispatch } from "react-redux";
 
 function youtube_parser(url) {
   var regExp =
@@ -17,6 +19,7 @@ function youtube_parser(url) {
 }
 
 function SingleCourseForm({ course, onSubmit }) {
+  const dispatch = useDispatch();
   console.log(
     {
       course,
@@ -48,32 +51,12 @@ function SingleCourseForm({ course, onSubmit }) {
   console.log("render single course form");
   console.log(formik.values);
 
-  // const handleAddChapterOnClick = () => {
-  //   const chapterName = document.getElementById("newChapter").value.trim();
-  //   if (!chapterName) return;
-  //   const newChapter = {
-  //     name: chapterName,
-  //     lessons: [],
-  //   };
-  //   const chapterList = formik.values.chapters;
-  //   if (chapterList.some(e=>e.name===newChapter.name))
-  //   {
-  //     alert("Tên chương không được trùng lặp")
-  //   }
-  //   else {
-
-  //     formik.setFieldValue("chapters", [...chapterList, newChapter]);
-  //   }
-  //   document.getElementById("newChapter").value = "";
-
-  // };
-
   const handleAddContentOnClick = () => {
     if (document.getElementById("newContent").value.trim()) {
       const contentTile = document.getElementById("newContent").value.trim();
       const contentList = formik.values.contents;
       if (contentList.includes(contentTile)) {
-        alert("Nội dung không được trùng lặp");
+        dispatch(showToast("fail", "Nội dung không được trùng lặp"));
       } else {
         formik.setFieldValue("contents", [...contentList, contentTile]);
       }
@@ -88,7 +71,7 @@ function SingleCourseForm({ course, onSubmit }) {
         .value.trim();
       const requirementList = formik.values.requirements;
       if (requirementList.includes(requirementTile)) {
-        alert("Nội dung không được trùng lặp");
+        dispatch(showToast("fail", "Nội dung không được trùng lặp"));
       } else {
         formik.setFieldValue("requirements", [
           ...requirementList,
@@ -311,7 +294,7 @@ function SingleCourseForm({ course, onSubmit }) {
 
       <SaveOrExitButton
         SaveOnClick={formik.handleSubmit}
-        CancelOnClick={() => alert("exit")}
+        CancelOnClick={() => console.log("exit")}
       />
     </div>
   );

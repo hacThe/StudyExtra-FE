@@ -38,8 +38,7 @@ const DataTableComponent = ({ rowDocs, columnDocs, filter, onRowClick }) => {
   const handleOnRowClick = (e) => {
     if (onRowClick) {
       onRowClick(e);
-    } else alert(JSON.stringify(e), null, 2);
-    console.log(e);
+    } else console.log(e);
   };
 
   const getShowingData = (filter) => {
@@ -59,10 +58,14 @@ const DataTableComponent = ({ rowDocs, columnDocs, filter, onRowClick }) => {
   };
 
   return (
-    <div style={{ height: 750, width: "100%" }} className="datagrid-container-wrapper">
+    <div
+      style={{ height: 750, width: "100%" }}
+      className="datagrid-container-wrapper"
+    >
       {selectionModel?.length > 0 && (
         <span className="selected-rows-count">
-          Đã chọn {selectionModel.length} hàng. <strong onClick={() => alert("Xóa hàng")}>Xóa hàng đã chọn</strong>
+          Đã chọn {selectionModel.length} hàng.{" "}
+          <strong>Xóa hàng đã chọn</strong>
         </span>
       )}
       <DataGrid

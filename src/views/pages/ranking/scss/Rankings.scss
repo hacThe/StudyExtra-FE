@@ -1,96 +1,97 @@
-.ranking-page-container{
-    background-color: #f4f4f4;
-    height: 100%;
-    width: 100%;
-    margin-top: 1.2rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    .ranking-container{
-        width: 80%;
-        .ranking-body{
-            background-color: #ffffff; 
-            border-radius: 1rem;
-            margin-top: 4.8rem;
-            padding-bottom: 0.1rem;
-            margin-bottom: 4.5rem;
-            .ranking-header{
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                margin-bottom: 3rem;
-                margin-top: 2.8rem;
-                padding-top: 2.8rem;
-                .crown-icon{
-                    width: 3.4rem;
-                    height: 3.4rem;
-                    margin-right: 1.6rem;
-                }
-                .ranking-heading{
-                    font-family: 'Montserrat';
-                    font-weight: 700;
-                    font-size: 2.8rem;
-                    line-height: 3.4rem;
-                }
-            }
-            .ranking-option-container {
-                display: flex;
-                flex-direction: row;
-                justify-content: right;
-                margin-bottom: 2.4rem;
-                .ranking-option{
-                    margin-right: 2.6rem;
-                    border-color: #fff;
-                    border-radius: 0.5rem;
-                    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.2);
-                    .button-option{
-                        font-family: 'Montserrat';
-                        font-size: 1.2rem;
-                        border-color: #fff;
-                        color: #000;
-                    }
-                    .button-option.button-week{
-                        width: 5.6rem;
-                        border-color: #fff;
-                    }
-                    .button-option.button-month{
-                        width: 7rem;
-                    }
-                    .button-option.active{
-                        background-color: #7C7A88;
-                        color: #fff;
-                    }
-                }
-            }
-            .ranking-footer{
-                margin-top: 2.4rem;
-                margin-bottom: 4.8rem;
-                display: flex;
-                justify-content: center;
-                .MuiPaginationItem-text{
-                    font-size: 1.6rem;
-                    width: 4rem;
-                    height: 4rem;
-                    border-radius: 100%;
-                    font-weight: 700;
-                    color: #000;
-                    box-shadow: .0rem .0rem .4rem rgba(0,0,0,.25);
-                    font-family: 'Montserrat';
-                    line-height: 4rem;
-                    .MuiPaginationItem-icon{
-                        width: 1.4rem;
-                        height: 1.4rem;
-                    }   
-                }
-                .Mui-selected{
-                    background-color:#7B68EE;
-                    color: #fff;
-                }
-                .MuiPaginationItem-previousNext{
-                    margin-left: 0.8rem;
-                    margin-right: 0.8rem;
-                }
-            }
+.ranking-page-container {
+  background-color: #f4f4f4;
+  height: 100%;
+  width: 100%;
+  margin-top: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  .ranking-container {
+    width: 80%;
+    .ranking-body {
+      background-color: #ffffff;
+      border-radius: 1rem;
+      margin-top: 4.8rem;
+      padding-bottom: 0.1rem;
+      margin-bottom: 4.5rem;
+      .ranking-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 4rem;
+        margin-top: 2.8rem;
+        padding-top: 2.8rem;
+        .crown-icon {
+          width: 3.4rem;
+          height: 3.4rem;
+          margin-right: 1.6rem;
         }
+        .ranking-heading {
+          font-family: "Montserrat";
+          font-weight: 600;
+          font-size: 3rem;
+          line-height: 3.4rem;
+          color: var(--primary-color);
+        }
+      }
+      .ranking-option-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
+        margin-bottom: 2.4rem;
+        .ranking-option {
+          margin-right: 2.6rem;
+          border-color: #fff;
+          border-radius: 0.5rem;
+          box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.2);
+          .button-option {
+            font-family: "Montserrat";
+            font-size: 1.2rem;
+            border-color: #fff;
+            color: #000;
+          }
+          .button-option.button-week {
+            width: 5.6rem;
+            border-color: #fff;
+          }
+          .button-option.button-month {
+            width: 7rem;
+          }
+          .button-option.active {
+            background-color: #7c7a88;
+            color: #fff;
+          }
+        }
+      }
+      .ranking-footer {
+        margin-top: 2.4rem;
+        margin-bottom: 4.8rem;
+        display: flex;
+        justify-content: center;
+        .MuiPaginationItem-text {
+          font-size: 1.6rem;
+          width: 4rem;
+          height: 4rem;
+          border-radius: 100%;
+          font-weight: 700;
+          color: #000;
+          box-shadow: 0rem 0rem 0.4rem rgba(0, 0, 0, 0.25);
+          font-family: "Montserrat";
+          line-height: 4rem;
+          .MuiPaginationItem-icon {
+            width: 1.4rem;
+            height: 1.4rem;
+          }
+        }
+        .Mui-selected {
+          background-color: #7b68ee;
+          color: #fff;
+        }
+        .MuiPaginationItem-previousNext {
+          margin-left: 0.8rem;
+          margin-right: 0.8rem;
+        }
+      }
     }
+  }
 }

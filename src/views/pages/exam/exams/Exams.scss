@@ -1,172 +1,176 @@
-.exam-wrapper{
-    background-color: #f4f4f4;
-    .exam{
-        background-color: var(--background-color);
-        border-radius: 10px;
-        margin-top: 3.6rem;
-        .filter{
-            .filter-nav1{
-                .list-btn{
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: center;
-                    padding: 2.4rem 5rem 2.4rem 6rem;
-                    .filter-item{
-                        text-align: center;
-                        .btn-active{
-                            background-color: #d7d5d5;
-                        }
-                    }
-                    .filter-btn{
-                        border: solid 1px #000000;
-                        border-radius: 2rem;
-                        text-align: center;
-                        font-weight: 700;
-                        font-size: 1.6rem;
-                        line-height: 2rem;
-                        color: #000000;
-                        text-transform: none;
-                        font-family: 'Montserrat';
-                        padding: 0.8rem 1.8rem;
-                    }
-                }
+.exam-wrapper {
+  background-color: #fff;
+  .exam {
+    background-color: var(--background-color);
+    border-radius: 10px;
+    margin-top: 3.6rem;
+    .filter {
+      .filter-nav1 {
+        .list-btn {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          padding: 2.4rem 5rem 2.4rem 6rem;
+          .filter-item {
+            text-align: center;
+            .btn-active {
+              background-color: var(--primary-color);
+              color: white;
+              border: none;
             }
-            .filter-nav2{
-                padding: 0.5rem 5rem 2.5rem 8rem;
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: space-between;
-                .document-sorting{
-                    display: flex;
-                    align-items: flex-end;
-    
-                    .sorting-label{
-                        font-weight: 700;
-                        font-size: 1.6rem;
-                        line-height: 2rem;
-                        color: #000000;
-                        width: 11rem;
-                    }
-                    .sorting-control{
-                        height: 3.2rem;
-                        width: 14rem;
-                        text-align: center;
-                        border-radius: 0.5rem;
-                        font-weight: 400;
-                        font-size: 1.6rem;
-                        line-height: 2rem;
-                        color: #000000;
-                        margin-left: 1.2rem;
-                        padding: 0rem 0.5rem;
-                        .sorting-item{
-                            font-weight: 400;
-                            font-size: 1.6rem;
-                            line-height: 2rem;
-                            color: #000000;
-                        }
-                    }
-                }
-                .check-list{
-                    .radio-group{
-                        display: block;
-                        .MuiRadio-root{
-                            color: #7B68EE;
-                        }
-                        .Mui-checked{
-                            color: #7B68EE;
-                        }
-                        .MuiFormControlLabel-label{
-                            font-family: 'Montserrat';
-                            font-weight: 400;
-                            font-size: 1.6rem;
-                            line-height: 1.5rem;
-                            color: #000000;
-                        }
-                        
-                    }
-                }
-            }
+          }
+          .filter-btn {
+            border: solid 1px #d3d3d3;
+            border-radius: 2rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.6rem;
+            line-height: 2rem;
+            color: #5e5e5e;
+            text-transform: none;
+            font-family: "Montserrat";
+            padding: 0.8rem 1.8rem;
+          }
         }
-        .list-exam{
-            padding: 2rem 5%;
-            .exam-card{
-                box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
-                border-radius: 1rem;
-                min-height: 7.2rem;
-                min-width: 40rem;
-                width: 100%;
-                padding: 0.8rem;
-                margin: 0rem 0rem 1.2rem;
-                .icon-group{
-                    svg{
-                        height: 4.7rem;
-                        width: 4.7rem;
-                        color: #7B68EE;
-                    }
-                }
-                .card-content{
-                    h1{
-                        font-weight: 400;
-                        font-size: 1.6rem;
-                        line-height: 2rem;
-                        text-transform: uppercase;
-                        margin-bottom: 0.4rem;
-    
-                        display: -webkit-box;
-                        -webkit-line-clamp: 2;
-                        -webkit-box-orient: vertical;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                    }
-                    p{
-                        font-weight: 400;
-                        font-size: 1.3rem;
-                        line-height: 1.6rem;
-    
-                        display: -webkit-box;
-                        -webkit-line-clamp: 1;
-                        -webkit-box-orient: vertical;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                    }
-                    color: #000000;
-    
-                }    
-                .views{
-                    padding: 0.8rem;
-                    display: flex;
-                    justify-content: end;
-                    align-items: center;
-                    font-weight: 400;
-                    font-size: 1.4rem;
-                    line-height: 1.7rem;
-                    color: #838383;
-                    svg{
-                        height: 2rem;
-                        width: 2rem;
-                        color: #838383;
-                        margin-left: 1rem;
-                    }
-                }       
-            }
-            .exam-card:hover{
-                background-color: #c1bfbf;
-            }
-    
-        }
-        .MuiPagination-outlined{
-            display: flex;
-            justify-content: center;
-            padding-bottom: 10rem;
-        
-            .Mui-selected{
-                background-color: #7B68EE;
-                color: white !important;
-                border: 2px solid #7B68EE !important;
-                
-            }
-        }
-    
-    }
+      }
+      .filter-nav2 {
+        padding: 0.5rem 5rem 2.5rem 8rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .document-sorting {
+          display: flex;
+          align-items: flex-end;
 
+          .sorting-label {
+            font-weight: 700;
+            font-size: 1.6rem;
+            line-height: 2rem;
+            color: #000000;
+            width: 11rem;
+          }
+          .sorting-control {
+            height: 3.2rem;
+            width: 14rem;
+            text-align: center;
+            border-radius: 0.5rem;
+            font-weight: 400;
+            font-size: 1.6rem;
+            line-height: 2rem;
+            color: #000000;
+            margin-left: 1.2rem;
+            padding: 0rem 0.5rem;
+            .sorting-item {
+              font-weight: 400;
+              font-size: 1.6rem;
+              line-height: 2rem;
+              color: #000000;
+            }
+          }
+        }
+        .check-list {
+          .radio-group {
+            display: block;
+            .MuiRadio-root {
+              color: #7b68ee;
+            }
+            .Mui-checked {
+              color: #7b68ee;
+            }
+            .MuiFormControlLabel-label {
+              font-family: "Montserrat";
+              font-weight: 400;
+              font-size: 1.6rem;
+              line-height: 1.5rem;
+              color: #000000;
+            }
+          }
+        }
+      }
+    }
+    .list-exam {
+      padding: 2rem 5%;
+      .exam-card {
+        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+        border-radius: 1rem;
+        min-height: 7.2rem;
+        min-width: 40rem;
+        width: 100%;
+        padding: 0.8rem;
+        margin: 0rem 0rem 1.2rem;
+        .icon-group {
+          svg {
+            height: 4.7rem;
+            width: 4.7rem;
+            color: #7b68ee;
+          }
+        }
+        .card-content {
+          h1 {
+            font-weight: 600;
+            color: #272727;
+            font-size: 1.6rem;
+            line-height: 2rem;
+            text-transform: capitalize;
+            margin-bottom: 0.4rem;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          p {
+            font-weight: 400;
+            font-size: 1.4rem;
+            line-height: 1.6rem;
+            color: #5e5e5e;
+
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+          color: #000000;
+        }
+        .views {
+          padding: 0.8rem;
+          display: flex;
+          justify-content: end;
+          align-items: center;
+          font-weight: 400;
+          font-size: 1.4rem;
+          line-height: 1.7rem;
+          color: #838383;
+          svg {
+            height: 2rem;
+            width: 2rem;
+            color: #838383;
+            margin-left: 1rem;
+          }
+        }
+      }
+      .exam-card:hover {
+        background-color: #dddddd;
+      }
+    }
+    .MuiPagination-outlined {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 10rem;
+
+      .Mui-selected {
+        background-color: #7b68ee;
+        color: white !important;
+        border: 2px solid #7b68ee !important;
+      }
+    }
+  }
+}
+
+.css-1j4k3n5-MuiButtonBase-root-MuiPaginationItem-root {
+  font-size: 1.4rem;
+  font-weight: bold;
+  font-family: "Montserrat", sans-serif;
 }
