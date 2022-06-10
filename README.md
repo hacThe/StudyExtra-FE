@@ -60,18 +60,19 @@ Giúp bạn mua những khóa học và đắm chìm trong thế giới kiến t
 ### `npm run build`
 Thêm file .env với nội dung như sau:
 <br/>
-`JWT_SECRET=your-secrect-key
-DB_USER_NAME=your-db-usrname
-DB_PASSWORD=your-passwrd
-PORT=5000
+<br/>
+`JWT_SECRET=your-secrect-key`
+`DB_USER_NAME=your-db-usrname`
+`DB_PASSWORD=your-passwrd`
+`PORT=5000`
 
-FE_URL=http://localhost:5050
-HOST=smtp.gmail.com
-SERVICE=gmail
-EMAIL_PORT=587
-SECURE=true
-USER=youremail@gmail.com
-PASS=yourpassword`
+`FE_URL=http://localhost:5050`
+`HOST=smtp.gmail.com`
+`SERVICE=gmail`
+`EMAIL_PORT=587`
+`SECURE=true`
+`USER=youremail@gmail.com`
+`PASS=yourpassword`
 ### **Cài đặt Database:**
 Tìm kiếm MongoDB Cluster mà vọc vạch
 
