@@ -9,7 +9,7 @@ import QAndA from "./Component/QAndA";
 import { useDispatch, useSelector } from "react-redux";
 import { courseAction } from "../../../actions/course.action";
 import { postAction } from "../../../actions/post.action";
-import { appActions } from "../../../actions";
+import { appActions, userActions } from "../../../actions";
 import axios from "axios";
 import URL from "../../../services/api/config";
 import { articleActions } from "../../../actions/article.action";
@@ -20,10 +20,12 @@ const Login = () => {
   const posts = useSelector((state) => state.post.posts) || [];
   const articles = useSelector((state) => state.article.articles) || [];
   const authentication = useSelector((state) => state.authentication) || {};
+  const UserInfo = useSelector((state) => state.user.currentUser);
   useEffect(() => {
     dispatch(courseAction.getAllCourse());
     dispatch(postAction.getAllPost());
     dispatch(articleActions.getAllArticle());
+    dispatch(userActions.getCurrentUser());
   }, [dispatch]);
 
   // console.log("articles", articles)
@@ -45,7 +47,7 @@ const Login = () => {
           {authentication?.isLoggedIn && (
             <YourCourses
               style={{ marginTop: "24px" }}
-              courses={courses}
+              courses={UserInfo?.courseID || []}
             ></YourCourses>
           )}
           <img

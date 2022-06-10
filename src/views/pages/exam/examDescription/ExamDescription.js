@@ -17,6 +17,7 @@ const ExamDescription = () => {
   const takeExam = useSelector((state) => state.takeExam);
   const topResult = useSelector((state) => state.exam.topResult) || [];
 
+  console.log({ topResult });
   useEffect(() => {
     dispatch(examAction.getOne(param.id));
     dispatch(examAction.getTopResult(param.id));
@@ -95,7 +96,7 @@ const ExamDescription = () => {
               <GiQueenCrown></GiQueenCrown> Leaderboard
             </h5>
 
-            {topResult.length > 1 &&
+            {topResult &&
               topResult.map((val, idx) => (
                 <LeaderCard key={idx} data={val} index={idx} />
               ))}

@@ -23,6 +23,7 @@ function Courses(props) {
     }) || [];
   const [typeCourse, setTypeCourse] = useState("all");
   const [coursesCurrent, setCoursesCurrent] = useState(courses);
+  console.log({ courses, coursesCurrent });
 
   // //của trang khóa học của bạn
   const [currentPageInYourCourses, setCurrentPageInYourCourses] = useState(1);

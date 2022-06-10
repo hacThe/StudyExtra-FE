@@ -68,6 +68,8 @@ function ManageAnnouncement(props) {
     return tempDivElement.textContent || tempDivElement.innerText || "";
   }
 
+  console.log({ listAnnouncement });
+
   useEffect(() => {
     async function fetchData() {
       await axios
@@ -82,12 +84,13 @@ function ManageAnnouncement(props) {
                 id: index,
                 slug: announcement.slug,
                 title: announcement.title,
-                userCreate: announcement.user.name,
+                userCreate: announcement.user?.name,
                 content: announcement.content.dangerouslySetInnerHTML,
                 content: convertToPlain(announcement.content),
                 timeCreate: renderTime(announcement.updatedAt),
               });
             });
+            console.log({ array });
             setListAnnouncement(array);
             setListAnnouncementFilter(array);
           }

@@ -31,6 +31,7 @@ function SingleCourseForm({ course, onSubmit }) {
     validateOnBlur: true,
     validateOnMount: false,
     initialValues: {
+      categories: 3,
       ...course,
     },
     validationSchema: Yup.object({
@@ -210,9 +211,7 @@ function SingleCourseForm({ course, onSubmit }) {
           value={formik.values.categories}
           onChange={formik.handleChange}
         >
-          <option selected value={0}>
-            Lớp 10
-          </option>
+          <option value={0}>Lớp 10</option>
           <option value={1}>Lớp 11</option>
           <option value={2}>Lớp 12</option>
           <option value={3}>Khác</option>

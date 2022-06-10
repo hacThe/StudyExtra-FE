@@ -75,11 +75,14 @@ function login(username, password) {
   }
 }
 
-function logout() {
+function logout(callback) {
   return (dispatch) => {
     usersServices.logout();
     // window.location.reload(true);
     dispatch(success());
+    if (callback instanceof Function) {
+      callback();
+    }
     // window.location.reload(true);
   };
   function success() {

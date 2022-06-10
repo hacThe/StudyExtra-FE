@@ -1,11 +1,11 @@
 import * as React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { BsQuestionCircleFill } from "react-icons/bs";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { MdPlayLesson } from "react-icons/md";
 import { IoIosDocument } from "react-icons/io";
 import { FaUserGraduate } from "react-icons/fa";
-import { RiNotification4Fill } from 'react-icons/ri'
+import { RiNotification4Fill } from "react-icons/ri";
 import { List, ListItem, ListItemIcon, ListItemText } from "@mui/material";
 import "./ManagerSideBar.scss";
 function TheNavigation() {
@@ -36,18 +36,26 @@ function TheNavigation() {
       link: "/quan-ly/thi-thu",
     },
     {
-      name: 'Quản lý thông báo',
-      icon: <RiNotification4Fill/>,
-      link: "/quan-ly/thong-bao-chung"
-    }
+      name: "Quản lý thông báo",
+      icon: <RiNotification4Fill />,
+      link: "/quan-ly/thong-bao-chung",
+    },
   ];
+  const navigate = useNavigate();
   return (
     <>
       <div className="manager-side-bar-wrapper">
         <div className="mystery-box"></div>
         <div className="fixed-position-content">
           <div className="branding-heading">
-            <h1>Study extra manager</h1>
+            <h1
+              className="text-hoverable"
+              onClick={() => {
+                navigate("/trang-chu");
+              }}
+            >
+              Study extra manager
+            </h1>
           </div>
           <List className="manager-side-bar">
             {menuList.map((item, index) => (

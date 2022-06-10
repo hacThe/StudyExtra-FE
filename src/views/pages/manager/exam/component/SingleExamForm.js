@@ -164,13 +164,13 @@ function SingleExamForm({ exam, handleAdd }) {
           <div className="answer-tile">
             {question.listAnswers.map((answer, idx) => {
               return idx === question.rightAnswer ? (
-                <p className="answer-tile right-answer">
+                <p key={idx} className="answer-tile right-answer">
                   <strong>{Answer[idx] + ". "}</strong>
                   {answer}
                   <IoCheckmarkSharp />
                 </p>
               ) : (
-                <p className="answer-tile left-answer">
+                <p key={idx} className="answer-tile left-answer">
                   {" "}
                   <strong>{Answer[idx] + ". "}</strong>
                   {answer}
@@ -294,9 +294,10 @@ function SingleExamForm({ exam, handleAdd }) {
                   padding: "20px 10px",
                 }}
               >
-                {newExam.requirement.map((value) => {
+                {newExam.requirement.map((value, index) => {
                   return (
                     <div
+                      key={index}
                       style={{
                         fontSize: "13px",
                         backgroundColor: "#ebebeb",
@@ -378,7 +379,7 @@ function SingleExamForm({ exam, handleAdd }) {
 
           <div className="question-list">
             {newExam.listQuestion.map((question, index) => (
-              <QuestionTile question={question} index={index} />
+              <QuestionTile key={index} question={question} index={index} />
             ))}
           </div>
 

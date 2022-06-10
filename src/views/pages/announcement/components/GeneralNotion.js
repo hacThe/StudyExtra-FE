@@ -6,6 +6,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import URL from "../../../../services/api/config";
 import { Markup } from "interweave";
+import { options } from "../../../../helpers/auth-header";
 
 function GeneralNotion(props) {
   const [listAnnouncement, setListAnnouncement] = useState([]);
@@ -13,7 +14,7 @@ function GeneralNotion(props) {
   useEffect(() => {
     const fetApi = async () => {
       await axios
-        .get(URL.URL_GET_ALL_ANNOUNCEMENT)
+        .get(URL.URL_GET_ALL_ANNOUNCEMENT, { ...options() })
         .then((res) => {
           console.log(res.data);
           setListAnnouncement(res.data.data);
@@ -55,7 +56,7 @@ function GeneralNotion(props) {
   return (
     <Card
       style={{
-        backgroundColor: "#f4f4f4",
+        backgroundColor: "#fff",
         padding: "20px",
         border: "none",
         boxShadow: "none",
@@ -147,7 +148,7 @@ function GeneralNotion(props) {
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Pagination
           onChange={(event, page) => choosePage(event, page)}
-          size="small"
+          size="large"
           count={renderNumberOfPage()}
           color="primary"
         />

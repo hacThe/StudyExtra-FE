@@ -31,7 +31,8 @@ const CourseListManager = () => {
 
   const rowDocs = rawData.map((item, index) => {
     const temp = {};
-    temp.id = item.courseId;
+    temp.id = item._id;
+    temp.courseId = item.courseId;
     temp.stt = index + 1;
     temp.name = item.name;
     temp.category = item.category;
@@ -49,7 +50,7 @@ const CourseListManager = () => {
   };
 
   const editCourseHandleOnClick = (e) => {
-    navigate(`/quan-ly/khoa-hoc/${e.id}`);
+    navigate(`/quan-ly/khoa-hoc/${e.row.courseId}`);
   };
 
   const addCourseHandleOnClick = () => {
