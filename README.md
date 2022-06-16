@@ -25,7 +25,7 @@
 Giúp bạn mua những khóa học và đắm chìm trong thế giới kiến thức rộng lớn
 
 <br>
-[Xem bản deploy của Study Extra](https://study-extra-je7x0fpjv-hacthe.vercel.app/trang-chu)
+[Xem bản deploy của Study Extra](https://study-extra-fe.vercel.app/trang-chu)
 
 ---
 
