@@ -24,6 +24,9 @@
 **Study Extra** là website thương mại điện tử dịch vụ E-learning 
 Giúp bạn mua những khóa học và đắm chìm trong thế giới kiến thức rộng lớn
 
+<br>
+[Xem bản deploy của Study Extra](https://study-extra-je7x0fpjv-hacthe.vercel.app/trang-chu)
+
 ---
 
 ## **📝 Mục lục**
