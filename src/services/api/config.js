@@ -1,5 +1,5 @@
 // thay đổi api way ở đây nek
-const URL_SYSTEM_V1 = "http://localhost:5000/api";
+const URL_SYSTEM_V1 = "https://study-extra-be.herokuapp.com/api";
 export default {
   URL_LOGIN: URL_SYSTEM_V1 + "/auth/login",
   URL_REGISTER: URL_SYSTEM_V1 + "/auth/register",
